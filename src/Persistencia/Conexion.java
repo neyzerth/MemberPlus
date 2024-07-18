@@ -4,10 +4,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexion {
-    String db="";
-    String url = "" + db;
-    String user = "root";    //Valores por defecto
-    String password = "";   //Valores por defecto
+    String db="almacen2d";
+    String host="192.168.60.20";
+    String url = "jdbc:mysql://"+ host +"/" + db;
+    String user = "admin";    //Valores por defecto
+    String password = "12345678";   //Valores por defecto
     
     //Conexion
     public Connection conectar(){
