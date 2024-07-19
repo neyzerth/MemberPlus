@@ -123,7 +123,7 @@ INSERT INTO nivel_beneficio VALUES
 (4, 5),
 (5, 2);
 
-    INSERT INTO compra_beneficio VALUES
+INSERT INTO compra_beneficio VALUES
 (10, 10),
 (9, 4),
 (2, 6),
