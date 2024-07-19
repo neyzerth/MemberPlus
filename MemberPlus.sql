@@ -1,7 +1,8 @@
 -- Active: 1721365889881@@localhost@3306@member_plus
---CREATE DATABASE member_plus;
+--DROP DATABASE member_plus;
+CREATE DATABASE member_plus;
 
---use member_plus;
+use member_plus;
 
 CREATE TABLE persona (
     idPersona INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -22,15 +23,14 @@ Create table cliente (
     idCliente INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     persona INT NOT NULL,
     Foreign Key (persona) REFERENCES persona (idPersona)
-)
+);
 -- SQLBook: Code
 CREATE Table rol (
     idRol INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(20) NOT NULL,
-    descripcion VARCHAR(100) NOT NULL
+    descripcion VARCHAR(100) 
 );
 
--- Se tiene que primero crear la tabla rol para hacer la fk
 CREATE Table usuario (
     idUsuario INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombreUsuario VARCHAR(20) not null,
@@ -43,7 +43,8 @@ CREATE Table usuario (
 );
 
 CREATE TABLE tarjeta (
-    numTarjeta BIGINT(16) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    idTarjeta INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    numTarjeta VARCHAR (25) NOT NULL,
     fecExp DATE NOT NULL,
     fecVen DATE NOT NULL,
     activo BIT NOT NULL,
@@ -51,26 +52,24 @@ CREATE TABLE tarjeta (
     puntos INT  NOT NULL,
     cliente INT NOT NULL,
     FOREIGN KEY (cliente) REFERENCES cliente (idcliente)
-)
-
+);
 
 Create table compra (
     idCompra INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     fecha DATE NOT NULL,
     porcPunto int,
     descuento int,
-    tarjeta BIGINT(16) not null,
+    tarjeta int not null,
     total FLOAT NOT NULL,
-    FOREIGN KEY (tarjeta) REFERENCES tarjeta(numTarjeta) 
-)
-
+    FOREIGN KEY (tarjeta) REFERENCES tarjeta(idTarjeta) 
+);
 
 CREATE TABLE nivel (
     idNivel INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre varchar(20) NOT NULL,
     anualidad int NOT NULL, 
     costoApertura int NOT NULL
-)
+);
 
 CREATE TABLE beneficio (
     idBeneficio INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -79,40 +78,36 @@ CREATE TABLE beneficio (
     fecVen DATE NOT NULL,
     porcentajePuntos int,
     porcentajeCashBack int
-)
+);
 
-CREATE table tipo_movimiento(
+CREATE table tipo_Movimiento(
     idTipoMovimiento INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(20) NOT NULL,
     descripcion VARCHAR(100)
-)
+);
 
-
---No corre
 create table movimiento(
     idMovimiento INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     fecMovimiento DATE NOT NULL,
-    estado VARCHAR(30),
+    estado varchar(30),
     comentario VARCHAR(100),
     usuario int not null,
-    tarjeta BIGINT(16) not null,
+    tarjeta int not null,
     tipoMovimiento int not null,
     FOREIGN KEY (usuario) REFERENCES usuario(idUsuario),
-    FOREIGN KEY (tarjeta) REFERENCES tarjeta(numTarjeta),
-    FOREIGN KEY (tipoMovimiento) REFERENCES tipo_movimiento(idTipoMovimiento)
+    FOREIGN KEY (tarjeta) REFERENCES tarjeta(idTarjeta),
+    FOREIGN KEY (tipoMovimiento) REFERENCES tipo_Movimiento(idTipoMovimiento)
 );
 
---Checar como se hace estas tablas
-CREATE TABLE nivel_beneficio (
+CREATE TABLE nivel_Beneficio (
     nivel int not null,
     beneficio int not null,
     PRIMARY KEY(nivel,beneficio),
-    FOREIGN KEY (nivel) REFERENCES nivel(idNivel),
-    FOREIGN KEY (beneficio) REFERENCES beneficio(idBeneficio)
+    FOREIGN KEY (Nivel) REFERENCES nivel(idNivel),
+    FOREIGN KEY (Beneficio) REFERENCES beneficio(idBeneficio)
 );
 
-
-Create Table compra_beneficio (
+Create Table compra_Beneficio (
     compra int not null,
     beneficio int not null,
     PRIMARY KEY(compra,beneficio),
