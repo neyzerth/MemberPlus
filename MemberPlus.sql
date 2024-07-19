@@ -1,4 +1,3 @@
--- Active: 1719648459430@@localhost@3306@memberplus
 CREATE DATABASE member_plus;
 
 use member_plus;
@@ -72,7 +71,7 @@ CREATE TABLE nivel (
     costoApertura int NOT NULL
 )
 
-CREATE TABLE beneficios (
+CREATE TABLE beneficio (
     idBeneficio INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(25) NOT NULL,
     fecInicio Date NOT NULL,
@@ -92,7 +91,7 @@ CREATE table tipo_movimiento(
 create table movimiento(
     idMovimiento INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     fecMovimiento DATE NOT NULL,
-    estado BIT,
+    estado VARCHAR(),
     comentario VARCHAR(100),
     usuario int not null,
     tarjeta BIGINT(16) not null,
