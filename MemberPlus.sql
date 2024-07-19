@@ -1,6 +1,7 @@
-CREATE DATABASE member_plus;
+-- Active: 1721365889881@@localhost@3306@member_plus
+--CREATE DATABASE member_plus;
 
-use member_plus;
+--use member_plus;
 
 CREATE TABLE persona (
     idPersona INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -91,7 +92,7 @@ CREATE table tipo_movimiento(
 create table movimiento(
     idMovimiento INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     fecMovimiento DATE NOT NULL,
-    estado VARCHAR(),
+    estado VARCHAR(30),
     comentario VARCHAR(100),
     usuario int not null,
     tarjeta BIGINT(16) not null,
@@ -106,8 +107,8 @@ CREATE TABLE nivel_beneficio (
     nivel int not null,
     beneficio int not null,
     PRIMARY KEY(nivel,beneficio),
-    FOREIGN KEY (Nivel) REFERENCES nivel(idNivel),
-    FOREIGN KEY (Beneficio) REFERENCES beneficios(idBeneficio)
+    FOREIGN KEY (nivel) REFERENCES nivel(idNivel),
+    FOREIGN KEY (beneficio) REFERENCES beneficio(idBeneficio)
 );
 
 
@@ -116,5 +117,5 @@ Create Table compra_beneficio (
     beneficio int not null,
     PRIMARY KEY(compra,beneficio),
     FOREIGN KEY (compra) REFERENCES compra(idCompra),
-    FOREIGN KEY (beneficio) REFERENCES beneficios(idBeneficio)
+    FOREIGN KEY (beneficio) REFERENCES beneficio(idBeneficio)
 );
