@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 import Persistencia.Conexion;
@@ -21,8 +20,7 @@ public class InicioSesion {
             PreparedStatement preparedStatement = cn.prepareStatement(query);
             ResultSet resultado = preparedStatement.executeQuery(query);
 
-            System.out.println("\nID\t" + "Nombre de Usuario\t" + "Contraseña\t" +
-                    "RFC\t\t" + "Persona\t" + "Rol");
+            System.out.println("\nID\tNombre de Usuario\tContraseña\tRFC\t\tPersona\tRol");
             while (resultado.next()) {
                 int idUsuario = resultado.getInt("idUsuario");
                 String nombreUsuario = resultado.getString("nombreUsuario");
@@ -36,7 +34,7 @@ public class InicioSesion {
                         "\t" + persona + "\t" + rol);
             }
             System.out.println("\n");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
@@ -79,9 +77,14 @@ public class InicioSesion {
 
             // Cerrar recursos
             pSt.close();
-            cn.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) cn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -93,17 +96,18 @@ public class InicioSesion {
             System.out.println("Introduce el ID del Usuario a modificar: ");
             int idUsuario = insertar.nextInt();
             usuario.setIdUsuario(idUsuario);
+            insertar.nextLine(); // Para consumir el salto de línea
 
             System.out.println("Introduce el Nombre de Usuario: ");
-            String nombreUsuario = insertar.next();
+            String nombreUsuario = insertar.nextLine();
             usuario.setNombreUsuario(nombreUsuario);
 
             System.out.println("Introduce la Contraseña: ");
-            String contrasena = insertar.next();
+            String contrasena = insertar.nextLine();
             usuario.setContrasena(contrasena);
 
             System.out.println("Introduce el RFC: ");
-            String rfc = insertar.next();
+            String rfc = insertar.nextLine();
             usuario.setRfc(rfc);
 
             System.out.println("Introduce el ID de la Persona: ");
@@ -128,9 +132,14 @@ public class InicioSesion {
 
             // Cerrar recursos
             pSt.close();
-            cn.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if (cn != null) cn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -154,9 +163,14 @@ public class InicioSesion {
 
             // Cerrar recursos
             pSt.close();
-            cn.close();
         } catch (SQLException e) {
             System.err.println("Error al eliminar el registro: " + e.getMessage());
+        } finally {
+            try {
+                if (cn != null) cn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
