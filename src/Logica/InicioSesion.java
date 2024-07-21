@@ -10,79 +10,73 @@ import java.util.Scanner;
 import Persistencia.Conexion;
 
 public class InicioSesion {
-    Usuario est=new Usuario();
-    private Conexion mysql=new Conexion();
-    private Connection cn=mysql.conectar();
-    Scanner insertar=new Scanner(System.in);
-    
-    public void mostrarEstudiantes(){
-        try {
-            //String Query = "SELECT id,nombe FROM estudiantes"; 
-            String Query="SELECT id,nombre_Est,apellido_Est,fecha_Nac,email,carrera FROM estudiantes JOIN carreras ON estudiantes.id_Carrera = carreras.id_Carrera;";
+    Usuario usuario = new Usuario();
+    private Conexion mysql = new Conexion();
+    private Connection cn = mysql.conectar();
+    Scanner insertar = new Scanner(System.in);
 
-            PreparedStatement preparedStatement = cn.prepareStatement(Query);
-            ResultSet resultado = preparedStatement.executeQuery(Query);
-            System.out.println("\nID\t" + "Nombre\t" +   "Apellido\t" +
-            "Fecha nac\t" + "Email\t\t\t" + "Carrera");
+    public void mostrarUsuarios() {
+        try {
+            String query = "SELECT idUsuario, nombreUsuario, contrasena, rfc, persona, rol FROM usuario";
+            PreparedStatement preparedStatement = cn.prepareStatement(query);
+            ResultSet resultado = preparedStatement.executeQuery(query);
+
+            System.out.println("\nID\t" + "Nombre de Usuario\t" + "Contraseña\t" +
+                    "RFC\t\t" + "Persona\t" + "Rol");
             while (resultado.next()) {
-                int id = resultado.getInt("id");
-                String nombre = resultado.getString("nombre_Est");
-                String apellido = resultado.getString("apellido_Est");
-                Date fecha = resultado.getDate("fecha_Nac");
-                String email = resultado.getString("email");
-                String carrera = resultado.getString("carrera");
-                System.out.println(id + "\t" + nombre + 
-                "\t" + apellido+ "\t\t" + fecha
-                + "\t" + email
-                + "\t" + carrera);
-            }                           
+                int idUsuario = resultado.getInt("idUsuario");
+                String nombreUsuario = resultado.getString("nombreUsuario");
+                String contrasena = resultado.getString("contrasena");
+                String rfc = resultado.getString("rfc");
+                int persona = resultado.getInt("persona");
+                int rol = resultado.getInt("rol");
+
+                System.out.println(idUsuario + "\t" + nombreUsuario +
+                        "\t" + contrasena + "\t" + rfc +
+                        "\t" + persona + "\t" + rol);
+            }
             System.out.println("\n");
-           
-        }
-         catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
 
-
-    public void insertarEstudiantes(){
-        
-        java.util.Date fecha;
+    public void insertarUsuario() {
         try {
-            // Preparar la sentencia INSERT
-            String sentenciaInsert = "INSERT INTO estudiantes (id, nombre_Est, apellido_Est,fecha_Nac, email, id_Carrera) VALUES (?, ?, ?, ?, ?, ?)";
+            String sentenciaInsert = "INSERT INTO usuario (nombreUsuario, contrasena, rfc, persona, rol) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement pSt = cn.prepareStatement(sentenciaInsert);
 
-            System.out.println("Introduce el Nombre: ");
-            String nombre=insertar.nextLine();
-            est.setNombre(nombre);
-            System.out.println("Introduce el Apellido: ");
-            String apellido=insertar.nextLine();
-            est.setApellido(apellido);
-            System.out.println("Introduce la fecha de nacimiento: ");
-            String fecha_n=insertar.nextLine();
-            System.out.println("Introduce el Email: ");
-            String email=insertar.nextLine();
-            est.setEmail(email);
-            System.out.println("Introduce la Carrera: ");
-            int idcarrera=insertar.nextInt();
-            est.setId_carrera(idcarrera);
-         
+            System.out.println("Introduce el Nombre de Usuario: ");
+            String nombreUsuario = insertar.nextLine();
+            usuario.setNombreUsuario(nombreUsuario);
+
+            System.out.println("Introduce la Contraseña: ");
+            String contrasena = insertar.nextLine();
+            usuario.setContrasena(contrasena);
+
+            System.out.println("Introduce el RFC: ");
+            String rfc = insertar.nextLine();
+            usuario.setRfc(rfc);
+
+            System.out.println("Introduce el ID de la Persona: ");
+            int persona = insertar.nextInt();
+            usuario.setPersona(persona);
+
+            System.out.println("Introduce el ID del Rol: ");
+            int rol = insertar.nextInt();
+            usuario.setRol(rol);
+
             // Asignar valores a los parámetros
-            pSt.setInt(1, 0);
-            pSt.setString(2,est.getNombre() );
-            pSt.setString(3,est.getApellido() );
-            //Convertir string a fecha.
-            SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-            System.out.println(fecha_n);
-            fecha =formato.parse(fecha_n); 
-            System.out.println(fecha); 
-            pSt.setDate(4,new java.sql.Date(fecha.getTime()));
-            pSt.setString(5,est.getEmail() );
-            pSt.setInt(6, est.getId_carrera());
+            pSt.setString(1, usuario.getNombreUsuario());
+            pSt.setString(2, usuario.getContrasena());
+            pSt.setString(3, usuario.getRfc());
+            pSt.setInt(4, usuario.getPersona());
+            pSt.setInt(5, usuario.getRol());
+
             // Ejecutar la sentencia
             int filasInsertadas = pSt.executeUpdate();
             System.out.println("Filas insertadas: " + filasInsertadas);
+
             // Cerrar recursos
             pSt.close();
             cn.close();
@@ -91,76 +85,78 @@ public class InicioSesion {
         }
     }
 
-    public void actualizarEstudiantes(){
-        java.util.Date fecha;
-        
+    public void actualizarUsuario() {
         try {
-            // Preparar la sentencia INSERT
-            //String sentenciaupdate = "UPDATE estudiantes SET nombre_Est=?, apellido_Est=?,fecha_Nac=?, email=?, id_Carrera=? WHERE id=?";
-            String sentenciaupdate="UPDATE estudiantes SET nombre_Est = ?, apellido_Est = ?, fecha_Nac=?,email = ?, id_Carrera = ? WHERE estudiantes.id = ?";
-            PreparedStatement pSt = cn.prepareStatement(sentenciaupdate);
-            System.out.println("Inserta el id del estudiante a modificar: ");
-            int id=insertar.nextInt();
-            est.setId(id);
+            String sentenciaUpdate = "UPDATE usuario SET nombreUsuario = ?, contrasena = ?, rfc = ?, persona = ?, rol = ? WHERE idUsuario = ?";
+            PreparedStatement pSt = cn.prepareStatement(sentenciaUpdate);
 
-            System.out.println("Introduce el Nombre: ");
-            String nombre1=insertar.next();
-            est.setNombre(nombre1);
-            System.out.println("Introduce el Apellido: ");
-            String apellido=insertar.next();
-            est.setApellido(apellido);
-            System.out.println("Introduce la fecha de nacimiento: ");
-            String fecha_n=insertar.next();
-            System.out.println("Introduce el Email: ");
-            String email=insertar.next();
-            est.setEmail(email);
-            System.out.println("Introduce la Carrera: ");
-            int idcarrera=insertar.nextInt();
-            est.setId_carrera(idcarrera);
-         
+            System.out.println("Introduce el ID del Usuario a modificar: ");
+            int idUsuario = insertar.nextInt();
+            usuario.setIdUsuario(idUsuario);
+
+            System.out.println("Introduce el Nombre de Usuario: ");
+            String nombreUsuario = insertar.next();
+            usuario.setNombreUsuario(nombreUsuario);
+
+            System.out.println("Introduce la Contraseña: ");
+            String contrasena = insertar.next();
+            usuario.setContrasena(contrasena);
+
+            System.out.println("Introduce el RFC: ");
+            String rfc = insertar.next();
+            usuario.setRfc(rfc);
+
+            System.out.println("Introduce el ID de la Persona: ");
+            int persona = insertar.nextInt();
+            usuario.setPersona(persona);
+
+            System.out.println("Introduce el ID del Rol: ");
+            int rol = insertar.nextInt();
+            usuario.setRol(rol);
+
             // Asignar valores a los parámetros
-            
-            pSt.setString(1,est.getNombre() );
-            pSt.setString(2,est.getApellido() );
-            //Convertir string a fecha.
-            SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-            System.out.println(fecha_n);
-            fecha =formato.parse(fecha_n); 
-            System.out.println(fecha); 
-            pSt.setDate(3,new java.sql.Date(fecha.getTime()));
-            pSt.setString(4,est.getEmail() );
-            pSt.setInt(5, est.getId_carrera());
-            pSt.setInt(6, est.getId());
+            pSt.setString(1, usuario.getNombreUsuario());
+            pSt.setString(2, usuario.getContrasena());
+            pSt.setString(3, usuario.getRfc());
+            pSt.setInt(4, usuario.getPersona());
+            pSt.setInt(5, usuario.getRol());
+            pSt.setInt(6, usuario.getIdUsuario());
+
             // Ejecutar la sentencia
-            int filasInsertadas = pSt.executeUpdate();
-            System.out.println("Filas insertadas: " + filasInsertadas);
+            int filasActualizadas = pSt.executeUpdate();
+            System.out.println("Filas actualizadas: " + filasActualizadas);
+
             // Cerrar recursos
             pSt.close();
             cn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
-
     }
 
-    public void eliminarEstudiantes(){
-        System.out.println("Inserta el id del estudiante a modificar: ");
-        int id=insertar.nextInt();
-        est.setId(id);
-        try{
-        String sentenciaEliminar = "DELETE FROM estudiantes WHERE id = ?";
-        PreparedStatement pSt = cn.prepareStatement(sentenciaEliminar);
-        
-            pSt.setInt(1,est.getId());
+    public void eliminarUsuario() {
+        System.out.println("Introduce el ID del Usuario a eliminar: ");
+        int idUsuario = insertar.nextInt();
+        usuario.setIdUsuario(idUsuario);
 
-        int filasAfectadas = pSt.executeUpdate();
-        if (filasAfectadas > 0) {
+        try {
+            String sentenciaEliminar = "DELETE FROM usuario WHERE idUsuario = ?";
+            PreparedStatement pSt = cn.prepareStatement(sentenciaEliminar);
+
+            pSt.setInt(1, usuario.getIdUsuario());
+
+            int filasAfectadas = pSt.executeUpdate();
+            if (filasAfectadas > 0) {
                 System.out.println("Registro eliminado exitosamente.");
-        } else {
+            } else {
                 System.out.println("No se encontró el registro con el ID proporcionado.");
             }
+
+            // Cerrar recursos
+            pSt.close();
+            cn.close();
         } catch (SQLException e) {
             System.err.println("Error al eliminar el registro: " + e.getMessage());
         }
+    }
 }

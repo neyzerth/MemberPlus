@@ -4,12 +4,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexion {
-    String db="";
-    String ip="192.168.60.10";
-    String url = "jdbc:mysql://" + db;
-    String user = "root";    //Valores por defecto
-    String password = "";   //Valores por defecto
-    
+    String db="ejemplo";
+    String host = "";
+    String url = "jdbc:mysql://"+host+"/"+db;
+    String user = "root";
+    String password = "";
+
     //Conexion
     public Connection conectar(){
         Connection connection = null;
@@ -18,11 +18,22 @@ public class Conexion {
             System.out.println("Conexion exitosa a la base de datos");
             connection.close();
         } catch(SQLException e){
-            System.out.println("Fallo de conexion");
-
-            e.printStackTrace();
+            System.out.println("Fallo de conexion: " + e.getMessage());
         }
         return connection;
+    }
+
+    public void setVlan(){
+        host = "192.168.60.20";
+        url = "jdbc:mysql://"+ host +"/" + db;
+        user = "admin";
+        password = "12345678";
+    }
+    public void setLocal(){
+        host = "localhost";
+        url = "jdbc:mysql://"+ host +"/" + db;
+        user = "root";
+        password = "";
     }
     
 }
