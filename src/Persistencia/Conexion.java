@@ -5,7 +5,8 @@ import java.sql.SQLException;
 
 public class Conexion {
     String db="";
-    String url = "" + db;
+    String ip="192.168.60.10";
+    String url = "jdbc:mysql://" + db;
     String user = "root";    //Valores por defecto
     String password = "";   //Valores por defecto
     
