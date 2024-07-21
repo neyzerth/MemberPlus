@@ -52,28 +52,43 @@ INSERT INTO usuario VALUES
 (10, 'Ashley', 'utt10', 'FKD12E1ZXXX', 10, 1);
 
 INSERT INTO tarjeta VALUES 
-(1234567890123456, '2023-10-01', '2024-10-01', 1, 532.00, 12, 1),
-(9876543210987654, '2023-10-17', '2024-10-17', 1, 651.00, 88, 2),
-(2468135780246913, '2023-09-06', '2024-09-06', 1, 123.00, 22, 4),
-(1357246891358024, '2023-08-16', '2024-08-16', 1, 358.00, 990, 8),
-(8642975318642075, '2023-07-01', '2024-07-01', 1, 313.00, 123, 3),
-(9753864220751864, '2023-06-21', '2024-06-21', 1, 3.00, 22, 6),
-(3210987654321098, '2023-04-27', '2024-04-27', 1, 273.00, 44, 7),
-(7890432187652109, '2023-03-14', '2024-03-14', 1, 146.00, 11, 9),
-(4321876509876543, '2023-09-22', '2024-09-22', 1, 831.00, 32, 5),
-(1238128923812938, '2024-05-14', '2024-05-14', 0, 786.00, 221, 10);
+(DEFAULT,1234567890123456, '2023-10-01', '2024-10-01', 1, 532.00, 12, 1),
+(DEFAULT,9876543210987654, '2023-10-17', '2024-10-17', 1, 651.00, 88, 2),
+(DEFAULT,2468135780246913, '2023-09-06', '2024-09-06', 1, 123.00, 22, 4),
+(DEFAULT,1357246891358024, '2023-08-16', '2024-08-16', 1, 358.00, 990, 8),
+(DEFAULT,8642975318642075, '2023-07-01', '2024-07-01', 1, 313.00, 123, 3),
+(DEFAULT,9753864220751864, '2023-06-21', '2024-06-21', 1, 3.00, 22, 6),
+(DEFAULT,3210987654321098, '2023-04-27', '2024-04-27', 1, 273.00, 44, 7),
+(DEFAULT,7890432187652109, '2023-03-14', '2024-03-14', 1, 146.00, 11, 9),
+(DEFAULT,4321876509876543, '2023-09-22', '2024-09-22', 1, 831.00, 32, 5),
+(DEFAULT,1238128923812938, '2024-05-14', '2024-05-14', 0, 786.00, 221, 10);
 
-INSERT INTO compra VALUES
-(1, '2024-05-02', 5, 3, 1234567890123456, 543.4),
-(2, '2024-05-18', 10, 6, 9876543210987654, 234.0),
-(3, '2024-05-16', 8, 2, 2468135780246913, 864.0),
-(4, '2024-05-18', 11, 9, 1357246891358024, 535.5),
-(5, '2024-06-13', 9, 3, 8642975318642075, 212.8),
-(6, '2024-06-27', 13, 6, 9753864220751864, 600.2),
-(7, '2024-06-28', 7, 3, 3210987654321098, 677.9),
-(8, '2024-07-04', 15, 5, 7890432187652109, 540.7),
-(9, '2024-07-05', 7, 8, 4321876509876543, 232.0),
-(10, '2024-07-06', 2, 1, 1238128923812938, 100.7);
+
+
+-- Actualizamos la columna nivel
+UPDATE tarjeta SET nivel = 1 WHERE idTarjeta = 1;
+UPDATE tarjeta SET nivel = 2 WHERE idTarjeta = 2;
+UPDATE tarjeta SET nivel = 3 WHERE idTarjeta = 3;
+UPDATE tarjeta SET nivel = 4 WHERE idTarjeta = 4;
+UPDATE tarjeta SET nivel = 1 WHERE idTarjeta = 5;
+UPDATE tarjeta SET nivel = 2 WHERE idTarjeta = 6;
+UPDATE tarjeta SET nivel = 3 WHERE idTarjeta = 7;
+UPDATE tarjeta SET nivel = 4 WHERE idTarjeta = 8;
+UPDATE tarjeta SET nivel = 1 WHERE idTarjeta = 9;
+UPDATE tarjeta SET nivel = 2 WHERE idTarjeta = 10;
+
+
+INSERT INTO compra (fecha, porcPunto, descuento, tarjeta, total) VALUES
+('2024-05-02', 5, 3, 1, 543.4),
+('2024-05-18', 10, 6, 2, 234.0),
+('2024-05-16', 8, 2, 3, 864.0),
+('2024-05-18', 11, 9, 4, 535.5),
+('2024-06-13', 9, 3, 5, 212.8),
+('2024-06-27', 13, 6, 6, 600.2),
+('2024-06-28', 7, 3, 7, 677.9),
+('2024-07-04', 15, 5, 8, 540.7),
+('2024-07-05', 7, 8, 9, 232.0),
+('2024-07-06', 2, 1, 10, 100.7);
 
 INSERT INTO nivel VALUES
 (1, 'Basica', 400, 50),
@@ -104,15 +119,15 @@ INSERT INTO tipo_movimiento VALUES
 
 
 INSERT INTO movimiento VALUES
-(1, '2005-01-20', 'Iniciado', 'El pago ha sido procesado y esta en su primera fase de verificacion.', 1, 1234567890123456, 2),
-(2, '2003-02-15', 'Pausa', 'La transaccion ha sido temporalmente detenida debido a una revision de seguridad.', 4, 1238128923812938, 3),
-(3, '2007-03-10', 'Finalizado', 'El pago ha sido completado exitosamente y confirmado.', 2, 1357246891358024, 2),
-(4, '2001-04-05', 'Pausa', 'La operacion esta en espera mientras se revisan los detalles de la cuenta.', 3, 2468135780246913, 1),
-(5, '2004-05-25', 'Finalizado', 'La transaccion ha sido finalizada y el pago se ha registrado correctamente.', 5, 3210987654321098, 4),
-(6, '2006-06-18', 'Finalizado', 'El proceso de pago ha concluido y ha sido confirmado.', 7, 4321876509876543, 2),
-(8, '2008-08-08', 'Iniciado', 'La solicitud de pago esta en curso y se esta procesando.', 8, 7890432187652109, 1),
-(9, '2009-09-30', 'Pausa', 'La operacion esta suspendida momentaneamente a la espera de autorizacion.', 9, 8642975318642075, 4),
-(10, '2010-10-22', 'Pausa', 'La transaccion se encuentra en espera hasta que se resuelvan algunos detalles.', 10, 9753864220751864, 4);
+(1, '2005-01-20', 'Iniciado', 'El pago ha sido procesado y esta en su primera fase de verificacion.', 1, 1, 2),
+(2, '2003-02-15', 'Pausa', 'La transaccion ha sido temporalmente detenida debido a una revision de seguridad.', 4, 10, 3),
+(3, '2007-03-10', 'Finalizado', 'El pago ha sido completado exitosamente y confirmado.', 2, 4, 2),
+(4, '2001-04-05', 'Pausa', 'La operacion esta en espera mientras se revisan los detalles de la cuenta.', 3, 3, 1),
+(5, '2004-05-25', 'Finalizado', 'La transaccion ha sido finalizada y el pago se ha registrado correctamente.', 5, 7, 4),
+(6, '2006-06-18', 'Finalizado', 'El proceso de pago ha concluido y ha sido confirmado.', 7, 9, 2),
+(8, '2008-08-08', 'Iniciado', 'La solicitud de pago esta en curso y se esta procesando.', 8, 8, 1),
+(9, '2009-09-30', 'Pausa', 'La operacion esta suspendida momentaneamente a la espera de autorizacion.', 9, 5, 4),
+(10, '2010-10-22', 'Pausa', 'La transaccion se encuentra en espera hasta que se resuelvan algunos detalles.', 10, 6, 4);
 
 
 
