@@ -4,8 +4,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexion {
-    String bd="member_plus";
-    String host, url, user, password;
+    private String bd="member_plus";
+    private String host, url, user, password;
 
     //Conexion
     public Connection conectar(){
