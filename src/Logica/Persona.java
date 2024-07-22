@@ -3,9 +3,12 @@ package Logica;
 import java.util.Date;
 
 public class Persona {
+    // ATRIBUTOS
     private String nombre, apellidPa, apellidoMa, colonia, calle, telefono, correo;
     private int numCasa, cp;
     private Date fechaNacimiento;
+
+    // CONSTRUCTORES
 
     public Persona(){}
 
@@ -22,6 +25,9 @@ public class Persona {
         this.cp = cp;
         this.fechaNacimiento = fechaNacimiento;
     }
+    // METODOS
+
+    // GETTERS AND SETTERS
 
     public String getNombre() {
         return this.nombre;

@@ -3,9 +3,24 @@ package Logica;
 import java.util.Date;
 
 public class Compra {
+    // ATRIBUTOS
     private int idCompra, porcentajePunto, descuento;
     private Date fechaCompra;
     private float total;
+
+    // CONSTRUCTORES
+
+    public Compra(int idCompra, int porcentajePunto, int descuento, Date fechaCompra, float total) {
+     this.idCompra = idCompra;
+     this.porcentajePunto = porcentajePunto;
+     this.descuento = descuento;
+     this.fechaCompra = fechaCompra;
+     this.total = total;
+    }
+
+    // METODOS
+
+    // GETTERS AND SETTERS
 
     public int getIdCompra() {
         return this.idCompra;
@@ -47,14 +62,6 @@ public class Compra {
         this.total = total;
     }
 
- public Compra(int idCompra, int porcentajePunto, int descuento, Date fechaCompra, float total) {
-  this.idCompra = idCompra;
-  this.porcentajePunto = porcentajePunto;
-  this.descuento = descuento;
-  this.fechaCompra = fechaCompra;
-  this.total = total;
-  
- }
 
 
 }

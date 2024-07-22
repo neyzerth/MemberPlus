@@ -1,8 +1,15 @@
 package Logica;
 
 public class Rol {
+    // ATRIBUTOS
     private String nombre, descripcion;
     private int idRol;
+
+    // CONSTRUCTORES
+
+    // METODOS
+
+    // GETTERS AND SETTERS
 
     public String getNombre() {
         return this.nombre;

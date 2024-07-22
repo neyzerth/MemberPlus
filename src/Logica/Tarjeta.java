@@ -3,11 +3,14 @@ package Logica;
 import java.util.Date;
 
 public class Tarjeta {
+    // ATRIBUTOS
     private long numTarjeta;
     private float saldo;
     private int puntos;
     private Date fecExp, fecVen;
     private boolean activo;
+
+    // CONSTRUCTORES
 
     public Tarjeta() {
     }
@@ -20,6 +23,10 @@ public class Tarjeta {
         this.fecVen = fecVen;
         this.activo = activo;
     }
+
+    // METODOS
+
+    // GETTERS AND SETTERS
 
     public long getNumTarjeta() {
         return this.numTarjeta;

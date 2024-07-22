@@ -3,10 +3,16 @@ package Logica;
 import java.util.Date;
 
 public class Beneficio {
+    // ATRIBUTOS
     private String nombre;
     private int idBeneficio, porcPuntos, porcentajeCashBack;
     private Date fecVen, fecInicio;
 
+    // CONSTRUCTORES
+
+    // METODOS
+
+    // GETTERS AND SETTERS
     public String getNombre() {
         return this.nombre;
     }

@@ -1,8 +1,15 @@
 package Logica;
 
 public class Nivel {
+    // ATRIBUTOS
     private int idNivel, anualidad, costoApertura;
     private String nombre;
+
+    // CONSTRUCTORES
+
+    // METODOS
+
+    // GETTERS AND SETTERS
 
     public int getIdNivel() {
         return this.idNivel;

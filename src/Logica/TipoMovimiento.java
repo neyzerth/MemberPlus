@@ -2,9 +2,21 @@ package Logica;
 import java.util.Date;
 
 public class TipoMovimiento extends Movimiento {
- private int idTipoMovimiento;
- private String nombre,descripcion;
+    // ATRIBUTOS
+    private int idTipoMovimiento;
+    private String nombre,descripcion;
+  
+    // CONSTRUCTORES 
+    public TipoMovimiento(int idMovimiento, String comentario, String estado, Date fechaMov,int idTipoMovimiento, String nombre, String descripcion) {
+        super(idMovimiento,comentario,estado,fechaMov);
+        this.idTipoMovimiento = idTipoMovimiento;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
 
+    // METODOS
+
+    // GETTERS AND SETTERS
 
     public int getIdTipoMovimiento() {
         return this.idTipoMovimiento;
@@ -32,12 +44,6 @@ public class TipoMovimiento extends Movimiento {
 
  
 
-    public TipoMovimiento(int idMovimiento, String comentario, String estado, Date fechaMov,int idTipoMovimiento, String nombre, String descripcion) {
-        super(idMovimiento,comentario,estado,fechaMov);
-        this.idTipoMovimiento = idTipoMovimiento;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-    }
 
 
 }
