@@ -7,6 +7,8 @@ public class Persona {
     private int numCasa, cp;
     private Date fechaNacimiento;
 
+    public Persona(){}
+
     public Persona(String nombre, String apellidPa, String apellidoMa, String colonia, String calle, String telefono,
             String correo, int numCasa, int cp, Date fechaNacimiento) {
         this.nombre = nombre;

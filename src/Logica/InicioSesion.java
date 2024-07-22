@@ -46,7 +46,7 @@ public class InicioSesion {
 
             System.out.println("Introduce el Nombre de Usuario: ");
             String nombreUsuario = insertar.nextLine();
-            usuario.setNombreUsuario(nombreUsuario);
+            usuario.setNomUsuario(nombreUsuario);
 
             System.out.println("Introduce la Contraseña: ");
             String contrasena = insertar.nextLine();
@@ -55,21 +55,23 @@ public class InicioSesion {
             System.out.println("Introduce el RFC: ");
             String rfc = insertar.nextLine();
             usuario.setRfc(rfc);
+            
+            //? No hay idPersona como atributo
+            //System.out.println("Introduce el ID de la Persona: ");
+            //int persona = insertar.nextInt();
+            //usuario.setPersona(persona);
 
-            System.out.println("Introduce el ID de la Persona: ");
-            int persona = insertar.nextInt();
-            usuario.setPersona(persona);
-
-            System.out.println("Introduce el ID del Rol: ");
-            int rol = insertar.nextInt();
-            usuario.setRol(rol);
+            //? No hay idRol como atributo
+            //System.out.println("Introduce el ID del Rol: ");
+            //int rol = insertar.nextInt();
+            //usuario.setRol(rol);
 
             // Asignar valores a los parámetros
-            pSt.setString(1, usuario.getNombreUsuario());
+            pSt.setString(1, usuario.getNomUsuario());
             pSt.setString(2, usuario.getContrasena());
             pSt.setString(3, usuario.getRfc());
-            pSt.setInt(4, usuario.getPersona());
-            pSt.setInt(5, usuario.getRol());
+            //pSt.setInt(4, usuario.getPersona());
+            //pSt.setInt(5, usuario.getRol());
 
             // Ejecutar la sentencia
             int filasInsertadas = pSt.executeUpdate();
@@ -100,7 +102,7 @@ public class InicioSesion {
 
             System.out.println("Introduce el Nombre de Usuario: ");
             String nombreUsuario = insertar.nextLine();
-            usuario.setNombreUsuario(nombreUsuario);
+            usuario.setNomUsuario(nombreUsuario);
 
             System.out.println("Introduce la Contraseña: ");
             String contrasena = insertar.nextLine();
@@ -110,20 +112,20 @@ public class InicioSesion {
             String rfc = insertar.nextLine();
             usuario.setRfc(rfc);
 
-            System.out.println("Introduce el ID de la Persona: ");
-            int persona = insertar.nextInt();
-            usuario.setPersona(persona);
+            //System.out.println("Introduce el ID de la Persona: ");
+            //int persona = insertar.nextInt();
+            //usuario.setPersona(persona);
 
-            System.out.println("Introduce el ID del Rol: ");
-            int rol = insertar.nextInt();
-            usuario.setRol(rol);
+            //System.out.println("Introduce el ID del Rol: ");
+            //int rol = insertar.nextInt();
+            //usuario.setRol(rol);
 
             // Asignar valores a los parámetros
-            pSt.setString(1, usuario.getNombreUsuario());
+            pSt.setString(1, usuario.getNomUsuario());
             pSt.setString(2, usuario.getContrasena());
             pSt.setString(3, usuario.getRfc());
-            pSt.setInt(4, usuario.getPersona());
-            pSt.setInt(5, usuario.getRol());
+            //pSt.setInt(4, usuario.getPersona());
+            //pSt.setInt(5, usuario.getRol());
             pSt.setInt(6, usuario.getIdUsuario());
 
             // Ejecutar la sentencia

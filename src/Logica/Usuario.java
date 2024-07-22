@@ -14,11 +14,11 @@ public class Usuario extends Persona {
         this.nomUsuario = nomUsuario;
     }
 
-    public String getContrasenia() {
+    public String getContrasena() {
         return this.contrasenia;
     }
 
-    public void setContrasenia(String contrasenia) {
+    public void setContrasena(String contrasenia) {
         this.contrasenia = contrasenia;
     }
 
@@ -38,6 +38,7 @@ public class Usuario extends Persona {
         this.idUsuario = idUsuario;
     }
 
+    public Usuario(){}
     public Usuario(String nombre, String apellidPa, String apellidoMa,
             String colonia, String calle, String telefono, String correo, int numCasa, int cp,
             Date fechaNacimiento, String nomUsuario, String contrasenia, String rfc, int idUsuario) {
