@@ -24,13 +24,13 @@ public class Login {
         String usuario = consola.readLine();
 
         // Solicitar contraseña de forma segura
-        char[] passwordArray = consola.readPassword(Color.blanco("Contraseña: "));
+        char[] contrasenaArreglo = consola.readPassword(Color.blanco("Contraseña: "));
 
         // Convertir el array de caracteres a String
-        String password = new String(passwordArray);
+        String contrasena = new String(contrasenaArreglo);
 
         // Verificación de credenciales
-        if (isValidCredentials(usuario, password)) {
+        if (validarDatos(usuario, contrasena)) {
             System.out.println(Color.blanco("╔──────────────────────────────────────╗"));
             System.out.println(Color.blanco("║ ") + Color.verde("¡Inicio de sesión exitoso!           ") + Color.blanco("║"));
             System.out.println(Color.blanco("║ ") + Color.verde("Acceso a contenido exclusivo:        ") + Color.blanco("║"));
@@ -45,25 +45,25 @@ public class Login {
         }
     }
 
-    private static boolean isValidCredentials(String username, String password) {
-        boolean isValid = false;
+    private static boolean validarDatos(String usuario, String contrasena) {
+        boolean esValido = false;
         Conexion conexion = new Conexion();
         String query = "SELECT * FROM usuario WHERE nombreUsuario = ? AND contrasena = ?";
 
         try (Connection connection = conexion.conectar();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
+            preparedStatement.setString(1, usuario);
+            preparedStatement.setString(2, contrasena);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                isValid = resultSet.next();
+                esValido = resultSet.next();
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
-        return isValid;
+        return esValido;
     }
 
     public static void verificarConsola(Console consola){
