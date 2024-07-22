@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class Conexion {
     String db="member_plus";
-    String host = "";
+    String host = "localhost:3306";
     String url = "jdbc:mysql://"+host+"/"+db;
     String user = "root";
     String password = "";
@@ -16,7 +16,7 @@ public class Conexion {
         try{
             connection = DriverManager.getConnection(url, user, password);
             System.out.println("Conexion exitosa a la base de datos");
-            connection.close();
+            
         } catch(SQLException e){
             System.out.println("Fallo de conexion: " + e.getMessage());
         }
