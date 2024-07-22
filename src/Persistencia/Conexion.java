@@ -4,7 +4,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Conexion {
-    String db="ejemplo";
+    String db="member_plus";
     String host = "";
     String url = "jdbc:mysql://"+host+"/"+db;
     String user = "root";
