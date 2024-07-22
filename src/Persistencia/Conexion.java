@@ -16,7 +16,7 @@ public class Conexion {
         try{
             connection = DriverManager.getConnection(url, user, password);
             System.out.println("Conexion exitosa a la base de datos");
-            
+            //NO LE PONGAN CLOSE CONNECTION
         } catch(SQLException e){
             System.out.println("Fallo de conexion: " + e.getMessage());
         }
