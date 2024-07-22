@@ -1,4 +1,4 @@
-package Logica;
+package Presentacion;
 
 import Persistencia.Conexion;
 
@@ -60,7 +60,6 @@ public class Login {
     private static boolean isValidCredentials(String username, String password) {
         boolean isValid = false;
         Conexion conexion = new Conexion();
-        conexion.setLocal();
         String query = "SELECT * FROM usuario WHERE nombreUsuario = ? AND contrasena = ?";
 
         try (Connection connection = conexion.conectar();

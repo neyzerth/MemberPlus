@@ -1,4 +1,4 @@
-package Logica;
+package Presentacion;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,10 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import Logica.Usuario;
 import Persistencia.Conexion;
 
 public class InicioSesion {
     Usuario usuario = new Usuario();
+    // ! Las conexiones y consultas van en la capa de persistencia
     private Conexion mysql = new Conexion();
     private Connection cn = mysql.conectar();
     Scanner insertar = new Scanner(System.in);
