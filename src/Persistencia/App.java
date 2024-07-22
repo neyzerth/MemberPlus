@@ -1,6 +1,6 @@
 package Persistencia;
 
-import Persistencia.Tablas.BdPersona;
+import Persistencia.Tablas.PersonaEnt;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -9,7 +9,7 @@ public class App {
         
         conexion.conectar();
 
-        BdPersona persona = new BdPersona(100);
+        PersonaEnt persona = new PersonaEnt(100);
 
         System.out.println(persona.getNombre()); 
 
