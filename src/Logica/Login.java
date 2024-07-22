@@ -6,10 +6,17 @@ import java.io.Console;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Login {
     public static void main(String[] args) {
         Console console = System.console();
+
+        // Verificar si console es null
+        if (console == null) {
+            System.err.println("No se puede obtener la consola. Ejecute este programa en una consola o terminal.");
+            System.exit(1);
+        }
 
         // Colores ANSI
         String reset = "\u001B[0m";
@@ -52,13 +59,12 @@ public class Login {
 
     private static boolean isValidCredentials(String username, String password) {
         boolean isValid = false;
-        String query = "SELECT * FROM usuario WHERE nombreUsuario = ? AND contrasena = ?";
-
         Conexion conexion = new Conexion();
         conexion.setLocal();
+        String query = "SELECT * FROM usuario WHERE nombreUsuario = ? AND contrasena = ?";
 
         try (Connection connection = conexion.conectar();
-            PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
@@ -66,8 +72,8 @@ public class Login {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 isValid = resultSet.next();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
 
         return isValid;
