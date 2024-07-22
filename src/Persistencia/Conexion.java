@@ -11,6 +11,7 @@ public class Conexion {
     public Connection conectar(){
         Connection connection = null;
         setLocal();
+        url = "jdbc:mysql://"+ host +"/" + bd;
         try{
             connection = DriverManager.getConnection(url, user, password);
             System.out.println("Conexion exitosa a bd \'"+ bd +"\' en \'" + host +"\'");
@@ -23,13 +24,12 @@ public class Conexion {
 
     private void setLocal(){
         host = "localhost";
-        url = "jdbc:mysql://"+ host +"/" + bd;
         user = "root";
         password = "";
     }
+    @SuppressWarnings("unused")
     private void setVlan(){
         host = "192.168.60.20";
-        url = "jdbc:mysql://"+ host +"/" + bd;
         user = "admin";
         password = "12345678";
     }
