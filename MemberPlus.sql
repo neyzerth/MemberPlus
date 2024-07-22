@@ -1,3 +1,4 @@
+-- Active: 1721365889881@@localhost@3306@member_plus
 
 CREATE TABLE persona (
     idPersona INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -18,7 +19,7 @@ Create table cliente (
     idCliente INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     persona INT NOT NULL,
     Foreign Key (persona) REFERENCES persona (idPersona)
-)
+);
 -- SE TIENE QUE CREARA ANTES QUE USUARIO
 CREATE Table rol (
     idRol INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -38,14 +39,6 @@ CREATE Table usuario (
     Foreign Key (persona) REFERENCES persona (idPersona)
 );
 
---SE tiene que crear antes que tarjeta
-CREATE TABLE nivel (
-    idNivel INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    nombre varchar(20) NOT NULL,
-    anualidad int NOT NULL, 
-    costoApertura int NOT NULL
-)
-
 CREATE TABLE tarjeta (
     idTarjeta INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     numTarjeta VARCHAR (25) NOT NULL,
@@ -56,8 +49,7 @@ CREATE TABLE tarjeta (
     puntos INT  NOT NULL,
     cliente INT NOT NULL,
     FOREIGN KEY (cliente) REFERENCES cliente (idcliente)
-)
-
+);
 
 -- Agregar la columna 'nivel' a la tabla 'tarjeta'
 ALTER TABLE tarjeta
@@ -68,6 +60,12 @@ ALTER TABLE tarjeta
 ADD CONSTRAINT fk_nivel
 FOREIGN KEY (nivel) REFERENCES nivel(idNivel);
 
+CREATE TABLE nivel (
+    idNivel INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    nombre varchar(20) NOT NULL,
+    anualidad int NOT NULL, 
+    costoApertura int NOT NULL
+);
 
 Create table compra (
     idCompra INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -77,10 +75,7 @@ Create table compra (
     tarjeta int not null,
     total FLOAT NOT NULL,
     FOREIGN KEY (tarjeta) REFERENCES tarjeta(idTarjeta) 
-)
-
-
-
+);
 
 CREATE TABLE beneficio (
     idBeneficio INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -89,17 +84,14 @@ CREATE TABLE beneficio (
     fecVen DATE NOT NULL,
     porcentajePuntos int,
     porcentajeCashBack int
-)
+);
 
-
-
-CREATE table tipo_Movimiento(
+drop table tipo_movimiento;
+CREATE table tipo_movimiento(
     idTipoMovimiento INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(20) NOT NULL,
     descripcion VARCHAR(100)
-)
-
-
+);
 
 create table movimiento(
     idMovimiento INT PRIMARY KEY AUTO_INCREMENT NOT NULL,

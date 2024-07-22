@@ -39,29 +39,48 @@ INSERT INTO rol VALUES
 (3, 'supervisor', 'Encargado de revisar niveles con sus beneficios'),
 (4, 'gerente', 'Encargado de la gestion de usuarios');
 
+DELETE FROM usuario;
+ALTER TABLE usuario AUTO_INCREMENT = 1;
+
+
 INSERT INTO usuario VALUES
-(1, 'Juan', 'utt1', 'GAAJ920101XXX', 1, 1),
-(2, 'Adriana', 'utt2', 'RAAA890908XXX', 3, 3),
-(3, 'Miguel', 'utt3', 'TOMG860109XXX', 2, 2),
-(4, 'Laura', 'utt4', 'GULG930210XXX', 4, 4),
-(5, 'Lauro', 'utt5', 'ROJJ850303XXX', 6, 3),
-(6, 'Carlos', 'utt6', 'MUGL950504XXX', 5, 2),
-(7, 'Ana', 'utt7', 'LOAA910706XXX', 7, 1),
-(8, 'Francisco', 'utt8', 'PEAF840807XXX', 9, 4),
-(9, 'Miguel', 'utt9', 'PKJJ850303XXX', 8, 2),
-(10, 'Ashley', 'utt10', 'FKD12E1ZXXX', 10, 1);
+(1, 'Juan', 'utt1', 'GAAJ920101XXX', 11, 1),
+(2, 'Adriana', 'utt2', 'RAAA890908XXX', 13, 3),
+(3, 'Miguel', 'utt3', 'TOMG860109XXX', 12, 2),
+(4, 'Laura', 'utt4', 'GULG930210XXX', 14, 4),
+(5, 'Lauro', 'utt5', 'ROJJ850303XXX', 16, 3),
+(6, 'Carlos', 'utt6', 'MUGL950504XXX', 15, 2),
+(7, 'Ana', 'utt7', 'LOAA910706XXX', 17, 1),
+(8, 'Francisco', 'utt8', 'PEAF840807XXX', 19, 4),
+(9, 'Miguel', 'utt9', 'PKJJ850303XXX', 18, 2),
+(10, 'Ashley', 'utt10', 'FKD12E1ZXXX', 20, 1);
 
 INSERT INTO tarjeta VALUES 
-(DEFAULT,1234567890123456, '2023-10-01', '2024-10-01', 1, 532.00, 12, 1),
-(DEFAULT,9876543210987654, '2023-10-17', '2024-10-17', 1, 651.00, 88, 2),
-(DEFAULT,2468135780246913, '2023-09-06', '2024-09-06', 1, 123.00, 22, 4),
-(DEFAULT,1357246891358024, '2023-08-16', '2024-08-16', 1, 358.00, 990, 8),
-(DEFAULT,8642975318642075, '2023-07-01', '2024-07-01', 1, 313.00, 123, 3),
-(DEFAULT,9753864220751864, '2023-06-21', '2024-06-21', 1, 3.00, 22, 6),
-(DEFAULT,3210987654321098, '2023-04-27', '2024-04-27', 1, 273.00, 44, 7),
-(DEFAULT,7890432187652109, '2023-03-14', '2024-03-14', 1, 146.00, 11, 9),
-(DEFAULT,4321876509876543, '2023-09-22', '2024-09-22', 1, 831.00, 32, 5),
-(DEFAULT,1238128923812938, '2024-05-14', '2024-05-14', 0, 786.00, 221, 10);
+(DEFAULT,'1234567890123456', '2023-10-01', '2024-10-01', 1, 532.00, 12, 1),
+(DEFAULT,'9876543210987654', '2023-10-17', '2024-10-17', 1, 651.00, 88, 2),
+(DEFAULT,'2468135780246913', '2023-09-06', '2024-09-06', 1, 123.00, 22, 4),
+(DEFAULT,'1357246891358024', '2023-08-16', '2024-08-16', 1, 358.00, 990, 8),
+(DEFAULT,'8642975318642075', '2023-07-01', '2024-07-01', 1, 313.00, 123, 3),
+(DEFAULT,'9753864220751864', '2023-06-21', '2024-06-21', 1, 3.00, 22, 6),
+(DEFAULT,'3210987654321098', '2023-04-27', '2024-04-27', 1, 273.00, 44, 7),
+(DEFAULT,'7890432187652109', '2023-03-14', '2024-03-14', 1, 146.00, 11, 9),
+(DEFAULT,'4321876509876543', '2023-09-22', '2024-09-22', 1, 831.00, 32, 5),
+(DEFAULT,'1238128923812938', '2024-05-14', '2024-05-14', 0, 786.00, 221, 10);
+
+DELETE FROM tarjeta;
+ALTER TABLE tarjeta AUTO_INCREMENT = 1;
+INSERT INTO tarjeta (numTarjeta, fecExp, fecVen, activo, saldo, puntos, cliente, nivel) VALUES 
+('1234567890123456', '2023-10-01', '2024-10-01', 1, 532.00, 12, 1, 1),
+('9876543210987654', '2023-10-17', '2024-10-17', 1, 651.00, 88, 2, 2),
+('2468135780246913', '2023-09-06', '2024-09-06', 1, 123.00, 22, 4, 3),
+('1357246891358024', '2023-08-16', '2024-08-16', 1, 358.00, 990, 8, 4),
+('8642975318642075', '2023-07-01', '2024-07-01', 1, 313.00, 123, 3, 5),
+('9753864220751864', '2023-06-21', '2024-06-21', 1, 3.00, 22, 6, 1),
+('3210987654321098', '2023-04-27', '2024-04-27', 1, 273.00, 44, 7, 2),
+('7890432187652109', '2023-03-14', '2024-03-14', 1, 146.00, 11, 9, 3),
+('4321876509876543', '2023-09-22', '2024-09-22', 1, 831.00, 32, 5, 4),
+('1238128923812938', '2024-05-14', '2024-05-14', 0, 786.00, 221, 10, 5);
+
 
 
 
@@ -78,6 +97,7 @@ UPDATE tarjeta SET nivel = 1 WHERE idTarjeta = 9;
 UPDATE tarjeta SET nivel = 2 WHERE idTarjeta = 10;
 
 
+ALTER TABLE compra AUTO_INCREMENT = 1;
 INSERT INTO compra (fecha, porcPunto, descuento, tarjeta, total) VALUES
 ('2024-05-02', 5, 3, 1, 543.4),
 ('2024-05-18', 10, 6, 2, 234.0),
@@ -110,7 +130,7 @@ INSERT INTO beneficio VALUES
 (10, 'Oferta de fiestas', '2024-12-01', '2024-12-20', 30, 10);
 
 
-INSERT INTO tipo_movimiento VALUES
+INSERT INTO tipo_Movimiento VALUES
 (1, 'alta', 'Cliente nuevo'),
 (2, 'renovacion', 'Renovacion tarjeta 9876 5432 1098 7654'),
 (3, 'cancelacion', 'Tarjeta cancelada'),
@@ -131,14 +151,14 @@ INSERT INTO movimiento VALUES
 
 
 
-INSERT INTO nivel_beneficio VALUES
+INSERT INTO nivel_Beneficio VALUES
 (1, 7),
 (2, 3),
 (3, 9),
 (4, 5),
 (5, 2);
 
-INSERT INTO compra_beneficio VALUES
+INSERT INTO compra_Beneficio VALUES
 (10, 10),
 (9, 4),
 (2, 6),
