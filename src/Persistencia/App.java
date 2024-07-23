@@ -1,5 +1,7 @@
 package Persistencia;
 
+import java.util.List;
+
 import Persistencia.Tablas.PersonaEnt;
 
 public class App {
@@ -7,11 +9,21 @@ public class App {
         System.out.println("Hello UTT!\n");
         Conexion conexion = new Conexion();
         
+        //Conecta sin imprimir
         conexion.conectar();
 
-        PersonaEnt persona = new PersonaEnt(100);
+        //Imprime estatus de conexion
+        conexion.probarConexion();
+
+        PersonaEnt persona = PersonaEnt.selectPersona(1);
 
         System.out.println(persona.getNombre()); 
+        System.out.println(persona.getFecNac()); 
 
+        List<PersonaEnt> personas = PersonaEnt.selectAllPersona();
+
+        for (PersonaEnt person : personas) {
+            System.out.println("ID: " + person.getId() + ", Nombre: " + person.getNombre());
+        }
     }
 }

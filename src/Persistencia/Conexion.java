@@ -13,13 +13,20 @@ public class Conexion {
         setLocal();
         url = "jdbc:mysql://"+ host +"/" + bd;
         try{
-            connection = DriverManager.getConnection(url, user, password);
-            System.out.println("Conexion exitosa a bd \'"+ bd +"\' en \'" + host +"\'");
-            
+            connection = DriverManager.getConnection(url, user, password);            
         } catch(SQLException e){
-            System.out.println("Fallo de conexion  bd \'"+ bd +"\' en \'" + host +"\': " + e.getMessage());
+            System.out.println(e.getMessage());
         }
         return connection;
+    }
+    public void probarConexion(){
+        Connection conn = conectar();
+        if(conn == null) {
+            System.out.println("Fallo de conexion  bd \'"+ bd +"\' en \'" + host);
+            return;
+        }
+        System.out.println("Conexion exitosa a bd \'"+ bd +"\' en \'" + host +"\'");
+
     }
 
     private void setLocal(){
