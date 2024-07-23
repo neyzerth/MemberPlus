@@ -3,9 +3,24 @@ package Logica;
 import java.util.Date;
 
 public class Movimiento {
-   private int idMovimiento;
-   private String comentario, estado;
-   private  Date fechaMov;
+    // ATRIBUTOS
+    private int idMovimiento;
+    private String comentario, estado;
+    private  Date fechaMov;
+
+    // CONSTRUCTORES
+
+    public Movimiento(int idMovimiento, String comentario, String estado, Date fechaMov) {
+        this.idMovimiento = idMovimiento;
+        this.comentario = comentario;
+        this.estado = estado;
+        this.fechaMov = fechaMov;
+    }    
+    
+    // METODOS
+
+    
+    // GETTERS AND SETTERS
 
     public String getComentario() {
         return this.comentario;
@@ -39,12 +54,5 @@ public class Movimiento {
         this.fechaMov = fechaMov;
     }
 
-
-    public Movimiento(int idMovimiento, String comentario, String estado, Date fechaMov) {
-        this.idMovimiento = idMovimiento;
-        this.comentario = comentario;
-        this.estado = estado;
-        this.fechaMov = fechaMov;
-    }    
     
 }
