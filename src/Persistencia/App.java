@@ -18,12 +18,19 @@ public class App {
         conexion.probarConexion();
 
         PersonaEnt persona = PersonaEnt.selectPersona(1);
+        UsuarioEnt usuario = UsuarioEnt.selectUsuario(1);
+
+        System.out.println(usuario.getNombreUsuario());
 
         System.out.println(persona.getNombre());
         System.out.println(persona.getFecNac());
 
         List<PersonaEnt> personas = PersonaEnt.selectAllPersona();
+        List<UsuarioEnt> usuarios = UsuarioEnt.selectAllUsuario();
 
+        for (UsuarioEnt user : usuarios) {
+            System.out.println("ID: " + user.getId() + ", Nombre: " + user.getNombreUsuario());
+        }
         for (PersonaEnt person : personas) {
             System.out.println("ID: " + person.getId() + ", Nombre: " + person.getNombre());
         }
