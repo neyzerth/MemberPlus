@@ -2,15 +2,15 @@ package Presentacion;
 
 public class Color {
     // Colores ANSI
-    private static String reset = "\u001B[0m";
-    private static String blanco = "\u001B[37m"; // Blanco
-    private static String azul = "\u001B[34m"; // Azul
-    private static String verde = "\u001B[32m"; // Verde
-    private static String rojo = "\u001B[31m"; // Rojo
-    private static String negro = "\u001B[30m"; // Negro
-    private static String amarillo = "\u001B[33m"; // Amarillo
-    private static String morado = "\u001B[35m"; // Morado
-    private static String cian = "\u001B[36m"; // Cian
+    private static String reset =   "\u001B[0m";
+    private static String blanco =  "\u001B[37m"; // Blanco
+    private static String azul =    "\u001B[34m"; // Azul
+    private static String verde =   "\u001B[32m"; // Verde
+    private static String rojo =    "\u001B[31m"; // Rojo
+    private static String negro =   "\u001B[30m"; // Negro
+    private static String amarillo ="\u001B[33m"; // Amarillo
+    private static String morado =  "\u001B[35m"; // Morado
+    private static String cian =    "\u001B[36m"; // Cian
 
     private static String colorText(String color, String txt){
         return color + txt + reset;
