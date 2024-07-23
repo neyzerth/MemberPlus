@@ -40,16 +40,10 @@ public class App {
             System.out.println("ID: " + user.getId() + ", Nombre: ");
         }
 
-
         TarjetaEnt tarjetaEnt = new TarjetaEnt();
-        Object[][] tarjetasArray = tarjetaEnt.obtenerTodasLasTarjetas();
+        tarjetaEnt.realizarOperaciones();
 
-        if (tarjetasArray != null) {
-            for (Object[] row : tarjetasArray) {
-                System.out.println("ID: " + row[0] + ", Número: " + row[1] + ", Fecha Exp: " + row[2] +
-                ", Fecha Ven: " + row[3] + ", Activo: " + row[4] + ", Saldo: " + row[5] +
-                ", Puntos: " + row[6] + ", Cliente: " + row[7]);
-            }
-        }
+
+    
     }
 }
