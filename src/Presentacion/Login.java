@@ -38,6 +38,7 @@ public class Login {
             System.out.println(Color.blanco("║ ") + Color.verde("- Descuentos especiales              ") + Color.blanco("║"));
             System.out.println(Color.blanco("╚══════════════════════════════════════╝"));
         } else {
+            System.out.println(Color.blanco("╔──────────────────────────────────────╗"));
             System.out.println(Color.blanco("║ ") + Color.rojo("Credenciales incorrectas. Inténtalo  ") + Color.blanco("║"));
             System.out.println(Color.blanco("║ ") + Color.rojo("de nuevo o regístrate para obtener   ") + Color.blanco("║"));
             System.out.println(Color.blanco("║ ") + Color.rojo("una membresía.                       ") + Color.blanco("║"));
