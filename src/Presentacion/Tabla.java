@@ -1,84 +1,198 @@
 package Presentacion;
 
 public class Tabla {
-    private static String borIzqSup = " ╔═";
-    private static String borIzqInf = " ╚═";
-    private static String borDerSup = "═╗";
-    private static String borDerInf = "═╝";
-    private static String colum = " ║ ";
-    private static String colIzq = "║ ";
-    private static String colDer = " ║";
-    private static String cruz = "═╬═";
-    private static String norT = "═╦═";
-    private static String invT = "═╩═";
-    private static String derT = " ╠═";
-    private static String IzqT = "═╣ ";
+    
+    private String [] cabeceras;
+    private Object[][] datos;
+    private int cantColumnas;
+    private int [] maxColumna;
+    
+    private String colum, techo, borIzqSup, borIzqInf, borDerSup, borDerInf, cruz, norT, invT, derT, IzqT;
 
-    public static void main(String[] args) {
-        
-        //printCelda("12345");
-        //printCeldaColor(Color.amarillo("12345"));
-        String [] columnas = {"Columna1", "Columna200000000000000000000", "Columna3"};
-        Object [] [] filas = {
-            {"Pedroaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 1, true },
-            {"Luis", 2, true },
-            {"Maria", 5, false }
-        };
-        
-        tabla(columnas, filas);
+
+    public Tabla(int tipo, String... cabeceras){
+        this.cabeceras = cabeceras;
+        this.cantColumnas = cabeceras.length;
+        this.maxColumna = new int[cantColumnas];
+        setTipoLineas(tipo);
     }
 
-    public static void tabla(String [] columnas, Object[][] datos){
+    public Tabla(String... cabeceras){
+        this(1, cabeceras);
+    }
+    
+    public Tabla(int tipo, String [] cabeceras, Object[]... datos){
+        if(cabeceras.length != datos.length)
+            throw new IllegalArgumentException("Cabecera y Datos[] deben tener la misma longitud");
 
-        String linCabecera = borIzqSup;
-        String cabecera = colum;
-        String linFilas = derT;
-        String filas = "";
-        String linFinal = borIzqInf;
-        int [] esp = longMayor(columnas, datos);
-        
-        for (int i = 0; i < columnas.length; i++) {
-            linCabecera += linea(esp[i]);
-            linFinal += linea(esp[i]);
-            linFilas += linea(esp[i]);
-            
-            if( i < columnas.length - 1){
-                linCabecera += norT;
-                linFinal += invT;
-                linFilas += cruz;
-            }
-            
-            cabecera += columnas[i];
-            cabecera += espacio(esp[i] - columnas[i].length());
-            cabecera += colum;
-
-        }
-        linCabecera += borDerSup;
-        linFinal += borDerInf;
-        linFilas += IzqT;
-
-        int k = 0;
-        for (Object[] fila : datos) {
-            filas += linFilas + "\n";
-            filas += colum;
-            for (int j = 0; j < fila.length; j++) {
-                String dato = String.valueOf(fila[j]);
-                filas += dato + espacio(esp[j] - dato.length());
-                filas += colum;
-            }
-            k++;
-            if(k < fila.length)
-                filas += "\n";
-        }
-
-        System.out.println(linCabecera);
-        System.out.println(cabecera);
-        System.out.println(filas);
-        System.out.println(linFinal);
+        this(tipo, cabeceras);
+        this.datos = datos;
+        this.maxColumna = longMayor(cabeceras, datos);
+    }
+    public Tabla(String [] cabeceras, Object[]... datos){
+        this(1, cabeceras, datos);
+    }
+    
+    
+    public void imprimirTabla(){
+        System.out.println(linCabecera());
+        System.out.println(cabecera());
+        System.out.println(filas());
+        System.out.println(linFinal());
     
     }
+    public void imprimirTabla(int tipo){
+        setTipoLineas(tipo);
+        imprimirTabla();
+    }
 
-    public static int [] longMayor(String [] columnas, Object[][] datos){
+    public void imprimirTablaSimple(){
+        System.out.println(linCabecera());
+        System.out.println(cabecera());
+        System.out.println(filasSinInterlineas());
+        System.out.println(linFinal());
+    }
+
+    public void imprimirTablaSimple(int tipo){
+        setTipoLineas(tipo);
+        imprimirTablaSimple();
+    }
+    private void setTipoLineas(int tipo){
+        switch (tipo) {
+            default:
+            case 1:
+                setLineasPlanas("║", "═");
+                setLineasBordes("╔", "╗", "╚", "╝" );
+                setLineasT("╦", "╩", "╠", "╣", "╬");
+                break;
+
+            case 2:
+                setLineasPlanas("│", "─");
+                setLineasBordes("┌", "┐", "└", "┘");
+                setLineasT("┬", "┴", "├", "┤", "┼");
+                break;
+
+            case 3:
+                setLineasPlanas("│", "─");
+                setLineasBordes("╔", "╗", "╚", "╝");
+                setLineasT("╤", "╧", "╟", "╢", "╪");
+                break;
+
+            case 4:
+                setLineasPlanas("|", "-");
+                setLineasBordes("+", "+", "+", "+");
+                setLineasT("+", "+", "+", "+", "+");
+                break;
+
+        }
+
+    }
+
+    private void setLineasPlanas(String columna, String techo){
+        this.colum = " " + columna + " ";
+        this.techo = techo;
+    }
+
+    private void setLineasBordes( String supIzq, String supDer, String infIzq, String infDer){
+        this.borIzqSup = " " + supIzq + techo;
+        this.borIzqInf = " " + infIzq + techo;
+        this.borDerSup = techo + supDer;
+        this.borDerInf = techo + infDer;
+    }
+    private void setLineasT(String normal, String invertida, String derecha, String izquierda , String cruz){
+        this.norT = techo + normal + techo;
+        this.invT = techo + invertida + techo;
+        this.derT = " " + derecha + techo;
+        this.IzqT = techo +izquierda;
+        this.cruz = techo + cruz + techo;
+    }
+
+
+    
+
+    private String linTabla(String lin1, String lin2, String lin3){
+        String linTabla = lin1;
+        
+        for (int i = 0; i < cantColumnas; i++) {
+            linTabla += linea(maxColumna[i]);
+            
+            if( i < cantColumnas - 1){
+                linTabla += lin2;
+            }
+        }
+        linTabla += lin3;
+        return linTabla;
+    }
+
+    private String celdas(Object [] celdas){
+        String fila = colum;
+        
+        for (int i = 0; i < cantColumnas; i++) {
+            String dato = String.valueOf(celdas[i]);
+            fila += dato;;
+            fila += espacio(maxColumna[i] - dato.length());
+            fila += colum;
+        }
+        return fila;
+    }
+    private String cabecera(){
+        return celdas(getCabeceras());
+    }
+
+    private String filas(){
+        String filas = "";
+        int i = 0;
+        
+        for (Object[] fila : getDatos()) {
+            filas += linFilas();
+            filas += "\n";
+            filas += celdas(fila);
+            i++;
+            if(i < fila.length)
+                filas += "\n";
+        }
+        return filas;
+    }
+    private String filasSinInterlineas(){
+        String filas = linFilas() + "\n";
+        int i = 0;
+        
+        for (Object[] fila : getDatos()) {
+            filas += celdas(fila);
+            i++;
+            if(i < fila.length)
+                filas += "\n";
+        }
+        return filas;
+    }
+
+    private String linCabecera(){
+        return linTabla(borIzqSup, norT, borDerSup);
+    }
+    private String linFilas(){
+        return linTabla(derT, cruz, IzqT);
+    }
+    private String linFinal(){
+        return  linTabla(borIzqInf, invT, borDerInf);
+    }
+
+    
+    private String linea(int n){
+        String lineas = "";
+        for (int i = 0; i < n; i++) {
+            lineas += techo;
+        }
+        return lineas;
+    }
+    public static String espacio(int n){
+        String espacios = "";
+        for (int i = 0; i < n; i++) {
+            espacios += " ";
+        }
+        return espacios;
+    }
+    
+    private int [] longMayor(String [] columnas, Object[][] datos){
         int [] maximos = new int [columnas.length];
 
         for (int i = 0; i < maximos.length; i++) {
@@ -93,50 +207,31 @@ public class Tabla {
         }
         return maximos;
     }
-    
-    private static String linea(int n){
-        String lineas = "";
-        for (int i = 0; i < n; i++) {
-            lineas += "═";
-        }
-        return lineas;
-    }
-    private static String espacio(int n){
-        String espacios = "";
-        for (int i = 0; i < n; i++) {
-            espacios += " ";
-        }
-        return espacios;
-    }
-    
 
 
-    //OTROS
-    private static void celda(String txt, int tamano){
-        System.out.println(borIzqSup + linea(tamano) + borDerSup);
-        System.out.println(colIzq + txt + colDer);
-        System.out.println(borIzqInf + linea(tamano) + borDerInf);
+    public String[] getCabeceras() {
+        return this.cabeceras;
     }
-    public static void printCelda(String txt){
-        celda(txt, txt.length());
-    }
-    public static void printCelda(Object obj){
-        String txt = String.valueOf(obj);
-        celda(txt, txt.length());
-    }
-    public static void printCeldaColor(String txt){
-        celda(txt, txt.length()-9);
-    }
-    
-    public static int sumarArreglo(String [] columnas){
-        int cant = 0;
-        for (String columna : columnas) {
-            cant += columna.length() + 2;
-        }
-        return cant;
+    public String getCabecera(int i) {
+        return this.cabeceras[i];
     }
 
+    public void setCabeceras(String[] cabeceras) {
+        this.cabeceras = cabeceras;
+    }
 
+    public void setCabecera(int i, String cabecera) {
+        this.cabeceras[i] = cabecera;
+        if(cabecera.length() > maxColumna[i])
+            maxColumna[i] = cabecera.length();
+    }
 
-    
+    public Object[][] getDatos() {
+        return this.datos;
+    }
+
+    public void setDatos(Object[][] datos) {
+        this.datos = datos;
+    }
 }
+
