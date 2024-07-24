@@ -1,6 +1,7 @@
 package Presentacion;
 
 import Persistencia.Conexion;
+import Presentacion.Formato.Color;
 
 import java.io.Console;
 import java.sql.Connection;

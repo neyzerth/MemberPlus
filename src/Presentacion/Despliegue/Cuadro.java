@@ -1,4 +1,6 @@
-package Presentacion;
+package Presentacion.Despliegue;
+
+import Presentacion.Formato.Color;
 
 public class Cuadro {
     public static void main(String[] args) {

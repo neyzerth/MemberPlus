@@ -1,5 +1,7 @@
 package Presentacion;
 
+import Presentacion.Despliegue.Tabla;
+
 public class App {
     public static void main(String[] args) {
     

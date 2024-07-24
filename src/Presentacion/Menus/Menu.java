@@ -1,6 +1,8 @@
-package Presentacion;
+package Presentacion.Menus;
 
 import java.util.Scanner;
+
+import Presentacion.Formato.Color;
 public class Menu {
 
     public static void main(String[] args) {
