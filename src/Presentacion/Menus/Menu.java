@@ -11,87 +11,160 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
 
-        // ya quedo
+        // Start
 
         while (!exit) {
-            System.out.println(
-                    Color.morado(Color.invertido((Cuadro.espacio(6) + "Bienvenido :D" + (Cuadro.espacio(7) + "\n")))));
-            System.out.println(Color.morado(Color.negrita("    > Menú principal <   ")));
-            System.out.println(Color.blanco("╔────────────────────────╗"));
-            System.out.println(
-                    Color.blanco("║ ") + Color.morado("1. Módulo de Ventas") + Color.blanco("    ║"));
-            System.out.println(
-                    Color.blanco("║ ") + Color.morado("2. Módulo de Clientes") + Color.blanco("  ║"));
-            System.out.println(
-                    Color.blanco("║ ") + Color.morado("3. Módulo de Tarjeta") + Color.blanco("   ║"));
-            System.out.println(
-                    Color.blanco("║ ") + Color.rojo("4. Salir") + Color.blanco("               ║"));
-            System.out.println(Color.blanco("╚════════════════════════╝" + "\n"));
-            System.out.print(Color.cian("> Seleccione una opción: "));
+            System.out.println(Color
+                    .morado(Color.invertido((Cuadro.espacio(6) + "  Bienvenido :D" + (Cuadro.espacio(8) + "\n")))));
+            System.out.println(Color.morado(Color.negrita("      > Menú principal <   ")));
+
+            Cuadro principal = new Cuadro(
+                    Color.morado("Módulo de Ventas"),
+                    Color.morado("Módulo de Clientes"),
+                    Color.morado("Modulo de Usuario"),
+                    Color.morado("Módulo de Tarjeta"),
+                    Color.rojo("Salir"));
+            principal.imprimirCuadroNum();
+
+            System.out.println();
+            System.out.print(Color.cian((Cuadro.espacio(1) + "> Seleccione una opción: ")));
 
             int option = scanner.nextInt();
 
+            // End
+
+            // Switch de menu principal
+
             switch (option) {
                 case 1:
-                    System.out.println(Color.morado(Color.invertido("=== Módulo de Venta ===")));
-                    // Añadir submenú si es necesario
+                    Color.limpiarPantalla();
+                    moduloVenta(scanner);
                     break;
                 case 2:
-                    Color.limpiarPantalla();
+                     Color.limpiarPantalla();
                     moduloCliente(scanner);
                     break;
                 case 3:
-                    submenuUsuario(scanner);
+                    Color.limpiarPantalla();
+                    moduloUsuario(scanner);
                     break;
                 case 4:
-                    submenuTarjeta(scanner);
+                    Color.limpiarPantalla();
+                    moduloTarjeta(scanner);
                     break;
                 case 5:
+                    Color.limpiarPantalla();
                     System.out.println(Color.rojo("Saliendo del programa..."));
                     exit = true;
                     break;
                 default:
                     System.out.println(Color.rojo("Opción inválida, por favor intente de nuevo."));
             }
-
-            System.out.println(); // Agrega una línea en blanco para separación
         }
-        
     }
+    //End
 
-    private static void moduloCliente(Scanner scanner) {
+    //Start
+    private static void moduloVenta(Scanner scanner) {
         boolean back = false;
         while (!back) {
-            System.out.println(Color.morado(Color.negrita(Cuadro.espacio(6) + "> Módulo de Cliente < " + "\n")));
-            System.out.println(Color.blanco("┌──────────────────────────────┐"));
-            System.out
-                    .println((Color.blanco("│ ") + Color.morado("1. Lista de clientes         ") + Color.blanco("│")));
-            System.out
-                    .println((Color.blanco("│ ") + Color.morado("2. Información de un cliente ") + Color.blanco("│")));
-            System.out
-                    .println((Color.blanco("│ ") + Color.morado("3. Modificar cliente         ") + Color.blanco("│")));
-            System.out
-                    .println((Color.blanco("│ ") + Color.morado("4. Eliminar cliente          ") + Color.blanco("│")));
-            System.out.println((Color.blanco("│ ") + Color.rojo("5. Volver al menú principal  ") + Color.blanco("│")));
-            System.out.println(Color.blanco("└──────────────────────────────┘" + "\n"));
-            System.out.print(Color.cian("> Seleccione una opción: "));
+            System.out.println(Color.morado(Color.negrita(Cuadro.espacio(8) + "> Módulo de Venta <")));
+
+            Cuadro venta = new Cuadro(
+                    Color.morado("Numero de tarjeta"),
+                    Color.morado("Recoger el total"),
+                    Color.morado("Volver al menú principal"));
+            venta.imprimirCuadroNum();
+
+            System.out.println();
+            System.out.print(Color.cian(Cuadro.espacio(1) + "> Seleccione una opción: "));
 
             int option = scanner.nextInt();
 
             switch (option) {
                 case 1:
                     Color.limpiarPantalla();
-                    System.out.println(Color.amarillo(Color.negrita("> Lista de clientes")));
+
+                    Cuadro numTarjeta = new Cuadro(
+                            Color.amarillo("> Numero de tarjeta"));
+                    numTarjeta.imprimirCuadro();
+
                     scanner.nextInt();
                     break;
                 case 2:
+                    Color.limpiarPantalla();
 
+                    Cuadro recogerTotal = new Cuadro(
+                            Color.amarillo("> Recoger el total"));
+                    recogerTotal.imprimirCuadro();
+
+                    scanner.nextInt();
                     break;
                 case 3:
-                    // Implementar funcionalidad aquí
+                    back = true;
+                    break;
+                default:
+                    System.out.println(Color.rojo("Opción inválida, por favor intente de nuevo."));
+            }
+            //End
+        }
+    }
+
+    // Start
+    private static void moduloCliente(Scanner scanner) {
+        boolean back = false;
+        while (!back) {
+            System.out.println(Color.morado(Color.negrita(Cuadro.espacio(8) + "> Módulo de Clientes <")));
+
+            Cuadro cliente = new Cuadro(
+                    Color.morado("Lista de clientes"),
+                    Color.morado("Información de un cliente"),
+                    Color.morado("Modificar cliente"),
+                    Color.morado("Eliminar cliente"),
+                    Color.rojo("Volver al menu principal"));
+            cliente.imprimirCuadroNum();
+
+            System.out.println();
+            System.out.print(Color.cian(Cuadro.espacio(1) + "> Seleccione una opción: "));
+
+            int option = scanner.nextInt();
+
+            switch (option) {
+                case 1:
+                    Color.limpiarPantalla();
+
+                    Cuadro listaCli = new Cuadro(
+                            Color.amarillo("> Lista de clientes"));
+                    listaCli.imprimirCuadro();
+
+                    scanner.nextInt();
+                    break;
+                case 2:
+                    Color.limpiarPantalla();
+
+                    Cuadro infoCli = new Cuadro(
+                            Color.amarillo("> Informacion de un cliente"));
+                    infoCli.imprimirCuadro();
+
+                    scanner.nextInt();
+                    break;
+                case 3:
+                    Color.limpiarPantalla();
+
+                    Cuadro modificarCli = new Cuadro(
+                            Color.amarillo("> Modificar informacion de cliente"));
+                    modificarCli.imprimirCuadro();
+
+                    scanner.nextInt();
                     break;
                 case 4:
-                    // Implementar funcionalidad aquí
+                    Color.limpiarPantalla();
+
+                    Cuadro eliminarCli = new Cuadro(
+                            Color.amarillo("> Eliminar Cliente"));
+                    eliminarCli.imprimirCuadro();
+
+                    scanner.nextInt();
                     break;
                 case 5:
                     Color.limpiarPantalla();
@@ -100,36 +173,65 @@ public class Menu {
                 default:
                     System.out.println(Color.rojo("Opción inválida, por favor intente de nuevo."));
             }
-
-            System.out.println(); // Agrega una línea en blanco para separación
         }
     }
+    // End
 
-    private static void submenuUsuario(Scanner scanner) {
+    // Start
+    private static void moduloUsuario(Scanner scanner) {
         boolean back = false;
         while (!back) {
-            System.out.println(Color.cian("↳ Módulo de Usuario"));
-            System.out.println(Color.verde("1. Lista de usuarios"));
-            System.out.println(Color.verde("2. Información de usuario específico"));
-            System.out.println(Color.verde("3. Modificar usuario"));
-            System.out.println(Color.verde("4. Eliminar usuario"));
-            System.out.println(Color.rojo("5. Volver al menú principal"));
-            System.out.print(Color.azul("Seleccione una opción: "));
+            System.out.println(Color.morado(Color.negrita(Cuadro.espacio(8) + "> Módulo de Usuario <")));
+
+            Cuadro usuario = new Cuadro(
+                    Color.morado("Lista de usuarios"),
+                    Color.morado("Información de usuario"),
+                    Color.morado("Modificar usuario"),
+                    Color.rojo("Eliminar usuario"),
+                    Color.morado("Volver al menú principal"));
+            usuario.imprimirCuadroNum();
+
+            System.out.println();
+            System.out.print(Color.cian(Cuadro.espacio(1) + "> Seleccione una opción: "));
 
             int option = scanner.nextInt();
 
             switch (option) {
                 case 1:
-                    // Implementar funcionalidad aquí
+                    Color.limpiarPantalla();
+
+                    Cuadro listaUsua = new Cuadro(
+                            Color.amarillo("> Lista de usuarios"));
+                    listaUsua.imprimirCuadro();
+
+                    scanner.nextInt();
                     break;
                 case 2:
-                    // Implementar funcionalidad aquí
+                    Color.limpiarPantalla();
+
+                    Cuadro infoUsua = new Cuadro(
+                            Color.amarillo("> Información de usuario"));
+                    infoUsua.imprimirCuadro();
+
+                    scanner.nextInt();
                     break;
                 case 3:
-                    // Implementar funcionalidad aquí
+                    Color.limpiarPantalla();
+
+                    Cuadro modificarUsua = new Cuadro(
+                            Color.amarillo("> Modificar informacion del usuario"));
+                    modificarUsua.imprimirCuadro();
+
+                    scanner.nextInt();
                     break;
                 case 4:
-                    // Implementar funcionalidad aquí
+                    Color.limpiarPantalla();
+
+                    Cuadro eliminarUsua = new Cuadro(
+                            Color.amarillo("> Información de usuario"));
+                    eliminarUsua.imprimirCuadro();
+
+                    scanner.nextInt();
                     break;
                 case 5:
                     back = true;
@@ -137,32 +239,55 @@ public class Menu {
                 default:
                     System.out.println(Color.rojo("Opción inválida, por favor intente de nuevo."));
             }
-
-            System.out.println(); // Agrega una línea en blanco para separación
         }
     }
+    // End
 
-    private static void submenuTarjeta(Scanner scanner) {
+    //Start
+    private static void moduloTarjeta(Scanner scanner) {
         boolean back = false;
         while (!back) {
-            System.out.println(Color.cian("=== Módulo de Tarjeta ==="));
-            System.out.println(Color.verde("1. Submódulo de movimientos"));
-            System.out.println(Color.verde("2. Submódulo de nivel de tarjetas"));
-            System.out.println(Color.verde("3. Submódulo de beneficios"));
-            System.out.println(Color.rojo("4. Volver al menú principal"));
-            System.out.print(Color.azul("Seleccione una opción: "));
+            System.out.println(Color.morado(Color.negrita(Cuadro.espacio(8) + "> Módulo de Tarjeta <")));
+
+            Cuadro tarjeta = new Cuadro(
+                    Color.morado("Movimientos"),
+                    Color.morado("Nivel de tarjetas"),
+                    Color.morado("Beneficios"),
+                    Color.morado("Volver al menú principal"));
+            tarjeta.imprimirCuadroNum();
+
+            System.out.println();
+            System.out.print(Color.cian(Cuadro.espacio(1) + "> Seleccione una opción: "));
 
             int option = scanner.nextInt();
 
             switch (option) {
                 case 1:
-                    // Implementar funcionalidad aquí
+                    Color.limpiarPantalla();
+
+                    Cuadro movimientosTarj = new Cuadro(
+                            Color.amarillo("> Seleccione el movimiento"));
+                    movimientosTarj.imprimirCuadro();
+
+                    scanner.nextInt();
                     break;
                 case 2:
-                    // Implementar funcionalidad aquí
+                    Color.limpiarPantalla();
+
+                    Cuadro nivelTarj = new Cuadro(
+                            Color.amarillo("> Nivel de tarjetas"));
+                    nivelTarj.imprimirCuadro();
+
+                    scanner.nextInt();
                     break;
                 case 3:
-                    // Implementar funcionalidad aquí
+                    Color.limpiarPantalla();
+
+                    Cuadro beneficTarj = new Cuadro(
+                            Color.amarillo("> Beneficios de la tarjeta"));
+                    beneficTarj.imprimirCuadro();
+
+                    scanner.nextInt();
                     break;
                 case 4:
                     back = true;
@@ -170,8 +295,7 @@ public class Menu {
                 default:
                     System.out.println(Color.rojo("Opción inválida, por favor intente de nuevo."));
             }
-
-            System.out.println(); // Agrega una línea en blanco para separación
+            //End
         }
     }
 }
