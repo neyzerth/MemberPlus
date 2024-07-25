@@ -1,5 +1,7 @@
 package Logica;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Movimiento {
@@ -18,7 +20,11 @@ public class Movimiento {
     }    
     
     // METODOS
-
+    public void modificarMovimiento(String comentario, String estado, String fechaMovStr){
+        this.setComentario(comentario);
+        this.setEstado(estado);
+        this.setFechaMov(fechaMovStr);
+    }
     
     // GETTERS AND SETTERS
 
@@ -51,8 +57,18 @@ public class Movimiento {
     }
 
     public void setFechaMov(Date fechaMov) {
+        if (fechaMov == null)
+            throw new IllegalArgumentException("La fecha de movimiento no puede estar vacía");
         this.fechaMov = fechaMov;
     }
 
+    public void setFechaMov(String fechaMovStr) {
+        try {
+            Date fechaMov = new SimpleDateFormat("yyyy-MM-dd").parse(fechaMovStr);
+            this.fechaMov = fechaMov;
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("La fecha de movimiento no es válida", e);
+        }
+    }
     
 }

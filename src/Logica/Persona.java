@@ -2,23 +2,26 @@ package Logica;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Persona {
     // ATRIBUTOS
     private String nombre, apellidoMa, apellidoPa, colonia, calle, telefono, correo, cp;
-    private int numExt, numInt;
+    private int id, numExt, numInt;
     private Date fecNac;
 
     // CONSTRUCTORES
     public Persona() {
     }
 
-    public Persona(String nombre, String apellidoMa, String apellidoPa, String colonia, String calle, int numExt,
+    public Persona(int id, String nombre, String apellidoPa, String apellidoMa, String colonia, String calle,
+            int numExt,
             int numInt, String cp, String telefono, String correo, Date fecNac) {
+        this.id = id;
         this.nombre = nombre;
-        this.apellidoMa = apellidoMa;
         this.apellidoPa = apellidoPa;
+        this.apellidoMa = apellidoMa;
         this.colonia = colonia;
         this.calle = calle;
         this.numExt = numExt;
@@ -47,7 +50,40 @@ public class Persona {
         this.setFecNac(fecNacStr);
     }
 
+    // Método para calcular edad
+    public int calcularEdad(Persona persona) {
+        Date fechaNacimiento = persona.getFecNac();
+        Calendar fechaActual = Calendar.getInstance();
+        Calendar fechaNacimientoCalendar = Calendar.getInstance();
+        fechaNacimientoCalendar.setTime(fechaNacimiento);
+
+        int añoActual = fechaActual.get(Calendar.YEAR);
+        int añoNacimiento = fechaNacimientoCalendar.get(Calendar.YEAR);
+        int mesActual = fechaActual.get(Calendar.MONTH);
+        int mesNacimiento = fechaNacimientoCalendar.get(Calendar.MONTH);
+        int diaActual = fechaActual.get(Calendar.DAY_OF_MONTH);
+        int diaNacimiento = fechaNacimientoCalendar.get(Calendar.DAY_OF_MONTH);
+
+        int edad = añoActual - añoNacimiento;
+
+        if (mesActual < mesNacimiento || (mesActual == mesNacimiento && diaActual < diaNacimiento)) {
+            edad--;
+        }
+
+        return edad;
+    }
+
+    // Imprime solamente la edad
+    public void imprimirEdad() {
+        System.out.println("Edad: " + calcularEdad(this));
+    }
+
     // GETTERS AND SETTERS
+    public int getId() {
+        return this.id;
+    }
+    // solo se obtiene el id ya que este no se va a modificar
+
     public String getNombre() {
         return this.nombre;
     }

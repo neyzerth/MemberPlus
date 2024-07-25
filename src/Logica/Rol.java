@@ -6,7 +6,15 @@ public class Rol {
     private int idRol;
 
     // CONSTRUCTORES
+    public Rol(){}
 
+
+    public Rol(int idRol, String nombre, String descripcion) {
+        this.idRol = idRol;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+    }
+    
     // METODOS
 
     // GETTERS AND SETTERS

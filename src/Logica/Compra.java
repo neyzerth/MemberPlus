@@ -1,5 +1,7 @@
 package Logica;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Compra {
@@ -19,7 +21,13 @@ public class Compra {
     }
 
     // METODOS
-
+    public void modificarCompra(String porcentajePuntoStr, String descuentoStr, String fechaCompraStr, String totalStr){
+        this.setPorcentajePunto(porcentajePuntoStr);
+        this.setDescuento(descuentoStr);
+        this.setFechaCompra(fechaCompraStr);
+        this.setTotal(totalStr);
+    }
+    
     // GETTERS AND SETTERS
 
     public int getIdCompra() {
@@ -35,7 +43,18 @@ public class Compra {
     }
 
     public void setPorcentajePunto(int porcentajePunto) {
+        if (porcentajePunto <= 0)
+            throw new IllegalArgumentException("El porcentaje no puede ser negativo o cero");
         this.porcentajePunto = porcentajePunto;
+    }
+
+    public void setPorcentajePunto(String porcentajePuntoStr) {
+        try {
+            int porcentajePunto = Integer.parseInt(porcentajePuntoStr);
+            this.setPorcentajePunto(porcentajePunto);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("El porcentaje no es válido");
+        }
     }
 
     public int getDescuento() {
@@ -43,7 +62,18 @@ public class Compra {
     }
 
     public void setDescuento(int descuento) {
+        if (descuento <= 0)
+            throw new IllegalArgumentException("El descuento no puede ser negativo o cero");
         this.descuento = descuento;
+    }
+
+    public void setDescuento(String descuentoStr){
+        try {
+            int descuento = Integer.parseInt(descuentoStr);
+            this.setDescuento(descuento);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("El descuento no es válido");
+        }
     }
 
     public Date getFechaCompra() {
@@ -51,7 +81,18 @@ public class Compra {
     }
 
     public void setFechaCompra(Date fechaCompra) {
+        if (fechaCompra == null)
+            throw new IllegalArgumentException("La fecha de compra no puede estar vacía");
         this.fechaCompra = fechaCompra;
+    }
+
+    public void setFechaCompra(String fechaCompraStr) {
+        try {
+            Date fechaCompra = new SimpleDateFormat("yyyy-MM-dd").parse(fechaCompraStr);
+            this.fechaCompra = fechaCompra;
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("La fecha de compra no es válida", e);
+        }
     }
 
     public float getTotal() {
@@ -59,9 +100,18 @@ public class Compra {
     }
 
     public void setTotal(float total) {
+        if (total <= 0)
+            throw new IllegalArgumentException("El total no puede ser negativo o cero");
         this.total = total;
     }
 
-
+    public void setTotal(String totalStr) {
+        try {
+            int total = Integer.parseInt(totalStr);
+            this.setTotal(total);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("El total no es válido");
+        }
+    }
 
 }
