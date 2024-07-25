@@ -10,10 +10,12 @@ public class Usuario extends Persona {
     // CONSTRUCTORES
     public Usuario(){}
 
-    public Usuario(String nombre, String apellidPa, String apellidoMa,
-            String colonia, String calle, String telefono, String correo, int numCasa, int cp,
-            Date fechaNacimiento, String nomUsuario, String contrasenia, String rfc, int idUsuario) {    
-        //super(nombre, apellidPa, apellidoMa, colonia, calle, telefono, correo, numCasa, cp, fechaNacimiento);
+    public Usuario(int id, String nombre, String apellidoPa, String apellidoMa,
+    String colonia, String calle, int numExt, int numInt, String cp, String telefono, String correo,
+    Date fecNac, String nomUsuario, String contrasenia, String rfc, int idUsuario) {  
+          
+        // El constructor le faltaban atributos, y el id de persona se transfiere
+        super(id, nombre, apellidoMa, apellidoPa, colonia, calle, numExt, numInt, telefono, correo, cp, fecNac);
         this.nomUsuario = nomUsuario;
         this.contrasenia = contrasenia;
         this.rfc = rfc;
