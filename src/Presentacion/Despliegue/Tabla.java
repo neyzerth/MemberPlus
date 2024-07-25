@@ -107,8 +107,12 @@ public class Tabla extends Cuadro{
 
         for (int i = 0; i < getCantColumnas(); i++) {
             String dato = String.valueOf(celdas[i]);
-            fila += dato;;
-            fila += espacio(maxColumna[i] - dato.length());
+            int longDato = dato.length();
+            if(contieneColor(dato))
+                longDato -=9;
+
+            fila += dato;
+            fila += espacio(maxColumna[i] - longDato);
             fila += colum;
         }
         return fila;
