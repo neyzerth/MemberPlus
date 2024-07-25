@@ -6,6 +6,7 @@ class Prueba {
     public static void main(String[] args) {
 
         Cuadro prueba = new Cuadro(
+            "Módulo de Clientes",
             Color.azul("Módulo de Ventas"),
             "Módulo de Clientes",
             "Módulo de Tarjeta",
@@ -42,13 +43,17 @@ public class Cuadro{
         String linea = linea(maxLinea);
         String cuadro = borIzqSup + linea + borDerSup ;
         cuadro += "\n" ;
-        for (String fila : texto) {
-            cuadro += colum;
-            cuadro += fila;
-            cuadro += espacio(maxLinea - fila.length());
-            cuadro += colum;
+        for (String txt : texto) {
+            int longFila = txt.length();
+            if(contieneColor(txt))
+                longFila -= 9;
+            
+            String fila = colum;
+            fila += txt;
+            fila += espacio(maxLinea - longFila);
+            fila += colum;
 
-            cuadro += "\n";
+            cuadro += fila+  "\n";
         }
         cuadro += borIzqInf + linea + borDerInf;
 
@@ -60,13 +65,17 @@ public class Cuadro{
         String cuadro = borIzqSup + linea + borDerSup ;
         cuadro += "\n" ;
         for (int i = 0; i < texto.length; i++) {
-            cuadro += colum;
-            cuadro += (i+1) + ". ";
-            cuadro += texto[i];
-            cuadro += espacio(maxLinea - texto[i].length());
-            cuadro += colum;
+            int longFila = texto[i].length();
+            if(contieneColor(texto[i]))
+                longFila -= 9;
+            
+            String fila = colum;
+            fila += (i + 1) + ". ";
+            fila += texto[i];
+            fila += espacio(maxLinea - longFila);
+            fila += colum;
 
-            cuadro += "\n";
+            cuadro += fila+  "\n";
         }
         cuadro += borIzqInf + linea + borDerInf;
 
@@ -77,18 +86,18 @@ public class Cuadro{
         String linea = linea(maxLinea + caracter.length() + 1);
         String cuadro = borIzqSup + linea + borDerSup ;
         cuadro += "\n" ;
-        for (String fila : texto) {
-            int longFila = fila.length();
-            if(contieneColor(fila))
-                longFila -= 7;
+        for (String txt : texto) {
+            int longFila = txt.length();
+            if(contieneColor(txt))
+            longFila -= 9;
+            
+            String fila = colum;
+            fila += caracter + " ";
+            fila += txt;
+            fila += espacio(maxLinea - longFila);
+            fila += colum;
 
-            cuadro += colum;
-            cuadro += caracter + " ";
-            cuadro += fila;
-            cuadro += espacio(maxLinea - longFila);
-            cuadro += colum;
-
-            cuadro += "\n";
+            cuadro += fila+  "\n";
         }
         cuadro += borIzqInf + linea + borDerInf;
 
