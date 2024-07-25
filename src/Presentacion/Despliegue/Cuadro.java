@@ -1,11 +1,12 @@
 package Presentacion.Despliegue;
 
+import Presentacion.Formato.Color;
 
 class Prueba {
     public static void main(String[] args) {
 
         Cuadro prueba = new Cuadro(
-            "Módulo de Ventas",
+            Color.azul("Módulo de Ventas"),
             "Módulo de Clientes",
             "Módulo de Tarjeta",
             "Salir"
@@ -29,7 +30,7 @@ public class Cuadro{
     public Cuadro(int tipoLinea, String... texto){
         this.texto = texto;
         this.tipoLinea = tipoLinea;
-        this.maxLinea = textoMayor(texto); // Llama a textoMayor después de inicializar texto
+        this.maxLinea = longMayor(texto); // Llama a textoMayor después de inicializar texto
         setTipoLineas(this.tipoLinea);
     }
 
@@ -39,29 +40,59 @@ public class Cuadro{
 
     public void imprimirCuadro(){
         String linea = linea(maxLinea);
-        System.out.println(borIzqSup + linea + borDerSup );
-        for (String txt : texto) {
-            System.out.println(colum + txt + espacio(maxLinea - txt.length()) + colum );
+        String cuadro = borIzqSup + linea + borDerSup ;
+        cuadro += "\n" ;
+        for (String fila : texto) {
+            cuadro += colum;
+            cuadro += fila;
+            cuadro += espacio(maxLinea - fila.length());
+            cuadro += colum;
+
+            cuadro += "\n";
         }
-        System.out.println(borIzqInf + linea + borDerInf );
+        cuadro += borIzqInf + linea + borDerInf;
+
+        System.out.println(cuadro);
     }
 
     public void imprimirCuadroNum(){
         String linea = linea(maxLinea + 3);
-        System.out.println(borIzqSup + linea + borDerSup );
+        String cuadro = borIzqSup + linea + borDerSup ;
+        cuadro += "\n" ;
         for (int i = 0; i < texto.length; i++) {
-            System.out.println(colum + (i+1) + ". " + texto[i] + espacio(maxLinea - texto[i].length()) + colum );
+            cuadro += colum;
+            cuadro += (i+1) + ". ";
+            cuadro += texto[i];
+            cuadro += espacio(maxLinea - texto[i].length());
+            cuadro += colum;
+
+            cuadro += "\n";
         }
-        System.out.println(borIzqInf + linea + borDerInf );
+        cuadro += borIzqInf + linea + borDerInf;
+
+        System.out.println(cuadro);
     }
 
     public void imprimirCuadroList(String caracter){
         String linea = linea(maxLinea + caracter.length() + 1);
-        System.out.println(borIzqSup + linea + borDerSup );
-        for (int i = 0; i < texto.length; i++) {
-            System.out.println(colum + caracter + " " + texto[i] + espacio(maxLinea - texto[i].length()) + colum );
+        String cuadro = borIzqSup + linea + borDerSup ;
+        cuadro += "\n" ;
+        for (String fila : texto) {
+            int longFila = fila.length();
+            if(contieneColor(fila))
+                longFila -= 7;
+
+            cuadro += colum;
+            cuadro += caracter + " ";
+            cuadro += fila;
+            cuadro += espacio(maxLinea - longFila);
+            cuadro += colum;
+
+            cuadro += "\n";
         }
-        System.out.println(borIzqInf + linea + borDerInf );
+        cuadro += borIzqInf + linea + borDerInf;
+
+        System.out.println(cuadro);
     }
 
         // --------- ITERANDO SIMBOLOS -----
@@ -84,14 +115,18 @@ public class Cuadro{
     }
 
     // calcular la longitud de cadena mayor en cada columna
-    private int textoMayor(String[] filas) {
+    private int longMayor(String[] filas) {
         if(filas.length == 0)
             return 0;
 
-        int maximo = filas[0].length();
+        int maximo = 0;
 
         for (String fila : filas) {
-            maximo = Math.max(maximo, fila.length());
+            int longFila = fila.length();
+            if(contieneColor(fila))
+                longFila -= 7;
+
+            maximo = Math.max(maximo, longFila);
         }
         return maximo;
     }
@@ -133,6 +168,10 @@ public class Cuadro{
         this.borIzqInf = " " + infIzq + techo;
         this.borDerSup = techo + supDer;
         this.borDerInf = techo + infDer;
+    }
+
+    protected boolean contieneColor(String texto) {
+        return texto.contains("\u001B[");
     }
 
 }
