@@ -27,9 +27,6 @@ public class Tabla extends Cuadro{
 
     // CONSTRUCTOR CON TIPO LINEA, CABECERAS Y DATOS
     public Tabla(int tipoLinea, String[] cabeceras, Object[]... datos) {
-        if (cabeceras.length != datos[0].length)
-            throw new IllegalArgumentException("Cabecera y Datos[] deben tener la misma longitud");
-
         this(tipoLinea, cabeceras);
         this.datos = datos;
         this.maxColumna = longMayor(cabeceras, datos);

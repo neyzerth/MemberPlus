@@ -1,9 +1,11 @@
-package Presentacion.Menus;
+package Presentacion;
 
 import java.util.Scanner;
-
-import Presentacion.Despliegue.Cuadro;
-import Presentacion.Formato.Color;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Menu {
 
@@ -11,34 +13,24 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
 
-        // ya quedo
-
         while (!exit) {
-            System.out.println(
-                    Color.morado(Color.invertido((Cuadro.espacio(6) + "Bienvenido :D" + (Cuadro.espacio(7) + "\n")))));
-            System.out.println(Color.morado(Color.negrita("    > Menú principal <   ")));
-            System.out.println(Color.blanco("╔────────────────────────╗"));
-            System.out.println(
-                    Color.blanco("║ ") + Color.morado("1. Módulo de Ventas") + Color.blanco("    ║"));
-            System.out.println(
-                    Color.blanco("║ ") + Color.morado("2. Módulo de Clientes") + Color.blanco("  ║"));
-            System.out.println(
-                    Color.blanco("║ ") + Color.morado("3. Módulo de Tarjeta") + Color.blanco("   ║"));
-            System.out.println(
-                    Color.blanco("║ ") + Color.rojo("4. Salir") + Color.blanco("               ║"));
-            System.out.println(Color.blanco("╚════════════════════════╝" + "\n"));
-            System.out.print(Color.cian("> Seleccione una opción: "));
+            System.out.println(Color.cian("↳ Menú Principal"));
+            System.out.println(Color.verde("1. Módulo de Venta"));
+            System.out.println(Color.verde("2. Módulo de Cliente"));
+            System.out.println(Color.verde("3. Módulo de Usuario"));
+            System.out.println(Color.verde("4. Módulo de Tarjeta"));
+            System.out.println(Color.rojo("5. Salir"));
+            System.out.print(Color.azul("Seleccione una opción: "));
 
             int option = scanner.nextInt();
 
             switch (option) {
                 case 1:
-                    System.out.println(Color.morado(Color.invertido("=== Módulo de Venta ===")));
+                    System.out.println(Color.morado("=== Módulo de Venta ==="));
                     // Añadir submenú si es necesario
                     break;
                 case 2:
-                    Color.limpiarPantalla();
-                    moduloCliente(scanner);
+                    submenuCliente(scanner);
                     break;
                 case 3:
                     submenuUsuario(scanner);
@@ -56,36 +48,29 @@ public class Menu {
 
             System.out.println(); // Agrega una línea en blanco para separación
         }
-        
+
+        scanner.close();
     }
 
-    private static void moduloCliente(Scanner scanner) {
+    private static void submenuCliente(Scanner scanner) {
         boolean back = false;
         while (!back) {
-            System.out.println(Color.morado(Color.negrita(Cuadro.espacio(6) + "> Módulo de Cliente < " + "\n")));
-            System.out.println(Color.blanco("┌──────────────────────────────┐"));
-            System.out
-                    .println((Color.blanco("│ ") + Color.morado("1. Lista de clientes         ") + Color.blanco("│")));
-            System.out
-                    .println((Color.blanco("│ ") + Color.morado("2. Información de un cliente ") + Color.blanco("│")));
-            System.out
-                    .println((Color.blanco("│ ") + Color.morado("3. Modificar cliente         ") + Color.blanco("│")));
-            System.out
-                    .println((Color.blanco("│ ") + Color.morado("4. Eliminar cliente          ") + Color.blanco("│")));
-            System.out.println((Color.blanco("│ ") + Color.rojo("5. Volver al menú principal  ") + Color.blanco("│")));
-            System.out.println(Color.blanco("└──────────────────────────────┘" + "\n"));
-            System.out.print(Color.cian("> Seleccione una opción: "));
+            System.out.println(Color.cian("=== Módulo de Cliente ==="));
+            System.out.println(Color.verde("1. Lista de clientes"));
+            System.out.println(Color.verde("2. Información de cliente específico"));
+            System.out.println(Color.verde("3. Modificar cliente"));
+            System.out.println(Color.verde("4. Eliminar cliente"));
+            System.out.println(Color.rojo("5. Volver al menú principal"));
+            System.out.print(Color.azul("Seleccione una opción: "));
 
             int option = scanner.nextInt();
 
             switch (option) {
                 case 1:
-                    Color.limpiarPantalla();
-                    System.out.println(Color.amarillo(Color.negrita("> Lista de clientes")));
-                    scanner.nextInt();
+                    //listarClientes();//
                     break;
                 case 2:
-
+                    // Implementar funcionalidad aquí
                     break;
                 case 3:
                     // Implementar funcionalidad aquí
@@ -94,7 +79,6 @@ public class Menu {
                     // Implementar funcionalidad aquí
                     break;
                 case 5:
-                    Color.limpiarPantalla();
                     back = true;
                     break;
                 default:
@@ -108,7 +92,7 @@ public class Menu {
     private static void submenuUsuario(Scanner scanner) {
         boolean back = false;
         while (!back) {
-            System.out.println(Color.cian("↳ Módulo de Usuario"));
+            System.out.println(Color.cian("=== Módulo de Usuario ==="));
             System.out.println(Color.verde("1. Lista de usuarios"));
             System.out.println(Color.verde("2. Información de usuario específico"));
             System.out.println(Color.verde("3. Modificar usuario"));
