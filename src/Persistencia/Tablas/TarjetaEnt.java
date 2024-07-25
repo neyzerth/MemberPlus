@@ -8,8 +8,21 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import Persistencia.Conexion;
 
-public class TarjetaEnt {
+public class TarjetaEnt extends Query {
 
+    public TarjetaEnt(){
+        super("tarjeta",
+            "idTarjeta",
+            "numTarjeta", 
+            "fecExp", 
+            "fecVen", 
+            "activo", 
+            "saldo", 
+            "puntos", 
+            "cliente"
+        );
+    }
+    
     // Mostrar todas las tarjetas
     public Object[][] obtenerTodasLasTarjetasDB() {
         Object[][] tarjetaArray = null;
