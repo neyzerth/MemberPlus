@@ -7,7 +7,7 @@ public class App {
     public static void main(String[] args) {
     
         //Tabla vacia, solo con cabeceras
-        Tabla prueba = new Tabla("Nombre", "Edad", "Altura");
+        Tabla prueba = new Tabla(Color.amarillo("Nombre"), "Edad", "Altura");
 
         //Insertar datos
         prueba.agregarFila("Luis", 17, 1.76);
@@ -20,7 +20,7 @@ public class App {
 
         //arreglos de datos
         Object [][] datos = {
-            {1, "Pepa", 664}, 
+            {1, Color.amarillo("Pepa"), 664}, 
             {2, "Spiterman", 69}, 
             {3, "vegeta", 777},
             {4, "polosex", 69696969} 
