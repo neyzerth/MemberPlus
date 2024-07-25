@@ -13,7 +13,7 @@ public class Usuario extends Persona {
     public Usuario(String nombre, String apellidPa, String apellidoMa,
             String colonia, String calle, String telefono, String correo, int numCasa, int cp,
             Date fechaNacimiento, String nomUsuario, String contrasenia, String rfc, int idUsuario) {    
-        super(nombre, apellidPa, apellidoMa, colonia, calle, telefono, correo, numCasa, cp, fechaNacimiento);
+        //super(nombre, apellidPa, apellidoMa, colonia, calle, telefono, correo, numCasa, cp, fechaNacimiento);
         this.nomUsuario = nomUsuario;
         this.contrasenia = contrasenia;
         this.rfc = rfc;
