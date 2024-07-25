@@ -117,6 +117,21 @@ public class TarjetaEnt extends Query {
         }
     }
 
+  // Método para interactuar con el usuario y mostrar la tarjeta por número
+    public void obtenerTarjetaPorNum(String numTarjeta) {
+    try {
+        Object[] tarjeta = obtenerPorNumDB(numTarjeta);
+        if (tarjeta != null) {
+            String detallesTarjeta = formatearRegistro(tarjeta);
+            System.out.println(detallesTarjeta);
+        } else {
+            System.out.println("No se encontró la tarjeta con número: " + numTarjeta);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+
     public void actualizarTarjeta(int idTarjeta, String numTarjeta, Date fecExp, Date fecVen,
             boolean activo, float saldo, int puntos, int cliente, int nivel) {
         try {

@@ -59,9 +59,9 @@ public class App {
         tarjeta.ejecutarSelect();
         // tarjeta.actualizarTarjeta(1, "1", java.sql.Date.valueOf("2020-2-2"), java.sql.Date.valueOf("2020-2-2"), 
         // false, 12, 12,1, 1 );
-        // tarjeta.insertarTarjeta( 17,"2", java.sql.Date.valueOf("2020-2-2"), java.sql.Date.valueOf("2020-2-2"), 
-        // true, 1, 1,1, 1 );
-        tarjeta.obtenerTarjetaPorId(1);
+        tarjeta.insertarTarjeta( 17,"2", java.sql.Date.valueOf("2020-2-2"), java.sql.Date.valueOf("2020-2-2"), 
+        true, 1, 1,1, 1 );
+        tarjeta.obtenerTarjetaPorNum("2");
         
         
         

@@ -1,6 +1,7 @@
 package Persistencia.Tablas;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -97,6 +98,37 @@ public class Query {
         String query = select() + " WHERE " + nomColumnas[0] + " = ?";
         return query;
     }
+
+     // Obtener tarjeta por número de tarjeta
+    public Object[] obtenerPorNumDB(String numTarjeta) {
+        Object[] registro = null;
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+
+        if (conn != null) {
+            try {
+                String query = select() + " WHERE numTarjeta = ?";
+                PreparedStatement pstmt = conn.prepareStatement(query);
+                pstmt.setString(1, numTarjeta);
+
+                ResultSet rs = pstmt.executeQuery();
+                if (rs.next()) {
+                    registro = new Object[getCantColumnas()];
+                    for (int i = 0; i < getCantColumnas(); i++) {
+                        registro[i] = rs.getObject(getNomColumna(i));
+                    }
+                }
+
+                rs.close();
+                pstmt.close();
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return registro;
+    }
+
 
     public String insert(Object[] valores) {
         String query = "INSERT INTO " + tabla + " (";
@@ -229,5 +261,23 @@ public class Query {
         }
 
         return resultado;
+    }
+
+
+
+
+
+
+     // Método para formatear un registro de la tabla como cadena para cuando busquemos un registro salga asi 
+     //idTarjeta: 17, numTarjeta: 2, fecExp: 2020-02-02, fecVen: 2020-02-02, activo: true, saldo: 1.0, puntos: 1, cliente: 1, nivel: 1
+        public String formatearRegistro(Object[] registro) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < registro.length; i++) {
+            sb.append(nomColumnas[i]).append(": ").append(registro[i]);
+            if (i < registro.length - 1) {
+                sb.append(", ");
+            }
+        }
+        return sb.toString();
     }
 }
