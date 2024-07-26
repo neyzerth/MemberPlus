@@ -1,112 +1,54 @@
 package Persistencia.Tablas;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
-import Persistencia.Conexion;
-
-public class UsuarioEnt {
-    private int id, persona, rol;
-    private String nombreUsuario, contrasena, rfc;
-
-    private static Conexion c = new Conexion();
-
-    public UsuarioEnt(){
-
-    }
-
-    // METODOS
-    public static UsuarioEnt selectUsuario(int id){
-        UsuarioEnt usuario =  new UsuarioEnt();
-        String query = "SELECT * FROM usuario WHERE idUsuario = " + id;
-
-        try (Connection con = c.conectar();
-            Statement stmt = con.prepareStatement(query);
-            ResultSet rs = stmt.executeQuery(query)) {
-            if (rs.next()) {
-                usuario.id = rs.getInt("idUsuario");
-                usuario.nombreUsuario = rs.getString("nombreUsuario");
-                usuario.contrasena = rs.getString("contrasena");
-                usuario.rfc = rs.getString("rfc");
-                usuario.id = rs.getInt("idUsuario");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return usuario;
-    }
-
-    //
-    public static List<UsuarioEnt> selectAllUsuario(){
-        List<UsuarioEnt> usuarios = new ArrayList<>();
-        String query = "SELECT * FROM usuario";
-
-        try (Connection con = c.conectar();
-            Statement stmt = con.prepareStatement(query);
-            ResultSet rs = stmt.executeQuery(query)) {
-
-            while (rs.next()) {
-                usuarios.add(selectUsuario(rs.getInt(1)));
-            }
-
-            return usuarios;
-
-        } catch (SQLException e) {
-            return null;
-        }
-    }
-
-
-    public int getId() {
-        return this.id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getPersona() {
-        return this.persona;
-    }
-
-    public void setPersona(int persona) {
-        this.persona = persona;
-    }
-
-    public int getRol() {
-        return this.rol;
-    }
-
-    public void setRol(int rol) {
-        this.rol = rol;
-    }
-
-    public String getNombreUsuario() {
-        return this.nombreUsuario;
-    }
-
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
-    }
-
-    public String getContrasena() {
-        return this.contrasena;
-    }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
-
-    public String getRfc() {
-        return this.rfc;
-    }
-
-    public void setRfc(String rfc) {
-        this.rfc = rfc;
-    }
+public class UsuarioEnt extends Query {
     
+    public UsuarioEnt() {
+        super("usuario",
+                "idUsuario",
+                "nombreUsuario",
+                "contrasena",
+                "rfc",
+                "persona",
+                "rol");
+    }
+
+    // Verificar si un usuario ya existe en la base de datos por nombre de usuario y RFC
+    public boolean existeUsuario(String nombreUsuario, String rfc) {
+        return existeRegistro(getNomColumna(2), nombreUsuario) && existeRegistro(getNomColumna(4), rfc);
+    }
+
+    // Obtener un usuario por su ID
+    public Object[] obtenerUsuarioPorIdDB(int idUsuario) {
+        return ejecutarSelectPorID(idUsuario);
+    }
+
+    // Actualizar un usuario
+    public boolean actualizarUsuarioDB(int idUsuario, String nombreUsuario, String contrasena, String rfc, int idPersona, int idRol) {
+        Object[] valores = { idUsuario, nombreUsuario, contrasena, rfc, idPersona, idRol };
+        String query = update(valores, idUsuario);
+        return ejecutarUpdate(query);
+    }
+
+    // Insertar un usuario solo si el RFC no existe previamente
+    public boolean insertarUsuarioDB(int idUsuario, String nombreUsuario, String contrasena, String rfc, int idPersona, int idRol) {
+        if (!existeUsuario("", rfc)) { // Verifica que no exista un usuario con ese RFC
+            Object[] valores = { idUsuario, nombreUsuario, contrasena, rfc, idPersona, idRol };
+            String query = insert(valores);
+            return ejecutarInsert(query);
+        } else {
+            return false;
+        }
+    }
+
+    // Eliminar un usuario
+    public boolean eliminarUsuarioDB(int idUsuario) {
+        String query = delete(idUsuario);
+        return ejecutarDelete(query);
+    }
+
+    // Método para obtener un usuario por nombre de usuario desde la base de datos
+    public Object[] obtenerPorNombreUsuarioDB(String nombreUsuario) {
+        return ejecutarSelectUno(getNomColumna(2), nombreUsuario);
+    }
+
 }
