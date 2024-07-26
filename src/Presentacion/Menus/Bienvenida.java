@@ -14,17 +14,21 @@ public class Bienvenida {
         );
         bienvenida.imprimirCuadro();
 
-        System.out.println(Color.amarillo("   ,-~~-.___"));
-        System.out.println(Color.amarillo("  / |  '     \\ "));
-        System.out.println(Color.amarillo(" (  )        0"));
-        System.out.println(Color.amarillo("  \\_/-, ,----'"));
-        System.out.println(Color.amarillo("     ====           //"));
-        System.out.println(Color.amarillo("    /  \\-'~;    /~~~(O)"));
-        System.out.println(Color.amarillo("   /  __/~|   /       |"));
-        System.out.println(Color.amarillo(" =(  _____| (_________|"));
+        System.out.println(snoopy);
 
-        scanner.nextLine();
+        Texto.esperarEnter();
 
         Texto.limpiarPantalla();
     }
+
+    static String snoopy = Color.amarillo(
+            "   ,-~~-.___\n" +
+            "  / |  '     \\ \n" +
+            " (  )        0\n" +
+            "  \\_/-, ,----'\n" +
+            "     ====           //\n" +
+            "    /  \\-'~;    /~~~(O)\n" +
+            "   /  __/~|   /       |\n" +
+            " =(  _____| (_________|)\n"
+        );
 }

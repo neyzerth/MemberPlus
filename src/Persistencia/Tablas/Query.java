@@ -60,26 +60,30 @@ public class Query {
                 conn.close();
 
             } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
         return registros;
     }
 
-    public String selectUno(String columna){
-        String query = select() + " WHERE " + columna + " = ?";
+    public String selectUno(String... columna){
+        String query = select() + " WHERE " + columna[0] + " = ?";
+        for (int i = 1; i < columna.length; i++) {
+            query += " AND " + columna[i] + " = ?";
+        }
         return query;
     }
 
-    public Object[] ejecutarSelectUno(String columna, Object valor) {
+    public Object[] ejecutarSelectUno(String select, Object... valor) {
         Object[] registro = null;
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
 
         if (conn != null) {
             try {
-                PreparedStatement pstmt = conn.prepareStatement(selectUno(columna));
-                pstmt.setObject(1, valor);
+                PreparedStatement pstmt = conn.prepareStatement(select);
+                for (int i = 0; i < valor.length; i++) {
+                    pstmt.setObject((i + 1), valor[i]);
+                }
 
                 ResultSet rs = pstmt.executeQuery();
                 if (rs.next()) {
@@ -93,7 +97,6 @@ public class Query {
                 pstmt.close();
                 conn.close();
             } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
         return registro;
@@ -110,7 +113,7 @@ public class Query {
 
         if (conn != null) {
             try {
-                String query = "SELECT EXISTS (SELECT 1 FROM tarjeta WHERE" + columna + "= ?)";
+                String query = "SELECT EXISTS (SELECT 1 FROM " + tabla + " WHERE " + columna + " = ?)";
                 PreparedStatement pstmt = conn.prepareStatement(query);
                 pstmt.setObject(1, valor);
 
@@ -123,7 +126,6 @@ public class Query {
                 pstmt.close();
                 conn.close();
             } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
         return existe;
@@ -178,7 +180,6 @@ public class Query {
                 stmt.close();
                 conn.close();
             } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
 
@@ -228,7 +229,6 @@ public class Query {
                 stmt.close();
                 conn.close();
             } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
 
@@ -257,7 +257,6 @@ public class Query {
                 stmt.close();
                 conn.close();
             } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
 

@@ -13,13 +13,17 @@ public class UsuarioEnt extends Query {
     }
 
     // Verificar si un usuario ya existe en la base de datos por nombre de usuario y RFC
-    public boolean existeUsuario(String nombreUsuario, String rfc) {
-        return existeRegistro(getNomColumna(2), nombreUsuario) && existeRegistro(getNomColumna(4), rfc);
+    public boolean existeUsuario(String nombreUsuario, String contrasena) {
+        return existeRegistro(getNomColumna(1), nombreUsuario) && existeRegistro(getNomColumna(2), contrasena);
     }
 
     // Obtener un usuario por su ID
     public Object[] obtenerUsuarioPorIdDB(int idUsuario) {
         return ejecutarSelectPorID(idUsuario);
+    }
+    // Obtener un usuario por su ID
+    public Object[] obtenerUsuarioPorSesion(String nomUsuario, String contrasena) {
+        return ejecutarSelectUno(selectUno(getNomColumna(1), getNomColumna(2)), nomUsuario, contrasena);
     }
 
     // Actualizar un usuario

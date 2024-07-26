@@ -1,7 +1,7 @@
 package Persistencia.Tablas;
 
-public class ClienteENT extends Query {
-    public ClienteENT() {
+public class ClienteEnt extends Query {
+    public ClienteEnt() {
         super("cliente",
                 "idCliente",
                 "persona"); 

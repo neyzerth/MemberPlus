@@ -8,17 +8,17 @@ import java.util.Date;
 public class Persona {
     // ATRIBUTOS
     private String nombre, apellidoMa, apellidoPa, colonia, calle, telefono, correo, cp;
-    private int id, numExt, numInt;
+    private int idPersona, numExt, numInt;
     private Date fecNac;
 
     // CONSTRUCTORES
     public Persona() {
     }
 
-    public Persona(int id, String nombre, String apellidoPa, String apellidoMa, String colonia, String calle,
+    public Persona(int idPersona, String nombre, String apellidoPa, String apellidoMa, String colonia, String calle,
             int numExt,
             int numInt, String cp, String telefono, String correo, Date fecNac) {
-        this.id = id;
+        this.idPersona = idPersona;
         this.nombre = nombre;
         this.apellidoPa = apellidoPa;
         this.apellidoMa = apellidoMa;
@@ -79,8 +79,8 @@ public class Persona {
     }
 
     // GETTERS AND SETTERS
-    public int getId() {
-        return this.id;
+    public int getIdPersona() {
+        return this.idPersona;
     }
     // solo se obtiene el id ya que este no se va a modificar
 

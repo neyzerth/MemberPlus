@@ -7,6 +7,7 @@ import Presentacion.Formato.*;
 
 public class Principal {
     public static void menu() {
+        Texto.limpiarPantalla();
         Scanner scanner = new Scanner(System.in);
         boolean salir = false;
 
