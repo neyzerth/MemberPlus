@@ -14,10 +14,8 @@ public class Conexion {
         url = "jdbc:mysql://"+ host +"/" + bd;
         try{
             connection = DriverManager.getConnection(url, user, password);
-            System.out.println("Conexion exitosa a bd \'"+ bd +"\' en \'" + host +"\'");
             
         } catch(SQLException e){
-            System.out.println("Fallo de conexion  bd \'"+ bd +"\' en \'" + host +"\': " + e.getMessage());
         }
         return connection;
     }
