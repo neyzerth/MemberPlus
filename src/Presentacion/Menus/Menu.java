@@ -2,17 +2,16 @@ package Presentacion.Menus;
 
 import java.util.Scanner;
 
+import Presentacion.Login;
 import Presentacion.Despliegue.Cuadro;
 import Presentacion.Formato.Color;
 
 public class Menu {
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         boolean exit = false;
 
         // Start
-
         while (!exit) {
             System.out.println(Color
                     .morado(Color.invertido((Cuadro.espacio(6) + "  Bienvenido :D" + (Cuadro.espacio(8) + "\n")))));
@@ -41,7 +40,7 @@ public class Menu {
                     moduloVenta(scanner);
                     break;
                 case 2:
-                     Color.limpiarPantalla();
+                    Color.limpiarPantalla();
                     moduloCliente(scanner);
                     break;
                 case 3:
@@ -62,9 +61,9 @@ public class Menu {
             }
         }
     }
-    //End
+    // End
 
-    //Start
+    // Start
     private static void moduloVenta(Scanner scanner) {
         boolean back = false;
         while (!back) {
@@ -73,7 +72,7 @@ public class Menu {
             Cuadro venta = new Cuadro(
                     Color.morado("Numero de tarjeta"),
                     Color.morado("Recoger el total"),
-                    Color.morado("Volver al menú principal"));
+                    Color.rojo("Volver al menú principal"));
             venta.imprimirCuadroNum();
 
             System.out.println();
@@ -87,6 +86,7 @@ public class Menu {
 
                     Cuadro numTarjeta = new Cuadro(
                             Color.amarillo("> Numero de tarjeta"));
+
                     numTarjeta.imprimirCuadro();
 
                     scanner.nextInt();
@@ -101,12 +101,13 @@ public class Menu {
                     scanner.nextInt();
                     break;
                 case 3:
+                    Color.limpiarPantalla();
                     back = true;
                     break;
                 default:
                     System.out.println(Color.rojo("Opción inválida, por favor intente de nuevo."));
             }
-            //End
+            // End
         }
     }
 
@@ -187,8 +188,8 @@ public class Menu {
                     Color.morado("Lista de usuarios"),
                     Color.morado("Información de usuario"),
                     Color.morado("Modificar usuario"),
-                    Color.rojo("Eliminar usuario"),
-                    Color.morado("Volver al menú principal"));
+                    Color.morado("Eliminar usuario"),
+                    Color.rojo("Volver al menú principal"));
             usuario.imprimirCuadroNum();
 
             System.out.println();
@@ -234,6 +235,7 @@ public class Menu {
                     scanner.nextInt();
                     break;
                 case 5:
+                    Color.limpiarPantalla();
                     back = true;
                     break;
                 default:
@@ -243,7 +245,7 @@ public class Menu {
     }
     // End
 
-    //Start
+    // Start
     private static void moduloTarjeta(Scanner scanner) {
         boolean back = false;
         while (!back) {
@@ -253,7 +255,7 @@ public class Menu {
                     Color.morado("Movimientos"),
                     Color.morado("Nivel de tarjetas"),
                     Color.morado("Beneficios"),
-                    Color.morado("Volver al menú principal"));
+                    Color.rojo("Volver al menú principal"));
             tarjeta.imprimirCuadroNum();
 
             System.out.println();
@@ -264,12 +266,7 @@ public class Menu {
             switch (option) {
                 case 1:
                     Color.limpiarPantalla();
-
-                    Cuadro movimientosTarj = new Cuadro(
-                            Color.amarillo("> Seleccione el movimiento"));
-                    movimientosTarj.imprimirCuadro();
-
-                    scanner.nextInt();
+                    movimientosTarj(scanner);
                     break;
                 case 2:
                     Color.limpiarPantalla();
@@ -290,12 +287,68 @@ public class Menu {
                     scanner.nextInt();
                     break;
                 case 4:
+                    Color.limpiarPantalla();
                     back = true;
                     break;
                 default:
                     System.out.println(Color.rojo("Opción inválida, por favor intente de nuevo."));
             }
-            //End
+        }
+        // End
+    }
+
+    private static void movimientosTarj(Scanner scanner) {
+        boolean back = false;
+        while (!back) {
+            System.out.println(Color.morado(Color.negrita(Cuadro.espacio(8) + "> Módulo de Tarjeta <")));
+
+            Cuadro tarjeta = new Cuadro(
+                    Color.morado("Alta de membresia"),
+                    Color.morado("Cancelación de membresia"),
+                    Color.morado("Renovación de membresia"),
+                    Color.rojo("Volver al modulo"));
+            tarjeta.imprimirCuadroNum();
+
+            System.out.println();
+            System.out.print(Color.cian(Cuadro.espacio(1) + "> Seleccione una opción: "));
+
+            int option = scanner.nextInt();
+
+            switch (option) {
+                case 1:
+                    Color.limpiarPantalla();
+
+                    Cuadro movimientosTarj = new Cuadro(
+                            Color.amarillo("> Alta de membresia"));
+                    movimientosTarj.imprimirCuadro();
+
+                    scanner.nextInt();
+                    break;
+                case 2:
+                    Color.limpiarPantalla();
+
+                    Cuadro nivelTarj = new Cuadro(
+                            Color.amarillo("> Cancelación de membresia"));
+                    nivelTarj.imprimirCuadro();
+
+                    scanner.nextInt();
+                    break;
+                case 3:
+                    Color.limpiarPantalla();
+
+                    Cuadro beneficTarj = new Cuadro(
+                            Color.amarillo("> Renovacion de la membresia"));
+                    beneficTarj.imprimirCuadro();
+
+                    scanner.nextInt();
+                    break;
+                case 4:
+                    Color.limpiarPantalla();
+                    back = true;
+                    break;
+                default:
+                    System.out.println(Color.rojo("Opción inválida, por favor intente de nuevo."));
+            }
         }
     }
 }

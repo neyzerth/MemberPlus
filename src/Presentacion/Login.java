@@ -1,49 +1,59 @@
 package Presentacion;
 
 import Persistencia.Conexion;
+import Presentacion.Despliegue.Cuadro;
 import Presentacion.Formato.Color;
-
+import Presentacion.Menus.Menu;
 import java.io.Console;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.Scanner;
 public class Login {
 
     public static void interfaz() {
+        Scanner scanner = new Scanner(System.in);
         Console consola = System.console();
         verificarConsola(consola);
 
-        System.out.println(Color.blanco("╔══════════════════════════════════════╗"));
-        System.out.println(Color.blanco("║ ") +Color.azul("     Sistema de Membresías           ") + Color.blanco("║"));
-        System.out.println(Color.blanco("║ ") + Color.azul("               Member+               ") + Color.blanco ("║"));
-        System.out.println(Color.blanco("╚──────────────────────────────────────╝"));
+        Cuadro inicioS = new Cuadro(Color.morado(" > Iniciar sesión <"));
+        inicioS.imprimirCuadro();
+        System.out.println();
 
         // Solicitar nombre de usuario
-        System.out.print(Color.blanco("Usuario: "));
+        System.out.print(Color.cian(" > Usuario: "));
         String usuario = consola.readLine();
 
         // Solicitar contraseña de forma segura
-        char[] contrasenaArreglo = consola.readPassword(Color.blanco("Contraseña: "));
+        char[] contrasenaArreglo = consola.readPassword(Color.cian(" > Contraseña: "));
 
         // Convertir el array de caracteres a String
         String contrasena = new String(contrasenaArreglo);
 
+        Color.limpiarPantalla();
         // Verificación de credenciales
         if (validarDatos(usuario, contrasena)) {
-            System.out.println(Color.blanco("╔──────────────────────────────────────╗"));
-            System.out.println(Color.blanco("║ ") + Color.verde("¡Inicio de sesión exitoso!           ") + Color.blanco("║"));
-            System.out.println(Color.blanco("║ ") + Color.verde("Acceso a contenido exclusivo:        ") + Color.blanco("║"));
-            System.out.println(Color.blanco("║ ") + Color.verde("- Artículos premium                  ") + Color.blanco("║"));
-            System.out.println(Color.blanco("║ ") + Color.verde("- Descuentos especiales              ") + Color.blanco("║"));
-            System.out.println(Color.blanco("╚══════════════════════════════════════╝"));
+            Cuadro exitoso = new Cuadro(
+                Color.verde("¡Inicio de sesión exitoso!"),
+                Color.verde("Acceso a contenido exclusivo:"),
+                Color.verde("- Artículos premium"),
+                Color.verde("- Descuentos especiales")
+            );
+            exitoso.imprimirCuadro()
+            ;
+            System.out.println(Color.morado(" > Presione para continuar"));
+            scanner.nextLine();
+            Color.limpiarPantalla();
+
+            Menu.main(new String[]{});
         } else {
-            System.out.println(Color.blanco("╔──────────────────────────────────────╗"));
-            System.out.println(Color.blanco("║ ") + Color.rojo("Credenciales incorrectas. Inténtalo  ") + Color.blanco("║"));
-            System.out.println(Color.blanco("║ ") + Color.rojo("de nuevo o regístrate para obtener   ") + Color.blanco("║"));
-            System.out.println(Color.blanco("║ ") + Color.rojo("una membresía.                       ") + Color.blanco("║"));
-            System.out.println(Color.blanco("╚══════════════════════════════════════╝"));
+            Cuadro incorrecto = new Cuadro(
+                Color.rojo("Contraseña o Usuario incorrecto. Inténtalo"),
+                Color.rojo("de nuevo o regístrate para obtener"),
+                Color.rojo("una membresía.")
+            );
+            incorrecto.imprimirCuadro();
         }
     }
 
