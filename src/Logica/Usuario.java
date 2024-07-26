@@ -53,9 +53,7 @@ public class Usuario extends Persona {
         return this.idUsuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
+    //no se va a modificar el idUsuario
 
 
 }
