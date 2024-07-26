@@ -46,22 +46,7 @@ public class RolEnt extends Query {
         return rol;
     }
 
-    //Actualizar Rol
-    public boolean actualizarRolDB(int idRol, String nombre, String descripcion) {
-        Object[] valores = { idRol,nombre, descripcion };
-        String query = update(valores, idRol);
-        return ejecutarUpdate(query);
-    }
-    
-    
-    // Insertar un rol
-    public boolean insertarRolDB(int idRol,String nombre, String descripcion) {
-        Object[] valores = { idRol,nombre, descripcion };
-        String query = insert(valores);
-        return ejecutarInsert(query);
-    }
-
-    // Verificar si un rol ya existe en la base de datos por nombre
+      // Verificar si un rol ya existe en la base de datos por nombre
     public boolean existeRol(String nombreRol) {
         boolean existe = false;
         Conexion conexion = new Conexion();
@@ -87,6 +72,27 @@ public class RolEnt extends Query {
         }
         return existe;
     }
+
+
+     // Funciones para operar Roles
+    
+    
+    //Actualizar Rol
+    public boolean actualizarRolDB(int idRol, String nombre, String descripcion) {
+        Object[] valores = { idRol,nombre, descripcion };
+        String query = update(valores, idRol);
+        return ejecutarUpdate(query);
+    }
+    
+    
+    // Insertar un rol
+    public boolean insertarRolDB(int idRol,String nombre, String descripcion) {
+        Object[] valores = { idRol,nombre, descripcion };
+        String query = insert(valores);
+        return ejecutarInsert(query);
+    }
+
+
 
     // Eliminar un rol
     public boolean eliminarRolDB(int idRol) {
