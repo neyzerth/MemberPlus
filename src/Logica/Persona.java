@@ -1,48 +1,97 @@
 package Logica;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Persona {
     // ATRIBUTOS
-    private String nombre, apellidPa, apellidoMa, colonia, calle, telefono, correo;
-    private int numCasa, cp;
-    private Date fechaNacimiento;
+    private String nombre, apellidoMa, apellidoPa, colonia, calle, telefono, correo, cp;
+    private int id, numExt, numInt;
+    private Date fecNac;
 
     // CONSTRUCTORES
+    public Persona() {
+    }
 
-    public Persona(){}
-
-    public Persona(String nombre, String apellidPa, String apellidoMa, String colonia, String calle, String telefono,
-            String correo, int numCasa, int cp, Date fechaNacimiento) {
+    public Persona(int id, String nombre, String apellidoPa, String apellidoMa, String colonia, String calle,
+            int numExt,
+            int numInt, String cp, String telefono, String correo, Date fecNac) {
+        this.id = id;
         this.nombre = nombre;
-        this.apellidPa = apellidPa;
+        this.apellidoPa = apellidoPa;
         this.apellidoMa = apellidoMa;
         this.colonia = colonia;
         this.calle = calle;
+        this.numExt = numExt;
+        this.numInt = numInt;
+        this.cp = cp;
         this.telefono = telefono;
         this.correo = correo;
-        this.numCasa = numCasa;
-        this.cp = cp;
-        this.fechaNacimiento = fechaNacimiento;
+        this.fecNac = fecNac;
     }
-    // METODOS
+
+    // Método para modificar y verificar los datos
+    public void modificar(String nombre, String apellidoPa, String apellidoMa, String colonia,
+            String calle, String numExtStr, String numIntStr, String cp, String telefono,
+            String correo, String fecNacStr) {
+
+        this.setNombre(nombre);
+        this.setApellidoPa(apellidoPa);
+        this.setApellidoMa(apellidoMa);
+        this.setColonia(colonia);
+        this.setCalle(calle);
+        this.setNumExt(numExtStr);
+        this.setNumInt(numIntStr);
+        this.setCp(cp);
+        this.setTelefono(telefono);
+        this.setCorreo(correo);
+        this.setFecNac(fecNacStr);
+    }
+
+    // Método para calcular edad
+    public int calcularEdad(Persona persona) {
+        Date fechaNacimiento = persona.getFecNac();
+        Calendar fechaActual = Calendar.getInstance();
+        Calendar fechaNacimientoCalendar = Calendar.getInstance();
+        fechaNacimientoCalendar.setTime(fechaNacimiento);
+
+        int añoActual = fechaActual.get(Calendar.YEAR);
+        int añoNacimiento = fechaNacimientoCalendar.get(Calendar.YEAR);
+        int mesActual = fechaActual.get(Calendar.MONTH);
+        int mesNacimiento = fechaNacimientoCalendar.get(Calendar.MONTH);
+        int diaActual = fechaActual.get(Calendar.DAY_OF_MONTH);
+        int diaNacimiento = fechaNacimientoCalendar.get(Calendar.DAY_OF_MONTH);
+
+        int edad = añoActual - añoNacimiento;
+
+        if (mesActual < mesNacimiento || (mesActual == mesNacimiento && diaActual < diaNacimiento)) {
+            edad--;
+        }
+
+        return edad;
+    }
+
+    // Imprime solamente la edad
+    public void imprimirEdad() {
+        System.out.println("Edad: " + calcularEdad(this));
+    }
 
     // GETTERS AND SETTERS
+    public int getId() {
+        return this.id;
+    }
+    // solo se obtiene el id ya que este no se va a modificar
 
     public String getNombre() {
         return this.nombre;
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellidPa() {
-        return this.apellidPa;
-    }
-
-    public void setApellidPa(String apellidPa) {
-        this.apellidPa = apellidPa;
+        if (nombre == null || nombre.trim().isEmpty())
+            throw new IllegalArgumentException("El nombre no puede estar vacío");
+        this.nombre = nombre.trim();
     }
 
     public String getApellidoMa() {
@@ -50,7 +99,19 @@ public class Persona {
     }
 
     public void setApellidoMa(String apellidoMa) {
-        this.apellidoMa = apellidoMa;
+        if (apellidoMa == null || apellidoMa.trim().isEmpty())
+            throw new IllegalArgumentException("El apellido materno no puede estar vacío");
+        this.apellidoMa = apellidoMa.trim();
+    }
+
+    public String getApellidoPa() {
+        return this.apellidoPa;
+    }
+
+    public void setApellidoPa(String apellidoPa) {
+        if (apellidoPa == null || apellidoPa.trim().isEmpty())
+            throw new IllegalArgumentException("El apellido paterno no puede estar vacío");
+        this.apellidoPa = apellidoPa.trim();
     }
 
     public String getColonia() {
@@ -58,7 +119,9 @@ public class Persona {
     }
 
     public void setColonia(String colonia) {
-        this.colonia = colonia;
+        if (colonia == null || colonia.trim().isEmpty())
+            throw new IllegalArgumentException("La colonia no puede estar vacía");
+        this.colonia = colonia.trim();
     }
 
     public String getCalle() {
@@ -66,7 +129,57 @@ public class Persona {
     }
 
     public void setCalle(String calle) {
-        this.calle = calle;
+        if (calle == null || calle.trim().isEmpty())
+            throw new IllegalArgumentException("La calle no puede estar vacía");
+        this.calle = calle.trim();
+    }
+
+    public int getNumExt() {
+        return this.numExt;
+    }
+
+    public void setNumExt(int numExt) {
+        if (numExt <= 0)
+            throw new IllegalArgumentException("El número exterior no puede ser negativo o cero");
+        this.numExt = numExt;
+    }
+
+    public void setNumExt(String numExtStr) {
+        try {
+            int numExt = Integer.parseInt(numExtStr);
+            this.setNumExt(numExt);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("El número exterior no es válido");
+        }
+    }
+
+    public int getNumInt() {
+        return this.numInt;
+    }
+
+    public void setNumInt(int numInt) {
+        if (numInt < 0)
+            throw new IllegalArgumentException("El número interior no puede ser negativo");
+        this.numInt = numInt;
+    }
+
+    public void setNumInt(String numIntStr) {
+        try {
+            int numInt = Integer.parseInt(numIntStr);
+            this.setNumInt(numInt);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("El número interior no es válido");
+        }
+    }
+
+    public String getCp() {
+        return this.cp;
+    }
+
+    public void setCp(String cp) {
+        if (cp == null || cp.trim().isEmpty())
+            throw new IllegalArgumentException("El código postal no puede estar vacío");
+        this.cp = cp.trim();
     }
 
     public String getTelefono() {
@@ -74,7 +187,9 @@ public class Persona {
     }
 
     public void setTelefono(String telefono) {
-        this.telefono = telefono;
+        if (telefono == null || telefono.trim().isEmpty())
+            throw new IllegalArgumentException("El teléfono no puede estar vacío");
+        this.telefono = telefono.trim();
     }
 
     public String getCorreo() {
@@ -82,31 +197,27 @@ public class Persona {
     }
 
     public void setCorreo(String correo) {
-        this.correo = correo;
+        if (correo == null || correo.trim().isEmpty())
+            throw new IllegalArgumentException("El correo no puede estar vacío");
+        this.correo = correo.trim();
     }
 
-    public int getNumCasa() {
-        return this.numCasa;
+    public Date getFecNac() {
+        return this.fecNac;
     }
 
-    public void setNumCasa(int numCasa) {
-        this.numCasa = numCasa;
+    public void setFecNac(Date fecNac) {
+        if (fecNac == null)
+            throw new IllegalArgumentException("La fecha de nacimiento no puede estar vacía");
+        this.fecNac = fecNac;
     }
 
-    public int getCp() {
-        return this.cp;
+    public void setFecNac(String fecNacStr) {
+        try {
+            Date fecNac = new SimpleDateFormat("yyyy-MM-dd").parse(fecNacStr);
+            this.fecNac = fecNac;
+        } catch (ParseException e) {
+            throw new IllegalArgumentException("La fecha de nacimiento no es válida", e);
+        }
     }
-
-    public void setCp(int cp) {
-        this.cp = cp;
-    }
-
-    public Date getFechaNacimiento() {
-        return this.fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
 }

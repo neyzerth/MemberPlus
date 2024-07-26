@@ -42,8 +42,4 @@ public class TipoMovimiento extends Movimiento {
         this.descripcion = descripcion;
     }
 
- 
-
-
-
 }

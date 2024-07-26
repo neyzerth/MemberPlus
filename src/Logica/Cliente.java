@@ -1,26 +1,27 @@
 package Logica;
+
 import java.util.Date;
 
 public class Cliente extends Persona {
-  // ATRIBUTOS
-  private int idCliente;
+    // ATRIBUTOS
+    private int idCliente;
 
-  // CONSTRUCTORES
-  public Cliente(String nombre, String apellidPa, String apellidoMa,
-      String colonia, String calle, String telefono, String correo, int numCasa, int cp,
-      Date fechaNacimiento,int idCliente
-    ) {
-    super(nombre, apellidPa, apellidoMa, colonia, calle, telefono, correo, numCasa, cp, fechaNacimiento);
-    this.idCliente = idCliente;
-  }
-  // METODOS
+    // CONSTRUCTORES
+    public Cliente() {
+    }
 
-  // GETTERS AND SETTERS
-  public int getIdCliente() {
-    return this.idCliente;
-  }
+    public Cliente(int id, String nombre, String apellidoPa, String apellidoMa,
+            String colonia, String calle, int numExt, int numInt, String cp, String telefono, String correo,
+            Date fecNac, int idCliente) {
+        // El constructor le faltaban atributos, y el id de persona se transfiere
+        super(id, nombre, apellidoMa, apellidoPa, colonia, calle, numExt, numInt, telefono, correo, cp, fecNac);
+        this.idCliente = idCliente;
+    }
+    // METODOS
 
-  public void setIdCliente(int idCliente){
-  this.idCliente=idCliente;
-  }
+    // GETTERS AND SETTERS
+    public int getIdCliente() {
+        return this.idCliente;
+    }
+    // elimine el setter de idCliente
 }
