@@ -261,7 +261,6 @@ public class Query {
                 e.printStackTrace();
             }
         }
-
         return resultado;
     }
 

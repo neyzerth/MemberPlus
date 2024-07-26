@@ -106,9 +106,8 @@ public class TarjetaEnt extends Query {
         try {
             Object[] tarjeta = obtenerTarjetaPorIdDB(idTarjeta);
             if (tarjeta != null) {
-                System.out.println("ID: " + tarjeta[0] + ", Número: " + tarjeta[1] + ", Fecha Exp: " + tarjeta[2] +
-                        ", Fecha Ven: " + tarjeta[3] + ", Activo: " + tarjeta[4] + ", Saldo: " + tarjeta[5] +
-                        ", Puntos: " + tarjeta[6] + ", Cliente: " + tarjeta[7] + ", Nivel: " + tarjeta[8]);
+                String detallesTarjeta = formatearRegistro(tarjeta);
+                System.out.println(detallesTarjeta);
             } else {
                 System.out.println("No se encontró la tarjeta con ID: " + idTarjeta);
             }

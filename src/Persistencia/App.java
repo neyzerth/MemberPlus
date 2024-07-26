@@ -1,11 +1,17 @@
 package Persistencia;
 
 import java.util.List;
-
+import Persistencia.Tablas.BeneficioEnt;
 import Persistencia.Tablas.PersonaEnt;
 import Persistencia.Tablas.RolEnt;
 import Persistencia.Tablas.TarjetaEnt;
 import Persistencia.Tablas.UsuarioEnt;
+import Persistencia.Tablas.MovimientoEnt;
+import Persistencia.Tablas.CompraEnt;
+import Persistencia.Tablas.NivelEnt;
+import Persistencia.Tablas.TipoMovimientoEnt;
+
+
 import java.util.Date;
 
 public class App {
@@ -46,38 +52,91 @@ public class App {
 
         // TarjetaEnt tarjeta = new TarjetaEnt();
 
-        
-
         // tarjeta.ejecutarSelect();
-        // // tarjeta.actualizarTarjeta(1, "1", java.sql.Date.valueOf("2020-2-2"), java.sql.Date.valueOf("2020-2-2"), 
+        // // tarjeta.actualizarTarjeta(1, "1", java.sql.Date.valueOf("2020-2-2"),
+        // java.sql.Date.valueOf("2020-2-2"),
         // // false, 12, 12,1, 1 );
-        // tarjeta.insertarTarjeta( 17,"2", java.sql.Date.valueOf("2020-2-2"), java.sql.Date.valueOf("2020-2-2"), 
+        // tarjeta.insertarTarjeta( 17,"2", java.sql.Date.valueOf("2020-2-2"),
+        // java.sql.Date.valueOf("2020-2-2"),
         // true, 1, 1,1, 1 );
         // tarjeta.obtenerTarjetaPorNum("2");
 
-         RolEnt rolEnt = new RolEnt();
-         for (int i = 0; i < rolEnt.getCantColumnas(); i++) {
-            System.out.print(rolEnt.getNomColumna(i) + "\t");
+        // RolEnt rolEnt = new RolEnt();
+        // for (int i = 0; i < rolEnt.getCantColumnas(); i++) {
+        //     System.out.print(rolEnt.getNomColumna(i) + "\t");
+        // }
+        // System.out.println();
+        // for (Object[] columna : rolEnt.ejecutarSelect()) {
+        //     for (Object fila : columna) {
+        //         System.out.print(fila + "\t");
+        //     }
+        //     System.out.println();
+        // }
+        // rolEnt.ejecutarSelect();
+
+        // BeneficioEnt beneficioEnt = new BeneficioEnt();
+
+        // for (int i = 0; i < beneficioEnt.getCantColumnas(); i++) {
+        //     System.out.print(beneficioEnt.getNomColumna(i) + "\t");
+        // }
+        // System.out.println();
+        // for (Object[] columna : beneficioEnt.ejecutarSelect()) {
+        //     for (Object fila : columna) {
+        //         System.out.print(fila + "\t");
+        //     }
+        //     System.out.println();
+
+        //     beneficioEnt.ejecutarSelect();
+
+        // }
+
+         CompraEnt compraEnt = new CompraEnt();
+
+        //  for (int i = 0; i < compraEnt.getCantColumnas(); i++) {
+        //     System.out.print(compraEnt.getNomColumna(i) + "\t");
+        // }
+        // System.out.println();
+        // for (Object[] columna : compraEnt.ejecutarSelect()) {
+        //     for (Object fila : columna) {
+        //         System.out.print(fila + "\t");
+        //     }
+        //     System.out.println();
+
+        //     compraEnt.ejecutarSelect();
+        // }
+
+        // MovimientoEnt movimientoEnt = new MovimientoEnt();
+
+        // for (int i = 0; i < movimientoEnt.getCantColumnas(); i++) {
+        //     System.out.print(movimientoEnt.getNomColumna(i) + "\t");
+        // }
+        // System.out.println();
+        // for (Object[] columna : movimientoEnt.ejecutarSelect()) {
+        //     for (Object fila : columna) {
+        //         System.out.print(fila + "\t");
+        //     }
+        //     System.out.println();
+
+        //     movimientoEnt.ejecutarSelect();
+        // }
+
+        NivelEnt nivelEnt = new NivelEnt();
+
+        for (int i = 0; i < nivelEnt.getCantColumnas(); i++) {
+            System.out.print(nivelEnt.getNomColumna(i) + "\t");
         }
         System.out.println();
-        for (Object[] columna : rolEnt.ejecutarSelect()) {
+        for (Object[] columna : nivelEnt.ejecutarSelect()) {
             for (Object fila : columna) {
                 System.out.print(fila + "\t");
             }
             System.out.println();
+
+            nivelEnt.ejecutarSelect();
         }
-         rolEnt.ejecutarSelect();
-
-         rolEnt.obtenerRolPorId(1);
-
-         
 
 
-      
 
-    
-        
-        
-        
+
     }
 }

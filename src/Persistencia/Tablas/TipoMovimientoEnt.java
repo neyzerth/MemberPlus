@@ -1,5 +1,5 @@
 package Persistencia.Tablas;
 
-public class TipoMovimiento {
+public class TipoMovimientoEnt {
     
 }
