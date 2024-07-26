@@ -2,10 +2,12 @@ package Presentacion.Menus;
 
 import java.util.Scanner;
 import Presentacion.Despliegue.Cuadro;
-import Presentacion.Formato.Color;
+import Presentacion.Formato.*;
 
 public class Bienvenida {
-    public static void main(String[] args) {
+    public static void menu(Scanner scanner) {
+        Texto.limpiarPantalla();
+
         Cuadro bienvenida = new Cuadro(
             Color.morado("   Bienvenidos "), 
             Color.cian("   a Member +")
@@ -21,9 +23,8 @@ public class Bienvenida {
         System.out.println(Color.amarillo("   /  __/~|   /       |"));
         System.out.println(Color.amarillo(" =(  _____| (_________|"));
 
-        Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
 
-        Color.limpiarPantalla();
+        Texto.limpiarPantalla();
     }
 }

@@ -2,14 +2,13 @@ package Presentacion.Menus;
 
 import Persistencia.Conexion;
 import Presentacion.Despliegue.Cuadro;
-import Presentacion.Formato.Color;
+import Presentacion.Formato.*;
 
 import java.io.Console;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Scanner;
 
 public class Login {
 
@@ -18,9 +17,7 @@ public class Login {
         String contrasena;
         
         do {
-            Scanner scanner = new Scanner(System.in);
             Console consola = System.console();
-            verificarConsola(consola);
 
             Cuadro inicioS = new Cuadro(Color.morado(" > Iniciar sesión <"));
             inicioS.imprimirCuadro();
@@ -36,7 +33,7 @@ public class Login {
             // Convertir el array de caracteres a String
             contrasena = new String(contrasenaArreglo);
 
-            Color.limpiarPantalla();
+            Texto.limpiarPantalla();
             // Verificación de credenciales
             if(!validarDatos(usuario, contrasena)){
                 System.out.println(Color.rojo(Color.negrita(" ¡Datos incorrectos! ")));
@@ -45,7 +42,7 @@ public class Login {
 
         } while (!validarDatos(usuario, contrasena));
 
-        Menu.main(new String[] {});
+        Principal.menu();
     }
 
     private static boolean validarDatos(String usuario, String contrasena) {
@@ -66,13 +63,5 @@ public class Login {
         }
 
         return esValido;
-    }
-
-    public static void verificarConsola(Console consola) {
-        // Verificar si console es null
-        if (consola == null) {
-            System.err.println("No se puede obtener la consola. Ejecute este programa en una consola o terminal.");
-            System.exit(1);
-        }
     }
 }

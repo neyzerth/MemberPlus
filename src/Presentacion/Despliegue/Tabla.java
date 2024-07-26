@@ -2,6 +2,8 @@ package Presentacion.Despliegue;
 
 import java.util.ArrayList;
 
+import Presentacion.Formato.Texto;
+
 public class Tabla extends Cuadro{
 
     private String[] cabeceras; // Titulos de las columnas
@@ -112,7 +114,7 @@ public class Tabla extends Cuadro{
                 longDato -=9;
 
             fila += dato;
-            fila += espacio(maxColumna[i] - longDato);
+            fila += Texto.espacio(maxColumna[i] - longDato);
             fila += colum;
         }
         return fila;

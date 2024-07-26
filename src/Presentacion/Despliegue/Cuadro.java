@@ -1,6 +1,7 @@
 package Presentacion.Despliegue;
 
 import Presentacion.Formato.Color;
+import Presentacion.Formato.Texto;
 
 class Prueba {
     public static void main(String[] args) {
@@ -50,7 +51,7 @@ public class Cuadro{
             
             String fila = colum;
             fila += txt;
-            fila += espacio(maxLinea - longFila);
+            fila += Texto.espacio(maxLinea - longFila);
             fila += colum;
 
             cuadro += fila+  "\n";
@@ -72,7 +73,7 @@ public class Cuadro{
             String fila = colum;
             fila += (i + 1) + ". ";
             fila += texto[i];
-            fila += espacio(maxLinea - longFila);
+            fila += Texto.espacio(maxLinea - longFila);
             fila += colum;
 
             cuadro += fila+  "\n";
@@ -94,7 +95,7 @@ public class Cuadro{
             String fila = colum;
             fila += caracter + " ";
             fila += txt;
-            fila += espacio(maxLinea - longFila);
+            fila += Texto.espacio(maxLinea - longFila);
             fila += colum;
 
             cuadro += fila+  "\n";
@@ -112,15 +113,6 @@ public class Cuadro{
             lineas += techo;
         }
         return lineas;
-    }
-
-    // iterando linea plana
-    public static String espacio(int n) {
-        String espacios = "";
-        for (int i = 0; i < n; i++) {
-            espacios += " ";
-        }
-        return espacios;
     }
 
     // calcular la longitud de cadena mayor en cada columna

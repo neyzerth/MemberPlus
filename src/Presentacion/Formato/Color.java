@@ -196,11 +196,5 @@ public class Color {
         return colorText(invisible, txt);
     }
 
-    //limpiar pantalla 
-    public static void limpiarPantalla() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
 
 }
