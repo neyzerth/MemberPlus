@@ -100,7 +100,7 @@ public class Query {
     }
 
     public Object[] ejecutarSelectPorID(int valor){
-        return ejecutarSelectUno(getNomColumna(0), valor);
+        return ejecutarSelectUno(getNomColumna(1), valor);
     }
 
     public boolean existeRegistro(String columna, Object valor) {
@@ -275,10 +275,6 @@ public class Query {
             }
         }
         return sb.toString();
-    }
-
-    public void imprimirRegistro(Object [] registro){
-        System.out.println(formatearRegistro(registro));
     }
 
     public String getTabla() {
