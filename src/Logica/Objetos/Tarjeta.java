@@ -1,4 +1,4 @@
-package Logica;
+package Logica.Objetos;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
