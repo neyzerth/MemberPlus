@@ -187,28 +187,30 @@ public class Query {
 
     public String update(Object[] valores, int id) {
         String query = "UPDATE " + tabla + " SET ";
-
+    
         // Construir la lista de columnas y valores a actualizar
         for (int i = 0; i < nomColumnas.length; i++) {
             query += nomColumnas[i] + " = ";
-        
+            
             if (valores[i] instanceof String || valores[i] instanceof Date) {
                 query += "'" + valores[i] + "'";
             } else {
                 query += valores[i];
             }
-
+    
             if (i != nomColumnas.length - 1) {
                 query += ", ";
             } else {
                 query += " ";
             }
         }
-
+    
         query += "WHERE " + nomColumnas[0] + " = " + id;
-
+    
         return query;
     }
+    
+    
 
     public boolean ejecutarUpdate(String query) {
         Conexion conexion = new Conexion();

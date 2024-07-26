@@ -3,6 +3,7 @@ package Persistencia;
 import java.util.List;
 
 import Persistencia.Tablas.PersonaEnt;
+import Persistencia.Tablas.RolEnt;
 import Persistencia.Tablas.TarjetaEnt;
 import Persistencia.Tablas.UsuarioEnt;
 import java.util.Date;
@@ -43,25 +44,38 @@ public class App {
         // System.out.println("ID: " + user.getId() + ", Nombre: ");
         // }
 
-        TarjetaEnt tarjeta = new TarjetaEnt();
+        // TarjetaEnt tarjeta = new TarjetaEnt();
 
-        for (int i = 0; i < tarjeta.getCantColumnas(); i++) {
-            System.out.print(tarjeta.getNomColumna(i) + "\t");
+        
+
+        // tarjeta.ejecutarSelect();
+        // // tarjeta.actualizarTarjeta(1, "1", java.sql.Date.valueOf("2020-2-2"), java.sql.Date.valueOf("2020-2-2"), 
+        // // false, 12, 12,1, 1 );
+        // tarjeta.insertarTarjeta( 17,"2", java.sql.Date.valueOf("2020-2-2"), java.sql.Date.valueOf("2020-2-2"), 
+        // true, 1, 1,1, 1 );
+        // tarjeta.obtenerTarjetaPorNum("2");
+
+         RolEnt rolEnt = new RolEnt();
+         for (int i = 0; i < rolEnt.getCantColumnas(); i++) {
+            System.out.print(rolEnt.getNomColumna(i) + "\t");
         }
         System.out.println();
-        for (Object[] columna : tarjeta.ejecutarSelect()) {
+        for (Object[] columna : rolEnt.ejecutarSelect()) {
             for (Object fila : columna) {
                 System.out.print(fila + "\t");
             }
             System.out.println();
         }
+         rolEnt.ejecutarSelect();
 
-        tarjeta.ejecutarSelect();
-        // tarjeta.actualizarTarjeta(1, "1", java.sql.Date.valueOf("2020-2-2"), java.sql.Date.valueOf("2020-2-2"), 
-        // false, 12, 12,1, 1 );
-        tarjeta.insertarTarjeta( 17,"2", java.sql.Date.valueOf("2020-2-2"), java.sql.Date.valueOf("2020-2-2"), 
-        true, 1, 1,1, 1 );
-        tarjeta.obtenerTarjetaPorNum("2");
+         rolEnt.obtenerRolPorId(1);
+
+         
+
+
+      
+
+    
         
         
         
