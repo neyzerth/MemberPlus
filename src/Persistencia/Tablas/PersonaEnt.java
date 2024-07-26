@@ -51,6 +51,7 @@ public class PersonaEnt {
 
     //
     public static List<PersonaEnt> selectAllPersona(){
+        
         List<PersonaEnt> personas = new ArrayList<>();
         String query = "SELECT * FROM persona";
 
