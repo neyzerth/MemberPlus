@@ -118,7 +118,7 @@ public class Query {
             try {
                 String query = "SELECT EXISTS (SELECT 1 FROM " + tabla + " WHERE ";
                 for (int i = 0; i < columna.length; i++) {
-                    query += "\'" + columna[i] +"\'" + " = ? ";
+                    query += columna[i] + " = ? ";
                     if(i < columna.length - 1)
                         query+= "AND ";
                 }
@@ -126,7 +126,7 @@ public class Query {
 
                 PreparedStatement pstmt = conn.prepareStatement(query);
                 for (int i = 0; i < valor.length; i++) {
-                    pstmt.setObject(i, valor[i]);
+                    pstmt.setObject((i+1), valor[i]);
                 }
 
                 ResultSet rs = pstmt.executeQuery();
