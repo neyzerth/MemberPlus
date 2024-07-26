@@ -15,7 +15,8 @@ public class TarjetaEnt extends Query {
                 "saldo",
                 "puntos",
                 "cliente",
-                "nivel");
+                "nivel"
+        );
     }
     
     // Funciones para operar tarjetas
