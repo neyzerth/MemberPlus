@@ -1,5 +1,7 @@
 package Persistencia.Tablas;
 
+import Persistencia.Query;
+
 public class CompraEnt extends Query {
     public CompraEnt() {
         super("compra",

@@ -1,5 +1,7 @@
 package Persistencia.Tablas;
 
+import Persistencia.Query;
+
 public class UsuarioEnt extends Query {
     
     public UsuarioEnt() {
@@ -14,7 +16,7 @@ public class UsuarioEnt extends Query {
 
     // Verificar si un usuario ya existe en la base de datos por nombre de usuario y RFC
     public boolean existeUsuario(String nombreUsuario, String contrasena) {
-        return existeRegistro(getNomColumna(1), nombreUsuario) && existeRegistro(getNomColumna(2), contrasena);
+        return existeRegistro(getColumnas(1, 2), nombreUsuario, contrasena);
     }
 
     // Obtener un usuario por su ID

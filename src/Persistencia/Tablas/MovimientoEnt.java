@@ -1,5 +1,7 @@
 package Persistencia.Tablas;
 
+import Persistencia.Query;
+
 public class MovimientoEnt extends Query {
 
     public MovimientoEnt() {

@@ -1,5 +1,7 @@
 package Persistencia.Tablas;
 
+import Persistencia.Query;
+
 public class BeneficioEnt extends Query {
     public BeneficioEnt() {
         super("beneficio",

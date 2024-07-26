@@ -10,23 +10,27 @@ import java.util.Date;
 public class Query {
 
     private String tabla;
-    private String [] nomColumnas;
+    private String [] columnas;
 
     public Query(String tabla, String... nomColumnas){
         this.tabla = tabla;
-        this.nomColumnas = nomColumnas;
+        this.columnas = nomColumnas;
     }
 
-    public String select(){
+    public String select(String... columnas){
         String query = "SELECT ";
-        for(int i = 0; i < nomColumnas.length; i++){
-            query += nomColumnas[i];
-            if(i != nomColumnas.length - 1){
+        for(int i = 0; i < columnas.length; i++){
+            query += columnas[i];
+            if(i != columnas.length - 1){
                 query += ", ";
             }
         }
         query += " FROM " + tabla;
         return query;
+    }
+
+    public String select(){
+        return select(getColumnas());
     }
 
     public Object[][] ejecutarSelect() {
@@ -102,19 +106,28 @@ public class Query {
     }
 
     public Object[] ejecutarSelectPorID(int valor){
-        return ejecutarSelectUno(getNomColumna(1), valor);
+        return ejecutarSelectUno(selectUno(getNomColumna(0)), valor);
     }
 
-    public boolean existeRegistro(String columna, Object valor) {
+    public boolean existeRegistro(String[] columna, Object... valor) {
         boolean existe = false;
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
 
         if (conn != null) {
             try {
-                String query = "SELECT EXISTS (SELECT 1 FROM " + tabla + " WHERE " + columna + " = ?)";
+                String query = "SELECT EXISTS (SELECT 1 FROM " + tabla + " WHERE ";
+                for (int i = 0; i < columna.length; i++) {
+                    query += "\'" + columna[i] +"\'" + " = ? ";
+                    if(i < columna.length - 1)
+                        query+= "AND ";
+                }
+                query += ")";
+
                 PreparedStatement pstmt = conn.prepareStatement(query);
-                pstmt.setObject(1, valor);
+                for (int i = 0; i < valor.length; i++) {
+                    pstmt.setObject(i, valor[i]);
+                }
 
                 ResultSet rs = pstmt.executeQuery();
                 if (rs.next()) {
@@ -129,15 +142,20 @@ public class Query {
         }
         return existe;
     }
+    
+    public boolean existeRegistro(String columna, Object valor) {
+        String[] columnas = {columna};
+        return existeRegistro(columnas, valor);
+    }
 
 
     public String insert(Object[] valores) {
         String query = "INSERT INTO " + tabla + " (";
         
         // Construir la lista de columnas
-        for (int i = 0; i < nomColumnas.length; i++) {
-            query += nomColumnas[i];
-            if (i != nomColumnas.length - 1) {
+        for (int i = 0; i < columnas.length; i++) {
+            query += columnas[i];
+            if (i != columnas.length - 1) {
                 query += ", ";
             } else {
                 query += ") VALUES (";
@@ -189,8 +207,8 @@ public class Query {
         String query = "UPDATE " + tabla + " SET ";
     
         // Construir la lista de columnas y valores a actualizar
-        for (int i = 0; i < nomColumnas.length; i++) {
-            query += nomColumnas[i] + " = ";
+        for (int i = 0; i < columnas.length; i++) {
+            query += columnas[i] + " = ";
             
             if (valores[i] instanceof String || valores[i] instanceof Date) {
                 query += "'" + valores[i] + "'";
@@ -198,14 +216,14 @@ public class Query {
                 query += valores[i];
             }
     
-            if (i != nomColumnas.length - 1) {
+            if (i != columnas.length - 1) {
                 query += ", ";
             } else {
                 query += " ";
             }
         }
     
-        query += "WHERE " + nomColumnas[0] + " = " + id;
+        query += "WHERE " + columnas[0] + " = " + id;
     
         return query;
     }
@@ -235,7 +253,7 @@ public class Query {
     }
 
     public String delete(int id) {
-        String query = "DELETE FROM " + tabla + " WHERE " + nomColumnas[0] + " = " + id;
+        String query = "DELETE FROM " + tabla + " WHERE " + columnas[0] + " = " + id;
         return query;
     }
 
@@ -267,7 +285,7 @@ public class Query {
     public String formatearRegistro(Object[] registro) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < registro.length; i++) {
-            sb.append(nomColumnas[i]).append(": ").append(registro[i]);
+            sb.append(columnas[i]).append(": ").append(registro[i]);
             if (i < registro.length - 1) {
                 sb.append(", ");
             }
@@ -283,24 +301,32 @@ public class Query {
         this.tabla = tabla;
     }
 
-    public String[] getNomColumnas() {
-        return this.nomColumnas;
+    public String[] getColumnas() {
+        return this.columnas;
+    }
+
+    public String[] getColumnas(int... pos) {
+        String[] columnasSelec = new String[pos.length];
+        for (int i = 0; i < pos.length; i++) {
+            columnasSelec[i] = this.columnas[pos[i]];
+        }
+        return columnasSelec;
     }
 
     public String getNomColumna(int i) {
-        return this.nomColumnas[i];
+        return this.columnas[i];
     }
 
-    public void setNomColumnas(String[] nomColumnas) {
-        this.nomColumnas = nomColumnas;
+    public void setColumnas(String[] nomColumnas) {
+        this.columnas = nomColumnas;
     }
 
     public void setNomColumna(int i, String nomColumna) {
-        this.nomColumnas[i] = nomColumna;
+        this.columnas[i] = nomColumna;
     }
 
 
     public int getCantColumnas(){
-        return nomColumnas.length;
+        return columnas.length;
     }
 }
