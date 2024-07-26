@@ -1,12 +1,5 @@
 package Persistencia.Tablas;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import Persistencia.Conexion;
-
 public class RolEnt extends Query {
 
     public RolEnt() {
@@ -25,10 +18,6 @@ public class RolEnt extends Query {
     public boolean existeRol(String nombreRol) {
         return existeRegistro(getNomColumna(1), nombreRol);
     }
-
-
-     // Funciones para operar Roles
-    
     
     //Actualizar Rol
     public boolean actualizarRolDB(int idRol, String nombre, String descripcion) {
