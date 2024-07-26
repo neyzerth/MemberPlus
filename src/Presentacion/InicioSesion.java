@@ -98,8 +98,8 @@ public class InicioSesion {
             PreparedStatement pSt = cn.prepareStatement(sentenciaUpdate);
 
             System.out.println("Introduce el ID del Usuario a modificar: ");
-            int idUsuario = insertar.nextInt();
-            usuario.setIdUsuario(idUsuario);
+            //?int idUsuario = insertar.nextInt();
+            //?usuario.setIdUsuario(idUsuario);
             insertar.nextLine(); // Para consumir el salto de línea
 
             System.out.println("Introduce el Nombre de Usuario: ");
@@ -149,8 +149,8 @@ public class InicioSesion {
 
     public void eliminarUsuario() {
         System.out.println("Introduce el ID del Usuario a eliminar: ");
-        int idUsuario = insertar.nextInt();
-        usuario.setIdUsuario(idUsuario);
+        //?int idUsuario = insertar.nextInt();
+        //?usuario.setIdUsuario(idUsuario);
 
         try {
             String sentenciaEliminar = "DELETE FROM usuario WHERE idUsuario = ?";
