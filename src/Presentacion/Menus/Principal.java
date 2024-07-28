@@ -24,7 +24,7 @@ public class Principal {
 
             System.out.println();
 
-            int opcion = Texto.entradaInt(Color.cian((Texto.espacio(1) + "> Seleccione una opción: ")));
+            int opcion = Texto.leerInt(Color.cian((Texto.espacio(1) + "> Seleccione una opción: ")));
 
             switch (opcion) {
                 case 1: Venta.menu();

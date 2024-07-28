@@ -41,7 +41,7 @@ public class Texto {
         }
     }
 
-    public static String entradaString(String txt) {
+    public static String leerString(String txt) {
         System.out.print(txt);
         @SuppressWarnings("resource")
         Scanner entrada = new Scanner(System.in);
@@ -57,33 +57,33 @@ public class Texto {
         }
     }
 
-    public static String entradaContrasena(String txt){
-        String contrasena = entradaString(txt + Color.invisible);
+    public static String leerContra(String txt){
+        String contrasena = leerString(txt + Color.invisible);
         System.err.print(Color.reset);
         return contrasena;
     }
 
-    public static int entradaInt(String txt) {
+    public static int leerInt(String txt) {
         try {
-            return Integer.parseInt(entradaString(txt));
+            return Integer.parseInt(leerString(txt));
         } catch (NumberFormatException e) {
             System.out.println("Error: no se ingresó un valor entero.");
             return 0;
         }
     }
 
-    public static double entradaDou(String txt) {
+    public static double leerDoub(String txt) {
         try {
-            return Integer.parseInt(entradaString(txt));
+            return Integer.parseInt(leerString(txt));
         } catch (NumberFormatException e) {
             System.out.println("Error: no se ingresó un valor numerico.");
             return 0;
         }
     }
 
-    public static float entradaFloat(String txt) {
+    public static float leerFloat(String txt) {
         try {
-            return Float.parseFloat(entradaString(txt));
+            return Float.parseFloat(leerString(txt));
         } catch (NumberFormatException e) {
             System.out.println("Error: no se ingresó un valor numerico.");
             return 0;

@@ -20,7 +20,7 @@ public class Usuario {
 
             System.out.println();
 
-            int option = Texto.entradaInt(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
+            int option = Texto.leerInt(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
 
             switch (option) {
                 case 1:
@@ -30,7 +30,7 @@ public class Usuario {
                             Color.amarillo("> Lista de usuarios"));
                     listaUsua.imprimirCuadro();
 
-                    Texto.entradaInt("> ");
+                    Texto.leerInt("> ");
                     break;
                 case 2:
                     Texto.limpiarPantalla();
@@ -39,7 +39,7 @@ public class Usuario {
                             Color.amarillo("> Información de usuario"));
                     infoUsua.imprimirCuadro();
 
-                    Texto.entradaInt("> ");
+                    Texto.leerInt("> ");
                     break;
                 case 3:
                     Texto.limpiarPantalla();
@@ -48,7 +48,7 @@ public class Usuario {
                             Color.amarillo("> Modificar informacion del usuario"));
                     modificarUsua.imprimirCuadro();
 
-                    Texto.entradaInt("> ");
+                    Texto.leerInt("> ");
                     break;
                 case 4:
                     Texto.limpiarPantalla();
@@ -57,7 +57,7 @@ public class Usuario {
                             Color.amarillo("> Información de usuario"));
                     eliminarUsua.imprimirCuadro();
 
-                    Texto.entradaInt("> ");
+                    Texto.leerInt("> ");
                     break;
                 case 5:
                     salir = true;

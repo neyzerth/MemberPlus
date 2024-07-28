@@ -19,7 +19,7 @@ public class Venta {
 
             System.out.println();
 
-            int opcion = Texto.entradaInt(Color.cian(" > Seleccione una opción: "));
+            int opcion = Texto.leerInt(Color.cian(" > Seleccione una opción: "));
 
             switch (opcion) {
                 case 1:
@@ -30,7 +30,7 @@ public class Venta {
 
                     numTarjeta.imprimirCuadro();
 
-                    Texto.entradaString("> ");
+                    Texto.leerString("> ");
                     break;
                 case 2:
                     Texto.limpiarPantalla();
@@ -39,7 +39,7 @@ public class Venta {
                             Color.amarillo("> Recoger el total"));
                     recogerTotal.imprimirCuadro();
 
-                    Texto.entradaInt("> $");
+                    Texto.leerInt("> $");
                     break;
                 case 3:
                     Texto.limpiarPantalla();

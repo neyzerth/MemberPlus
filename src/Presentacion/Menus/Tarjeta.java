@@ -20,7 +20,7 @@ public class Tarjeta {
 
             System.out.println();
 
-            int option = Texto.entradaInt(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
+            int option = Texto.leerInt(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
 
             switch (option) {
                 case 1:
@@ -33,7 +33,7 @@ public class Tarjeta {
                             Color.amarillo("> Nivel de tarjetas"));
                     nivelTarj.imprimirCuadro();
 
-                    Texto.entradaInt("> ");
+                    Texto.leerInt("> ");
                     break;
                 case 3:
                     Texto.limpiarPantalla();
@@ -42,7 +42,7 @@ public class Tarjeta {
                             Color.amarillo("> Beneficios de la tarjeta"));
                     beneficTarj.imprimirCuadro();
 
-                    Texto.entradaInt("> ");
+                    Texto.leerInt("> ");
                     break;
                 case 4:
                     salir = true;
@@ -69,7 +69,7 @@ public class Tarjeta {
             System.out.println();
             System.out.print(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
 
-            int option = Texto.entradaInt(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
+            int option = Texto.leerInt(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
 
             switch (option) {
                 case 1:
@@ -79,7 +79,7 @@ public class Tarjeta {
                             Color.amarillo("> Alta de membresia"));
                     movimientosTarj.imprimirCuadro();
 
-                    Texto.entradaInt("> ");
+                    Texto.leerInt("> ");
                     break;
                 case 2:
                     Texto.limpiarPantalla();
@@ -88,7 +88,7 @@ public class Tarjeta {
                             Color.amarillo("> Cancelación de membresia"));
                     nivelTarj.imprimirCuadro();
 
-                    Texto.entradaInt("> ");
+                    Texto.leerInt("> ");
                     break;
                 case 3:
                     Texto.limpiarPantalla();
@@ -97,7 +97,7 @@ public class Tarjeta {
                             Color.amarillo("> Renovacion de la membresia"));
                     beneficTarj.imprimirCuadro();
 
-                    Texto.entradaInt("> ");
+                    Texto.leerInt("> ");
                     break;
                 case 4:
                     salir = true;
