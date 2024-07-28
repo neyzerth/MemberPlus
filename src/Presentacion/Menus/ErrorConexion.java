@@ -15,6 +15,7 @@ public class ErrorConexion {
         System.out.println();
 
         System.out.println("Error de conexión con host " + host);
+        System.out.println("SQLState: " + error);
         System.out.println("SQLState: " + state);
 
         
