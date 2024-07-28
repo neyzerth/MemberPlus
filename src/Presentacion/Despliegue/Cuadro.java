@@ -1,24 +1,6 @@
 package Presentacion.Despliegue;
 
-import Presentacion.Formato.Color;
 import Presentacion.Formato.Texto;
-
-class Prueba {
-    public static void main(String[] args) {
-
-        Cuadro prueba = new Cuadro(
-            "Módulo de Clientes",
-            Color.azul("Módulo de Ventas"),
-            "Módulo de Clientes",
-            "Módulo de Tarjeta",
-            "Salir"
-        );
-        prueba.imprimirCuadro();
-        prueba.imprimirCuadroNum();
-        prueba.imprimirCuadroList("-");
-    }
-
-}
 
 public class Cuadro{
     // tipos de linea para las tablas
