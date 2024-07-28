@@ -14,8 +14,7 @@ public class ErrorConexion {
         mensajeError.imprimirCuadro();
         System.out.println();
 
-        System.out.println("Error de conexión con host " + host);
-        System.out.println("SQLState: " + error);
+        System.out.println("Error: " + error);
         System.out.println("SQLState: " + state);
 
         
