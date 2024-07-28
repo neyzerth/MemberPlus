@@ -1,7 +1,9 @@
 package Presentacion.Menus;
 
 import Presentacion.Despliegue.Cuadro;
+import Presentacion.Despliegue.Tabla;
 import Presentacion.Formato.*;
+import Persistencia.Tablas.UsuarioEnt;
 
 public class Usuario {
     public static void menu() {
@@ -27,8 +29,11 @@ public class Usuario {
                     Texto.limpiarPantalla();
 
                     Cuadro listaUsua = new Cuadro(
-                            Color.amarillo("> Lista de usuarios"));
+                            Color.amarillo("> Lista de usuarios")
+                    );
                     listaUsua.imprimirCuadro();
+
+                    tablaUsuarios();
 
                     Texto.leerInt("> ");
                     break;
@@ -67,5 +72,12 @@ public class Usuario {
                     Texto.esperar(1);
             }
         }
+    }
+
+    private static void tablaUsuarios(){
+        String[] cabeceras = {"ID", "Nombre Usuario","Contrasena", "RFC", "Persona", "Rol"};
+        UsuarioEnt usuarios = new UsuarioEnt();
+        Tabla tabla = new Tabla(cabeceras, usuarios.ejecutarSelect());
+        tabla.imprimirTabla();
     }
 }

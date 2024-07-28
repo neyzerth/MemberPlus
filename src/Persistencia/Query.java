@@ -18,6 +18,9 @@ public class Query {
     }
 
     public String select(String... columnas){
+        if (columnas ==  null)
+            return select();
+
         String query = "SELECT ";
         for(int i = 0; i < columnas.length; i++){
             query += columnas[i];
@@ -33,7 +36,7 @@ public class Query {
         return select(getColumnas());
     }
 
-    public Object[][] ejecutarSelect() {
+    public Object[][] ejecutarSelect(String... columnas) {
         Object[][] registros = null;
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
@@ -41,7 +44,7 @@ public class Query {
         if (conn != null) {
             try {
                 Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                ResultSet rs = stmt.executeQuery(select());
+                ResultSet rs = stmt.executeQuery(select(columnas));
 
                 rs.last();
                 int rowCount = rs.getRow();
@@ -66,6 +69,9 @@ public class Query {
             }
         }
         return registros;
+    }
+    public Object[][] ejecutarSelect() {
+        return ejecutarSelect(null);
     }
 
     public String selectUno(String... columna){
