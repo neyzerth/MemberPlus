@@ -115,6 +115,27 @@ public class Query {
         return ejecutarSelectUno(selectUno(getNomColumna(0)), valor);
     }
 
+    // Método para obtener el número de filas de un select de usuarios
+    public int obtenerCantRegistros() {
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+        int rowCount = 0;
+
+        if (conn != null) {
+            try {
+                Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                ResultSet rs = stmt.executeQuery(select(columnas));
+
+                rs.last();
+                rowCount = rs.getRow();
+                conn.close();
+
+            } catch (SQLException e) {
+            }
+        }
+        return rowCount;
+    }
+
     public boolean existeRegistro(String[] columna, Object... valor) {
         boolean existe = false;
         Conexion conexion = new Conexion();

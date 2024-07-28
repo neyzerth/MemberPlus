@@ -35,6 +35,19 @@ public class Usuario extends Persona {
 
     // METODOS
 
+    public static Usuario[] importarUsuarios(){
+        UsuarioEnt usuariosBd = new UsuarioEnt();
+        Usuario [] usuarios = new Usuario[usuariosBd.obtenerCantRegistros()];
+        Object [][] datos = usuariosBd.ejecutarSelect();
+
+        for (int i = 0; i < usuarios.length; i++) {
+            Object[] dato = datos[i];
+            usuarios[i] = new Usuario((int) dato[0], (String) dato[1], (String) dato[2], (String) dato[3]);            
+        }
+        return usuarios;
+    }
+
+
     public static Usuario iniciarSesion(String nomUsuario, String contrasena){
         UsuarioEnt usuario = new UsuarioEnt();
         Usuario sesion;
@@ -82,9 +95,13 @@ public class Usuario extends Persona {
     public void setRfc(String rfc) {
         this.rfc = rfc;
     }
-
+    
     public int getId() {
         return this.id;
+    }
+
+    private void setId(int id){
+        this.id = id;
     }
 
     //no se va a modificar el idUsuario
