@@ -9,9 +9,9 @@ public class ConectarBD {
         conexion.conectar();
         String [] atributos = new String[3];
 
-            atributos[0] = conexion.getHost(); 
-            atributos[1] = conexion.getError();
-            atributos[2] =  conexion.getSqlState();
+        atributos[0] = conexion.getHost(); 
+        atributos[1] = conexion.getError();
+        atributos[2] =  conexion.getSqlState();
 
         return atributos;
     }

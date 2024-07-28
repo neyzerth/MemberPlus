@@ -1,14 +1,13 @@
 package Presentacion.Menus;
 
-import java.util.Scanner;
-
 import Presentacion.Despliegue.Cuadro;
 import Presentacion.Formato.*;
 
 public class Usuario {
-    public static void menu(Scanner scanner) {
-        boolean back = false;
-        while (!back) {
+    public static void menu() {
+        boolean salir = false;
+        while (!salir) {
+            Texto.limpiarPantalla();
             System.out.println(Color.morado(Color.negrita(Texto.espacio(8) + "> Módulo de Usuario <")));
 
             Cuadro usuario = new Cuadro(
@@ -20,9 +19,8 @@ public class Usuario {
             usuario.imprimirCuadroNum();
 
             System.out.println();
-            System.out.print(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
 
-            int option = scanner.nextInt();
+            int option = Texto.entradaInt(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
 
             switch (option) {
                 case 1:
@@ -32,7 +30,7 @@ public class Usuario {
                             Color.amarillo("> Lista de usuarios"));
                     listaUsua.imprimirCuadro();
 
-                    scanner.nextInt();
+                    Texto.entradaInt("> ");
                     break;
                 case 2:
                     Texto.limpiarPantalla();
@@ -41,7 +39,7 @@ public class Usuario {
                             Color.amarillo("> Información de usuario"));
                     infoUsua.imprimirCuadro();
 
-                    scanner.nextInt();
+                    Texto.entradaInt("> ");
                     break;
                 case 3:
                     Texto.limpiarPantalla();
@@ -50,7 +48,7 @@ public class Usuario {
                             Color.amarillo("> Modificar informacion del usuario"));
                     modificarUsua.imprimirCuadro();
 
-                    scanner.nextInt();
+                    Texto.entradaInt("> ");
                     break;
                 case 4:
                     Texto.limpiarPantalla();
@@ -59,14 +57,14 @@ public class Usuario {
                             Color.amarillo("> Información de usuario"));
                     eliminarUsua.imprimirCuadro();
 
-                    scanner.nextInt();
+                    Texto.entradaInt("> ");
                     break;
                 case 5:
-                    Texto.limpiarPantalla();
-                    back = true;
+                    salir = true;
                     break;
                 default:
                     System.out.println(Color.rojo("Opción inválida, por favor intente de nuevo."));
+                    Texto.esperar(1);
             }
         }
     }

@@ -2,47 +2,47 @@ package Presentacion.Formato;
 
 public class Color {
     // Colores ANSI
-    private static String reset = "\u001B[0m";
-    private static String blanco = "\u001B[37m"; // Blanco
-    private static String azul = "\u001B[34m"; // Azul
-    private static String verde = "\u001B[32m"; // Verde
-    private static String rojo = "\u001B[31m"; // Rojo
-    private static String negro = "\u001B[30m"; // Negro
-    private static String amarillo = "\u001B[33m"; // Amarillo
-    private static String morado = "\u001B[35m"; // Morado
-    private static String cian = "\u001B[36m"; // Cian
+    public static String reset = "\u001B[0m";
+    public static String blanco = "\u001B[37m"; // Blanco
+    public static String azul = "\u001B[34m"; // Azul
+    public static String verde = "\u001B[32m"; // Verde
+    public static String rojo = "\u001B[31m"; // Rojo
+    public static String negro = "\u001B[30m"; // Negro
+    public static String amarillo = "\u001B[33m"; // Amarillo
+    public static String morado = "\u001B[35m"; // Morado
+    public static String cian = "\u001B[36m"; // Cian
     // Colores brillantes de texto
-    private static String negroBrillante = "\u001B[90m";
-    private static String rojoBrillante = "\u001B[91m";
-    private static String verdeBrillante = "\u001B[92m";
-    private static String amarilloBrillante = "\u001B[93m";
-    private static String azulBrillante = "\u001B[94m";
-    private static String moradoBrillante = "\u001B[95m";
-    private static String cianBrillante = "\u001B[96m";
-    private static String blancoBrillante = "\u001B[97m";
+    public static String negroBrillante = "\u001B[90m";
+    public static String rojoBrillante = "\u001B[91m";
+    public static String verdeBrillante = "\u001B[92m";
+    public static String amarilloBrillante = "\u001B[93m";
+    public static String azulBrillante = "\u001B[94m";
+    public static String moradoBrillante = "\u001B[95m";
+    public static String cianBrillante = "\u001B[96m";
+    public static String blancoBrillante = "\u001B[97m";
     // Colores de fondo ANSI
-    private static String fondoNegro = "\u001B[40m";
-    private static String fondoRojo = "\u001B[41m";
-    private static String fondoVerde = "\u001B[42m";
-    private static String fondoAmarillo = "\u001B[43m";
-    private static String fondoAzul = "\u001B[44m";
-    private static String fondoMorado = "\u001B[45m";
-    private static String fondoCian = "\u001B[46m";
-    private static String fondoBlanco = "\u001B[47m";
+    public static String fondoNegro = "\u001B[40m";
+    public static String fondoRojo = "\u001B[41m";
+    public static String fondoVerde = "\u001B[42m";
+    public static String fondoAmarillo = "\u001B[43m";
+    public static String fondoAzul = "\u001B[44m";
+    public static String fondoMorado = "\u001B[45m";
+    public static String fondoCian = "\u001B[46m";
+    public static String fondoBlanco = "\u001B[47m";
     // Colores brillantes de fondo
-    private static String fondoNegroBrillante = "\u001B[100m";
-    private static String fondoRojoBrillante = "\u001B[101m";
-    private static String fondoVerdeBrillante = "\u001B[102m";
-    private static String fondoAmarilloBrillante = "\u001B[103m";
-    private static String fondoAzulBrillante = "\u001B[104m";
-    private static String fondoMoradoBrillante = "\u001B[105m";
-    private static String fondoCianBrillante = "\u001B[106m";
-    private static String fondoBlancoBrillante = "\u001B[107m";
+    public static String fondoNegroBrillante = "\u001B[100m";
+    public static String fondoRojoBrillante = "\u001B[101m";
+    public static String fondoVerdeBrillante = "\u001B[102m";
+    public static String fondoAmarilloBrillante = "\u001B[103m";
+    public static String fondoAzulBrillante = "\u001B[104m";
+    public static String fondoMoradoBrillante = "\u001B[105m";
+    public static String fondoCianBrillante = "\u001B[106m";
+    public static String fondoBlancoBrillante = "\u001B[107m";
     // Estilos de texto ANSI
-    private static String negrita = "\u001B[1m";
-    private static String subrayado = "\u001B[4m";
-    private static String invertido = "\u001B[7m";
-    private static String invisible = "\u001B[8m";
+    public static String negrita = "\u001B[1m";
+    public static String subrayado = "\u001B[4m";
+    public static String invertido = "\u001B[7m";
+    public static String invisible = "\u001B[8m";
 
     private static String colorText(String color, String txt) {
         return color + txt + reset;

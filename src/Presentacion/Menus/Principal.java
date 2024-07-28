@@ -1,17 +1,14 @@
 package Presentacion.Menus;
 
-import java.util.Scanner;
-
 import Presentacion.Despliegue.Cuadro;
 import Presentacion.Formato.*;
 
 public class Principal {
     public static void menu() {
-        Texto.limpiarPantalla();
-        Scanner scanner = new Scanner(System.in);
         boolean salir = false;
-
+        
         do {
+            Texto.limpiarPantalla();
             System.out.println(Color.morado(Color.invertido(
                 (Texto.espacio(6) + "  Bienvenido :D" + (Texto.espacio(8) + "\n")))));
             System.out.println(Color.morado(Color.negrita("      > Menú principal <   ")));
@@ -26,26 +23,27 @@ public class Principal {
             principal.imprimirCuadroNum();
 
             System.out.println();
-            System.out.print(Color.cian((Texto.espacio(1) + "> Seleccione una opción: ")));
 
-            int opcion = scanner.nextInt();
+            int opcion = Texto.entradaInt(Color.cian((Texto.espacio(1) + "> Seleccione una opción: ")));
 
             switch (opcion) {
-                case 1: Venta.menu(scanner);
+                case 1: Venta.menu();
                     break;
-                case 2: Cliente.menu(scanner);
+                case 2: Cliente.menu();
                     break;
-                case 3: Usuario.menu(scanner);
+                case 3: Usuario.menu();
                     break;
-                case 4: Tarjeta.menu(scanner);
+                case 4: Tarjeta.menu();
                     break;
 
                 case 5: //SALIR
                     System.out.println(Color.rojo("Saliendo del programa..."));
+                    Texto.esperar(1);
                     salir = true;
                     break;
                 default:
                     System.out.println(Color.rojo("Opción inválida, por favor intente de nuevo. "));
+                    Texto.esperar(1);
                     break;
             }
         } while (!salir);

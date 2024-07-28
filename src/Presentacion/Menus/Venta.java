@@ -1,16 +1,14 @@
 package Presentacion.Menus;
 
-import java.util.Scanner;
-
 import Presentacion.Despliegue.Cuadro;
 import Presentacion.Formato.*;
 
 public class Venta {
-    public static void menu(Scanner scanner) {
-        Texto.limpiarPantalla();
-        boolean back = false;
-
-        while (!back) {
+    public static void menu() {
+        boolean salir = false;
+        
+        while (!salir) {
+            Texto.limpiarPantalla();
             System.out.println(Color.morado(Color.negrita(Texto.espacio(8) + "> Módulo de Venta <")));
 
             Cuadro venta = new Cuadro(
@@ -20,11 +18,10 @@ public class Venta {
             venta.imprimirCuadroNum();
 
             System.out.println();
-            System.out.print(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
 
-            int option = scanner.nextInt();
+            int opcion = Texto.entradaInt(Color.cian(" > Seleccione una opción: "));
 
-            switch (option) {
+            switch (opcion) {
                 case 1:
                     Texto.limpiarPantalla();
 
@@ -33,7 +30,7 @@ public class Venta {
 
                     numTarjeta.imprimirCuadro();
 
-                    scanner.nextInt();
+                    Texto.entradaString("> ");
                     break;
                 case 2:
                     Texto.limpiarPantalla();
@@ -42,15 +39,15 @@ public class Venta {
                             Color.amarillo("> Recoger el total"));
                     recogerTotal.imprimirCuadro();
 
-                    System.out.print("> $");
-                    scanner.nextInt();
+                    Texto.entradaInt("> $");
                     break;
                 case 3:
                     Texto.limpiarPantalla();
-                    back = true;
+                    salir = true;
                     break;
                 default:
                     System.out.println(Color.rojo("Opción inválida, por favor intente de nuevo."));
+                    Texto.esperar(1);
             }
         }
     }

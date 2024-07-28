@@ -1,14 +1,14 @@
 package Presentacion.Menus;
 
-import java.util.Scanner;
-
 import Presentacion.Despliegue.Cuadro;
 import Presentacion.Formato.*;
 
 public class Cliente {
-    public static void menu(Scanner scanner) {
-        boolean back = false;
-        while (!back) {
+    public static void menu() {
+        boolean salir = false;
+
+        while (!salir) {
+            Texto.limpiarPantalla();
             System.out.println(Color.morado(Color.negrita(Texto.espacio(8) + "> Módulo de Clientes <")));
 
             Cuadro cliente = new Cuadro(
@@ -21,11 +21,9 @@ public class Cliente {
             cliente.imprimirCuadroNum();
 
             System.out.println();
-            System.out.print(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
 
-            int option = scanner.nextInt();
-
-            switch (option) {
+            int opcion = Texto.entradaInt(Color.cian("> Seleccione una opción: "));
+            switch (opcion) {
                 case 1:
                     Texto.limpiarPantalla();
 
@@ -33,7 +31,7 @@ public class Cliente {
                             Color.amarillo("> Lista de clientes"));
                     listaCli.imprimirCuadro();
 
-                    scanner.nextInt();
+                    Texto.entradaInt("> ");
                     break;
                 case 2:
                     Texto.limpiarPantalla();
@@ -42,7 +40,7 @@ public class Cliente {
                             Color.amarillo("> Informacion de un cliente"));
                     infoCli.imprimirCuadro();
 
-                    scanner.nextInt();
+                    Texto.entradaInt("> ");
                     break;
                 case 3:
                     Texto.limpiarPantalla();
@@ -51,7 +49,7 @@ public class Cliente {
                             Color.amarillo("> Modificar informacion de cliente"));
                     modificarCli.imprimirCuadro();
 
-                    scanner.nextInt();
+                    Texto.entradaInt("> ");
                     break;
                 case 4:
                     Texto.limpiarPantalla();
@@ -60,14 +58,14 @@ public class Cliente {
                             Color.amarillo("> Eliminar Cliente"));
                     eliminarCli.imprimirCuadro();
 
-                    scanner.nextInt();
+                    Texto.entradaInt("> ");
                     break;
                 case 5:
-                    Texto.limpiarPantalla();
-                    back = true;
+                    salir = true;
                     break;
                 default:
                     System.out.println(Color.rojo("Opción inválida, por favor intente de nuevo."));
+                    Texto.esperar(1);
             }
         }
     }

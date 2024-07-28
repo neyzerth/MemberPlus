@@ -6,9 +6,11 @@ import Presentacion.Despliegue.Cuadro;
 import Presentacion.Formato.*;
 
 public class Tarjeta {
-    public static void menu(Scanner scanner) {
-        boolean back = false;
-        while (!back) {
+    public static void menu() {
+        boolean salir = false;
+
+        while (!salir) {
+            Texto.limpiarPantalla();
             System.out.println(Color.morado(Color.negrita(Texto.espacio(8) + "> Módulo de Tarjeta <")));
 
             Cuadro tarjeta = new Cuadro(
@@ -19,14 +21,12 @@ public class Tarjeta {
             tarjeta.imprimirCuadroNum();
 
             System.out.println();
-            System.out.print(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
 
-            int option = scanner.nextInt();
+            int option = Texto.entradaInt(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
 
             switch (option) {
                 case 1:
-                    Texto.limpiarPantalla();
-                    movimientosTarj(scanner);
+                    movimientosTarj();
                     break;
                 case 2:
                     Texto.limpiarPantalla();
@@ -35,7 +35,7 @@ public class Tarjeta {
                             Color.amarillo("> Nivel de tarjetas"));
                     nivelTarj.imprimirCuadro();
 
-                    scanner.nextInt();
+                    Texto.entradaInt("> ");
                     break;
                 case 3:
                     Texto.limpiarPantalla();
@@ -44,11 +44,10 @@ public class Tarjeta {
                             Color.amarillo("> Beneficios de la tarjeta"));
                     beneficTarj.imprimirCuadro();
 
-                    scanner.nextInt();
+                    Texto.entradaInt("> ");
                     break;
                 case 4:
-                    Texto.limpiarPantalla();
-                    back = true;
+                    salir = true;
                     break;
                 default:
                     System.out.println(Color.rojo("Opción inválida, por favor intente de nuevo."));
@@ -57,9 +56,9 @@ public class Tarjeta {
 
     }
 
-    private static void movimientosTarj(Scanner scanner) {
-        boolean back = false;
-        while (!back) {
+    private static void movimientosTarj() {
+        boolean salir = false;
+        while (!salir) {
             System.out.println(Color.morado(Color.negrita(Texto.espacio(8) + "> Módulo de Tarjeta <")));
 
             Cuadro tarjeta = new Cuadro(
@@ -72,7 +71,7 @@ public class Tarjeta {
             System.out.println();
             System.out.print(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
 
-            int option = scanner.nextInt();
+            int option = Texto.entradaInt(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
 
             switch (option) {
                 case 1:
@@ -82,7 +81,7 @@ public class Tarjeta {
                             Color.amarillo("> Alta de membresia"));
                     movimientosTarj.imprimirCuadro();
 
-                    scanner.nextInt();
+                    Texto.entradaInt("> ");
                     break;
                 case 2:
                     Texto.limpiarPantalla();
@@ -91,7 +90,7 @@ public class Tarjeta {
                             Color.amarillo("> Cancelación de membresia"));
                     nivelTarj.imprimirCuadro();
 
-                    scanner.nextInt();
+                    Texto.entradaInt("> ");
                     break;
                 case 3:
                     Texto.limpiarPantalla();
@@ -100,11 +99,10 @@ public class Tarjeta {
                             Color.amarillo("> Renovacion de la membresia"));
                     beneficTarj.imprimirCuadro();
 
-                    scanner.nextInt();
+                    Texto.entradaInt("> ");
                     break;
                 case 4:
-                    Texto.limpiarPantalla();
-                    back = true;
+                    salir = true;
                     break;
                 default:
                     System.out.println(Color.rojo("Opción inválida, por favor intente de nuevo."));
