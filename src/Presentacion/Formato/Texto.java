@@ -1,13 +1,22 @@
 package Presentacion.Formato;
 
+import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Texto {
     //limpiar pantalla 
     public static void limpiarPantalla() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (IOException | InterruptedException ex) {
+            System.out.println("Error al limpiar la consola: " + ex.getMessage());
+        }
     }
 
     // iterando n espacios
