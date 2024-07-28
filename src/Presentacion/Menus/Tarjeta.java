@@ -1,7 +1,5 @@
 package Presentacion.Menus;
 
-import java.util.Scanner;
-
 import Presentacion.Despliegue.Cuadro;
 import Presentacion.Formato.*;
 

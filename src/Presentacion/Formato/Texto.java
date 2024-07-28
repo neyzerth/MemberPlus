@@ -1,6 +1,5 @@
 package Presentacion.Formato;
 
-import java.io.Console;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
