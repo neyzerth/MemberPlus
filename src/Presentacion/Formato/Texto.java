@@ -28,4 +28,13 @@ public class Texto {
     public static void esperarEnter(){
         esperarEnter("\nENTER para continuar...");
     }
+
+    public static void esperar(float seg) {
+        int tiempo = (int) (seg * 1000);
+        try {
+            Thread.sleep(tiempo);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
 }
