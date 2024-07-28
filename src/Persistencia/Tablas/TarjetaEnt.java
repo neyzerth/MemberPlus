@@ -2,6 +2,8 @@ package Persistencia.Tablas;
 
 import java.sql.Date;
 
+import Persistencia.Query;
+
 public class TarjetaEnt extends Query {
 
     public TarjetaEnt() {

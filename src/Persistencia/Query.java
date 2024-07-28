@@ -1,4 +1,4 @@
-package Persistencia.Tablas;
+package Persistencia;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,23 +6,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
-import Persistencia.Conexion;
 
 public class Query {
 
     private String tabla;
-    private String [] nomColumnas;
+    private String [] columnas;
 
     public Query(String tabla, String... nomColumnas){
         this.tabla = tabla;
-        this.nomColumnas = nomColumnas;
+        this.columnas = nomColumnas;
     }
 
-    public String select(){
+    public String select(String... columnas){
+        if (columnas ==  null)
+            return select();
+
         String query = "SELECT ";
-        for(int i = 0; i < nomColumnas.length; i++){
-            query += nomColumnas[i];
-            if(i != nomColumnas.length - 1){
+        for(int i = 0; i < columnas.length; i++){
+            query += columnas[i];
+            if(i != columnas.length - 1){
                 query += ", ";
             }
         }
@@ -30,7 +32,11 @@ public class Query {
         return query;
     }
 
-    public Object[][] ejecutarSelect() {
+    public String select(){
+        return select(getColumnas());
+    }
+
+    public Object[][] ejecutarSelect(String... columnas) {
         Object[][] registros = null;
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
@@ -38,7 +44,7 @@ public class Query {
         if (conn != null) {
             try {
                 Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                ResultSet rs = stmt.executeQuery(select());
+                ResultSet rs = stmt.executeQuery(select(columnas));
 
                 rs.last();
                 int rowCount = rs.getRow();
@@ -60,26 +66,33 @@ public class Query {
                 conn.close();
 
             } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
         return registros;
     }
+    public Object[][] ejecutarSelect() {
+        return ejecutarSelect(null);
+    }
 
-    public String selectUno(String columna){
-        String query = select() + " WHERE " + columna + " = ?";
+    public String selectUno(String... columna){
+        String query = select() + " WHERE " + columna[0] + " = ?";
+        for (int i = 1; i < columna.length; i++) {
+            query += " AND " + columna[i] + " = ?";
+        }
         return query;
     }
 
-    public Object[] ejecutarSelectUno(String columna, Object valor) {
+    public Object[] ejecutarSelectUno(String select, Object... valor) {
         Object[] registro = null;
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
 
         if (conn != null) {
             try {
-                PreparedStatement pstmt = conn.prepareStatement(selectUno(columna));
-                pstmt.setObject(1, valor);
+                PreparedStatement pstmt = conn.prepareStatement(select);
+                for (int i = 0; i < valor.length; i++) {
+                    pstmt.setObject((i + 1), valor[i]);
+                }
 
                 ResultSet rs = pstmt.executeQuery();
                 if (rs.next()) {
@@ -93,26 +106,34 @@ public class Query {
                 pstmt.close();
                 conn.close();
             } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
         return registro;
     }
 
     public Object[] ejecutarSelectPorID(int valor){
-        return ejecutarSelectUno(getNomColumna(1), valor);
+        return ejecutarSelectUno(selectUno(getNomColumna(0)), valor);
     }
 
-    public boolean existeRegistro(String columna, Object valor) {
+    public boolean existeRegistro(String[] columna, Object... valor) {
         boolean existe = false;
         Conexion conexion = new Conexion();
         Connection conn = conexion.conectar();
 
         if (conn != null) {
             try {
-                String query = "SELECT EXISTS (SELECT 1 FROM tarjeta WHERE" + columna + "= ?)";
+                String query = "SELECT EXISTS (SELECT 1 FROM " + tabla + " WHERE ";
+                for (int i = 0; i < columna.length; i++) {
+                    query += columna[i] + " = ? ";
+                    if(i < columna.length - 1)
+                        query+= "AND ";
+                }
+                query += ")";
+
                 PreparedStatement pstmt = conn.prepareStatement(query);
-                pstmt.setObject(1, valor);
+                for (int i = 0; i < valor.length; i++) {
+                    pstmt.setObject((i+1), valor[i]);
+                }
 
                 ResultSet rs = pstmt.executeQuery();
                 if (rs.next()) {
@@ -123,10 +144,14 @@ public class Query {
                 pstmt.close();
                 conn.close();
             } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
         return existe;
+    }
+    
+    public boolean existeRegistro(String columna, Object valor) {
+        String[] columnas = {columna};
+        return existeRegistro(columnas, valor);
     }
 
 
@@ -134,9 +159,9 @@ public class Query {
         String query = "INSERT INTO " + tabla + " (";
         
         // Construir la lista de columnas
-        for (int i = 0; i < nomColumnas.length; i++) {
-            query += nomColumnas[i];
-            if (i != nomColumnas.length - 1) {
+        for (int i = 0; i < columnas.length; i++) {
+            query += columnas[i];
+            if (i != columnas.length - 1) {
                 query += ", ";
             } else {
                 query += ") VALUES (";
@@ -178,7 +203,6 @@ public class Query {
                 stmt.close();
                 conn.close();
             } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
 
@@ -189,8 +213,8 @@ public class Query {
         String query = "UPDATE " + tabla + " SET ";
     
         // Construir la lista de columnas y valores a actualizar
-        for (int i = 0; i < nomColumnas.length; i++) {
-            query += nomColumnas[i] + " = ";
+        for (int i = 0; i < columnas.length; i++) {
+            query += columnas[i] + " = ";
             
             if (valores[i] instanceof String || valores[i] instanceof Date) {
                 query += "'" + valores[i] + "'";
@@ -198,14 +222,14 @@ public class Query {
                 query += valores[i];
             }
     
-            if (i != nomColumnas.length - 1) {
+            if (i != columnas.length - 1) {
                 query += ", ";
             } else {
                 query += " ";
             }
         }
     
-        query += "WHERE " + nomColumnas[0] + " = " + id;
+        query += "WHERE " + columnas[0] + " = " + id;
     
         return query;
     }
@@ -228,7 +252,6 @@ public class Query {
                 stmt.close();
                 conn.close();
             } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
 
@@ -236,7 +259,7 @@ public class Query {
     }
 
     public String delete(int id) {
-        String query = "DELETE FROM " + tabla + " WHERE " + nomColumnas[0] + " = " + id;
+        String query = "DELETE FROM " + tabla + " WHERE " + columnas[0] + " = " + id;
         return query;
     }
 
@@ -257,7 +280,6 @@ public class Query {
                 stmt.close();
                 conn.close();
             } catch (SQLException e) {
-                e.printStackTrace();
             }
         }
 
@@ -269,7 +291,7 @@ public class Query {
     public String formatearRegistro(Object[] registro) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < registro.length; i++) {
-            sb.append(nomColumnas[i]).append(": ").append(registro[i]);
+            sb.append(columnas[i]).append(": ").append(registro[i]);
             if (i < registro.length - 1) {
                 sb.append(", ");
             }
@@ -285,24 +307,32 @@ public class Query {
         this.tabla = tabla;
     }
 
-    public String[] getNomColumnas() {
-        return this.nomColumnas;
+    public String[] getColumnas() {
+        return this.columnas;
+    }
+
+    public String[] getColumnas(int... pos) {
+        String[] columnasSelec = new String[pos.length];
+        for (int i = 0; i < pos.length; i++) {
+            columnasSelec[i] = this.columnas[pos[i]];
+        }
+        return columnasSelec;
     }
 
     public String getNomColumna(int i) {
-        return this.nomColumnas[i];
+        return this.columnas[i];
     }
 
-    public void setNomColumnas(String[] nomColumnas) {
-        this.nomColumnas = nomColumnas;
+    public void setColumnas(String[] nomColumnas) {
+        this.columnas = nomColumnas;
     }
 
     public void setNomColumna(int i, String nomColumna) {
-        this.nomColumnas[i] = nomColumna;
+        this.columnas[i] = nomColumna;
     }
 
 
     public int getCantColumnas(){
-        return nomColumnas.length;
+        return columnas.length;
     }
 }

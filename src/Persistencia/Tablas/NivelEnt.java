@@ -1,5 +1,7 @@
 package Persistencia.Tablas;
 
+import Persistencia.Query;
+
 public class NivelEnt extends Query {
     public NivelEnt() {
         super("nivel",

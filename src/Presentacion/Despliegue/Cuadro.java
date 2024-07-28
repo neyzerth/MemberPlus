@@ -1,23 +1,6 @@
 package Presentacion.Despliegue;
 
-import Presentacion.Formato.Color;
-
-class Prueba {
-    public static void main(String[] args) {
-
-        Cuadro prueba = new Cuadro(
-            "Módulo de Clientes",
-            Color.azul("Módulo de Ventas"),
-            "Módulo de Clientes",
-            "Módulo de Tarjeta",
-            "Salir"
-        );
-        prueba.imprimirCuadro();
-        prueba.imprimirCuadroNum();
-        prueba.imprimirCuadroList("-");
-    }
-
-}
+import Presentacion.Formato.Texto;
 
 public class Cuadro{
     // tipos de linea para las tablas
@@ -50,7 +33,7 @@ public class Cuadro{
             
             String fila = colum;
             fila += txt;
-            fila += espacio(maxLinea - longFila);
+            fila += Texto.espacio(maxLinea - longFila);
             fila += colum;
 
             cuadro += fila+  "\n";
@@ -72,7 +55,7 @@ public class Cuadro{
             String fila = colum;
             fila += (i + 1) + ". ";
             fila += texto[i];
-            fila += espacio(maxLinea - longFila);
+            fila += Texto.espacio(maxLinea - longFila);
             fila += colum;
 
             cuadro += fila+  "\n";
@@ -94,7 +77,7 @@ public class Cuadro{
             String fila = colum;
             fila += caracter + " ";
             fila += txt;
-            fila += espacio(maxLinea - longFila);
+            fila += Texto.espacio(maxLinea - longFila);
             fila += colum;
 
             cuadro += fila+  "\n";
@@ -112,15 +95,6 @@ public class Cuadro{
             lineas += techo;
         }
         return lineas;
-    }
-
-    // iterando linea plana
-    public static String espacio(int n) {
-        String espacios = "";
-        for (int i = 0; i < n; i++) {
-            espacios += " ";
-        }
-        return espacios;
     }
 
     // calcular la longitud de cadena mayor en cada columna

@@ -2,7 +2,9 @@ package Presentacion.Despliegue;
 
 import java.util.ArrayList;
 
-public class Tabla extends Cuadro{
+import Presentacion.Formato.Texto;
+
+public class Tabla extends Cuadro {
 
     private String[] cabeceras; // Titulos de las columnas
     private Object[][] datos; // contenido de cada cuadro
@@ -43,11 +45,16 @@ public class Tabla extends Cuadro{
     // ---------- IMPRIMIR TABLAS ----------
     // FUNCION PARA IMPRIMIR TABLA A PARTIR DE UN TIPO
     public void imprimirTabla(int tipo) {
-        setTipoLineas(tipo);
-        System.out.println(linCabecera());
-        System.out.println(cabecera());
-        System.out.println(filas());
-        System.out.println(linFinal());
+        try {
+            setTipoLineas(tipo);
+            String tabla = linCabecera() + "\n";
+            tabla += cabecera() + "\n";
+            tabla += filas() + "\n";
+            tabla += linFinal() + "\n";
+            System.out.println(tabla);
+        } catch (NullPointerException e) {
+            System.out.println("Tabla sin datos.");
+        }
     }
 
     // IMPRIMIR TABLA CON EL TIPO PREDETERMINADO
@@ -57,11 +64,16 @@ public class Tabla extends Cuadro{
 
     // TABLA SIN INTERLINES EN DATOS
     public void imprimirTablaSimple(int tipo) {
-        setTipoLineas(tipo);
-        System.out.println(linCabecera());
-        System.out.println(cabecera());
-        System.out.println(filasSinInterlineas());
-        System.out.println(linFinal());
+
+        try {
+            setTipoLineas(tipo);
+            System.out.println(linCabecera());
+            System.out.println(cabecera());
+            System.out.println(filasSinInterlineas());
+            System.out.println(linFinal());
+        } catch (NullPointerException e) {
+            System.out.println("Tabla sin datos.");
+        }
     }
 
     public void imprimirTablaSimple() {
@@ -108,11 +120,11 @@ public class Tabla extends Cuadro{
         for (int i = 0; i < getCantColumnas(); i++) {
             String dato = String.valueOf(celdas[i]);
             int longDato = dato.length();
-            if(contieneColor(dato))
-                longDato -=9;
+            if (contieneColor(dato))
+                longDato -= 9;
 
             fila += dato;
-            fila += espacio(maxColumna[i] - longDato);
+            fila += Texto.espacio(maxColumna[i] - longDato);
             fila += colum;
         }
         return fila;
@@ -200,8 +212,6 @@ public class Tabla extends Cuadro{
         return linTabla(borIzqInf, invT, borDerInf);
     }
 
-    
-
     // SETTERS Y GETTERS
     public String[] getCabeceras() {
         return this.cabeceras;
@@ -211,7 +221,7 @@ public class Tabla extends Cuadro{
         return this.cabeceras[i];
     }
 
-    public int getCantColumnas(){
+    public int getCantColumnas() {
         return this.cabeceras.length;
     }
 
@@ -273,8 +283,8 @@ public class Tabla extends Cuadro{
             throw new IllegalArgumentException("La nueva fila debe tener la misma cantidad de columnas que la tabla");
         }
 
-        //Si es que no se inicializo
-        if(this.datos == null){
+        // Si es que no se inicializo
+        if (this.datos == null) {
             this.datos = new Object[1][getCantColumnas()];
             this.datos[0] = nuevaFila;
             setMaxColumna();

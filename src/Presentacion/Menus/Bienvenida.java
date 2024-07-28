@@ -2,28 +2,33 @@ package Presentacion.Menus;
 
 import java.util.Scanner;
 import Presentacion.Despliegue.Cuadro;
-import Presentacion.Formato.Color;
+import Presentacion.Formato.*;
 
 public class Bienvenida {
-    public static void main(String[] args) {
+    public static void menu(Scanner scanner) {
+        Texto.limpiarPantalla();
+
         Cuadro bienvenida = new Cuadro(
             Color.morado("   Bienvenidos "), 
             Color.cian("   a Member +")
         );
         bienvenida.imprimirCuadro();
 
-        System.out.println(Color.amarillo("   ,-~~-.___"));
-        System.out.println(Color.amarillo("  / |  '     \\ "));
-        System.out.println(Color.amarillo(" (  )        0"));
-        System.out.println(Color.amarillo("  \\_/-, ,----'"));
-        System.out.println(Color.amarillo("     ====           //"));
-        System.out.println(Color.amarillo("    /  \\-'~;    /~~~(O)"));
-        System.out.println(Color.amarillo("   /  __/~|   /       |"));
-        System.out.println(Color.amarillo(" =(  _____| (_________|"));
+        System.out.println(snoopy);
 
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
+        Texto.esperarEnter();
 
-        Color.limpiarPantalla();
+        Texto.limpiarPantalla();
     }
+
+    static String snoopy = Color.amarillo(
+            "   ,-~~-.___\n" +
+            "  / |  '     \\ \n" +
+            " (  )        0\n" +
+            "  \\_/-, ,----'\n" +
+            "     ====           //\n" +
+            "    /  \\-'~;    /~~~(O)\n" +
+            "   /  __/~|   /       |\n" +
+            " =(  _____| (_________|)\n"
+        );
 }

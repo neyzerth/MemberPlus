@@ -1,4 +1,4 @@
-package Logica;
+package Logica.Objetos;
 import java.util.Date;
 
 public class TipoMovimiento extends Movimiento {
@@ -41,9 +41,5 @@ public class TipoMovimiento extends Movimiento {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-
- 
-
-
 
 }
