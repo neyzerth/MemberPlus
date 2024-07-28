@@ -3,9 +3,9 @@ package Presentacion.Menus;
 import Presentacion.Despliegue.Cuadro;
 import Presentacion.Despliegue.Tabla;
 import Presentacion.Formato.*;
-import Persistencia.Tablas.UsuarioEnt;
+import Logica.Objetos.Usuario;
 
-public class Usuario {
+public class ModUsuario {
     public static void menu() {
         boolean salir = false;
         while (!salir) {
@@ -75,9 +75,16 @@ public class Usuario {
     }
 
     private static void tablaUsuarios(){
-        String[] cabeceras = {"ID", "Nombre Usuario","Contrasena", "RFC", "Persona", "Rol"};
-        UsuarioEnt usuarios = new UsuarioEnt();
-        Tabla tabla = new Tabla(cabeceras, usuarios.ejecutarSelect());
+        Tabla tabla = new Tabla("ID", "Nombre Usuario","Contrasena", "RFC");
+        for (Usuario usuario : Usuario.importarUsuarios()) {
+            tabla.agregarFila(
+                usuario.getId(),
+                usuario.getNomUsuario(),
+                usuario.getContrasena(),
+                usuario.getRfc()
+            );
+        }
         tabla.imprimirTabla();
+        Usuario.importarUsuarios();
     }
 }

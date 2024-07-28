@@ -3,7 +3,7 @@ package Presentacion.Menus;
 import Presentacion.Despliegue.Cuadro;
 import Presentacion.Formato.*;
 
-public class Tarjeta {
+public class ModTarjeta {
     public static void menu() {
         boolean salir = false;
 
