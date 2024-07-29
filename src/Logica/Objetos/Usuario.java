@@ -91,6 +91,11 @@ public class Usuario extends Persona {
 
     }
 
+    public static boolean validarUsuario(int id){
+        UsuarioEnt usuario = new UsuarioEnt();
+        return usuario.existeRegistro(id);
+    }
+
     // GETTERS AND SETTERS
     public String getNomUsuario() {
         return this.nomUsuario;
