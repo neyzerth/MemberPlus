@@ -19,9 +19,12 @@ public class IniciarSesion {
             Cuadro inicioS = new Cuadro(Color.morado(" > Iniciar sesión <"));
             inicioS.imprimirCuadro();
 
+            System.out.println(Color.morado(Color.negrita(Texto.espacio(4)+"Ingrese sus datos:")));
+
             if(errorSesion){
-                System.out.println(Color.rojo(Color.negrita(" ¡Datos incorrectos! ")));
-                System.out.println(Color.rojo(" Intentelo de nuevo "));
+                System.out.println();
+                System.out.println(Color.rojo(Color.negrita(Texto.espacio(2)+" ¡Datos incorrectos! ")));
+                System.out.println(Color.rojo(Texto.espacio(2)+" Intentelo de nuevo "));
             }
             System.out.println();
 
@@ -31,7 +34,8 @@ public class IniciarSesion {
             // Solicitar contraseña de forma segura
             contrasena = Texto.leerContra(Color.cian(" > Contraseña: "));
 
-            System.out.println("Conectando con base de datos...");
+            System.out.print("Conectando con base de datos");
+            Texto.suspensivos();
             errorSesion = !Sesion.iniciarSesion(usuario, contrasena);
 
             if(errorSesion){

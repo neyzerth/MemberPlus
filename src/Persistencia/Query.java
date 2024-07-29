@@ -179,6 +179,10 @@ public class Query {
         String[] columnas = {columna};
         return existeRegistro(columnas, valor);
     }
+    public boolean existeRegistro(int ID) {
+        String[] columnas = {getNomColumna(0)};
+        return existeRegistro(columnas, ID);
+    }
 
 
     public String insert(Object[] valores) {
@@ -287,7 +291,11 @@ public class Query {
     }
 
     public String delete(int id) {
-        String query = "DELETE FROM " + tabla + " WHERE " + columnas[0] + " = " + id;
+        return delete(columnas[0], id);
+    }
+
+    public String delete(String columna, int id) {
+        String query = "DELETE FROM " + tabla + " WHERE " + columna + " = " + id;
         return query;
     }
 

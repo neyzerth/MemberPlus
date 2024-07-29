@@ -6,6 +6,8 @@ public class Cuadro{
     // tipos de linea para las tablas
     private String [] texto;
     private int maxLinea;
+    private int lineaDinamico;
+    private boolean centrado;
     protected String colum, techo, 
         borIzqSup, borIzqInf, borDerSup, borDerInf;
 
@@ -14,6 +16,8 @@ public class Cuadro{
     public Cuadro(int tipoLinea, String... texto){
         this.texto = texto;
         this.tipoLinea = tipoLinea;
+        this.maxLinea = 0;
+        this.lineaDinamico = 0;
         this.maxLinea = longMayor(texto); // Llama a textoMayor después de inicializar texto
         setTipoLineas(this.tipoLinea);
     }
@@ -22,69 +26,97 @@ public class Cuadro{
         this(1, texto);
     }
 
-    public void imprimirCuadro(){
-        String linea = linea(maxLinea);
-        String cuadro = borIzqSup + linea + borDerSup ;
-        cuadro += "\n" ;
-        for (String txt : texto) {
-            int longFila = txt.length();
-            if(contieneColor(txt))
-                longFila -= 9;
-            
-            String fila = colum;
-            fila += txt;
-            fila += Texto.espacio(maxLinea - longFila);
-            fila += colum;
+    private String hacerCuadro(boolean num, String simbolo, int sumLinea){
+        String linea = linea(getMaxLinea() + sumLinea);
+        String cuadro = "";
 
-            cuadro += fila+  "\n";
+        //PRIMERA LINEA
+        cuadro += borIzqSup + linea + borDerSup ;
+        cuadro += "\n" ;
+
+        //CADA FILA
+        for (int i = 0; i < texto.length; i++) {            
+            String fila = "";
+            if(num)
+                simbolo = (i + 1) + ".";
+            if(this.centrado)
+                fila += filaCentrada(texto[i], simbolo);
+            else
+                fila += fila(texto[i], simbolo);
+
+            cuadro += fila;
         }
         cuadro += borIzqInf + linea + borDerInf;
 
-        System.out.println(cuadro);
+        return cuadro;
+    }
+
+    private String fila(String texto, String simbolo){
+        String fila = "";
+        String[] saltos = texto.split("\n");
+
+        for (int i = 0; i < saltos.length; i++) {
+            int longFila = saltos[i].length();
+
+            if(contieneColor(saltos[i]))
+                longFila -= 9;
+            if(i != 0 ){
+                fila += colum;
+                if(!simbolo.equals(""))
+                    fila +=Texto.espacio(simbolo.length() + 1);
+            }
+            fila += saltos[i];
+            fila += Texto.espacio(getMaxLinea() - longFila);
+            fila += colum + "\n";
+    
+        }
+        if(!simbolo.equals(""))
+            return colum + simbolo + " " + fila;
+
+        return colum + fila;
+    }
+
+    private String filaCentrada(String texto, String simbolo){
+        String fila = colum;
+        String[] saltos = texto.split("\n");
+
+        if(!simbolo.isEmpty())
+            simbolo += " ";
+        fila += simbolo;
+        
+        for (int i = 0; i < saltos.length; i++) {
+            int longFila = saltos[i].length();
+            if(contieneColor(saltos[i]))
+                longFila -= 9;
+
+            int espacio = getMaxLinea() - longFila;
+            int espacio2 = espacio/2;
+            int espacio1 = espacio - espacio2;
+
+            if(i != 0 ){
+                fila += colum;
+                fila += Texto.espacio(simbolo.length());
+            }
+            fila += Texto.espacio(espacio1);
+            fila += saltos[i];
+            fila += Texto.espacio(espacio2);
+            fila += colum + "\n";
+    
+        }
+
+        return fila;
+    }
+
+    public void imprimirCuadro(){
+        System.out.println(hacerCuadro(false, "", 0));
     }
 
     public void imprimirCuadroNum(){
-        String linea = linea(maxLinea + 3);
-        String cuadro = borIzqSup + linea + borDerSup ;
-        cuadro += "\n" ;
-        for (int i = 0; i < texto.length; i++) {
-            int longFila = texto[i].length();
-            if(contieneColor(texto[i]))
-                longFila -= 9;
-            
-            String fila = colum;
-            fila += (i + 1) + ". ";
-            fila += texto[i];
-            fila += Texto.espacio(maxLinea - longFila);
-            fila += colum;
-
-            cuadro += fila+  "\n";
-        }
-        cuadro += borIzqInf + linea + borDerInf;
-
-        System.out.println(cuadro);
+        System.out.println(hacerCuadro(true, "", 3));
     }
 
     public void imprimirCuadroList(String caracter){
-        String linea = linea(maxLinea + caracter.length() + 1);
-        String cuadro = borIzqSup + linea + borDerSup ;
-        cuadro += "\n" ;
-        for (String txt : texto) {
-            int longFila = txt.length();
-            if(contieneColor(txt))
-            longFila -= 9;
-            
-            String fila = colum;
-            fila += caracter + " ";
-            fila += txt;
-            fila += Texto.espacio(maxLinea - longFila);
-            fila += colum;
-
-            cuadro += fila+  "\n";
-        }
-        cuadro += borIzqInf + linea + borDerInf;
-
-        System.out.println(cuadro);
+        System.out.println(hacerCuadro(false, caracter, (caracter.length() + 1)));
     }
 
         // --------- ITERANDO SIMBOLOS -----
@@ -102,16 +134,19 @@ public class Cuadro{
         if(filas.length == 0)
             return 0;
 
-        int maximo = 0;
+        int maximo = maxLinea;
 
         for (String fila : filas) {
-            int longFila = fila.length();
-            if(contieneColor(fila))
-                longFila -= 7;
-
-            maximo = Math.max(maximo, longFila);
+            String [] saltos = fila.split("\n");
+            int longFila = 0;
+            for (String salto : saltos) {
+                longFila = salto.length();
+                if(contieneColor(salto))
+                    longFila -= 7;
+                maximo = Math.max(maximo, longFila);
+            }
         }
-        return maximo;
+        return maximo + lineaDinamico;
     }
 
     protected void setTipoLineas(int tipo) {
@@ -155,6 +190,32 @@ public class Cuadro{
 
     protected boolean contieneColor(String texto) {
         return texto.contains("\u001B[");
+    }
+
+    public void setMaxLinea(int maximo){
+        this.maxLinea = Math.max(this.maxLinea, maximo);
+    }
+
+    public void setLineaDinamico(int maxDinamico){
+        if(maxDinamico > 0)
+            this.lineaDinamico = maxDinamico;
+    }
+
+    public int getMaxLinea(){
+        return this.maxLinea + this.lineaDinamico;
+    }
+
+    public void centrado(boolean opc){
+        this.centrado = opc;
+    }
+
+    public void agregarTexto(String... texto){
+        String[] temp = new String[this.texto.length + texto.length];
+        
+        System.arraycopy(this.texto, 0, temp, 0, this.texto.length);
+        System.arraycopy(texto, 0, temp, this.texto.length, texto.length);
+
+        this.texto = temp;
     }
 
 }
