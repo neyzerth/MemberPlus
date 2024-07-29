@@ -99,4 +99,34 @@ public class Texto {
             return 0;
         }
     }
+
+    public static String moneda(double cantidad) {
+        return moneda(cantidad, 2);
+    }
+
+    public static String moneda(double cantidad, int decim){
+        String moneda = "";
+        String[] numeros = String.valueOf(cantidad).split("\\.");
+
+        String enteros = invertir(numeros[0]);
+        String decimales = numeros[1];
+
+        int digitos = enteros.length();
+
+        for (int i = 0; i < digitos; i++) {
+            moneda += enteros.charAt(i);
+            if ((i+1) % 3 == 0 && i < digitos - 1)
+                moneda += ",";
+        }
+
+        return "$" + invertir(moneda) + "." + decimales.substring(0, decim);
+    }
+
+    private static String invertir(String s) {
+        String invertido = "";
+        for (int i = s.length() - 1; i >= 0; i--) {
+            invertido = invertido + s.charAt(i);
+        }
+        return invertido;
+    }
 }
