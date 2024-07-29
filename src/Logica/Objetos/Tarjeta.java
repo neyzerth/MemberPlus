@@ -4,9 +4,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 public class Tarjeta {
     // ATRIBUTOS
-    private long numTarjeta;
+    private String  numTarjeta;
     private float saldo;
     private int puntos;
     private Date fecExp, fecVen;
@@ -17,7 +18,7 @@ public class Tarjeta {
     public Tarjeta() {
     }
 
-    public Tarjeta(long numTarjeta, float saldo, int puntos, Date fecExp, Date fecVen, boolean activo) {
+    public Tarjeta(String numTarjeta, float saldo, int puntos, Date fecExp, Date fecVen, boolean activo) {
         this.numTarjeta = numTarjeta;
         this.saldo = saldo;
         this.puntos = puntos;
@@ -38,24 +39,19 @@ public class Tarjeta {
 
     // GETTERS AND SETTERS
 
-    public long getNumTarjeta() {
+    public String getNumTarjeta() {
         return this.numTarjeta;
     }
-
-    public void setNumTarjeta(long numTarjeta) {
-        if (numTarjeta <= 0)
-            throw new IllegalArgumentException("El numero de la tarjeta no puede ser negativo o cero");
-        this.numTarjeta = numTarjeta;
-    }
+    
 
     public void setNumTarjeta(String numTarjetaStr) {
         try {
-            int numTarjeta = Integer.parseInt(numTarjetaStr);
-            this.setNumTarjeta(numTarjeta);
+            this.numTarjeta = numTarjetaStr;
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("La tarjeta no es válida");
         }
     }
+    
 
     public float getSaldo() {
         return this.saldo;
@@ -63,7 +59,7 @@ public class Tarjeta {
 
     public void setSaldo(float saldo) {
         if (saldo <= 0)
-            throw new IllegalArgumentException("El saldo no puede ser negativo o cero");
+            throw new IllegalArgumentException("El saldo no puede ser inferior a 0");
         this.saldo = saldo;
     }
 
@@ -82,7 +78,7 @@ public class Tarjeta {
 
     public void setPuntos(int puntos) {
         if (puntos <= 0)
-            throw new IllegalArgumentException("Los puntos no puede ser negativos o cero");
+            throw new IllegalArgumentException("Los puntos no pueden ser inferior a 0");
         this.puntos = puntos;
     }
 

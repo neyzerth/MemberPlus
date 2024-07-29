@@ -24,7 +24,7 @@ public class Usuario extends Persona {
         String colonia, String calle, int numExt, int numInt, String cp, String telefono, String correo,
         Date fecNac, String nomUsuario, String contrasena, String rfc, int idPersona
     ) {  
-          
+    
         // El constructor le faltaban atributos, y el id de persona se transfiere
         super(idPersona, nombre, apellidoMa, apellidoPa, colonia, calle, numExt, numInt, telefono, correo, cp, fecNac);
         this.nomUsuario = nomUsuario;
