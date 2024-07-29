@@ -109,7 +109,7 @@ public class ModUsuario {
 
     private static Usuario[] tablaUsuarios(int id) {
         Tabla tabla = new Tabla("ID", "Nombre Usuario", "RFC");
-        Usuario[] usuarios;
+        Usuario[] usuarios = new Usuario[1];
 
         if (id == 0) {
             Texto.esperarEnter("INGRESA UN ID VALIDO");
@@ -119,7 +119,7 @@ public class ModUsuario {
         if (id == -1)
             usuarios = Usuario.importarUsuarios();
         else {
-            usuarios = Usuario.importarUsuarios(id);
+            usuarios[0] = Usuario.importarUsuarios(id);
             if (!Usuario.validarUsuario(id)) {
                 Texto.esperarEnter("No existe usuario con ID : " + id);
                 return null;
@@ -128,9 +128,9 @@ public class ModUsuario {
 
         for (Usuario usuario : usuarios) {
             tabla.agregarFila(
-                    usuario.getId(),
-                    usuario.getNomUsuario(),
-                    usuario.getRfc());
+                usuario.getId(),
+                usuario.getNomUsuario(),
+                usuario.getRfc());
         }
         tabla.imprimirTablaSimple();
 

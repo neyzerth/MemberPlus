@@ -1,7 +1,5 @@
 package Presentacion;
 
-import java.util.Scanner;
-
 import Logica.Objetos.Usuario;
 import Presentacion.Menus.Bienvenida;
 import Presentacion.Menus.IniciarSesion;

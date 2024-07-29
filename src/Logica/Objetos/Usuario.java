@@ -26,7 +26,7 @@ public class Usuario extends Persona {
     ) {  
     
         // El constructor le faltaban atributos, y el id de persona se transfiere
-        super(idPersona, nombre, apellidoMa, apellidoPa, colonia, calle, numExt, numInt, telefono, correo, cp, fecNac);
+        super(idPersona, nombre, apellidoMa, apellidoPa, fecNac, colonia, calle, numExt, numInt, telefono, correo, cp);
         this.nomUsuario = nomUsuario;
         this.contrasena = contrasena;
         this.rfc = rfc;
@@ -46,15 +46,17 @@ public class Usuario extends Persona {
         }
         return usuarios;
     }
-    public static Usuario[] importarUsuarios(int id){
+    public static Usuario importarUsuarios(int id){
         UsuarioEnt usuariosBd = new UsuarioEnt();
-        Usuario [] usuarios = new Usuario[1];
         Object [] datos = usuariosBd.obtenerUsuarioPorIdDB(id);
 
-        for (int i = 0; i < usuarios.length; i++) {
-            usuarios[i] = new Usuario((int) datos[0], (String) datos[1], (String) datos[2], (String) datos[3]);            
-        }
-        return usuarios;
+        Usuario usuario = new Usuario(
+            (int) datos[0],
+            (String) datos[1],
+            (String) datos[2], 
+            (String) datos[3]
+        );            
+        return usuario;
     }
 
     public boolean actualizarUsuario(int persona, int rol){
@@ -87,8 +89,6 @@ public class Usuario extends Persona {
     public boolean validarUsuario(){
         UsuarioEnt usuario = new UsuarioEnt();
         return usuario.existeUsuario(nomUsuario, contrasena);
-            
-
     }
 
     public static boolean validarUsuario(int id){

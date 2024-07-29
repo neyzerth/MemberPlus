@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import Persistencia.Tablas.PersonaEnt;
+
 public class Persona {
     // ATRIBUTOS
     private String nombre, apellidoMa, apellidoPa, colonia, calle, telefono, correo, cp;
@@ -14,14 +16,30 @@ public class Persona {
     // CONSTRUCTORES
     public Persona() {
     }
+    public Persona(int id) {
+        Persona persona = importarPersonas(id);
+        this.idPersona = id;
+        this.nombre = persona.getNombre();
+        this.apellidoMa = persona.getApellidoPa();
+        this.apellidoPa = persona.getApellidoMa();
+        this.fecNac = persona.getFecNac();
+        this.colonia = persona.getColonia();
+        this.calle = persona.getCalle();
+        this.numExt = persona.getNumExt();
+        this.numInt = persona.getNumInt();
+        this.cp = persona.getCp();
+        this.telefono = persona.getTelefono();
+        this.correo = persona.getCorreo();
+    }
 
-    public Persona(int idPersona, String nombre, String apellidoPa, String apellidoMa, String colonia, String calle,
-            int numExt,
-            int numInt, String cp, String telefono, String correo, Date fecNac) {
+    public Persona(int idPersona, String nombre, String apellidoPa, String apellidoMa , Date fecNac, String colonia, String calle,
+            int numExt, int numInt, String cp, String telefono, String correo
+        ) {
         this.idPersona = idPersona;
         this.nombre = nombre;
         this.apellidoPa = apellidoPa;
         this.apellidoMa = apellidoMa;
+        this.fecNac = fecNac;
         this.colonia = colonia;
         this.calle = calle;
         this.numExt = numExt;
@@ -29,7 +47,59 @@ public class Persona {
         this.cp = cp;
         this.telefono = telefono;
         this.correo = correo;
-        this.fecNac = fecNac;
+    }
+
+    public static Persona[] importarPersonas(){
+        PersonaEnt personaBd = new PersonaEnt();
+        Persona[] personas = new Persona[personaBd.obtenerCantRegistros()];
+        Object [][] datos = personaBd.ejecutarSelect();
+
+        for (int i = 0; i < personas.length; i++) {
+            Object[] dato = datos[i];
+            personas[i] = new Persona(
+                (int) dato[0],
+                (String) dato[1],
+                (String) dato[2],
+                (String) dato[3],
+                (Date) dato[4],
+                (String) dato[5],
+                (String) dato[6],
+                (int) dato[7],
+                (int) dato[8],
+                (String) dato[9],
+                (String) dato[10],
+                (String) dato[11]
+            );            
+        }
+        return personas;
+    }
+    public static Persona importarPersonas(int id){
+        PersonaEnt personaBd = new PersonaEnt();
+        Persona persona = new Persona();
+
+        Object [] datos = personaBd.obtenerPersonaPorIdDB(id);
+
+        if(datos[7] == null)
+            datos[7] = 0;
+        if(datos[8] == null)
+            datos[8] = 0;
+
+        persona = new Persona(
+            (int) datos[0],
+            (String) datos[1],
+            (String) datos[2],
+            (String) datos[3],
+            (Date) datos[4],
+            (String) datos[5],
+            (String) datos[6],
+            (int) datos[7],
+            (int) datos[8],
+            (String) datos[9],
+            (String) datos[10],
+            (String) datos[11]
+        );
+
+        return persona;
     }
 
     // Método para modificar y verificar los datos

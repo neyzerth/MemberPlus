@@ -8,9 +8,11 @@ public class Bienvenida {
         Texto.limpiarPantalla();
 
         Cuadro bienvenida = new Cuadro(
-            Color.morado("   Bienvenidos "), 
-            Color.cian("   a Member +")
+            Color.morado("Bienvenidos "), 
+            Color.cian("a Member +")
         );
+        bienvenida.centrado(true);
+        bienvenida.setMaxLinea(30);
         bienvenida.imprimirCuadro();
 
         System.out.println(snoopy);
