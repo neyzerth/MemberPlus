@@ -128,3 +128,121 @@ Create Table compra_Beneficio (
     FOREIGN KEY (compra) REFERENCES compra(idCompra),
     FOREIGN KEY (beneficio) REFERENCES beneficio(idBeneficio)
 );
+
+
+
+--Delete and update on cascada
+
+--Usuario 
+ALTER TABLE usuario
+DROP FOREIGN KEY usuario_ibfk_1;  
+ALTER TABLE usuario
+ADD CONSTRAINT fk_usuario_rol
+FOREIGN KEY (rol) REFERENCES rol(idRol)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+ALTER TABLE usuario
+DROP FOREIGN KEY usuario_ibfk_2;  
+
+ALTER TABLE usuario
+ADD CONSTRAINT fk_usuario_persona
+FOREIGN KEY (persona) REFERENCES persona(idPersona)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+--Tarjeta 
+
+ALTER TABLE tarjeta
+DROP FOREIGN KEY tarjeta_ibfk_1;  
+
+ALTER TABLE tarjeta
+ADD CONSTRAINT fk_tarjeta_cliente
+FOREIGN KEY (cliente) REFERENCES cliente(idCliente)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+ALTER TABLE tarjeta
+DROP FOREIGN KEY fk_nivel;  
+
+ALTER TABLE tarjeta
+ADD CONSTRAINT fk_nivel
+FOREIGN KEY (nivel) REFERENCES nivel(idNivel)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+
+
+
+--Movimiento
+ALTER TABLE movimiento
+DROP FOREIGN KEY movimiento_ibfk_1;
+
+ALTER TABLE movimiento
+ADD CONSTRAINT fk_movimiento_usuario
+FOREIGN KEY (usuario) REFERENCES usuario(idUsuario)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+ALTER TABLE movimiento
+DROP FOREIGN KEY movimiento_ibfk_2;
+
+ALTER TABLE movimiento
+ADD CONSTRAINT fk_movimiento_tarjeta
+FOREIGN KEY (tarjeta) REFERENCES tarjeta(idTarjeta)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+ALTER TABLE movimiento
+DROP FOREIGN KEY movimiento_ibfk_3;
+
+ALTER TABLE movimiento
+ADD CONSTRAINT fk_movimiento_tipoMovimiento
+FOREIGN KEY (tipoMovimiento) REFERENCES tipo_movimiento(idTipoMovimiento)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+--Tablas de relacion M a M no se si maneja igual
+ALTER TABLE compra_Beneficio
+DROP FOREIGN KEY compra_beneficio_ibfk_1;
+
+ALTER TABLE compra_Beneficio
+ADD CONSTRAINT fk_compra_beneficio_compra
+FOREIGN KEY (compra) REFERENCES compra(idCompra)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+ALTER TABLE compra_Beneficio
+DROP FOREIGN KEY compra_beneficio_ibfk_2;
+
+ALTER TABLE compra_Beneficio
+ADD CONSTRAINT fk_compra_beneficio_beneficio
+FOREIGN KEY (beneficio) REFERENCES beneficio(idBeneficio)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+
+
+--nivel-Beneficio
+ALTER TABLE nivel_Beneficio
+DROP FOREIGN KEY nivel_beneficio_ibfk_1;
+
+ALTER TABLE nivel_Beneficio
+ADD CONSTRAINT fk_nivel_beneficio_nivel
+FOREIGN KEY (nivel) REFERENCES nivel(idNivel)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+ALTER TABLE nivel_Beneficio
+DROP FOREIGN KEY nivel_beneficio_ibfk_2;
+
+ALTER TABLE nivel_Beneficio
+ADD CONSTRAINT fk_nivel_beneficio_beneficio
+FOREIGN KEY (beneficio) REFERENCES beneficio(idBeneficio)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+
+
+
+
