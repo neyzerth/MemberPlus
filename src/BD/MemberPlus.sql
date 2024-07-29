@@ -84,6 +84,7 @@ CREATE TABLE beneficio (
     fecVen DATE NOT NULL,
     porcentajePuntos int,
     porcentajeCashBack int
+    
 );
 
 drop table tipo_movimiento;
