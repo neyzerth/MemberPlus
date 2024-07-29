@@ -66,12 +66,14 @@ public class Query {
                 conn.close();
 
             } catch (SQLException e) {
+                return null;
             }
         }
         return registros;
     }
     public Object[][] ejecutarSelect() {
-        return ejecutarSelect(null);
+        String [] columnasNull = null;
+        return ejecutarSelect(columnasNull);
     }
 
     public String selectUno(String... columna){
@@ -106,6 +108,7 @@ public class Query {
                 pstmt.close();
                 conn.close();
             } catch (SQLException e) {
+                return null;
             }
         }
         return registro;
@@ -131,6 +134,7 @@ public class Query {
                 conn.close();
 
             } catch (SQLException e) {
+                return 0;
             }
         }
         return rowCount;
@@ -165,6 +169,7 @@ public class Query {
                 pstmt.close();
                 conn.close();
             } catch (SQLException e) {
+                return false;
             }
         }
         return existe;
@@ -224,6 +229,7 @@ public class Query {
                 stmt.close();
                 conn.close();
             } catch (SQLException e) {
+                return false;
             }
         }
 
@@ -273,6 +279,7 @@ public class Query {
                 stmt.close();
                 conn.close();
             } catch (SQLException e) {
+                return false;
             }
         }
 
@@ -301,6 +308,7 @@ public class Query {
                 stmt.close();
                 conn.close();
             } catch (SQLException e) {
+                return false;
             }
         }
 
