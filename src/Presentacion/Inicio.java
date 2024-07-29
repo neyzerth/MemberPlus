@@ -9,9 +9,8 @@ import Presentacion.Menus.IniciarSesion;
 public class Inicio {
     public static Usuario sesion;
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
         do{
-            Bienvenida.menu(scan);
+            Bienvenida.menu();
             IniciarSesion.interfaz();
         } while(true);
     }

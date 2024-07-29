@@ -41,13 +41,64 @@ public class Texto {
         esperarEnter("\nENTER para continuar...");
     }
 
-    public static void esperar(float seg) {
+    public static void esperar(double seg) {
         int tiempo = (int) (seg * 1000);
         try {
             Thread.sleep(tiempo);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+    }
+
+    public static void suspensivos(){
+        for (int i = 0; i < 5; i++) {
+            System.out.print(".");
+            esperar(0.1);
+        }
+    }
+
+    public static String moneda(double cantidad) {
+        return moneda(cantidad, 2);
+    }
+
+    public static String moneda(double cantidad, int decim){
+        String moneda = "";
+        String[] numeros = String.valueOf(cantidad).split("\\.");
+
+        String enteros = invertir(numeros[0]);
+        String decimales = numeros[1];
+
+        int digitos = enteros.length();
+
+        for (int i = 0; i < digitos; i++) {
+            moneda += enteros.charAt(i);
+            if ((i+1) % 3 == 0 && i < digitos - 1)
+                moneda += ",";
+        }
+
+        return "$" + invertir(moneda) + "." + decimales.substring(0, decim);
+    }
+
+    public static String tarjeta(String numTarjeta){
+        String formatoTarjeta = "";
+        
+        if(numTarjeta.length() != 16)
+            return "Numero de tarjeta no valido";
+
+        for (int i = 0; i < numTarjeta.length(); i++) {
+            formatoTarjeta += numTarjeta.charAt(i);
+            if((i+1) % 4 == 0)
+                formatoTarjeta += " ";
+        }
+        return formatoTarjeta;
+    }
+
+    private static String invertir(String s) {
+        String invertido = "";
+        for (int i = s.length() - 1; i >= 0; i--) {
+            invertido = invertido + s.charAt(i);
+        }
+        return invertido;
     }
 
     public static String leerString(String txt) {
@@ -98,35 +149,5 @@ public class Texto {
             System.out.println("Error: no se ingresó un valor numerico.");
             return 0;
         }
-    }
-
-    public static String moneda(double cantidad) {
-        return moneda(cantidad, 2);
-    }
-
-    public static String moneda(double cantidad, int decim){
-        String moneda = "";
-        String[] numeros = String.valueOf(cantidad).split("\\.");
-
-        String enteros = invertir(numeros[0]);
-        String decimales = numeros[1];
-
-        int digitos = enteros.length();
-
-        for (int i = 0; i < digitos; i++) {
-            moneda += enteros.charAt(i);
-            if ((i+1) % 3 == 0 && i < digitos - 1)
-                moneda += ",";
-        }
-
-        return "$" + invertir(moneda) + "." + decimales.substring(0, decim);
-    }
-
-    private static String invertir(String s) {
-        String invertido = "";
-        for (int i = s.length() - 1; i >= 0; i--) {
-            invertido = invertido + s.charAt(i);
-        }
-        return invertido;
     }
 }

@@ -26,7 +26,7 @@ public class Cuadro{
         this(1, texto);
     }
 
-    private String imprimir(boolean num, String simbolo, int sumLinea){
+    private String hacerCuadro(boolean num, String simbolo, int sumLinea){
         String linea = linea(getMaxLinea() + sumLinea);
         String cuadro = "";
 
@@ -108,15 +108,15 @@ public class Cuadro{
     }
 
     public void imprimirCuadro(){
-        System.out.println(imprimir(false, "", 0));
+        System.out.println(hacerCuadro(false, "", 0));
     }
 
     public void imprimirCuadroNum(){
-        System.out.println(imprimir(true, "", 3));
+        System.out.println(hacerCuadro(true, "", 3));
     }
 
     public void imprimirCuadroList(String caracter){
-        System.out.println(imprimir(false, caracter, (caracter.length() + 1)));
+        System.out.println(hacerCuadro(false, caracter, (caracter.length() + 1)));
     }
 
         // --------- ITERANDO SIMBOLOS -----
@@ -207,6 +207,15 @@ public class Cuadro{
 
     public void centrado(boolean opc){
         this.centrado = opc;
+    }
+
+    public void agregarTexto(String... texto){
+        String[] temp = new String[this.texto.length + texto.length];
+        
+        System.arraycopy(this.texto, 0, temp, 0, this.texto.length);
+        System.arraycopy(texto, 0, temp, this.texto.length, texto.length);
+
+        this.texto = temp;
     }
 
 }

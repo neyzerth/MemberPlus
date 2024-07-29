@@ -8,7 +8,6 @@ import Logica.Objetos.Usuario;
 public class ModUsuario {
     public static void menu() {
         boolean salir = false;
-        int id;
         while (!salir) {
             Texto.limpiarPantalla();
             System.out.println(Color.morado(Color.negrita(Texto.espacio(8) + "> Módulo de Usuario <")));
@@ -26,69 +25,52 @@ public class ModUsuario {
             int option = Texto.leerInt(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
 
             switch (option) {
-                case 1:
-                    Texto.limpiarPantalla();
-
-                    Cuadro listaUsua = new Cuadro(
-                            Color.amarillo("> Lista de usuarios")
-                    );
-                    listaUsua.imprimirCuadro();
-
-                    tablaUsuarios();
-
-                    Texto.esperarEnter();
+                case 1: verUsuarios();
                     break;
-                case 2:
-                    Texto.limpiarPantalla();
-
-                    Cuadro infoUsua = new Cuadro(
-                            Color.amarillo("> Información de usuario"));
-                    infoUsua.imprimirCuadro();
-
-                    id = Texto.leerInt("> ID de usuario a desplegar: ");
-
-                    tablaUsuarios(id);
-                    Texto.esperarEnter();
+                case 2: verUsuario();
                     break;
-                case 3:
-                    menuActualizarUsuario();
-                    
+                case 3: actualizarUsuario();
                     break;
-                case 4:
-                    Texto.limpiarPantalla();
-
-                    Cuadro eliminarUsua = new Cuadro(
-                            Color.amarillo("> Información de usuario"));
-                    eliminarUsua.imprimirCuadro();
-
-                    tablaUsuarios();
-
-                    id = Texto.leerInt("> ID del usuario a eliminar: ");
-
-                    tablaUsuarios(id);
-                    
+                case 4: eliminarUsuario();
                     break;
-                case 5:
-                    salir = true;
-                    break;
-                default:
-                    System.out.println(Color.rojo("Opción inválida, por favor intente de nuevo."));
-                    Texto.esperar(1);
+                case 5: default: salir = true;
             }
         }
     }
 
-    public static void menuActualizarUsuario(){
+    private static void verUsuarios() {
+        Texto.limpiarPantalla();
+        Cuadro listaUsua = new Cuadro(
+                Color.amarillo("> Lista de usuarios"));
+        listaUsua.imprimirCuadro();
+
+        tablaUsuarios();
+
+        Texto.esperarEnter();
+    }
+
+    private static void verUsuario() {
+        Texto.limpiarPantalla();
+        Cuadro infoUsua = new Cuadro(
+                Color.amarillo("> Información de usuario"));
+        infoUsua.imprimirCuadro();
+
+        int id = Texto.leerInt("> ID de usuario a desplegar: ");
+
+        tablaUsuarios(id);
+        Texto.esperarEnter();
+    }
+
+    public static void actualizarUsuario() {
         Texto.limpiarPantalla();
         int id;
         Cuadro modificarUsua = new Cuadro(
                 Color.amarillo("> Modificar informacion del usuario"));
         modificarUsua.imprimirCuadro();
 
-        id =Texto.leerInt("> ID del usuario a modificar: ");
+        id = Texto.leerInt("> ID del usuario a modificar: ");
         tablaUsuarios(id);
 
-        
         String nombre = Texto.leerString("> Nombre del usuario: ");
         String contrasena = Texto.leerString("> Contraseña del usuario: ");
         String rfc = Texto.leerString("> RFC del usuario: ");
@@ -102,33 +84,61 @@ public class ModUsuario {
         Texto.esperarEnter(String.valueOf(actualizar));
     }
 
-    private static void tablaUsuarios(int id){
+    public static void eliminarUsuario() {
+        Texto.limpiarPantalla();
+        boolean eliminado = false;
+
+        Cuadro eliminarUsua = new Cuadro(
+                Color.amarillo("> Información de usuario"));
+        eliminarUsua.imprimirCuadro();
+
+        tablaUsuarios();
+
+        int id = Texto.leerInt("> ID del usuario a eliminar: ");
+
+        if (tablaUsuarios(id) != null) {
+            System.out.println(Color.rojo(Color.negrita("Seguro que desea eliminar este usuario?")));
+            boolean conf = Texto.leerString("SI[s]  NO[n]: ").toLowerCase().equals("s");
+
+            if (conf)
+                eliminado = Usuario.eliminarUsuario(id);
+        }
+        Texto.esperarEnter(String.valueOf(eliminado));
+
+    }
+
+    private static Usuario[] tablaUsuarios(int id) {
         Tabla tabla = new Tabla("ID", "Nombre Usuario", "RFC");
-        Usuario [] usuarios;
-        if(id == 0){
+        Usuario[] usuarios;
+
+        if (id == 0) {
             Texto.esperarEnter("INGRESA UN ID VALIDO");
-            return;
+            return null;
         }
 
-        if(id < 1)
+        if (id == -1)
             usuarios = Usuario.importarUsuarios();
-        else
+        else {
             usuarios = Usuario.importarUsuarios(id);
+            if (!Usuario.validarUsuario(id)) {
+                Texto.esperarEnter("No existe usuario con ID : " + id);
+                return null;
+            }
+        }
 
         for (Usuario usuario : usuarios) {
             tabla.agregarFila(
-                usuario.getId(),
-                usuario.getNomUsuario(),
-                usuario.getRfc()
-            );
+                    usuario.getId(),
+                    usuario.getNomUsuario(),
+                    usuario.getRfc());
         }
-        tabla.imprimirTabla();
-        Usuario.importarUsuarios();
+        tabla.imprimirTablaSimple();
+
+        return usuarios;
     }
 
-    private static void tablaUsuarios(){
-        tablaUsuarios(-1);
+    private static Usuario[] tablaUsuarios() {
+        return tablaUsuarios(-1);
     }
-
 
 }
