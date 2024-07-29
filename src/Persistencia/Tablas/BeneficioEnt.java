@@ -10,7 +10,8 @@ public class BeneficioEnt extends Query {
                 "fecInicio",
                 "fecVen",
                 "porcentajePuntos",
-                "porcentajeCashBack");
+                "porcentajeCashBack",
+                "descuento"); 
     }
 
     // Obtener un beneficio específico por su ID
@@ -24,15 +25,15 @@ public class BeneficioEnt extends Query {
     }
 
     // Actualizar un beneficio
-    public boolean actualizarBeneficioDB(int idBeneficio, String nombre, String fecInicio, String fecVen, int porcentajePuntos, int porcentajeCashBack) {
-        Object[] valores = { idBeneficio, nombre, fecInicio, fecVen, porcentajePuntos, porcentajeCashBack };
+    public boolean actualizarBeneficioDB(int idBeneficio, String nombre, String fecInicio, String fecVen, int porcentajePuntos, int porcentajeCashBack, int descuento) {
+        Object[] valores = { idBeneficio, nombre, fecInicio, fecVen, porcentajePuntos, porcentajeCashBack, descuento };
         String query = update(valores, idBeneficio);
         return ejecutarUpdate(query);
     }
 
     // Insertar un beneficio
-    public boolean insertarBeneficioDB(int idBeneficio, String nombre, String fecInicio, String fecVen, int porcentajePuntos, int porcentajeCashBack) {
-        Object[] valores = { idBeneficio, nombre, fecInicio, fecVen, porcentajePuntos, porcentajeCashBack };
+    public boolean insertarBeneficioDB(int idBeneficio, String nombre, String fecInicio, String fecVen, int porcentajePuntos, int porcentajeCashBack, int descuento) {
+        Object[] valores = { idBeneficio, nombre, fecInicio, fecVen, porcentajePuntos, porcentajeCashBack, descuento };
         String query = insert(valores);
         return ejecutarInsert(query);
     }
@@ -48,4 +49,3 @@ public class BeneficioEnt extends Query {
         return ejecutarSelectUno(getNomColumna(1), nombreBeneficio);
     }
 }
-

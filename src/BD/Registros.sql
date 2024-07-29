@@ -130,6 +130,24 @@ INSERT INTO beneficio VALUES
 (10, 'Oferta de fiestas', '2024-12-01', '2024-12-20', 30, 10);
 
 
+-- Actualizar el descuento para cada registro en la tabla beneficio
+UPDATE beneficio
+SET descuento = 
+    CASE idBeneficio
+        WHEN 1 THEN NULL
+        WHEN 2 THEN 3
+        WHEN 3 THEN 2
+        WHEN 4 THEN 4
+        WHEN 5 THEN 6
+        WHEN 6 THEN 5
+        WHEN 7 THEN 2
+        WHEN 8 THEN 8
+        WHEN 9 THEN 3
+        WHEN 10 THEN 10
+    END
+WHERE idBeneficio IN (1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+
 INSERT INTO tipo_Movimiento VALUES
 (1, 'alta', 'Cliente nuevo'),
 (2, 'renovacion', 'Renovacion tarjeta 9876 5432 1098 7654'),

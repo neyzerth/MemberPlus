@@ -1,4 +1,4 @@
--- Active: 1721365889881@@localhost@3306@member_plus
+-- Active: 1721702131855@@localhost@3306@member_plus
 
 CREATE TABLE persona (
     idPersona INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -86,6 +86,10 @@ CREATE TABLE beneficio (
     porcentajeCashBack int
     
 );
+
+ALTER TABLE beneficio
+ADD descuento INT;  
+
 
 drop table tipo_movimiento;
 CREATE table tipo_movimiento(
