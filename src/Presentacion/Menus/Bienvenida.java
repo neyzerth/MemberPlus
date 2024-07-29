@@ -16,7 +16,7 @@ public class Bienvenida {
 
         System.out.println(snoopy);
 
-        Texto.esperarEnter();
+        Texto.esperarEnter(Color.cian("Enter para continuar..."));
 
         Texto.limpiarPantalla();
     }
