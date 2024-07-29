@@ -46,6 +46,26 @@ public class Usuario extends Persona {
         }
         return usuarios;
     }
+    public static Usuario[] importarUsuarios(int id){
+        UsuarioEnt usuariosBd = new UsuarioEnt();
+        Usuario [] usuarios = new Usuario[1];
+        Object [] datos = usuariosBd.obtenerUsuarioPorIdDB(id);
+
+        for (int i = 0; i < usuarios.length; i++) {
+            usuarios[i] = new Usuario((int) datos[0], (String) datos[1], (String) datos[2], (String) datos[3]);            
+        }
+        return usuarios;
+    }
+
+    public boolean actualizarUsuario(int persona, int rol){
+        UsuarioEnt usuario = new UsuarioEnt();
+        return usuario.actualizarUsuarioDB(this.id, this.nomUsuario, this.contrasena, this.rfc , persona, rol);
+    }
+
+    public static boolean eliminarUsuario(int id){
+        UsuarioEnt usuario = new UsuarioEnt();
+        return usuario.eliminarUsuarioDB(id);
+    }
 
 
     public static Usuario iniciarSesion(String nomUsuario, String contrasena){
@@ -99,12 +119,4 @@ public class Usuario extends Persona {
     public int getId() {
         return this.id;
     }
-
-    private void setId(int id){
-        this.id = id;
-    }
-
-    //no se va a modificar el idUsuario
-
-
 }
