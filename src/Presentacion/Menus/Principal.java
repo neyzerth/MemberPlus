@@ -9,15 +9,15 @@ public class Principal {
         
         do {
             Texto.limpiarPantalla();
-            System.out.println(Color.morado(Color.invertido(
+            System.out.println(Color.azul(Color.invertido(
                 (Texto.espacio(6) + "  Bienvenido :D" + (Texto.espacio(8) + "\n")))));
-            System.out.println(Color.morado(Color.negrita("      > Menú principal <   ")));
+            System.out.println(Color.azul(Color.negrita("      > Menú principal <   ")));
 
             Cuadro principal = new Cuadro(
-                Color.morado("Módulo de Ventas"),
-                Color.morado("Módulo de Clientes"),
-                Color.morado("Modulo de Usuario"),
-                Color.morado("Módulo de Tarjeta"),
+                Color.azul("Módulo de Ventas"),
+                Color.azul("Módulo de Clientes"),
+                Color.azul("Modulo de Usuario"),
+                Color.azul("Módulo de Tarjeta"),
                 Color.rojo("Salir")
             );
             principal.imprimirCuadroNum();
