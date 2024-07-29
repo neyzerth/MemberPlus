@@ -24,7 +24,7 @@ public class Usuario extends Persona {
         String colonia, String calle, int numExt, int numInt, String cp, String telefono, String correo,
         Date fecNac, String nomUsuario, String contrasena, String rfc, int idPersona
     ) {  
-          
+    
         // El constructor le faltaban atributos, y el id de persona se transfiere
         super(idPersona, nombre, apellidoMa, apellidoPa, colonia, calle, numExt, numInt, telefono, correo, cp, fecNac);
         this.nomUsuario = nomUsuario;
@@ -34,6 +34,39 @@ public class Usuario extends Persona {
     }
 
     // METODOS
+
+    public static Usuario[] importarUsuarios(){
+        UsuarioEnt usuariosBd = new UsuarioEnt();
+        Usuario [] usuarios = new Usuario[usuariosBd.obtenerCantRegistros()];
+        Object [][] datos = usuariosBd.ejecutarSelect();
+
+        for (int i = 0; i < usuarios.length; i++) {
+            Object[] dato = datos[i];
+            usuarios[i] = new Usuario((int) dato[0], (String) dato[1], (String) dato[2], (String) dato[3]);            
+        }
+        return usuarios;
+    }
+    public static Usuario[] importarUsuarios(int id){
+        UsuarioEnt usuariosBd = new UsuarioEnt();
+        Usuario [] usuarios = new Usuario[1];
+        Object [] datos = usuariosBd.obtenerUsuarioPorIdDB(id);
+
+        for (int i = 0; i < usuarios.length; i++) {
+            usuarios[i] = new Usuario((int) datos[0], (String) datos[1], (String) datos[2], (String) datos[3]);            
+        }
+        return usuarios;
+    }
+
+    public boolean actualizarUsuario(int persona, int rol){
+        UsuarioEnt usuario = new UsuarioEnt();
+        return usuario.actualizarUsuarioDB(this.id, this.nomUsuario, this.contrasena, this.rfc , persona, rol);
+    }
+
+    public static boolean eliminarUsuario(int id){
+        UsuarioEnt usuario = new UsuarioEnt();
+        return usuario.eliminarUsuarioDB(id);
+    }
+
 
     public static Usuario iniciarSesion(String nomUsuario, String contrasena){
         UsuarioEnt usuario = new UsuarioEnt();
@@ -82,12 +115,8 @@ public class Usuario extends Persona {
     public void setRfc(String rfc) {
         this.rfc = rfc;
     }
-
+    
     public int getId() {
         return this.id;
     }
-
-    //no se va a modificar el idUsuario
-
-
 }

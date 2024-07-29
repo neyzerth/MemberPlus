@@ -67,6 +67,7 @@ public class Texto {
     }
 
     public static String leerContra(String txt){
+
         String contrasena = leerString(txt + Color.invisible);
         System.err.print(Color.reset);
         return contrasena;

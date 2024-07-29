@@ -66,12 +66,14 @@ public class Query {
                 conn.close();
 
             } catch (SQLException e) {
+                return null;
             }
         }
         return registros;
     }
     public Object[][] ejecutarSelect() {
-        return ejecutarSelect(null);
+        String [] columnasNull = null;
+        return ejecutarSelect(columnasNull);
     }
 
     public String selectUno(String... columna){
@@ -106,6 +108,7 @@ public class Query {
                 pstmt.close();
                 conn.close();
             } catch (SQLException e) {
+                return null;
             }
         }
         return registro;
@@ -113,6 +116,28 @@ public class Query {
 
     public Object[] ejecutarSelectPorID(int valor){
         return ejecutarSelectUno(selectUno(getNomColumna(0)), valor);
+    }
+
+    // Método para obtener el número de filas de un select de usuarios
+    public int obtenerCantRegistros() {
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+        int rowCount = 0;
+
+        if (conn != null) {
+            try {
+                Statement stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                ResultSet rs = stmt.executeQuery(select(columnas));
+
+                rs.last();
+                rowCount = rs.getRow();
+                conn.close();
+
+            } catch (SQLException e) {
+                return 0;
+            }
+        }
+        return rowCount;
     }
 
     public boolean existeRegistro(String[] columna, Object... valor) {
@@ -144,6 +169,7 @@ public class Query {
                 pstmt.close();
                 conn.close();
             } catch (SQLException e) {
+                return false;
             }
         }
         return existe;
@@ -203,6 +229,7 @@ public class Query {
                 stmt.close();
                 conn.close();
             } catch (SQLException e) {
+                return false;
             }
         }
 
@@ -252,6 +279,7 @@ public class Query {
                 stmt.close();
                 conn.close();
             } catch (SQLException e) {
+                return false;
             }
         }
 
@@ -280,6 +308,7 @@ public class Query {
                 stmt.close();
                 conn.close();
             } catch (SQLException e) {
+                return false;
             }
         }
 
