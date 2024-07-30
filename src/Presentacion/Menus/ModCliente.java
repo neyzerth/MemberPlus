@@ -26,9 +26,9 @@ public class ModCliente {
 
             int opcion = Texto.leerInt(Color.cian("> Seleccione una opción: "));
             switch (opcion) {
-                case 1: listaClientes();
+                case 1: verClientes();
                     break;
-                case 2: listaCliente();
+                case 2: verCliente();
                     break;
                 case 3:
                     Texto.limpiarPantalla();
@@ -58,7 +58,7 @@ public class ModCliente {
         }
     }
 
-    private static void listaClientes(){
+    private static void verClientes(){
         Texto.limpiarPantalla();
 
         Cuadro listaCli = new Cuadro(Color.amarillo("> Lista de clientes"));
@@ -67,7 +67,7 @@ public class ModCliente {
 
         Texto.esperarEnter();
     }
-    private static void listaCliente(){
+    private static void verCliente(){
         Texto.limpiarPantalla();
 
         Cuadro infoCli = new Cuadro(

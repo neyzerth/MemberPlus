@@ -14,9 +14,9 @@ public class Principal {
             System.out.println(Color.morado(Color.negrita("      > Menú principal <   ")));
 
             Cuadro principal = new Cuadro(
+                Color.morado("Modulo de Usuario"),
                 Color.morado("Módulo de Ventas"),
                 Color.morado("Módulo de Clientes"),
-                Color.morado("Modulo de Usuario"),
                 Color.morado("Módulo de Tarjeta"),
                 Color.rojo("Salir")
             );
@@ -27,11 +27,11 @@ public class Principal {
             int opcion = Texto.leerInt(Color.cian((Texto.espacio(1) + "> Seleccione una opción: ")));
 
             switch (opcion) {
-                case 1: ModVenta.menu();
+                case 1: ModUsuario.menu();
                     break;
-                case 2: ModCliente.menu();
+                case 2: ModVenta.menu();
                     break;
-                case 3: ModUsuario.menu();
+                case 3: ModCliente.menu();
                     break;
                 case 4: ModTarjeta.menu();
                     break;

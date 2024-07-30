@@ -1,6 +1,6 @@
 package Logica.Objetos;
 
-import java.util.Date;
+import java.sql.Date;
 
 import Persistencia.Tablas.ClienteEnt;
 
