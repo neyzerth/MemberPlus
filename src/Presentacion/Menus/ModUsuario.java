@@ -74,17 +74,17 @@ public class ModUsuario {
         Usuario usuario = new Usuario();
 
         do{
-            usuario.setNomUsuario(Texto.leerString("> * Nombre del usuario: "));
-            usuario.setContrasena(Texto.leerContra("> * Contraseña del usuario: "));
-            usuario.setRfc(Texto.leerString("> RFC del usuario: "));
-            usuario.setIdRol(Texto.leerInt("> ROL del usuario: "));
+            String nombre = Texto.leerString("> * Nombre del usuario: ");
+            String contrasena = Texto.leerContra("> * Contraseña del usuario: ");
+            String rfc = Texto.leerString("> RFC del usuario: ");
+            int rol = Texto.leerInt("> ROL del usuario: ");
 
             try {
                 Persona persona = ModPersona.datosPersona();
 
                 if(persona.insertarPersona()){
-                    usuario.setIdPersona(persona.getIdPersona());
-                    usuario = new Usuario(0, usuario.getNomUsuario(), usuario.getContrasena(), usuario.getRfc(), persona, usuario.getIdRol());
+                    persona.setIdPersona();
+                    usuario = new Usuario(0, nombre, contrasena, rfc, persona, rol);
                 }
 
                 if( usuario.insertarUsuario()){

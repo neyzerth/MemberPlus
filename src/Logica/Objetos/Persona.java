@@ -188,10 +188,7 @@ public class Persona {
         if(id > 0)
             this.idPersona = id;
     }
-    public int getIdPersona() {
-        if(this.idPersona > 0)
-            return this.idPersona;
-        
+    public void setIdPersona(){
         PersonaEnt personaBd = new PersonaEnt();
 
         Object [] datos = personaBd.ejecutarSelectPorAtributos(
@@ -199,9 +196,14 @@ public class Persona {
             cp, telefono, correo
         );
         Persona persona = Persona.importarPersonas(datos);
-
+        
         this.idPersona = persona.getIdPersona();
 
+    }
+    public int getIdPersona() {
+        if(this.idPersona < 1)
+            setIdPersona();
+        
         return this.idPersona;
     }
     // solo se obtiene el id ya que este no se va a modificar
