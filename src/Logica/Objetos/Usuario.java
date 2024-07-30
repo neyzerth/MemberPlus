@@ -1,32 +1,36 @@
 package Logica.Objetos;
 
-import java.util.Date;
+import java.sql.Date;
+
 import Persistencia.Tablas.UsuarioEnt;
 
 public class Usuario extends Persona {
     // ATRIBUTOS
-    private int id;
+    private int id, idRol;
     private String nomUsuario, contrasena, rfc;
     
     // CONSTRUCTORES
 
     public Usuario(){}
 
-    public Usuario(int id, String nomUsuario, String contrasena, String rfc){
-        super();
+    public Usuario(int id, String nomUsuario, String contrasena, String rfc, Persona persona, int idRol){
+        super(persona);
         this.nomUsuario = nomUsuario;
         this.contrasena = contrasena;
         this.rfc = rfc;
         this.id = id;
+        this.idRol = idRol;
+
     }
 
-    public Usuario(int id, String nombre, String apellidoPa, String apellidoMa,
+    public Usuario(int id, String nomUsuario, String contrasena, String rfc, int idPersona, int idRol,
+        String nombre, String apellidoPa, String apellidoMa,
         String colonia, String calle, int numExt, int numInt, String cp, String telefono, String correo,
-        Date fecNac, String nomUsuario, String contrasena, String rfc, int idPersona
+        Date fecNac
     ) {  
     
         // El constructor le faltaban atributos, y el id de persona se transfiere
-        super(idPersona, nombre, apellidoMa, apellidoPa, colonia, calle, numExt, numInt, telefono, correo, cp, fecNac);
+        super(idPersona, nombre, apellidoMa, apellidoPa, fecNac, colonia, calle, numExt, numInt, telefono, correo, cp);
         this.nomUsuario = nomUsuario;
         this.contrasena = contrasena;
         this.rfc = rfc;
@@ -40,26 +44,45 @@ public class Usuario extends Persona {
         Usuario [] usuarios = new Usuario[usuariosBd.obtenerCantRegistros()];
         Object [][] datos = usuariosBd.ejecutarSelect();
 
-        for (int i = 0; i < usuarios.length; i++) {
+        for (int i = 0; i < usuarios.length; i++) {  
             Object[] dato = datos[i];
-            usuarios[i] = new Usuario((int) dato[0], (String) dato[1], (String) dato[2], (String) dato[3]);            
+
+            usuarios[i] = importarUsuarios((int) dato[0]);            
         }
         return usuarios;
     }
-    public static Usuario[] importarUsuarios(int id){
+    public static Usuario importarUsuarios(int id){
         UsuarioEnt usuariosBd = new UsuarioEnt();
-        Usuario [] usuarios = new Usuario[1];
         Object [] datos = usuariosBd.obtenerUsuarioPorIdDB(id);
+        Persona persona = Persona.importarPersonas((int) datos[4]);
 
-        for (int i = 0; i < usuarios.length; i++) {
-            usuarios[i] = new Usuario((int) datos[0], (String) datos[1], (String) datos[2], (String) datos[3]);            
-        }
-        return usuarios;
+        Usuario usuario = new Usuario(
+            (int) datos[0],
+            (String) datos[1],
+            (String) datos[2], 
+            (String) datos[3],
+            persona,
+            (int) datos[5]
+        );            
+        return usuario;
+    }
+    public static Usuario importarUsuarios(Object [] datos){
+        return importarUsuarios((int) datos[0]);
     }
 
-    public boolean actualizarUsuario(int persona, int rol){
+    public boolean insertarUsuario(){
         UsuarioEnt usuario = new UsuarioEnt();
-        return usuario.actualizarUsuarioDB(this.id, this.nomUsuario, this.contrasena, this.rfc , persona, rol);
+        if(validarPersona(this.getIdPersona()))
+            return usuario.insertarUsuarioDB(this.nomUsuario, this.contrasena, this.rfc , this.getIdPersona(), this.idRol);
+
+        return false;
+    }
+    public boolean actualizarUsuario(){
+        UsuarioEnt usuario = new UsuarioEnt();
+        if(this.actualizarPersona())
+            return usuario.actualizarUsuarioDB(this.id, this.nomUsuario, this.contrasena, this.rfc , this.getIdPersona(), this.idRol);
+
+        return false;
     }
 
     public static boolean eliminarUsuario(int id){
@@ -73,22 +96,22 @@ public class Usuario extends Persona {
         Usuario sesion;
         if(usuario.existeUsuario(nomUsuario, contrasena)){
             Object[] datos = usuario.obtenerUsuarioPorSesion(nomUsuario, contrasena);
-            sesion = new Usuario(
-                (int) datos[0], 
-                String.valueOf(datos[1]), 
-                String.valueOf(datos[2]), 
-                String.valueOf(datos[3])
-            );
+            sesion = importarUsuarios(datos);
             return sesion;
         }
         return null;
     }
 
+    
+
     public boolean validarUsuario(){
         UsuarioEnt usuario = new UsuarioEnt();
         return usuario.existeUsuario(nomUsuario, contrasena);
-            
+    }
 
+    public static boolean validarUsuario(int id){
+        UsuarioEnt usuario = new UsuarioEnt();
+        return usuario.existeRegistro(id);
     }
 
     // GETTERS AND SETTERS
@@ -117,6 +140,31 @@ public class Usuario extends Persona {
     }
     
     public int getId() {
+        if(this.id > 0)
+            return this.id;
+        
+        UsuarioEnt usuarioBd = new UsuarioEnt();
+
+        Object [] datos = usuarioBd.ejecutarSelectPorAtributos(
+            nomUsuario, contrasena, rfc, getIdPersona(), idRol
+        );
+        Usuario usuario = Usuario.importarUsuarios(datos);
+
+        this.id = usuario.getId();
+
         return this.id;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getIdRol() {
+        return this.idRol;
+    }
+
+    public void setIdRol(int idRol) {
+        this.idRol = idRol;
+    }
+
 }

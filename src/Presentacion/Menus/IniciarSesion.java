@@ -34,7 +34,8 @@ public class IniciarSesion {
             // Solicitar contraseña de forma segura
             contrasena = Texto.leerContra(Color.cian(" > Contraseña: "));
 
-            System.out.println("Conectando con base de datos...");
+            System.out.print("Conectando con base de datos");
+            Texto.suspensivos();
             errorSesion = !Sesion.iniciarSesion(usuario, contrasena);
 
             if(errorSesion){

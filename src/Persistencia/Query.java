@@ -118,6 +118,14 @@ public class Query {
         return ejecutarSelectUno(selectUno(getNomColumna(0)), valor);
     }
 
+    public Object[] ejecutarSelectPorAtributos(Object... valores){
+        String [] columnas = new String[getCantColumnas() - 1];
+        for (int i = 0; i < columnas.length; i++) {
+            columnas[i] = getNomColumna(i+1);
+        }
+        return ejecutarSelectUno(selectUno(columnas), valores);
+    }
+
     // Método para obtener el número de filas de un select de usuarios
     public int obtenerCantRegistros() {
         Conexion conexion = new Conexion();
@@ -179,13 +187,17 @@ public class Query {
         String[] columnas = {columna};
         return existeRegistro(columnas, valor);
     }
+    public boolean existeRegistro(int ID) {
+        String[] columnas = {getNomColumna(0)};
+        return existeRegistro(columnas, ID);
+    }
 
 
-    public String insert(Object[] valores) {
+    public String insert(Object... valores) {
         String query = "INSERT INTO " + tabla + " (";
         
         // Construir la lista de columnas
-        for (int i = 0; i < columnas.length; i++) {
+        for (int i = 1; i < columnas.length; i++) {
             query += columnas[i];
             if (i != columnas.length - 1) {
                 query += ", ";
@@ -287,7 +299,11 @@ public class Query {
     }
 
     public String delete(int id) {
-        String query = "DELETE FROM " + tabla + " WHERE " + columnas[0] + " = " + id;
+        return delete(columnas[0], id);
+    }
+
+    public String delete(String columna, int id) {
+        String query = "DELETE FROM " + tabla + " WHERE " + columna + " = " + id;
         return query;
     }
 

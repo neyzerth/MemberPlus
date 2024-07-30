@@ -36,14 +36,9 @@ public class UsuarioEnt extends Query {
     }
 
     // Insertar un usuario solo si el RFC no existe previamente
-    public boolean insertarUsuarioDB(int idUsuario, String nombreUsuario, String contrasena, String rfc, int idPersona, int idRol) {
-        if (!existeUsuario("", rfc)) { // Verifica que no exista un usuario con ese RFC
-            Object[] valores = { idUsuario, nombreUsuario, contrasena, rfc, idPersona, idRol };
-            String query = insert(valores);
+    public boolean insertarUsuarioDB(String nombreUsuario, String contrasena, String rfc, int idPersona, int idRol) {
+            String query = insert(nombreUsuario, contrasena, rfc, idPersona, idRol);
             return ejecutarInsert(query);
-        } else {
-            return false;
-        }
     }
 
     // Eliminar un usuario
