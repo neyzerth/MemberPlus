@@ -1,6 +1,7 @@
 package Presentacion.Menus;
 
 import Logica.Objetos.Cliente;
+import Logica.Objetos.Persona;
 import Presentacion.Despliegue.Cuadro;
 import Presentacion.Despliegue.Tabla;
 import Presentacion.Formato.*;
@@ -16,6 +17,7 @@ public class ModCliente {
             Cuadro cliente = new Cuadro(
                 Color.morado("Lista de clientes"),
                 Color.morado("Información de un cliente"),
+                Color.morado("Registrar cliente"),
                 Color.morado("Modificar cliente"),
                 Color.morado("Eliminar cliente"),
                 Color.rojo("Volver al menu principal")
@@ -30,16 +32,11 @@ public class ModCliente {
                     break;
                 case 2: verCliente();
                     break;
-                case 3:
-                    Texto.limpiarPantalla();
-
-                    Cuadro modificarCli = new Cuadro(
-                            Color.amarillo("> Modificar informacion de cliente"));
-                    modificarCli.imprimirCuadro();
-
-                    Texto.leerInt("> ");
+                case 3: registrarCliente();
                     break;
-                case 4:
+                case 4: actualizarCliente();
+                    break;
+                case 5:
                     Texto.limpiarPantalla();
 
                     Cuadro eliminarCli = new Cuadro(
@@ -48,7 +45,7 @@ public class ModCliente {
 
                     Texto.leerInt("> ");
                     break;
-                case 5:
+                case 6:
                     salir = true;
                     break;
                 default:
@@ -80,6 +77,68 @@ public class ModCliente {
         tablaClientes(id);
 
         Texto.esperarEnter();
+    }
+
+    public static void registrarCliente(){
+        Texto.limpiarPantalla();
+
+        Cuadro modificarCli = new Cuadro(Color.amarillo("> Registrar de cliente"));
+        modificarCli.imprimirCuadro();
+        
+        Persona persona = ModPersona.datosPersona();
+        Cliente cliente = new Cliente();
+        do{
+            //try {
+
+                if(persona.insertarPersona()){
+                    persona.setIdPersona();
+                    cliente = new Cliente(0, persona);
+                }
+
+                if( cliente.insertarCliente()){
+                    tablaClientes(cliente.getIdCliente());
+                    Texto.esperarEnter("Cliente actualizar con exito");
+                } else
+                    Texto.esperarEnter("Error al actualizar");
+
+            //} catch (Exception e) {
+            //    Texto.esperarEnter("DATO NO VALIDO");
+            //}
+        } while (false);
+    }
+    public static void actualizarCliente(){
+        Texto.limpiarPantalla();
+
+        Cuadro modificarCli = new Cuadro(Color.amarillo("> Modificar informacion de cliente"));
+        modificarCli.imprimirCuadro();
+        tablaClientes();
+
+        int id = Texto.leerInt("> ID del cliente a modificar: ");
+
+        Cliente cliente = tablaClientes(id);
+        if(cliente != null)
+            return;
+        
+        Persona persona = ModPersona.datosPersona();
+        do{
+            try {
+
+                if(!persona.actualizarPersona())
+                    return;
+
+                persona.setIdPersona();
+                cliente = new Cliente(0, persona);
+
+                if( cliente.insertarCliente()){
+                    tablaClientes(cliente.getIdCliente());
+                    Texto.esperarEnter("Cliente actualizar con exito");
+                } else
+                    Texto.esperarEnter("Error al actualizar");
+                    
+            } catch (Exception e) {
+                Texto.esperarEnter("DATO NO VALIDO");
+            }
+        } while (false);
     }
 
     private static Cliente tablaClientes(int id) {

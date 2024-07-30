@@ -38,6 +38,20 @@ public class Usuario extends Persona {
     }
 
     // METODOS
+    
+    public static Usuario importarUsuarios(Object [] datos){
+        Persona persona = Persona.importarPersonas((int) datos[4]);
+
+        Usuario usuario = new Usuario(
+            (int) datos[0],
+            (String) datos[1],
+            (String) datos[2], 
+            (String) datos[3],
+            persona,
+            (int) datos[5]
+        );            
+        return usuario;
+    }
 
     public static Usuario[] importarUsuarios(){
         UsuarioEnt usuariosBd = new UsuarioEnt();
@@ -54,20 +68,8 @@ public class Usuario extends Persona {
     public static Usuario importarUsuarios(int id){
         UsuarioEnt usuariosBd = new UsuarioEnt();
         Object [] datos = usuariosBd.obtenerUsuarioPorIdDB(id);
-        Persona persona = Persona.importarPersonas((int) datos[4]);
 
-        Usuario usuario = new Usuario(
-            (int) datos[0],
-            (String) datos[1],
-            (String) datos[2], 
-            (String) datos[3],
-            persona,
-            (int) datos[5]
-        );            
-        return usuario;
-    }
-    public static Usuario importarUsuarios(Object [] datos){
-        return importarUsuarios((int) datos[0]);
+        return importarUsuarios(datos);            
     }
 
     public boolean insertarUsuario(){

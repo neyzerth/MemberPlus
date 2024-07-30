@@ -168,7 +168,7 @@ public class ModUsuario {
     private static Usuario tablaUsuarios(int id) {
         
         if (!Usuario.validarUsuario(id)){
-            System.out.println("NO EXISTE USUARIO CON ID: " + id);
+            Texto.esperarEnter("NO EXISTE USUARIO CON ID: " + id);
             return null;
         }
 

@@ -8,12 +8,11 @@ public class Conexion {
     private String host, url, user, password;
     private String error;
     private String sqlState;
+    private int opc = 2;
 
     //Conexion
-    public Connection conectarHost(int opc){
+    public Connection conectarHost(){
         Connection connection = null;
-        if (opc == 1) setVlan(); 
-        else setLocal(); 
 
         url = "jdbc:mysql://"+ host +"/" + bd;
         try{
@@ -26,7 +25,9 @@ public class Conexion {
     }
 
     public Connection conectar(){
-        return conectarHost(2);
+        if (opc == 1) setVlan(); 
+        else setLocal(); 
+        return conectarHost();
     }
 
     private void setLocal(){
