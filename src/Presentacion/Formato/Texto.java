@@ -15,7 +15,8 @@ public class Texto {
                 System.out.flush();
             }
         } catch (IOException | InterruptedException ex) {
-            System.out.println("Error al limpiar la consola: " + ex.getMessage());
+            System.out.println();
+            System.out.println(Color.rojo("Error al limpiar la consola: " + ex.getMessage()));
         }
     }
 
@@ -109,10 +110,12 @@ public class Texto {
             String dato = entrada.nextLine();
             return dato;
         } catch (NoSuchElementException e) {
-            System.out.println("Error: Ocurrio un error inesperado.");
+            System.out.println();
+            System.out.println(Color.rojo(Color.negrita("Error: ") + (Color.rojo("Ocurrio un error inesperado."))));
             return null; // o alguna otra acción de error
         } catch (Exception e) {
-            System.out.println("Error: no se ingresó ningún valor.");
+            System.out.println();
+            System.out.println(Color.rojo(Color.negrita("Error: ") + (Color.rojo("no se ingresó ningún valor."))));
             return null; // o alguna otra acción de error
         }
     }
@@ -128,7 +131,8 @@ public class Texto {
         try {
             return Integer.parseInt(leerString(txt));
         } catch (NumberFormatException e) {
-            System.out.println("Error: no se ingresó un valor entero.");
+            System.out.println();
+            System.out.println(Color.rojo(Color.negrita("Error: ") + (Color.rojo("no se ingresó un valor entero."))));
             return 0;
         }
     }
@@ -137,7 +141,8 @@ public class Texto {
         try {
             return Integer.parseInt(leerString(txt));
         } catch (NumberFormatException e) {
-            System.out.println("Error: no se ingresó un valor numerico.");
+            System.out.println();
+            System.out.println(Color.rojo(Color.negrita("Error: ") + (Color.rojo("no se ingresó un valor numerico."))));
             return 0;
         }
     }
@@ -146,7 +151,8 @@ public class Texto {
         try {
             return Float.parseFloat(leerString(txt));
         } catch (NumberFormatException e) {
-            System.out.println("Error: no se ingresó un valor numerico.");
+            System.out.println();
+            System.out.println(Color.rojo(Color.negrita("Error: ") + (Color.rojo("no se ingresó un valor numerico."))));
             return 0;
         }
     }

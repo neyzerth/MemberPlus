@@ -65,7 +65,7 @@ public class ModUsuario {
         tablaUsuarios();
         System.out.println();
 
-        int id = Texto.leerInt(Color.cian(" > ID de usuario a desplegar: "));
+        int id = Texto.leerInt(Color.amarillo(" > ID de usuario a desplegar: "));
         tablaUsuarios(id);
         Texto.esperarEnter();
     }
@@ -79,7 +79,7 @@ public class ModUsuario {
 
         do{
             System.out.println();
-            String nombre = Texto.leerString(Color.amarillo(" > Nombre del usuario: "));
+            String nombre = Texto.leerString(Color.amarillo(Color.negrita(" > Nombre del usuario: ")));
             String contrasena = Texto.leerContra(Color.amarillo(Color.negrita(" > Contraseña del usuario: ")));
             String rfc = Texto.leerString(Color.amarillo(" > RFC del usuario: "));
             int rol = Texto.leerInt(Color.amarillo(Color.negrita(" > ROL del usuario: ")));
@@ -107,26 +107,29 @@ public class ModUsuario {
         Texto.limpiarPantalla();
         int id;
         Cuadro modificarUsua = new Cuadro(
-                Color.morado("> Modificar informacion del usuario"));
+                Color.cian(" Modificar informacion del usuario"));
         modificarUsua.imprimirCuadro();
 
         tablaUsuarios();
 
-        id = Texto.leerInt("> ID del usuario a modificar: ");
+        System.out.println();
+        id = Texto.leerInt(Color.amarillo(" > ID del usuario a modificar: "));
         
         
         tablaUsuarios(id);
         do{
             Usuario usuario = Usuario.importarUsuarios(id);
 
+            System.out.println();
             usuario.setNomUsuario(Texto.leerString(Color.amarillo(Color.negrita("> Nombre del usuario: "))));
             usuario.setContrasena(Texto.leerContra(Color.amarillo(Color.negrita("> Contraseña del usuario: "))));
-            usuario.setRfc(Texto.leerString("> RFC del usuario: "));
+            usuario.setRfc(Texto.leerString(Color.amarillo(Color.negrita("> RFC del usuario: "))));
             usuario.setIdRol(Texto.leerInt(Color.amarillo(Color.negrita("> ROL del usuario: "))));
 
             try {
-                System.out.println(Color.rojo(Color.negrita("Desea modificar la informacion personal del usuario??")));
-                boolean conf = Texto.leerString(Color.rojo("SI[s]  NO[n]: ")).toLowerCase().equals("s");
+                System.out.println();
+                System.out.println(Color.rojo(Color.negrita("> Desea modificar la informacion personal del usuario??")));
+                boolean conf = Texto.leerString(Color.rojo(" SI [s]  NO [n]: ")).toLowerCase().equals("s");
 
                 if(conf){
                     Persona persona = ModPersona.datosPersona();
@@ -153,16 +156,18 @@ public class ModUsuario {
         boolean eliminado = false;
 
         Cuadro eliminarUsua = new Cuadro(
-                Color.amarillo("> Información de usuario"));
+                Color.cian(" Información de usuario"));
         eliminarUsua.imprimirCuadro();
 
         tablaUsuarios();
 
-        int id = Texto.leerInt("> ID del usuario a eliminar: ");
+        System.out.println();
+        int id = Texto.leerInt(Color.amarillo("> ID del usuario a eliminar: "));
 
         tablaUsuarios(id);
-        System.out.println(Color.rojo(Color.negrita("Seguro que desea eliminar este usuario?")));
-        boolean conf = Texto.leerString("SI[s]  NO[n]: ").toLowerCase().equals("s");
+        System.out.println();
+        System.out.println(Color.rojo(Color.negrita(Color.rojo(Color.negrita("> Seguro que desea eliminar este usuario?")))));
+        boolean conf = Texto.leerString(Color.rojo("   SI [s]  NO [n]: ")).toLowerCase().equals("s");
 
         if (conf)
             eliminado = Usuario.eliminarUsuario(id);
@@ -177,7 +182,7 @@ public class ModUsuario {
             return null;
         }
 
-        Tabla tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Nombre Usuario"), Color.amarillo("RFC"));
+        Tabla tabla = new Tabla(Color.morado("ID"), Color.morado("Nombre Usuario"), Color.morado("RFC"));
 
         Usuario usuario = Usuario.importarUsuarios(id);
 
@@ -192,7 +197,7 @@ public class ModUsuario {
     }
 
     private static Usuario[] tablaUsuarios() {
-        Tabla tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Nombre Usuario"), Color.amarillo("RFC"));
+        Tabla tabla = new Tabla(Color.morado("ID"), Color.morado("Nombre Usuario"), Color.morado("RFC"));
         Usuario[] usuarios =  Usuario.importarUsuarios();
 
         for (Usuario usuario : usuarios) {
