@@ -3,7 +3,6 @@ package Logica.Objetos;
 import java.sql.Date;
 
 import Persistencia.Tablas.ClienteEnt;
-import Persistencia.Tablas.UsuarioEnt;
 
 public class Cliente extends Persona {
     // ATRIBUTOS
