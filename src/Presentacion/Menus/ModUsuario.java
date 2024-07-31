@@ -1,3 +1,4 @@
+//-- Active: 1719932866993@@127.0.0.1@3306
 package Presentacion.Menus;
 
 import Presentacion.Despliegue.Cuadro;
@@ -44,9 +45,11 @@ public class ModUsuario {
     }
 
     private static void verUsuarios() {
-        Texto.limpiarPantalla();
-        Cuadro listaUsua = new Cuadro(
-                Color.amarillo("> Lista de usuarios"));
+        Texto.limpiarPantalla(); 
+        Cuadro listaUsua = new Cuadro (
+                Color.morado("> Lista de usuarios"));
+        listaUsua.setLineaDinamico(14);
+        listaUsua.centrado(true);
         listaUsua.imprimirCuadro();
 
         tablaUsuarios();
@@ -57,18 +60,23 @@ public class ModUsuario {
     private static void verUsuario() {
         Texto.limpiarPantalla();
         Cuadro infoUsua = new Cuadro(
-                Color.amarillo("> Información de usuario"));
+                Color.cian(" Información de usuario"));
+        infoUsua.centrado(true);
         infoUsua.imprimirCuadro();
 
-        int id = Texto.leerInt("> ID de usuario a desplegar: ");
 
+        tablaUsuarios();
+        System.out.println();
+
+
+        int id = Texto.leerInt(Color.cian(" > ID de usuario a desplegar: "));
         tablaUsuarios(id);
         Texto.esperarEnter();
     }
 
     public static void registrarUsuario() {
         Texto.limpiarPantalla();
-        Cuadro modificarUsua = new Cuadro(Color.amarillo("> Registrar usuario"));
+        Cuadro modificarUsua = new Cuadro(Color.morado("> Registrar usuario"));
         modificarUsua.imprimirCuadro();
 
         Usuario usuario = new Usuario();
@@ -89,11 +97,11 @@ public class ModUsuario {
 
                 if( usuario.insertarUsuario()){
                     tablaUsuarios(usuario.getId());
-                    Texto.esperarEnter("Usuario registrado con exito");
+                    Texto.esperarEnter(Color.verde("Usuario registrado con exito"));
                 } else
-                    Texto.esperarEnter("Error al registrar el usuario");
+                    Texto.esperarEnter(Color.rojo("Error al registrar el usuario"));
             } catch (Exception e) {
-                Texto.esperarEnter("DATO NO VALIDO");
+                Texto.esperarEnter(Color.rojo("DATO NO VALIDO"));
             }
         } while (false);
     }
@@ -102,7 +110,7 @@ public class ModUsuario {
         Texto.limpiarPantalla();
         int id;
         Cuadro modificarUsua = new Cuadro(
-                Color.amarillo("> Modificar informacion del usuario"));
+                Color.morado("> Modificar informacion del usuario"));
         modificarUsua.imprimirCuadro();
 
         tablaUsuarios();
@@ -168,11 +176,11 @@ public class ModUsuario {
     private static Usuario tablaUsuarios(int id) {
         
         if (!Usuario.validarUsuario(id)){
-            System.out.println("NO EXISTE USUARIO CON ID: " + id);
+            System.out.println(Color.rojo(Color.negrita("\n No existe usuario con ID: " + id)));
             return null;
         }
 
-        Tabla tabla = new Tabla("ID", "Nombre Usuario", "RFC");
+        Tabla tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Nombre Usuario"), Color.amarillo("RFC"));
 
         Usuario usuario = Usuario.importarUsuarios(id);
 

@@ -34,7 +34,7 @@ public class ModCliente {
                     Texto.limpiarPantalla();
 
                     Cuadro modificarCli = new Cuadro(
-                            Color.amarillo("> Modificar informacion de cliente"));
+                            Color.morado("> Modificar informacion de cliente"));
                     modificarCli.imprimirCuadro();
 
                     Texto.leerInt("> ");
@@ -43,7 +43,7 @@ public class ModCliente {
                     Texto.limpiarPantalla();
 
                     Cuadro eliminarCli = new Cuadro(
-                            Color.amarillo("> Eliminar Cliente"));
+                            Color.morado("> Eliminar Cliente"));
                     eliminarCli.imprimirCuadro();
 
                     Texto.leerInt("> ");

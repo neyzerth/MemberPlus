@@ -26,7 +26,7 @@ public class ModVenta {
                     Texto.limpiarPantalla();
 
                     Cuadro numTarjeta = new Cuadro(
-                            Color.amarillo("> Numero de tarjeta"));
+                            Color.morado("> Numero de tarjeta"));
 
                     numTarjeta.imprimirCuadro();
 
@@ -36,7 +36,7 @@ public class ModVenta {
                     Texto.limpiarPantalla();
 
                     Cuadro recogerTotal = new Cuadro(
-                            Color.amarillo("> Recoger el total"));
+                            Color.morado("> Recoger el total"));
                     recogerTotal.imprimirCuadro();
 
                     Texto.leerInt("> $");

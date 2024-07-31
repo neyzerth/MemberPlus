@@ -38,7 +38,7 @@ public class Texto {
     }
 
     public static void esperarEnter(){
-        esperarEnter("\nENTER para continuar...");
+        esperarEnter(Color.amarillo("\n > Enter para continuar..."));
     }
 
     public static void esperar(double seg) {
