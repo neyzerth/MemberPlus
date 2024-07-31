@@ -47,9 +47,7 @@ public class ModUsuario {
     private static void verUsuarios() {
         Texto.limpiarPantalla(); 
         Cuadro listaUsua = new Cuadro (
-                Color.morado("> Lista de usuarios"));
-        listaUsua.setLineaDinamico(14);
-        listaUsua.centrado(true);
+                Color.cian(" Lista de usuarios"));
         listaUsua.imprimirCuadro();
 
         tablaUsuarios();
@@ -64,10 +62,8 @@ public class ModUsuario {
         infoUsua.centrado(true);
         infoUsua.imprimirCuadro();
 
-
         tablaUsuarios();
         System.out.println();
-
 
         int id = Texto.leerInt(Color.cian(" > ID de usuario a desplegar: "));
         tablaUsuarios(id);
@@ -76,16 +72,17 @@ public class ModUsuario {
 
     public static void registrarUsuario() {
         Texto.limpiarPantalla();
-        Cuadro modificarUsua = new Cuadro(Color.morado("> Registrar usuario"));
+        Cuadro modificarUsua = new Cuadro(Color.cian(" Registrar usuario"));
         modificarUsua.imprimirCuadro();
 
         Usuario usuario = new Usuario();
 
         do{
-            String nombre = Texto.leerString("> * Nombre del usuario: ");
-            String contrasena = Texto.leerContra("> * Contraseña del usuario: ");
-            String rfc = Texto.leerString("> RFC del usuario: ");
-            int rol = Texto.leerInt("> ROL del usuario: ");
+            System.out.println();
+            String nombre = Texto.leerString(Color.amarillo(" > Nombre del usuario: "));
+            String contrasena = Texto.leerContra(Color.amarillo(Color.negrita(" > Contraseña del usuario: ")));
+            String rfc = Texto.leerString(Color.amarillo(" > RFC del usuario: "));
+            int rol = Texto.leerInt(Color.amarillo(Color.negrita(" > ROL del usuario: ")));
 
             try {
                 Persona persona = ModPersona.datosPersona();
@@ -122,14 +119,14 @@ public class ModUsuario {
         do{
             Usuario usuario = Usuario.importarUsuarios(id);
 
-            usuario.setNomUsuario(Texto.leerString("> * Nombre del usuario: "));
-            usuario.setContrasena(Texto.leerContra("> * Contraseña del usuario: "));
+            usuario.setNomUsuario(Texto.leerString(Color.amarillo(Color.negrita("> Nombre del usuario: "))));
+            usuario.setContrasena(Texto.leerContra(Color.amarillo(Color.negrita("> Contraseña del usuario: "))));
             usuario.setRfc(Texto.leerString("> RFC del usuario: "));
-            usuario.setIdRol(Texto.leerInt("> ROL del usuario: "));
+            usuario.setIdRol(Texto.leerInt(Color.amarillo(Color.negrita("> ROL del usuario: "))));
 
             try {
-                System.out.println(Color.negrita("Desea modificar la informacion personal del usuario??"));
-                boolean conf = Texto.leerString("SI[s]  NO[n]: ").toLowerCase().equals("s");
+                System.out.println(Color.rojo(Color.negrita("Desea modificar la informacion personal del usuario??")));
+                boolean conf = Texto.leerString(Color.rojo("SI[s]  NO[n]: ")).toLowerCase().equals("s");
 
                 if(conf){
                     Persona persona = ModPersona.datosPersona();
@@ -195,7 +192,7 @@ public class ModUsuario {
     }
 
     private static Usuario[] tablaUsuarios() {
-        Tabla tabla = new Tabla("ID", "Nombre Usuario", "RFC");
+        Tabla tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Nombre Usuario"), Color.amarillo("RFC"));
         Usuario[] usuarios =  Usuario.importarUsuarios();
 
         for (Usuario usuario : usuarios) {
