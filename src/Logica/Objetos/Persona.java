@@ -136,22 +136,6 @@ public class Persona {
     
     //METODOS
 
-    // Método para modificar y verificar los datos
-    public void modificar(String nombre, String apellidoPa, String apellidoMa, String colonia,
-            String calle, String telefono,
-            String correo, String fecNacStr) {
-
-        this.setNombre(nombre);
-        this.setApellidoPa(apellidoPa);
-        this.setApellidoMa(apellidoMa);
-        this.setColonia(colonia);
-        this.setCalle(calle);
-        this.setTelefono(telefono);
-        this.setCorreo(correo);
-        this.setFecNac(fecNacStr);
-    }
-
-
     // Método para calcular edad
     public int calcularEdad(Persona persona) {
         Date fechaNacimiento = persona.getFecNac();
@@ -265,6 +249,9 @@ public class Persona {
 
     public String getCp() {
         return this.cp;
+    }
+    public void setCp(String cp) {
+        this.cp = cp;
     }
 
     public String getTelefono() {

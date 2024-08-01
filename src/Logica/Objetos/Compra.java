@@ -30,6 +30,7 @@ public class Compra {
             (Date) datos[3],
             (float) datos[4]
             );
+        return compra;
     }
 
     // METODOS
