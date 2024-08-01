@@ -3,6 +3,7 @@ package Logica.Objetos;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 
 public class Tarjeta {
@@ -27,15 +28,6 @@ public class Tarjeta {
         this.activo = activo;
     }
 
-    // METODOS
-    public void modificarTarjeta(String numTarjetaStr, String saldoStr, String puntosStr, String fecExpStr, String fecVenStr, String activoStr){
-        this.setNumTarjeta(numTarjetaStr);
-        this.setSaldo(saldoStr);
-        this.setPuntos(puntosStr);
-        this.setFecExp(fecExpStr);
-        this.setFecVen(fecVenStr);
-        this.setActivo(activoStr);
-    }
 
     // GETTERS AND SETTERS
 
@@ -44,9 +36,10 @@ public class Tarjeta {
     }
     
 
-    public void setNumTarjeta(String numTarjetaStr) {
+    public void setNumTarjeta(String numTarjeta) {
         try {
-            this.numTarjeta = numTarjetaStr;
+            this.numTarjeta = numTarjeta;
+            this.numTarjeta = generarNumeroTarjeta();
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("La tarjeta no es válida");
         }
@@ -153,4 +146,26 @@ public class Tarjeta {
             throw new IllegalArgumentException("El estado de activo no es válido", e);
         }
     }
+
+      // Método para generar un número de tarjeta de 16 dígitos con los primeros 4 dígitos fijos
+        public static String generarNumeroTarjeta() {
+        Random random = new Random();
+
+        String primerosCuatro = "1729";  
+
+        // Generar los siguientes 12 dígitos aleatorios
+        StringBuilder resto = new StringBuilder();
+        for (int i = 0; i < 12; i++) {
+            int digitoAleatorio = random.nextInt(10);
+            resto.append(digitoAleatorio);
+        }
+
+        
+        return primerosCuatro + resto.toString();
+    }
+
+
+
+
+
 }
