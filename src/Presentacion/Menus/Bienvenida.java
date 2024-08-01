@@ -20,8 +20,6 @@ public class Bienvenida {
         System.out.println(logo);
         bienvenida.imprimirCuadro();
 
-        System.out.println(Color.negro("PENEEEEEEEEE"));
-        System.out.println(Color.negroBrillante("PENEEEEEEEEE"));
         Texto.esperarEnter(Color.cian("Enter para continuar..."));
     }
 
