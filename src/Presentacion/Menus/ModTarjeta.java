@@ -179,6 +179,7 @@ class SubmodBeneficio extends Menu{
             if(beneficio != null){
                 tabla(beneficio.getIdBeneficio());
                 beneficio.insetarBeneficio();
+                return true;
             }
             
         } catch (Exception e) {
