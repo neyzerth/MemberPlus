@@ -6,7 +6,7 @@ import Presentacion.Formato.*;
 import Logica.Objetos.Persona;
 import Logica.Objetos.Usuario;
 
-public class ModUsuario {
+public class ModUsuario extends Menu {
     public static void menu() {
         boolean salir = false;
         while (!salir) {

@@ -38,7 +38,7 @@ public abstract class Menu {
 
             System.out.println();
 
-            int opcion = Texto.leerInt(Color.cian("> Seleccione una opción: "));
+            int opcion = Texto.leerInt(Color.cian(" > Seleccione una opción: "));
             
             salir = conexionMenus(opcion);
             
