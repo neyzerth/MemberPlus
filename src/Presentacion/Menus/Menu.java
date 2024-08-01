@@ -117,7 +117,7 @@ public abstract class Menu {
     public void menuActualizar(){
         boolean repetir = false;
 
-        Cuadro actualizar = new Cuadro(Color.amarillo("> Modificar informacion " + modSing));
+        Cuadro actualizar = new Cuadro(Color.amarillo("> Modificar informacion de " + modSing));
         do{
             Texto.limpiarPantalla();
 
@@ -153,7 +153,7 @@ public abstract class Menu {
             eliminar.imprimirCuadro();
             tabla();
 
-            int id = Texto.leerInt("> ID de usuario a eliminar");
+            int id = Texto.leerInt("> ID de " + modSing + " a eliminar");
 
             if(!tabla(id)) { 
                 Texto.esperarEnter("No existe " + modSing + " con ID " + id + "...");
@@ -161,7 +161,7 @@ public abstract class Menu {
                 return;
             }
 
-            System.out.println(Color.rojo(Color.negrita("Seguro que desea eliminar este usuario?")));
+            System.out.println(Color.rojo(Color.negrita("Seguro que desea eliminar este " + modSing + "?")));
             boolean conf = Texto.leerString("SI[s]  NO[n]: ").toLowerCase().equals("s");
 
             if (conf)

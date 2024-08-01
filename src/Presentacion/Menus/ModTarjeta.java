@@ -1,5 +1,6 @@
 package Presentacion.Menus;
 
+import Logica.Objetos.Tarjeta;
 import Presentacion.Despliegue.Cuadro;
 import Presentacion.Formato.*;
 
@@ -25,7 +26,7 @@ public class ModTarjeta {
             int option = Texto.leerInt(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
 
             switch (option) {
-                case 1: movimientosTarj();
+                case 1: submodTarjeta();
                     break;
                 case 2:
                     break;
@@ -40,58 +41,38 @@ public class ModTarjeta {
         }
 
     }
+}
 
-    private static void movimientosTarj() {
-        boolean salir = false;
-        while (!salir) {
-            System.out.println(Color.morado(Color.negrita(Texto.espacio(8) + "> Módulo de Tarjeta <")));
+class SubmodTarjeta extends Menu{
 
-            Cuadro tarjeta = new Cuadro(
-                    Color.morado("Alta de membresia"),
-                    Color.morado("Cancelación de membresia"),
-                    Color.morado("Renovación de membresia"),
-                    Color.rojo("Volver al modulo"));
-            tarjeta.imprimirCuadroNum();
-
-            System.out.println();
-            System.out.print(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
-
-            int option = Texto.leerInt(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
-
-            switch (option) {
-                case 1:
-                    Texto.limpiarPantalla();
-
-                    Cuadro movimientosTarj = new Cuadro(
-                            Color.amarillo("> Alta de membresia"));
-                    movimientosTarj.imprimirCuadro();
-
-                    Texto.leerInt("> ");
-                    break;
-                case 2:
-                    Texto.limpiarPantalla();
-
-                    Cuadro nivelTarj = new Cuadro(
-                            Color.amarillo("> Cancelación de membresia"));
-                    nivelTarj.imprimirCuadro();
-
-                    Texto.leerInt("> ");
-                    break;
-                case 3:
-                    Texto.limpiarPantalla();
-
-                    Cuadro beneficTarj = new Cuadro(
-                            Color.amarillo("> Renovacion de la membresia"));
-                    beneficTarj.imprimirCuadro();
-
-                    Texto.leerInt("> ");
-                    break;
-                case 4:
-                    salir = true;
-                    break;
-                default:
-                    System.out.println(Color.rojo("Opción inválida, por favor intente de nuevo."));
-            }
-        }
+    public SubmodTarjeta(){
+        super("Tarjeta", "Tarjetas");
     }
+
+    public static void desplegarMenu(){
+        SubmodTarjeta modTarjeta = new SubmodTarjeta();
+        modTarjeta.menu();
+    }
+
+    @Override
+    public boolean registrar(){
+        Tarjeta tarjeta = new Tarjeta();
+
+        return false;
+    }
+
+    @Override
+    public boolean actualizar(int id){
+
+    }
+
+    @Override 
+    public boolean eliminar(int id){
+        return Tarjeta.eliminarTarjeta(id);
+    }
+    public boolean eliminar(String numTarjeta){
+        return Tarjeta.eliminarTarjeta(numTarjeta);
+    }
+
+    
 }
