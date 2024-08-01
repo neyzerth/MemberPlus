@@ -16,34 +16,34 @@ public class Cliente extends Persona {
         this.idCliente = idCliente;
     }
 
+    //Constructor con atributos como en Base de datos
     public Cliente(int idCliente, int IdPersona) {
         super(IdPersona);
         this.idCliente = idCliente;
     }
 
-    public Cliente( int idCliente, int id, String nombre, String apellidoPa, String apellidoMa,
+    //Constructor con todos los atributos y los de persona
+    public Cliente( int idCliente, int idPersona, String nombre, String apellidoPa, String apellidoMa,
         String colonia, String calle, int numExt, int numInt, String cp, String telefono, String correo,
         Date fecNac
     ) {
-        // El constructor le faltaban atributos, y el id de persona se transfiere
-        super(id, nombre, apellidoMa, apellidoPa, fecNac, colonia, calle, numExt, numInt, telefono, correo, cp);
+        super(idPersona, nombre, apellidoMa, apellidoPa, fecNac, colonia, calle, numExt, numInt, telefono, correo, cp);
         this.idCliente = idCliente;
     }
-    // METODOS
+
+    // ------------- COMUNICACION A PERSISTENCIA --------------
+    // METODOS ESTATICOS
     public static Cliente importarClientes(Object [] datos ){
-        Persona persona;
-        try{
-            persona = new Persona((int) datos[1]);
-        } catch (Exception e){
-            return null;
-        }
+        Persona persona = new Persona((int) datos[1]); //[1] es el segundo atributo, llave foranea de persona en tabla cliente
+        
         Cliente cliente = new Cliente(
-            (int) datos[0],
+            (int) datos[0], //el primer dato siempre sera el ID PK
             persona
         );            
         return cliente;
     }
 
+    //IMPORTAR TODOS LOS REGISTROS DE CLIENTES DE BD
     public static Cliente [] importarClientes(){
         ClienteEnt clientesBd = new ClienteEnt();
         Cliente [] clientes = new Cliente [clientesBd.obtenerCantRegistros()];
@@ -65,6 +65,8 @@ public class Cliente extends Persona {
         return importarClientes(datos);  
 
     }
+
+    //CRUD
     public boolean insertarCliente(){
         ClienteEnt cliente = new ClienteEnt();
         if(validarPersona(this.getIdPersona()))
@@ -106,5 +108,4 @@ public class Cliente extends Persona {
 
         return this.idCliente;
     }
-    // elimine el setter de idCliente
 }

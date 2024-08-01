@@ -1,8 +1,7 @@
 package Logica.Objetos;
+import Logica.FormatoFecha;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 
 public class Beneficio {
     // ATRIBUTOS
@@ -99,12 +98,7 @@ public class Beneficio {
     }
 
     public void setFecVen(String fecVenStr) {
-        try {
-            Date fecVen = new SimpleDateFormat("yyyy-MM-dd").parse(fecVenStr);
-            this.fecVen = fecVen;
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("La fecha de vencimiento no es válida", e);
-        }
+        this.fecVen = FormatoFecha.fecha(fecVenStr); //ejemplo
     }
 
     public Date getFecInicio() {
@@ -118,12 +112,7 @@ public class Beneficio {
     }
 
     public void setFecInicio(String fecInicioStr) {
-        try {
-            Date fecInicio = new SimpleDateFormat("yyyy-MM-dd").parse(fecInicioStr);
-            this.fecInicio = fecInicio;
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("La fecha de inicio no es válida", e);
-        }
+        this.fecInicio = FormatoFecha.fecha(fecInicioStr);
     }
 
 }

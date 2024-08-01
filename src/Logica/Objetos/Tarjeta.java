@@ -1,9 +1,9 @@
 package Logica.Objetos;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
+import java.sql.Date;
 import java.util.Random;
+import Logica.FormatoFecha;
 
 public class Tarjeta {
     // ATRIBUTOS
@@ -28,7 +28,8 @@ public class Tarjeta {
     }
 
     // METODOS
-    public void modificarTarjeta(String numTarjetaStr, String saldoStr, String puntosStr, String fecExpStr, String fecVenStr, String activoStr){
+    public void modificarTarjeta(String numTarjetaStr, String saldoStr, String puntosStr, String fecExpStr,
+            String fecVenStr, String activoStr) {
         this.setNumTarjeta(numTarjetaStr);
         this.setSaldo(saldoStr);
         this.setPuntos(puntosStr);
@@ -38,19 +39,18 @@ public class Tarjeta {
     }
 
     // Método para generar un número de tarjeta de 16 dígitos con los primeros 4 dígitos fijos
-        public static String generarNumeroTarjeta() {
+    public static String generarNumeroTarjeta() {
         Random random = new Random();
 
-        String primerosCuatro = "1729";  
+        String primerosCuatro = "1729";
 
         // Generar los siguientes 12 dígitos aleatorios
         StringBuilder resto = new StringBuilder();
         for (int i = 0; i < 12; i++) {
-            int digitoAleatorio = random.nextInt(10); //El 10 se refiere a los numeors del 0 - 9
+            int digitoAleatorio = random.nextInt(10); // El 10 se refiere a los numeors del 0 - 9
             resto.append(digitoAleatorio);
         }
 
-        
         return primerosCuatro + resto.toString();
     }
 
@@ -123,13 +123,8 @@ public class Tarjeta {
         this.fecExp = fecExp;
     }
 
-    public void setFecExp(String fecExpStr){
-        try {
-            Date fecExp = new SimpleDateFormat("yyyy-MM-dd").parse(fecExpStr);
-            this.fecExp = fecExp;
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("La fecha de expiración no es válida", e);
-        }
+    public void setFecExp(String fecExpStr) {
+        this.fecExp = FormatoFecha.fecha(fecExpStr);
     }
 
     public Date getFecVen() {
@@ -143,12 +138,11 @@ public class Tarjeta {
     }
 
     public void setFecVen(String fecVenStr) {
-        try {
-            Date fecVen = new SimpleDateFormat("yyyy-MM-dd").parse(fecVenStr);
-            this.fecVen = fecVen;
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("La fecha de vencimiento no es válida", e);
-        }
+        this.fecVen = FormatoFecha.fecha(fecVenStr);
+    }
+
+    public void setFecVen(int dia, int mes, int anio) {
+        this.fecVen = FormatoFecha.fecha(dia, mes, anio);
     }
 
     public boolean isActivo() {
@@ -161,14 +155,14 @@ public class Tarjeta {
 
     public void setActivo(boolean activo) {
         if (activo == false)
-            //esto es solo para que no lo marque como error
+            // esto es solo para que no lo marque como error
             throw new IllegalArgumentException("El estado de activo no puede estar ser falso");
         this.activo = activo;
     }
 
     public void setActivo(String activoStr) {
         if (activoStr == null || activoStr.isEmpty())
-        throw new IllegalArgumentException("El estado de activo no puede estar vacío");
+            throw new IllegalArgumentException("El estado de activo no puede estar vacío");
         try {
             this.activo = Boolean.parseBoolean(activoStr);
         } catch (Exception e) {

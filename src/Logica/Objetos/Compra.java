@@ -1,8 +1,8 @@
 package Logica.Objetos;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
+import Logica.FormatoFecha;
+import java.sql.Date;
 
 public class Compra {
     // ATRIBUTOS
@@ -13,21 +13,22 @@ public class Compra {
     // CONSTRUCTORES
 
     public Compra(int idCompra, int porcentajePunto, int descuento, Date fechaCompra, float total) {
-     this.idCompra = idCompra;
-     this.porcentajePunto = porcentajePunto;
-     this.descuento = descuento;
-     this.fechaCompra = fechaCompra;
-     this.total = total;
+        this.idCompra = idCompra;
+        this.porcentajePunto = porcentajePunto;
+        this.descuento = descuento;
+        this.fechaCompra = fechaCompra;
+        this.total = total;
     }
 
     // METODOS
-    public void modificarCompra(String porcentajePuntoStr, String descuentoStr, String fechaCompraStr, String totalStr){
+    public void modificarCompra(String porcentajePuntoStr, String descuentoStr, String fechaCompraStr,
+            String totalStr) {
         this.setPorcentajePunto(porcentajePuntoStr);
         this.setDescuento(descuentoStr);
         this.setFechaCompra(fechaCompraStr);
         this.setTotal(totalStr);
     }
-    
+
     // GETTERS AND SETTERS
 
     public int getIdCompra() {
@@ -67,7 +68,7 @@ public class Compra {
         this.descuento = descuento;
     }
 
-    public void setDescuento(String descuentoStr){
+    public void setDescuento(String descuentoStr) {
         try {
             int descuento = Integer.parseInt(descuentoStr);
             this.setDescuento(descuento);
@@ -87,12 +88,7 @@ public class Compra {
     }
 
     public void setFechaCompra(String fechaCompraStr) {
-        try {
-            Date fechaCompra = new SimpleDateFormat("yyyy-MM-dd").parse(fechaCompraStr);
-            this.fechaCompra = fechaCompra;
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("La fecha de compra no es válida", e);
-        }
+    this.fechaCompra = FormatoFecha.fecha(fechaCompraStr);
     }
 
     public float getTotal() {

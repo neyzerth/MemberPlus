@@ -1,8 +1,8 @@
 package Logica.Objetos;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
+import Logica.FormatoFecha;
+import java.sql.Date;
 
 public class Movimiento {
     // ATRIBUTOS
@@ -63,12 +63,7 @@ public class Movimiento {
     }
 
     public void setFechaMov(String fechaMovStr) {
-        try {
-            Date fechaMov = new SimpleDateFormat("yyyy-MM-dd").parse(fechaMovStr);
-            this.fechaMov = fechaMov;
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("La fecha de movimiento no es válida", e);
-        }
+        this.fechaMov = FormatoFecha.fecha(fechaMovStr);
     }
     
 }
