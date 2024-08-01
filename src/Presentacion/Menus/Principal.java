@@ -1,5 +1,6 @@
 package Presentacion.Menus;
 
+import Logica.Sesion;
 import Presentacion.Despliegue.Cuadro;
 import Presentacion.Formato.*;
 
@@ -9,8 +10,12 @@ public class Principal {
         
         do {
             Texto.limpiarPantalla();
-            System.out.println(Color.morado(Color.invertido(
-                (Texto.espacio(6) + "  Bienvenido :D" + (Texto.espacio(8) + "\n")))));
+            System.out.println(
+                Color.morado(Color.invertido(
+                Texto.espacio(8) +
+                    "Bienvenido " + Color.negrita + Sesion.getNombre() +" :D" +
+                (Texto.espacio(8) + "\n")))
+            );
             System.out.println(Color.morado(Color.negrita("      > Menú principal <   ")));
 
             Cuadro principal = new Cuadro(

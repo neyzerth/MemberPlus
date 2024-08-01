@@ -1,6 +1,7 @@
 //-- Active: 1719932866993@@127.0.0.1@3306@member_plus
 package Presentacion;
 
+import Logica.Sesion;
 import Logica.Objetos.Usuario;
 import Presentacion.Formato.Texto;
 import Presentacion.Menus.Bienvenida;
