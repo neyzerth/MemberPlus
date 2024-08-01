@@ -42,8 +42,11 @@ public class Principal {
                     break;
 
                 case 5: //SALIR
+                    Sesion.cerrarSesion();
+
                     System.out.println(Color.rojo("Saliendo del programa..."));
                     Texto.esperar(1);
+                    
                     salir = true;
                     break;
                 default:
