@@ -23,6 +23,10 @@ public abstract class Menu {
         );
     }
 
+    
+    public abstract void tabla();
+    public abstract boolean tabla(int id);
+
     public void menu() {
         boolean salir = false;
 
@@ -76,27 +80,21 @@ public abstract class Menu {
     }
     
     private void menuVerUno(){
-        boolean repetir = false;
         
-        Cuadro info = new Cuadro(
-            Color.amarillo("> Informacion de " + modSing));
-            
-        do{
-            Texto.limpiarPantalla();
-            info.imprimirCuadro();
+        Cuadro info = new Cuadro( Color.amarillo("> Informacion de " + modSing));
+        
+        Texto.limpiarPantalla();
+        info.imprimirCuadro();
 
-            tabla();
+        tabla();
 
-            int id = Texto.leerInt("> ID del " + modSing + " a ver: ");
-            if(!tabla(id)) { 
-                Texto.esperarEnter("No existe " + modSing + " con ID " + id + "...");
-                repetir = true;
-                return;
-            }
-
-            repetir = false;
-            Texto.esperarEnter();
-        } while (repetir);
+        int id = Texto.leerInt("> ID del " + modSing + " a ver: ");
+        if(!tabla(id)) { 
+            Texto.esperarEnter("No existe " + modSing + " con ID " + id + "...");
+            return;
+        }
+    
+        Texto.esperarEnter();
     }
 
     public void menuRegistrar(){
@@ -115,29 +113,26 @@ public abstract class Menu {
     }
 
     public void menuActualizar(){
-        boolean repetir = false;
 
         Cuadro actualizar = new Cuadro(Color.amarillo("> Modificar informacion de " + modSing));
-        do{
-            Texto.limpiarPantalla();
+        Texto.limpiarPantalla();
 
-            actualizar.imprimirCuadro();
-            tabla();
+        actualizar.imprimirCuadro();
+        tabla();
 
-            int id = Texto.leerInt("> ID del " + modSing +" a modificar: ");
+        int id = Texto.leerInt("> ID del " + modSing +" a modificar: ");
 
-            if(!tabla(id)) { 
-                Texto.esperarEnter("No existe " + modSing + " con ID " + id + "...");
-                repetir = true;
-            }
+        if(!tabla(id)) { 
+            Texto.esperarEnter("No existe " + modSing + " con ID " + id + "...");
+            return;
+        }
 
-            if(actualizar(id)){
-                Texto.esperarEnter(modSing + " actualizado con exito");
-                repetir = false;
-            }
-            else
-                Texto.esperarEnter("Error al actualizar " + modSing);
-        } while (repetir);
+        if(actualizar(id)){
+            Texto.esperarEnter(modSing + " actualizado con exito");
+            return;
+        }
+        else
+            Texto.esperarEnter("Error al actualizar " + modSing);
             
     }
 
@@ -176,13 +171,9 @@ public abstract class Menu {
         
     }
 
-    
     public abstract boolean registrar();
     public abstract boolean actualizar(int id);
     public abstract boolean eliminar(int id);
-    
-    public abstract void tabla();
-    public abstract boolean tabla(int id);
 
     public void setNombres(String singular, String plural){
         this.modSing = singular;

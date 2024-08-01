@@ -72,7 +72,7 @@ public class ModCliente extends Menu{
 
     @Override
     public void tabla(){
-        Tabla tabla = new Tabla("ID", "Nombre Completo", "Correo", "Telefono");
+        tabla = new Tabla("ID", "Nombre Completo", "Correo", "Telefono");
         Cliente[] clientes = Cliente.importarClientes();
 
         for (Cliente cliente : clientes) {
@@ -87,11 +87,11 @@ public class ModCliente extends Menu{
     }
 
     public boolean tabla(int id) {
-        Tabla tabla = new Tabla("ID", "Nombre Completo","Fecha de nacimiento", "Direccion", "Telefono", "Correo");
-        Cliente cliente = Cliente.importarClientes(id);
-
         if (!Cliente.validarCliente(id))
             return false;
+            
+        tabla = new Tabla("ID", "Nombre Completo","Fecha de nacimiento", "Direccion", "Telefono", "Correo");
+        Cliente cliente = Cliente.importarClientes(id);
 
         tabla.agregarFila(
             cliente.getIdCliente(),

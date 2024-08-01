@@ -7,30 +7,29 @@ import java.sql.Date;
 public class Beneficio {
     // ATRIBUTOS
     private String nombre;
-    private int idBeneficio, porcPuntos, porcentajeCashBack,descuento;
+    private int idBeneficio, porcPuntos, porcCashBack, porcDescuento;
     private Date fecVen, fecInicio;
 
     // CONSTRUCTORES
     public Beneficio() {
     }
 
-    public Beneficio(int idBeneficio, String nombre, Date fecInicio,Date fecVen, int porcPuntos, int porcentajeCashBack, int descuento) {
+    public Beneficio(int idBeneficio, String nombre, Date fecInicio,Date fecVen, int porcPuntos, int porcCashBack, int porcDescuento) {
         this.idBeneficio = idBeneficio;
         this.nombre = nombre;
         this.fecInicio = fecInicio;
         this.fecVen = fecVen;
         this.porcPuntos = porcPuntos;
-        this.porcentajeCashBack = porcentajeCashBack;
-        this.descuento=descuento;
+        this.porcCashBack = porcCashBack;
+        this.porcDescuento=porcDescuento;
     }
 
     // METODOS
     public void modificarTargeta(String nombre, String porcPuntosStr,
             String porcentajeCashBackStr, String fecVenStr, String fecInicioStr) {
         this.setNombre(nombre);
-        // no puse el idBeneficio
         this.setPorcPuntos(porcPuntosStr);
-        this.setPorcentajeCashBack(porcentajeCashBackStr);
+        this.setPorcCashBack(porcentajeCashBackStr);
         this.setFecVen(fecVenStr);
         this.setFecInicio(fecInicioStr);
     }
@@ -73,17 +72,18 @@ public class Beneficio {
         return beneficios;
     }
 
+    //CRUD BENEFICIO
     public boolean insetarBeneficio(){
         BeneficioEnt beneficio = new BeneficioEnt();
         return beneficio.insertarBeneficioDB( nombre, (java.sql.Date) fecInicio, (java.sql.Date) fecVen, 
-            porcPuntos, porcentajeCashBack, descuento);
+            porcPuntos, porcCashBack, porcDescuento);
     }
 
     public boolean actualizarBeneficio(){
         BeneficioEnt beneficio = new BeneficioEnt();
         return beneficio.actualizarBeneficioDB(
             idBeneficio,nombre, (java.sql.Date) fecInicio,
-        (java.sql.Date) fecVen, porcPuntos, porcentajeCashBack, descuento);
+        (java.sql.Date) fecVen, porcPuntos, porcCashBack, porcDescuento);
     }
 
     public boolean validarBeneficio(){
@@ -91,7 +91,34 @@ public class Beneficio {
         return beneficio.existeBeneficio(nombre);
     }
 
+    public static boolean validarBeneficio(int id){
+        BeneficioEnt beneficio =  new BeneficioEnt();
+        return beneficio.existeRegistro(id);
+    }
+
+    public static boolean eliminarBeneficio(int id){
+        BeneficioEnt beneficio = new BeneficioEnt();
+        return beneficio.eliminarBeneficioDB(id);
+    }
+
     // GETTERS AND SETTERS
+    
+    public int getIdBeneficio() {
+        if(this.idBeneficio < 1)
+            this.setIdBeneficio();
+        return this.idBeneficio;
+    }
+    public void setIdBeneficio() {
+        BeneficioEnt beneficioBd = new BeneficioEnt();
+        
+        Object [] datos = beneficioBd.ejecutarSelectPorAtributos(
+            nombre, fecInicio, fecVen, porcPuntos, porcCashBack, porcDescuento
+        );
+
+        Beneficio beneficio = importarBeneficios(datos);
+
+        this.idBeneficio = beneficio.getIdBeneficio();
+    }
     public String getNombre() {
         return this.nombre;
     }
@@ -102,17 +129,14 @@ public class Beneficio {
         this.nombre = nombre.trim();
     }
 
-    public int getIdBeneficio() {
-        return this.idBeneficio;
-    }
 
     public int getPorcPuntos() {
         return this.porcPuntos;
     }
 
     public void setPorcPuntos(int porcPuntos) {
-        if (porcPuntos <= 0)
-            throw new IllegalArgumentException("El porcentaje no puede ser negativo o cero");
+        if (porcPuntos < 0)
+            throw new IllegalArgumentException("El porcentaje de puntos no valido");
         this.porcPuntos = porcPuntos;
     }
 
@@ -125,23 +149,40 @@ public class Beneficio {
         }
     }
 
-    public int getPorcentajeCashBack() {
-        return this.porcentajeCashBack;
+    public int getPorcCashBack() {
+        return this.porcCashBack;
+    }
+    public float getCashBack() {
+        return this.porcCashBack/100;
+    }
+    
+
+    public void setPorcCashBack(int porcCashBack) {
+        if (porcCashBack < 0 || porcCashBack > 100)
+            throw new IllegalArgumentException("El porcentaje de cash back no es valido");
+        this.porcPuntos = porcCashBack;
     }
 
-    public void setPorcentajeCashBack(int porcentajeCashBack) {
-        if (porcentajeCashBack <= 0)
-            throw new IllegalArgumentException("El porcentaje de cash back no puede ser negativo o cero");
-        this.porcPuntos = porcentajeCashBack;
-    }
-
-    public void setPorcentajeCashBack(String porcentajeCashBackStr) {
+    public void setPorcCashBack(String porcentajeCashBackStr) {
         try {
             int porcentajeCashBack = Integer.parseInt(porcentajeCashBackStr);
-            this.setPorcentajeCashBack(porcentajeCashBack);
+            this.setPorcCashBack(porcentajeCashBack);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("El número no es válido");
         }
+    }
+
+    public void setPorcDescuento(int porcDescuento){
+        if (porcDescuento < 0 || porcDescuento > 100)
+            throw new IllegalArgumentException("El porcentaje de cash back no puede ser negativo o cero");
+        this.porcDescuento = porcDescuento;
+    }
+    public int getPorcDescuento(){
+        return this.porcDescuento;
+    }
+
+    public float getDescuento(){
+        return this.porcDescuento/100;
     }
 
     public Date getFecVen() {
@@ -154,8 +195,11 @@ public class Beneficio {
         this.fecVen = fecVen;
     }
 
+    public void setFecVen(int dia, int mes, int anio) {
+        this.fecVen = FormatoFecha.fecha(dia, mes, anio);
+    }
     public void setFecVen(String fecVenStr) {
-        this.fecVen = FormatoFecha.fecha(fecVenStr); //ejemplo
+        this.fecVen = FormatoFecha.fecha(fecVenStr);
     }
 
     public Date getFecInicio() {
@@ -168,6 +212,9 @@ public class Beneficio {
         this.fecInicio = fecInicio;
     }
 
+    public void setFecInicio(int dia, int mes, int anio) {
+        this.fecInicio = FormatoFecha.fecha(dia, mes, anio);
+    }
     public void setFecInicio(String fecInicioStr) {
         this.fecInicio = FormatoFecha.fecha(fecInicioStr);
     }
