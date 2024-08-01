@@ -1,4 +1,5 @@
 package Logica.Objetos;
+import Persistencia.Tablas.NivelEnt;
 
 public class Nivel {
     // ATRIBUTOS
@@ -9,11 +10,11 @@ public class Nivel {
     public Nivel(){}
 
 
-    public Nivel(int idNivel, int anualidad, int costoApertura, String nombre) {
+    public Nivel(int idNivel, String nombre,int anualidad, int costoApertura) {
         this.idNivel = idNivel;
+        this.nombre = nombre;
         this.anualidad = anualidad;
         this.costoApertura = costoApertura;
-        this.nombre = nombre;
     }
 
     // METODOS
@@ -23,6 +24,53 @@ public class Nivel {
         this.setNombre(nombre);
     }
 
+    //COMUNICACION CON PERSISTENCIA
+
+    public static Nivel importarNiveles(Object [] datos){
+
+        Nivel nivel = new Nivel(
+        (int) datos[0],
+        (String) datos[1],
+        (int) datos[2],
+        (int) datos[3]
+        );
+        return nivel;
+    }
+
+    public static Nivel importarNiveles(int id){
+        NivelEnt nivelBd = new NivelEnt();
+        Object[] datos = nivelBd.obtenerNivelPorIdDB(id);
+        return importarNiveles(datos);
+    }
+
+    public static Nivel[] importarNiveles(){
+        NivelEnt nivelBd = new NivelEnt();
+        Nivel[] niveles = new Nivel [nivelBd.obtenerCantRegistros()];
+        Object[][] datos = nivelBd.ejecutarSelect();
+        
+        for (int i = 0; i < datos.length; i++) {
+            niveles[i] = importarNiveles(datos[i]);
+        }
+        return niveles;
+    }
+
+    //CRUD NIVEL
+
+    public boolean insertarNivel(){
+        NivelEnt nivel = new NivelEnt();
+        return nivel.insertarNivelDB(nombre, anualidad, costoApertura);
+    }
+
+    public boolean actualizarNivel(){
+        NivelEnt nivel = new NivelEnt();
+        return nivel.actualizarNivelDB(idNivel, nombre, anualidad, costoApertura);
+    }
+
+    public boolean validarNivel(){
+        NivelEnt nivel = new NivelEnt();
+        return nivel.existeNivel(nombre);
+    }
+    
     // GETTERS AND SETTERS
 
     public int getIdNivel() {
