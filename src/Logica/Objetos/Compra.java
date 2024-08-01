@@ -9,6 +9,7 @@ public class Compra {
     private int idCompra, porcentajePunto, descuento;
     private Date fechaCompra;
     private float total;
+    private Tarjeta tarjeta;
 
     // CONSTRUCTORES
 
@@ -18,6 +19,17 @@ public class Compra {
         this.descuento = descuento;
         this.fechaCompra = fechaCompra;
         this.total = total;
+    }
+    //COMUNICACION CON PERSISTENCIA
+    public static Compra importarCompras(Object [] datos){
+
+        Compra compra = new Compra(
+            (int) datos[0],
+            (int) datos[1],
+            (int) datos[2],
+            (Date) datos[3],
+            (float) datos[4]
+            );
     }
 
     // METODOS

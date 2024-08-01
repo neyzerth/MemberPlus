@@ -1,6 +1,9 @@
+-- SQLBook: Code
 -- Active: 1721605316807@@127.0.0.1@3306@prueba
 DROP DATABASE member_plus;
 CREATE DATABASE member_plus;
+USE member_plus;
+
 CREATE TABLE persona (
     idPersona INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre varchar(15) NOT NULL,

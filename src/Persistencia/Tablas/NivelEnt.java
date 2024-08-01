@@ -29,8 +29,8 @@ public class NivelEnt extends Query {
     }
 
     // Insertar un nivel
-    public boolean insertarNivelDB(int idNivel, String nombre, int anualidad, int costoApertura) {
-        Object[] valores = { idNivel, nombre, anualidad, costoApertura };
+    public boolean insertarNivelDB( String nombre, int anualidad, int costoApertura) {
+        Object[] valores = { nombre, anualidad, costoApertura };
         String query = insert(valores);
         return ejecutarInsert(query);
     }

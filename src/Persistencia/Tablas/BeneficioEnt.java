@@ -1,6 +1,7 @@
 package Persistencia.Tablas;
 
 import Persistencia.Query;
+import java.sql.Date;
 
 public class BeneficioEnt extends Query {
     public BeneficioEnt() {
@@ -25,15 +26,15 @@ public class BeneficioEnt extends Query {
     }
 
     // Actualizar un beneficio
-    public boolean actualizarBeneficioDB(int idBeneficio, String nombre, String fecInicio, String fecVen, int porcentajePuntos, int porcentajeCashBack, int descuento) {
+    public boolean actualizarBeneficioDB(int idBeneficio, String nombre,Date fecInicio, Date fecVen, int porcentajePuntos, int porcentajeCashBack, int descuento) {
         Object[] valores = { idBeneficio, nombre, fecInicio, fecVen, porcentajePuntos, porcentajeCashBack, descuento };
         String query = update(valores, idBeneficio);
         return ejecutarUpdate(query);
     }
 
     // Insertar un beneficio
-    public boolean insertarBeneficioDB(int idBeneficio, String nombre, String fecInicio, String fecVen, int porcentajePuntos, int porcentajeCashBack, int descuento) {
-        Object[] valores = { idBeneficio, nombre, fecInicio, fecVen, porcentajePuntos, porcentajeCashBack, descuento };
+    public boolean insertarBeneficioDB( String nombre, Date fecInicio, Date fecVen, int porcentajePuntos, int porcentajeCashBack, int descuento) {
+        Object[] valores = { nombre, fecInicio, fecVen, porcentajePuntos, porcentajeCashBack, descuento };
         String query = insert(valores);
         return ejecutarInsert(query);
     }
@@ -48,4 +49,5 @@ public class BeneficioEnt extends Query {
     public Object[] obtenerPorNombreDB(String nombreBeneficio) {
         return ejecutarSelectUno(getNomColumna(1), nombreBeneficio);
     }
+
 }
