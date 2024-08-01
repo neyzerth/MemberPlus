@@ -1,42 +1,104 @@
 package Logica.Objetos;
 
-
+import Persistencia.Tablas.TarjetaEnt;
 import java.sql.Date;
 import java.util.Random;
 import Logica.FormatoFecha;
 
 public class Tarjeta {
     // ATRIBUTOS
-    private long numTarjeta;
+    private String numTarjeta;
     private float saldo;
-    private int puntos;
+    private int idTarjeta, puntos;
     private Date fecExp, fecVen;
     private boolean activo;
+    private Cliente cliente;
+    private Nivel nivel;
 
     // CONSTRUCTORES
 
     public Tarjeta() {
     }
 
-    public Tarjeta(long numTarjeta, float saldo, int puntos, Date fecExp, Date fecVen, boolean activo) {
+    public Tarjeta(int idTarjeta, String numTarjeta, float saldo,
+     int puntos, Date fecExp, Date fecVen, boolean activo, Cliente cliente, Nivel nivel) {
+        this.idTarjeta = idTarjeta;
         this.numTarjeta = numTarjeta;
         this.saldo = saldo;
         this.puntos = puntos;
         this.fecExp = fecExp;
         this.fecVen = fecVen;
         this.activo = activo;
+        this.cliente =  cliente;
+        this.nivel = nivel;
     }
 
     // METODOS
-    public void modificarTarjeta(String numTarjetaStr, String saldoStr, String puntosStr, String fecExpStr,
-            String fecVenStr, String activoStr) {
-        this.setNumTarjeta(numTarjetaStr);
-        this.setSaldo(saldoStr);
-        this.setPuntos(puntosStr);
-        this.setFecExp(fecExpStr);
-        this.setFecVen(fecVenStr);
-        this.setActivo(activoStr);
+    
+
+    //COMUNICACION CON PERSISTENCIA
+    public static Tarjeta importarTarjeta(Object[] datos){
+
+        Tarjeta tarjeta = new Tarjeta(
+            (int) datos[0],
+            (String) datos[1],  
+            (float) datos[2],
+            (int) datos[3],
+            (Date) datos[4],
+            (Date) datos[5],
+            (boolean) datos[6],
+            (Cliente) datos[7],
+            (Nivel) datos[8]
+        );
+        return tarjeta;
     }
+
+    public static Tarjeta importarTarjeta(int id){
+        TarjetaEnt tarjetaBd = new TarjetaEnt();
+        Object[] datos = tarjetaBd.obtenerTarjetaPorId(id);
+
+        return importarTarjeta(datos);
+    }
+    
+    public static Tarjeta importarTarjeta(String numTarjeta){
+        TarjetaEnt tarjetaBd = new TarjetaEnt();
+        Object[] datos = tarjetaBd.obtenerTarjetaPorNum(numTarjeta);
+
+        return importarTarjeta(datos);
+    }
+
+    //CRUD de tarjeta
+    public boolean insertarTarjeta(){
+        TarjetaEnt tarjeta = new TarjetaEnt();
+        return tarjeta.insertarTarjetaDB(numTarjeta,fecExp,fecVen,activo,saldo,puntos,cliente.getIdCliente() ,nivel.getIdNivel());
+    }
+
+    public boolean actualizarTarjeta(){
+        TarjetaEnt tarjeta = new TarjetaEnt();
+        return tarjeta.actualizarTarjetaDB(idTarjeta, numTarjeta, fecExp, fecVen, activo, saldo, puntos, cliente.getIdCliente(), nivel.getIdNivel());
+    }
+
+    public boolean validarNumTarjeta(){
+        TarjetaEnt tarjeta = new TarjetaEnt();
+        return tarjeta.existeNumTarjeta(numTarjeta);
+    }
+
+    public static boolean validarNumTarjeta(String numTarjeta){
+        TarjetaEnt tarjeta = new TarjetaEnt();
+        return tarjeta.existeNumTarjeta(numTarjeta);
+    }
+
+    public boolean validarIdTarjeta(){
+        TarjetaEnt tarjeta = new TarjetaEnt();
+        return tarjeta.existeIdTarjeta(idTarjeta);
+    }
+    
+    public boolean validarIdTarjeta(int idTarjeta){
+        TarjetaEnt tarjeta = new TarjetaEnt();
+        return tarjeta.existeIdTarjeta(idTarjeta);
+    }
+    //public boolean 
+
 
     // Método para generar un número de tarjeta de 16 dígitos con los primeros 4 dígitos fijos
     public static String generarNumeroTarjeta() {
@@ -56,19 +118,37 @@ public class Tarjeta {
 
     // GETTERS AND SETTERS
 
-    public long getNumTarjeta() {
+    public int getIdTarjeta() {
+        return this.idTarjeta;
+    }
+
+    public void setIdTarjeta(int idTarjeta) {
+        this.idTarjeta = idTarjeta;
+    }
+
+    public Cliente getCliente() {
+        return this.cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Nivel getNivel() {
+        return this.nivel;
+    }
+
+    public void setNivel(Nivel nivel) {
+        this.nivel = nivel;
+    }
+    
+    public String getNumTarjeta() {
         return this.numTarjeta;
     }
 
-    public void setNumTarjeta(long numTarjeta) {
-        if (numTarjeta <= 0)
-            throw new IllegalArgumentException("El numero de la tarjeta no puede ser negativo o cero");
-        this.numTarjeta = numTarjeta;
-    }
 
     public void setNumTarjeta(String numTarjetaStr) {
         try {
-            int numTarjeta = Integer.parseInt(numTarjetaStr);
             this.setNumTarjeta(numTarjeta);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("La tarjeta no es válida");

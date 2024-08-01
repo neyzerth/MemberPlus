@@ -1,6 +1,7 @@
 package Persistencia.Tablas;
 
 import java.sql.Date;
+
 import Persistencia.Query;
 
 public class TarjetaEnt extends Query {
@@ -51,6 +52,10 @@ public class TarjetaEnt extends Query {
     // Verificar si el numTarjeta ya existe en la base de datos
     public boolean existeNumTarjeta(String numTarjeta) {
         return existeRegistro(getNomColumna(1), numTarjeta);
+    }
+
+    public boolean existeIdTarjeta(int id){
+        return existeRegistro(getNomColumna(0), id);
     }
 
     // Eliminar una tarjeta
