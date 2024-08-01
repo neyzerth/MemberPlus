@@ -1,4 +1,6 @@
 -- Active: 1721605316807@@127.0.0.1@3306@prueba
+DROP DATABASE member_plus;
+CREATE DATABASE member_plus;
 CREATE TABLE persona (
     idPersona INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre varchar(15) NOT NULL,
@@ -12,7 +14,7 @@ CREATE TABLE persona (
     cp varchar(10),
     telefono VARCHAR(12) NOT NULL,
     correo VARCHAR(40)
-)
+);
 
 Create table cliente (
     idCliente INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -98,7 +100,7 @@ create table movimiento(
     FOREIGN KEY (usuario) REFERENCES usuario(idUsuario) ON DELETE CASCADE,
     FOREIGN KEY (tarjeta) REFERENCES tarjeta(idTarjeta) ON DELETE CASCADE,
     FOREIGN KEY (tipoMovimiento) REFERENCES tipo_Movimiento(idTipoMovimiento) ON DELETE CASCADE
-)
+);
 
 
 CREATE TABLE nivel_Beneficio (
