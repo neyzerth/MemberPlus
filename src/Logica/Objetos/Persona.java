@@ -114,7 +114,7 @@ public class Persona {
     public boolean insertarPersona(){
         PersonaEnt persona = new PersonaEnt();
         return persona.insertarPersonaDB(
-            nombre, apellidoPa, apellidoMa, (java.sql.Date) fecNac,
+            nombre, apellidoPa, apellidoMa, fecNac,
             colonia, calle, numExt, numInt, cp, telefono, correo
         );
     }
@@ -123,7 +123,7 @@ public class Persona {
         PersonaEnt persona = new PersonaEnt();
         return persona.actualizarPersonaDB(
             this.idPersona,
-            nombre, apellidoPa, apellidoMa, (java.sql.Date) fecNac,
+            nombre, apellidoPa, apellidoMa, fecNac,
             colonia, calle, numExt, numInt, cp, telefono, correo
         );
     }

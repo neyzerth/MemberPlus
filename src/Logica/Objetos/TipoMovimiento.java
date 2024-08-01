@@ -25,9 +25,9 @@ public class TipoMovimiento{
 
 
       // COMUNICACION CON PERSISTENCIA
-        public static TipoMovimiento importarTipoMovimiento(Object[] datos) {
+        public static TipoMovimiento importarTipoMovimientos(Object[] datos) {
         if (datos[2] == null)
-            datos[2] = "Sin descripcion ";
+            datos[2] = "Sin descripcion";
 
         TipoMovimiento tipoMovimiento = new TipoMovimiento(
                 (int) datos[0],
@@ -36,10 +36,10 @@ public class TipoMovimiento{
         return tipoMovimiento;
     }
 
-    public static TipoMovimiento importarTipoMovimiento(int id) {
+    public static TipoMovimiento importarTipoMovimientos(int id) {
         TipoMovimientoEnt tipoMovimientoBd = new TipoMovimientoEnt();
         Object[] datos = tipoMovimientoBd.obtenerTipoMovimientoPorIdDB(id);
-        return importarTipoMovimiento(datos);
+        return importarTipoMovimientos(datos);
     }
 
     public static TipoMovimiento[] importarTipoMovimientos() {
@@ -48,7 +48,7 @@ public class TipoMovimiento{
         Object[][] datos = tipoMovimientoBd.ejecutarSelect();
 
         for (int i = 0; i < datos.length; i++) {
-            tipoMovimientos[i] = importarTipoMovimiento(datos[i]);
+            tipoMovimientos[i] = importarTipoMovimientos(datos[i]);
         }
         return tipoMovimientos;
     }
