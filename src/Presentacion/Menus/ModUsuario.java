@@ -1,4 +1,3 @@
-//-- Active: 1719932866993@@127.0.0.1@3306
 package Presentacion.Menus;
 
 import Presentacion.Despliegue.Tabla;
@@ -50,6 +49,7 @@ public class ModUsuario extends Menu {
     @Override
     public boolean actualizar(int id){
         Usuario usuario = Usuario.importarUsuarios(id);
+        
         do{
 
             usuario.setNomUsuario(Texto.leerString(Color.amarillo(Color.negrita("> Nombre del usuario: "))));
@@ -93,7 +93,7 @@ public class ModUsuario extends Menu {
             return false;
         }
 
-        Tabla tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Nombre Usuario"), Color.amarillo("RFC"));
+        tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Nombre Usuario"), Color.amarillo("RFC"));
 
         Usuario usuario = Usuario.importarUsuarios(id);
 
@@ -109,7 +109,7 @@ public class ModUsuario extends Menu {
 
     @Override
     public void tabla() {
-        Tabla tabla = new Tabla("ID", "Nombre Usuario", "RFC");
+        tabla = new Tabla("ID", "Nombre Usuario", "RFC");
         Usuario[] usuarios =  Usuario.importarUsuarios();
 
         for (Usuario usuario : usuarios) {
