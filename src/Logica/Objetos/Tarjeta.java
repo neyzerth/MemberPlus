@@ -5,10 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
-
 public class Tarjeta {
     // ATRIBUTOS
-    private String  numTarjeta;
+    private long numTarjeta;
     private float saldo;
     private int puntos;
     private Date fecExp, fecVen;
@@ -19,7 +18,7 @@ public class Tarjeta {
     public Tarjeta() {
     }
 
-    public Tarjeta(String numTarjeta, float saldo, int puntos, Date fecExp, Date fecVen, boolean activo) {
+    public Tarjeta(long numTarjeta, float saldo, int puntos, Date fecExp, Date fecVen, boolean activo) {
         this.numTarjeta = numTarjeta;
         this.saldo = saldo;
         this.puntos = puntos;
@@ -28,8 +27,18 @@ public class Tarjeta {
         this.activo = activo;
     }
 
+    // METODOS
+    public void modificarTarjeta(String numTarjetaStr, String saldoStr, String puntosStr, String fecExpStr, String fecVenStr, String activoStr){
+        this.setNumTarjeta(numTarjetaStr);
+        this.setSaldo(saldoStr);
+        this.setPuntos(puntosStr);
+        this.setFecExp(fecExpStr);
+        this.setFecVen(fecVenStr);
+        this.setActivo(activoStr);
+    }
+
     // Método para generar un número de tarjeta de 16 dígitos con los primeros 4 dígitos fijos
-    public static String generarNumeroTarjeta() {
+        public static String generarNumeroTarjeta() {
         Random random = new Random();
 
         String primerosCuatro = "1729";  
@@ -45,23 +54,26 @@ public class Tarjeta {
         return primerosCuatro + resto.toString();
     }
 
-
     // GETTERS AND SETTERS
 
-    public String getNumTarjeta() {
+    public long getNumTarjeta() {
         return this.numTarjeta;
     }
-    
 
-    public void setNumTarjeta(String numTarjeta) {
+    public void setNumTarjeta(long numTarjeta) {
+        if (numTarjeta <= 0)
+            throw new IllegalArgumentException("El numero de la tarjeta no puede ser negativo o cero");
+        this.numTarjeta = numTarjeta;
+    }
+
+    public void setNumTarjeta(String numTarjetaStr) {
         try {
-            this.numTarjeta = numTarjeta;
-            this.numTarjeta = generarNumeroTarjeta();
+            int numTarjeta = Integer.parseInt(numTarjetaStr);
+            this.setNumTarjeta(numTarjeta);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("La tarjeta no es válida");
         }
     }
-    
 
     public float getSaldo() {
         return this.saldo;
@@ -69,7 +81,7 @@ public class Tarjeta {
 
     public void setSaldo(float saldo) {
         if (saldo <= 0)
-            throw new IllegalArgumentException("El saldo no puede ser inferior a 0");
+            throw new IllegalArgumentException("El saldo no puede ser negativo o cero");
         this.saldo = saldo;
     }
 
@@ -88,7 +100,7 @@ public class Tarjeta {
 
     public void setPuntos(int puntos) {
         if (puntos <= 0)
-            throw new IllegalArgumentException("Los puntos no pueden ser inferior a 0");
+            throw new IllegalArgumentException("Los puntos no puede ser negativos o cero");
         this.puntos = puntos;
     }
 
