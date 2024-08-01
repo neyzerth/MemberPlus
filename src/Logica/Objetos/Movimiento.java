@@ -9,21 +9,32 @@ public class Movimiento {
     private int idMovimiento;
     private String comentario, estado;
     private  Date fechaMov;
+    private Usuario usuario;
+    private TipoMovimiento tipo;
 
     // CONSTRUCTORES
 
-    public Movimiento(int idMovimiento, String comentario, String estado, Date fechaMov) {
+    public Movimiento(int idMovimiento, String comentario, String estado, Date fechaMov, Usuario usuario, TipoMovimiento tipo) {
         this.idMovimiento = idMovimiento;
         this.comentario = comentario;
         this.estado = estado;
         this.fechaMov = fechaMov;
-    }    
+        this.usuario = usuario;
+        this.tipo = tipo;
+       }    
     
     // METODOS
-    public void modificarMovimiento(String comentario, String estado, String fechaMovStr){
-        this.setComentario(comentario);
-        this.setEstado(estado);
-        this.setFechaMov(fechaMovStr);
+
+    //COMUNICACION CON PERSISTENCIA
+    public static Movimiento importarMovimientos(Object [] datos){
+        Movimiento movimiento = new Movimiento(
+            (int)datos[0], 
+            (String)datos[1],
+            (String)datos[2],
+            (Date)datos[3],
+            Usuario.importarUsuarios((int)datos[4]),
+            TipoMovimiento.importarTipo((int)datos[5])
+        );
     }
     
     // GETTERS AND SETTERS
