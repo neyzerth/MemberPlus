@@ -28,7 +28,6 @@ public class Beneficio {
     public void modificarTargeta(String nombre, String porcPuntosStr,
             String porcentajeCashBackStr, String fecVenStr, String fecInicioStr) {
         this.setNombre(nombre);
-        // no puse el idBeneficio
         this.setPorcPuntos(porcPuntosStr);
         this.setPorcCashBack(porcentajeCashBackStr);
         this.setFecVen(fecVenStr);
@@ -73,6 +72,7 @@ public class Beneficio {
         return beneficios;
     }
 
+    //CRUD BENEFICIO
     public boolean insetarBeneficio(){
         BeneficioEnt beneficio = new BeneficioEnt();
         return beneficio.insertarBeneficioDB( nombre, (java.sql.Date) fecInicio, (java.sql.Date) fecVen, 
@@ -159,7 +159,7 @@ public class Beneficio {
 
     public void setPorcCashBack(int porcCashBack) {
         if (porcCashBack < 0 || porcCashBack > 100)
-            throw new IllegalArgumentException("El porcentaje de cash back noes valido");
+            throw new IllegalArgumentException("El porcentaje de cash back no es valido");
         this.porcPuntos = porcCashBack;
     }
 
