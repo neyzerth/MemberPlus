@@ -156,7 +156,7 @@ public class Tarjeta {
         // Generar los siguientes 12 dígitos aleatorios
         StringBuilder resto = new StringBuilder();
         for (int i = 0; i < 12; i++) {
-            int digitoAleatorio = random.nextInt(10);
+            int digitoAleatorio = random.nextInt(10); //El 10 se refiere a los numeors del 0 - 9
             resto.append(digitoAleatorio);
         }
 
