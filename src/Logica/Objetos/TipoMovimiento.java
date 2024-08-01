@@ -1,20 +1,78 @@
 package Logica.Objetos;
-import java.sql.Date;
 
-public class TipoMovimiento extends Movimiento {
+import Persistencia.Tablas.TipoMovimientoEnt;
+
+public class TipoMovimiento{
     // ATRIBUTOS
     private int idTipoMovimiento;
-    private String nombre,descripcion;
-  
+    private String nombre,descripcion; 
+    
+    
     // CONSTRUCTORES 
-    public TipoMovimiento(int idMovimiento, String comentario, String estado, Date fechaMov,int idTipoMovimiento, String nombre, String descripcion) {
-        super(idMovimiento,comentario,estado,fechaMov);
+    public TipoMovimiento(int idTipoMovimiento, String nombre, String descripcion) {
         this.idTipoMovimiento = idTipoMovimiento;
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
 
-    // METODOS
+
+    // public TipoMovimiento(int idMovimiento, String comentario, String estado, Date fechaMov,int idTipoMovimiento, String nombre, String descripcion) {
+    //     super(idMovimiento,comentario,estado,fechaMov);
+    //     this.idTipoMovimiento = idTipoMovimiento;
+    //     this.nombre = nombre;
+    //     this.descripcion = descripcion;
+    // }
+
+
+      // COMUNICACION CON PERSISTENCIA
+        public static TipoMovimiento importarTipoMovimiento(Object[] datos) {
+        if (datos[2] == null)
+            datos[2] = "Sin descripcion ";
+
+        TipoMovimiento tipoMovimiento = new TipoMovimiento(
+                (int) datos[0],
+                (String) datos[1],
+                (String) datos[2]);
+        return tipoMovimiento;
+    }
+
+    public static TipoMovimiento importarTipoMovimiento(int id) {
+        TipoMovimientoEnt tipoMovimientoBd = new TipoMovimientoEnt();
+        Object[] datos = tipoMovimientoBd.obtenerTipoMovimientoPorIdDB(id);
+        return importarTipoMovimiento(datos);
+    }
+
+    public static TipoMovimiento[] importarTipoMovimientos() {
+        TipoMovimientoEnt tipoMovimientoBd = new TipoMovimientoEnt();
+        TipoMovimiento[] tipoMovimientos = new TipoMovimiento[tipoMovimientoBd.obtenerCantRegistros()];
+        Object[][] datos = tipoMovimientoBd.ejecutarSelect();
+
+        for (int i = 0; i < datos.length; i++) {
+            tipoMovimientos[i] = importarTipoMovimiento(datos[i]);
+        }
+        return tipoMovimientos;
+    }
+
+    //CRUD TipoMovientos
+
+
+    public boolean insertarTipoMovimiento() {
+        TipoMovimientoEnt tipoMovimientoEnt = new TipoMovimientoEnt();
+        return tipoMovimientoEnt.insertarTipoMovimientoDB(nombre, descripcion);
+    }
+
+    public boolean actualizarTipoMovimiento() {
+        TipoMovimientoEnt tipoMovimientoEnt = new TipoMovimientoEnt();
+        return tipoMovimientoEnt.actualizarTipoMovimientoDB(idTipoMovimiento, nombre, descripcion);
+    }
+
+    public boolean validarTipoMovimiento() {
+        TipoMovimientoEnt tipoMovimientoEnt = new TipoMovimientoEnt();
+        return tipoMovimientoEnt.existeTipoMovimiento(nombre);
+    }
+
+
+
 
     // GETTERS AND SETTERS
 

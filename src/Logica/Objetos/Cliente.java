@@ -1,7 +1,6 @@
 package Logica.Objetos;
 
 import java.sql.Date;
-
 import Persistencia.Tablas.ClienteEnt;
 
 public class Cliente extends Persona {
