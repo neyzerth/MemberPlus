@@ -12,6 +12,9 @@ public class Movimiento {
 
     // CONSTRUCTORES
 
+    //Constructores para inicializar un movimiento con los valores dados que son id del movimiento, el comentario
+    //el estado del movimiento y la fecha del movimiento 
+
     public Movimiento(int idMovimiento, String comentario, String estado, Date fechaMov) {
         this.idMovimiento = idMovimiento;
         this.comentario = comentario;

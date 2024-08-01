@@ -16,6 +16,8 @@ public class FormatoFecha {
             return null;
         }        
     }
+
+    // Crea un objeto Date de SQL a partir de valores de día, mes y año.
     
     public static Date fecha(int dia, int mes, int anio){
         try{

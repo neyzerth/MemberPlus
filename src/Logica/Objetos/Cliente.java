@@ -4,6 +4,9 @@ import java.sql.Date;
 
 import Persistencia.Tablas.ClienteEnt;
 
+//La clase cliente representa a un cliente que hereda de la clase persona
+//contiene informacion adicional especifica del cliente como su identificador unico
+
 public class Cliente extends Persona {
     // ATRIBUTOS
     private int idCliente;

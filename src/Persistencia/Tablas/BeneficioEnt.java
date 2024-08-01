@@ -3,6 +3,10 @@ package Persistencia.Tablas;
 import Persistencia.Query;
 import java.sql.Date;
 
+//La clase Beneficio reprensenta un beneficio que puede tener una persona
+//contiene informacion sobre el nombre del beneficio, su identificador, porcentajes relacionados
+//con puntos y Cashback y fechas de inicio y vencimiento
+
 public class BeneficioEnt extends Query {
     public BeneficioEnt() {
         super("beneficio",
