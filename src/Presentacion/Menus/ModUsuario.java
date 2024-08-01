@@ -1,7 +1,5 @@
-//-- Active: 1719932866993@@127.0.0.1@3306
 package Presentacion.Menus;
 
-import Presentacion.Despliegue.Cuadro;
 import Presentacion.Despliegue.Tabla;
 import Presentacion.Formato.*;
 
@@ -70,10 +68,8 @@ public class ModUsuario {
         Texto.esperarEnter();
     }
 
-    public static void registrarUsuario() {
-        Texto.limpiarPantalla();
-        Cuadro modificarUsua = new Cuadro(Color.cian(" Registrar usuario"));
-        modificarUsua.imprimirCuadro();
+    @Override
+    public boolean registrar() {
 
         Usuario usuario = new Usuario();
 
@@ -84,23 +80,24 @@ public class ModUsuario {
             String rfc = Texto.leerString(Color.amarillo(" > RFC del usuario: "));
             int rol = Texto.leerInt(Color.amarillo(Color.negrita(" > ROL del usuario: ")));
 
-            try {
-                Persona persona = ModPersona.datosPersona();
+        try {
+            Persona persona = ModPersona.datosPersona();
 
-                if(persona.insertarPersona()){
-                    persona.setIdPersona();
-                    usuario = new Usuario(0, nombre, contrasena, rfc, persona, rol);
-                }
-
-                if( usuario.insertarUsuario()){
-                    tablaUsuarios(usuario.getId());
-                    Texto.esperarEnter(Color.verde("Usuario registrado con exito"));
-                } else
-                    Texto.esperarEnter(Color.rojo("Error al registrar el usuario"));
-            } catch (Exception e) {
-                Texto.esperarEnter(Color.rojo("DATO NO VALIDO"));
+            if(persona.insertarPersona()){
+                persona.setIdPersona();
+                usuario = new Usuario(0, nombre, contrasena, rfc, persona, rol);
             }
-        } while (false);
+
+            if( usuario.insertarUsuario()){
+                tabla(usuario.getIdUsuario());
+                return true;
+            }
+
+        } catch (Exception e) {
+            Texto.esperarEnter("DATO NO VALIDO");
+        }
+
+        return false;
     }
 
     private static void actualizarUsuario(){
@@ -136,18 +133,18 @@ public class ModUsuario {
                     persona.setIdPersona(usuario.getIdPersona());
                 }
             
-                boolean actualizar = usuario.actualizarUsuario();
 
-                if(actualizar){
-                    System.out.println("Usuario actualizado con exito");
-                    tablaUsuarios(id);
-                } else
-                    System.out.println("Error al actualizar el usuario");
+                if(usuario.actualizarUsuario()){
+                    tabla(id);
+                    return true;
+                }
+                
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 Texto.esperarEnter("DATO NO VALIDO");
                 
             }
+            return false;
         } while (false);
     }
 
@@ -178,8 +175,7 @@ public class ModUsuario {
     private static Usuario tablaUsuarios(int id) {
         
         if (!Usuario.validarUsuario(id)){
-            System.out.println(Color.rojo(Color.negrita("\n No existe usuario con ID: " + id)));
-            return null;
+            return false;
         }
 
         Tabla tabla = new Tabla(Color.morado("ID"), Color.morado("Nombre Usuario"), Color.morado("RFC"));
@@ -187,13 +183,13 @@ public class ModUsuario {
         Usuario usuario = Usuario.importarUsuarios(id);
 
         tabla.agregarFila(
-            usuario.getId(),
+            usuario.getIdUsuario(),
             usuario.getNomUsuario(),
             usuario.getRfc()
         );
         tabla.imprimirTablaSimple();
 
-        return usuario;
+        return true;
     }
 
     private static Usuario[] tablaUsuarios() {
@@ -202,13 +198,12 @@ public class ModUsuario {
 
         for (Usuario usuario : usuarios) {
             tabla.agregarFila(
-                usuario.getId(),
+                usuario.getIdUsuario(),
                 usuario.getNomUsuario(),
                 usuario.getRfc()
             );
         }
         tabla.imprimirTablaSimple();
 
-        return usuarios;
     }
 }

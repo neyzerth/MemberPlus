@@ -1,5 +1,5 @@
 package Logica.Objetos;
-import java.util.Date;
+import java.sql.Date;
 
 public class TipoMovimiento extends Movimiento {
     // ATRIBUTOS

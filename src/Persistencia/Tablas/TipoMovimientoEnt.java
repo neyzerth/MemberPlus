@@ -29,8 +29,8 @@ public class TipoMovimientoEnt extends Query {
     }
 
     // Insertar un tipo de movimiento
-    public boolean insertarTipoMovimientoDB(int idTipoMovimiento, String nombre, String descripcion) {
-        Object[] valores = { idTipoMovimiento, nombre, descripcion };
+    public boolean insertarTipoMovimientoDB( String nombre, String descripcion) {
+        Object[] valores = { nombre, descripcion };
         String query = insert(valores);
         return ejecutarInsert(query);
     }

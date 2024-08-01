@@ -1,11 +1,11 @@
 package Logica.Objetos;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.sql.Date;
 
+import java.util.Calendar;
+import Logica.FormatoFecha;
+import java.sql.Date;
 import Persistencia.Tablas.PersonaEnt;
+
 
 public class Persona {
     // ATRIBUTOS
@@ -34,8 +34,8 @@ public class Persona {
     }
 
     public Persona(int idPersona, String nombre, String apellidoPa, String apellidoMa , Date fecNac, String colonia, String calle,
-            int numExt, int numInt, String cp, String telefono, String correo
-        ) {
+        int numExt, int numInt, String cp, String telefono, String correo
+    ) {
         this.idPersona = idPersona;
         this.nombre = nombre;
         this.apellidoPa = apellidoPa;
@@ -67,6 +67,8 @@ public class Persona {
         );
     }
 
+    //COMUNICACION CON PERSISTENCIA
+    //METODOS ESTATICOS
     public static Persona importarPersonas(Object [] datos){
 
         if(datos[7] == null)
@@ -94,9 +96,7 @@ public class Persona {
 
     public static Persona importarPersonas(int id){
         PersonaEnt personaBd = new PersonaEnt();
-
         Object [] datos = personaBd.obtenerPersonaPorIdDB(id);
-
         return importarPersonas(datos);
     }
 
@@ -109,28 +109,6 @@ public class Persona {
             personas[i] = importarPersonas(datos[i]);      
         }
         return personas;
-    }
-
-    
-    
-    
-
-    // Método para modificar y verificar los datos
-    public void modificar(String nombre, String apellidoPa, String apellidoMa, String colonia,
-            String calle, String numExtStr, String numIntStr, String cp, String telefono,
-            String correo, String fecNacStr) {
-
-        this.setNombre(nombre);
-        this.setApellidoPa(apellidoPa);
-        this.setApellidoMa(apellidoMa);
-        this.setColonia(colonia);
-        this.setCalle(calle);
-        this.setNumExt(numExtStr);
-        this.setNumInt(numIntStr);
-        this.setCp(cp);
-        this.setTelefono(telefono);
-        this.setCorreo(correo);
-        this.setFecNac(fecNacStr);
     }
 
     public boolean insertarPersona(){
@@ -155,6 +133,9 @@ public class Persona {
         return persona.existeRegistro(id);
     }
 
+    
+    //METODOS
+
     // Método para calcular edad
     public int calcularEdad(Persona persona) {
         Date fechaNacimiento = persona.getFecNac();
@@ -176,11 +157,6 @@ public class Persona {
         }
 
         return edad;
-    }
-
-    // Imprime solamente la edad
-    public void imprimirEdad() {
-        System.out.println("Edad: " + calcularEdad(this));
     }
 
     // GETTERS AND SETTERS
@@ -223,8 +199,6 @@ public class Persona {
     }
 
     public void setApellidoMa(String apellidoMa) {
-        if (apellidoMa == null || apellidoMa.trim().isEmpty())
-            throw new IllegalArgumentException("El apellido materno no puede estar vacío");
         this.apellidoMa = apellidoMa.trim();
     }
 
@@ -243,8 +217,6 @@ public class Persona {
     }
 
     public void setColonia(String colonia) {
-        if (colonia == null || colonia.trim().isEmpty())
-            throw new IllegalArgumentException("La colonia no puede estar vacía");
         this.colonia = colonia.trim();
     }
 
@@ -253,8 +225,6 @@ public class Persona {
     }
 
     public void setCalle(String calle) {
-        if (calle == null || calle.trim().isEmpty())
-            throw new IllegalArgumentException("La calle no puede estar vacía");
         this.calle = calle.trim();
     }
 
@@ -263,19 +233,9 @@ public class Persona {
     }
 
     public void setNumExt(int numExt) {
-        if (numExt <= 0)
-            throw new IllegalArgumentException("El número exterior no puede ser negativo o cero");
         this.numExt = numExt;
     }
 
-    public void setNumExt(String numExtStr) {
-        try {
-            int numExt = Integer.parseInt(numExtStr);
-            this.setNumExt(numExt);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("El número exterior no es válido");
-        }
-    }
 
     public int getNumInt() {
         return this.numInt;
@@ -287,23 +247,11 @@ public class Persona {
         this.numInt = numInt;
     }
 
-    public void setNumInt(String numIntStr) {
-        try {
-            int numInt = Integer.parseInt(numIntStr);
-            this.setNumInt(numInt);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("El número interior no es válido");
-        }
-    }
-
     public String getCp() {
         return this.cp;
     }
-
     public void setCp(String cp) {
-        if (cp == null || cp.trim().isEmpty())
-            throw new IllegalArgumentException("El código postal no puede estar vacío");
-        this.cp = cp.trim();
+        this.cp = cp;
     }
 
     public String getTelefono() {
@@ -321,9 +269,7 @@ public class Persona {
     }
 
     public void setCorreo(String correo) {
-        if (correo == null || correo.trim().isEmpty())
-            throw new IllegalArgumentException("El correo no puede estar vacío");
-        this.correo = correo.trim();
+        this.correo = correo;
     }
 
     public Date getFecNac() {
@@ -337,22 +283,9 @@ public class Persona {
     }
 
     public void setFecNac(String fecNacStr) {
-        try {
-            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-            Date fecNac = new java.sql.Date(formato.parse(fecNacStr).getTime());
-            setFecNac(fecNac);
-        } catch (ParseException e) {
-            throw new IllegalArgumentException("La fecha de nacimiento no es válida");
-        }
+        this.fecNac = FormatoFecha.fecha(fecNacStr);
     }
     public void setFecNac(int dia, int mes, int anio) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, anio);
-        calendar.set(Calendar.MONTH, mes - 1);
-        calendar.set(Calendar.DAY_OF_MONTH, dia);
-        
-        long tiempo = calendar.getTimeInMillis();
-        Date fecNac = new java.sql.Date(tiempo);
-        setFecNac(fecNac);
+        this.fecNac = FormatoFecha.fecha(dia, mes, anio);
     }
 }
