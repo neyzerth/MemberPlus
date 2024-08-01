@@ -1,4 +1,3 @@
-//-- Active: 1719932866993@@127.0.0.1@3306@member_plus
 package Presentacion;
 
 import Presentacion.Formato.Texto;
