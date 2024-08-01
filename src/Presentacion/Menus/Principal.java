@@ -27,11 +27,11 @@ public class Principal {
             int opcion = Texto.leerInt(Color.cian((Texto.espacio(1) + "> Seleccione una opción: ")));
 
             switch (opcion) {
-                case 1: ModUsuario.menu();
+                case 1: ModUsuario.desplegarMenu();
                     break;
                 case 2: ModVenta.menu();
                     break;
-                case 3: ModCliente.menu();
+                case 3: ModCliente.desplegarMenu();
                     break;
                 case 4: ModTarjeta.menu();
                     break;

@@ -12,10 +12,12 @@ public class ModTarjeta {
             System.out.println(Color.morado(Color.negrita(Texto.espacio(8) + "> Módulo de Tarjeta <")));
 
             Cuadro tarjeta = new Cuadro(
-                    Color.morado("Movimientos"),
-                    Color.morado("Nivel de tarjetas"),
-                    Color.morado("Beneficios"),
-                    Color.rojo("Volver al menú principal"));
+                Color.morado("Administrar tarjetas"),
+                Color.morado("Administrar Niveles de tarjetas"),
+                Color.morado("Administrar beneficios"),
+                Color.rojo("Volver al menú principal")
+            );
+            
             tarjeta.imprimirCuadroNum();
 
             System.out.println();
@@ -23,26 +25,11 @@ public class ModTarjeta {
             int option = Texto.leerInt(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
 
             switch (option) {
-                case 1:
-                    movimientosTarj();
+                case 1: movimientosTarj();
                     break;
                 case 2:
-                    Texto.limpiarPantalla();
-
-                    Cuadro nivelTarj = new Cuadro(
-                            Color.amarillo("> Nivel de tarjetas"));
-                    nivelTarj.imprimirCuadro();
-
-                    Texto.leerInt("> ");
                     break;
                 case 3:
-                    Texto.limpiarPantalla();
-
-                    Cuadro beneficTarj = new Cuadro(
-                            Color.amarillo("> Beneficios de la tarjeta"));
-                    beneficTarj.imprimirCuadro();
-
-                    Texto.leerInt("> ");
                     break;
                 case 4:
                     salir = true;

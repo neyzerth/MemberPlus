@@ -31,8 +31,12 @@ public class Cliente extends Persona {
     }
     // METODOS
     public static Cliente importarClientes(Object [] datos ){
-        Persona persona = new Persona((int) datos[1]);
-
+        Persona persona;
+        try{
+            persona = new Persona((int) datos[1]);
+        } catch (Exception e){
+            return null;
+        }
         Cliente cliente = new Cliente(
             (int) datos[0],
             persona
@@ -74,6 +78,10 @@ public class Cliente extends Persona {
             return cliente.actualizarClienteDB(this.idCliente, this.getIdPersona());
 
         return false;
+    }
+    public static boolean eliminarCliente(int id){
+        ClienteEnt clienteBd = new ClienteEnt();
+        return clienteBd.eliminarClienteDB(id);
     }
 
     public static boolean validarCliente(int id){

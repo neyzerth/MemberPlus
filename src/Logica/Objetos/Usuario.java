@@ -6,19 +6,20 @@ import Persistencia.Tablas.UsuarioEnt;
 
 public class Usuario extends Persona {
     // ATRIBUTOS
-    private int id, idRol;
+    private int idUsuario, idRol;
     private String nomUsuario, contrasena, rfc;
+    public Rol rol;
     
     // CONSTRUCTORES
 
     public Usuario(){}
 
-    public Usuario(int id, String nomUsuario, String contrasena, String rfc, Persona persona, int idRol){
+    public Usuario(int idUsuario, String nomUsuario, String contrasena, String rfc, Persona persona, int idRol){
         super(persona);
         this.nomUsuario = nomUsuario;
         this.contrasena = contrasena;
         this.rfc = rfc;
-        this.id = id;
+        this.idUsuario = idUsuario;
         this.idRol = idRol;
 
     }
@@ -34,7 +35,7 @@ public class Usuario extends Persona {
         this.nomUsuario = nomUsuario;
         this.contrasena = contrasena;
         this.rfc = rfc;
-        this.id = id;
+        this.idUsuario = id;
     }
 
     // METODOS
@@ -82,7 +83,7 @@ public class Usuario extends Persona {
     public boolean actualizarUsuario(){
         UsuarioEnt usuario = new UsuarioEnt();
         if(this.actualizarPersona())
-            return usuario.actualizarUsuarioDB(this.id, this.nomUsuario, this.contrasena, this.rfc , this.getIdPersona(), this.idRol);
+            return usuario.actualizarUsuarioDB(this.idUsuario, this.nomUsuario, this.contrasena, this.rfc , this.getIdPersona(), this.idRol);
 
         return false;
     }
@@ -108,7 +109,7 @@ public class Usuario extends Persona {
 
     public boolean validarUsuario(){
         UsuarioEnt usuario = new UsuarioEnt();
-        return usuario.existeUsuario(nomUsuario, contrasena);
+        return usuario.existeUsuario(this.nomUsuario, this.contrasena);
     }
 
     public static boolean validarUsuario(int id){
@@ -141,9 +142,9 @@ public class Usuario extends Persona {
         this.rfc = rfc;
     }
     
-    public int getId() {
-        if(this.id > 0)
-            return this.id;
+    public int getIdUsuario() {
+        if(this.idUsuario > 0)
+            return this.idUsuario;
         
         UsuarioEnt usuarioBd = new UsuarioEnt();
 
@@ -152,13 +153,13 @@ public class Usuario extends Persona {
         );
         Usuario usuario = Usuario.importarUsuarios(datos);
 
-        this.id = usuario.getId();
+        this.idUsuario = usuario.getIdUsuario();
 
-        return this.id;
+        return this.idUsuario;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdUsuario(int id) {
+        this.idUsuario = id;
     }
 
     public int getIdRol() {
