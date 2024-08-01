@@ -5,13 +5,14 @@ import Presentacion.Formato.Color;
 import Presentacion.Formato.Texto;
 
 public class ModPersona {
-    
-    public static Persona datosPersona(){
+
+    public static Persona datosPersona() {
         Persona persona = new Persona();
 
-        try{
+        try {
             System.out.println();
             System.out.println(Color.cian(Color.negrita("Datos personales")));
+
             persona.setNombre(Texto.leerString(Color.amarillo(Color.negrita("> Nombre: "))));
             persona.setApellidoPa(Texto.leerString(Color.amarillo(Color.negrita("> Apellido Paterno: "))));
             persona.setApellidoMa(Texto.leerString(Color.amarillo("> Apellido Materno: ")));
@@ -36,7 +37,7 @@ public class ModPersona {
             persona.setTelefono(Texto.leerString(Color.amarillo(Color.negrita("> Telefono :"))));
             persona.setCorreo(Texto.leerString(Color.amarillo("> Correo: ")));
 
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println();
             System.out.println(Color.rojo(Color.negrita("DATO NO VALIDO")));
             return null;

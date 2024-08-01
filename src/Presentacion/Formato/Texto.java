@@ -126,7 +126,12 @@ public class Texto {
 
     public static int leerInt(String txt) {
         try {
-            return Integer.parseInt(leerString(txt));
+            String num = leerString(txt);
+
+            if(num.isBlank())
+                return 0;
+            else
+                return Integer.parseInt(num);
         } catch (NumberFormatException e) {
             System.out.println("Error: no se ingresó un valor entero.");
             return 0;
@@ -135,7 +140,12 @@ public class Texto {
 
     public static double leerDoub(String txt) {
         try {
-            return Integer.parseInt(leerString(txt));
+            String num = leerString(txt);
+            
+            if(num.isBlank())
+                return 0;
+            else
+                return Double.parseDouble(num);
         } catch (NumberFormatException e) {
             System.out.println("Error: no se ingresó un valor numerico.");
             return 0;
@@ -144,7 +154,12 @@ public class Texto {
 
     public static float leerFloat(String txt) {
         try {
-            return Float.parseFloat(leerString(txt));
+            String num = leerString(txt);
+            
+            if(num.isBlank())
+                return 0;
+            else
+                return Float.parseFloat(num);
         } catch (NumberFormatException e) {
             System.out.println("Error: no se ingresó un valor numerico.");
             return 0;
