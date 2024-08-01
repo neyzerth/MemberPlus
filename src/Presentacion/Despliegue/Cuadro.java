@@ -3,11 +3,13 @@ package Presentacion.Despliegue;
 import Presentacion.Formato.Texto;
 
 public class Cuadro{
-    // tipos de linea para las tablas
+    //todas las lineas
     private String [] texto;
     private int maxLinea;
     private int lineaDinamico;
     private boolean centrado;
+
+    // tipos de linea para las tablas
     protected String colum, techo, 
         borIzqSup, borIzqInf, borDerSup, borDerInf;
 
