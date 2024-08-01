@@ -111,6 +111,28 @@ public class Persona {
         return personas;
     }
 
+    public boolean insertarPersona(){
+        PersonaEnt persona = new PersonaEnt();
+        return persona.insertarPersonaDB(
+            nombre, apellidoPa, apellidoMa, (java.sql.Date) fecNac,
+            colonia, calle, numExt, numInt, cp, telefono, correo
+        );
+    }
+
+    public boolean actualizarPersona(){
+        PersonaEnt persona = new PersonaEnt();
+        return persona.actualizarPersonaDB(
+            this.idPersona,
+            nombre, apellidoPa, apellidoMa, (java.sql.Date) fecNac,
+            colonia, calle, numExt, numInt, cp, telefono, correo
+        );
+    }
+    
+    public boolean validarPersona(int id){
+        PersonaEnt persona = new PersonaEnt();
+        return persona.existeRegistro(id);
+    }
+
     
     
     
@@ -133,27 +155,6 @@ public class Persona {
         this.setFecNac(fecNacStr);
     }
 
-    public boolean insertarPersona(){
-        PersonaEnt persona = new PersonaEnt();
-        return persona.insertarPersonaDB(
-            nombre, apellidoPa, apellidoMa, (java.sql.Date) fecNac,
-            colonia, calle, numExt, numInt, cp, telefono, correo
-        );
-    }
-
-    public boolean actualizarPersona(){
-        PersonaEnt persona = new PersonaEnt();
-        return persona.actualizarPersonaDB(
-            this.idPersona,
-            nombre, apellidoPa, apellidoMa, (java.sql.Date) fecNac,
-            colonia, calle, numExt, numInt, cp, telefono, correo
-        );
-    }
-    
-    public boolean validarPersona(int id){
-        PersonaEnt persona = new PersonaEnt();
-        return persona.existeRegistro(id);
-    }
 
     // Método para calcular edad
     public int calcularEdad(Persona persona) {

@@ -44,7 +44,7 @@ public class Color {
     public static String invertido = "\u001B[7m";
     public static String invisible = "\u001B[8m";
 
-    private static String colorText(String color, String txt) {
+    public static String colorText(String color, String txt) {
         return color + txt + reset;
     }
 

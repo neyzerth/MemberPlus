@@ -28,6 +28,23 @@ public class Tarjeta {
         this.activo = activo;
     }
 
+    // Método para generar un número de tarjeta de 16 dígitos con los primeros 4 dígitos fijos
+    public static String generarNumeroTarjeta() {
+        Random random = new Random();
+
+        String primerosCuatro = "1729";  
+
+        // Generar los siguientes 12 dígitos aleatorios
+        StringBuilder resto = new StringBuilder();
+        for (int i = 0; i < 12; i++) {
+            int digitoAleatorio = random.nextInt(10); //El 10 se refiere a los numeors del 0 - 9
+            resto.append(digitoAleatorio);
+        }
+
+        
+        return primerosCuatro + resto.toString();
+    }
+
 
     // GETTERS AND SETTERS
 
@@ -146,26 +163,4 @@ public class Tarjeta {
             throw new IllegalArgumentException("El estado de activo no es válido", e);
         }
     }
-
-      // Método para generar un número de tarjeta de 16 dígitos con los primeros 4 dígitos fijos
-        public static String generarNumeroTarjeta() {
-        Random random = new Random();
-
-        String primerosCuatro = "1729";  
-
-        // Generar los siguientes 12 dígitos aleatorios
-        StringBuilder resto = new StringBuilder();
-        for (int i = 0; i < 12; i++) {
-            int digitoAleatorio = random.nextInt(10); //El 10 se refiere a los numeors del 0 - 9
-            resto.append(digitoAleatorio);
-        }
-
-        
-        return primerosCuatro + resto.toString();
-    }
-
-
-
-
-
 }
