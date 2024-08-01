@@ -1,4 +1,4 @@
-package Logica;
+package Logica.Objetos;
 
 public class Nivel {
     // ATRIBUTOS

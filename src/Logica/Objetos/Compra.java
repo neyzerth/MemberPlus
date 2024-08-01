@@ -1,4 +1,4 @@
-package Logica;
+package Logica.Objetos;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,7 +44,7 @@ public class Compra {
 
     public void setPorcentajePunto(int porcentajePunto) {
         if (porcentajePunto <= 0)
-            throw new IllegalArgumentException("El porcentaje no puede ser negativo o cero");
+            throw new IllegalArgumentException("El porcentaje no puede ser inferioir a 0");
         this.porcentajePunto = porcentajePunto;
     }
 
@@ -63,7 +63,7 @@ public class Compra {
 
     public void setDescuento(int descuento) {
         if (descuento <= 0)
-            throw new IllegalArgumentException("El descuento no puede ser negativo o cero");
+            throw new IllegalArgumentException("El descuento no puede ser inferioir a 0");
         this.descuento = descuento;
     }
 
@@ -101,7 +101,7 @@ public class Compra {
 
     public void setTotal(float total) {
         if (total <= 0)
-            throw new IllegalArgumentException("El total no puede ser negativo o cero");
+            throw new IllegalArgumentException("El total no puede ser inferioir a 0");
         this.total = total;
     }
 

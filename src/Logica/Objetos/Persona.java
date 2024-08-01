@@ -1,27 +1,46 @@
-package Logica;
+package Logica.Objetos;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
+
+import Persistencia.Tablas.PersonaEnt;
 
 public class Persona {
     // ATRIBUTOS
     private String nombre, apellidoMa, apellidoPa, colonia, calle, telefono, correo, cp;
-    private int id, numExt, numInt;
+    private int idPersona, numExt, numInt;
     private Date fecNac;
 
     // CONSTRUCTORES
     public Persona() {
     }
 
-    public Persona(int id, String nombre, String apellidoPa, String apellidoMa, String colonia, String calle,
-            int numExt,
-            int numInt, String cp, String telefono, String correo, Date fecNac) {
-        this.id = id;
+    public Persona(int id) {
+        Persona persona = importarPersonas(id);
+        this.idPersona = id;
+        this.nombre = persona.getNombre();
+        this.apellidoMa = persona.getApellidoPa();
+        this.apellidoPa = persona.getApellidoMa();
+        this.fecNac = persona.getFecNac();
+        this.colonia = persona.getColonia();
+        this.calle = persona.getCalle();
+        this.numExt = persona.getNumExt();
+        this.numInt = persona.getNumInt();
+        this.cp = persona.getCp();
+        this.telefono = persona.getTelefono();
+        this.correo = persona.getCorreo();
+    }
+
+    public Persona(int idPersona, String nombre, String apellidoPa, String apellidoMa , Date fecNac, String colonia, String calle,
+            int numExt, int numInt, String cp, String telefono, String correo
+        ) {
+        this.idPersona = idPersona;
         this.nombre = nombre;
         this.apellidoPa = apellidoPa;
         this.apellidoMa = apellidoMa;
+        this.fecNac = fecNac;
         this.colonia = colonia;
         this.calle = calle;
         this.numExt = numExt;
@@ -29,8 +48,72 @@ public class Persona {
         this.cp = cp;
         this.telefono = telefono;
         this.correo = correo;
-        this.fecNac = fecNac;
     }
+
+    public Persona(Persona persona){
+        this(
+            persona.getIdPersona(),
+            persona.getNombre(),
+            persona.getApellidoPa(),
+            persona.getApellidoMa(),
+            persona.getFecNac(),
+            persona.getColonia(),
+            persona.getCalle(),
+            persona.getNumExt(),
+            persona.getNumInt(),
+            persona.getCp(),
+            persona.getTelefono(),
+            persona.getCorreo()
+        );
+    }
+
+    public static Persona importarPersonas(Object [] datos){
+
+        if(datos[7] == null)
+            datos[7] = 0;
+        if(datos[8] == null)
+            datos[8] = 0;
+            
+        Persona persona = new Persona(
+            (int) datos[0],
+            (String) datos[1],
+            (String) datos[2],
+            (String) datos[3],
+            (Date) datos[4],
+            (String) datos[5],
+            (String) datos[6],
+            (int) datos[7],
+            (int) datos[8],
+            (String) datos[9],
+            (String) datos[10],
+            (String) datos[11]
+        );
+
+        return persona;
+    }
+
+    public static Persona importarPersonas(int id){
+        PersonaEnt personaBd = new PersonaEnt();
+
+        Object [] datos = personaBd.obtenerPersonaPorIdDB(id);
+
+        return importarPersonas(datos);
+    }
+
+    public static Persona[] importarPersonas(){
+        PersonaEnt personaBd = new PersonaEnt();
+        Persona[] personas = new Persona[personaBd.obtenerCantRegistros()];
+        Object [][] datos = personaBd.ejecutarSelect();
+
+        for (int i = 0; i < personas.length; i++) {
+            personas[i] = importarPersonas(datos[i]);      
+        }
+        return personas;
+    }
+
+    
+    
+    
 
     // Método para modificar y verificar los datos
     public void modificar(String nombre, String apellidoPa, String apellidoMa, String colonia,
@@ -48,6 +131,28 @@ public class Persona {
         this.setTelefono(telefono);
         this.setCorreo(correo);
         this.setFecNac(fecNacStr);
+    }
+
+    public boolean insertarPersona(){
+        PersonaEnt persona = new PersonaEnt();
+        return persona.insertarPersonaDB(
+            nombre, apellidoPa, apellidoMa, (java.sql.Date) fecNac,
+            colonia, calle, numExt, numInt, cp, telefono, correo
+        );
+    }
+
+    public boolean actualizarPersona(){
+        PersonaEnt persona = new PersonaEnt();
+        return persona.actualizarPersonaDB(
+            this.idPersona,
+            nombre, apellidoPa, apellidoMa, (java.sql.Date) fecNac,
+            colonia, calle, numExt, numInt, cp, telefono, correo
+        );
+    }
+    
+    public boolean validarPersona(int id){
+        PersonaEnt persona = new PersonaEnt();
+        return persona.existeRegistro(id);
     }
 
     // Método para calcular edad
@@ -79,8 +184,27 @@ public class Persona {
     }
 
     // GETTERS AND SETTERS
-    public int getId() {
-        return this.id;
+    public void setIdPersona(int id){
+        if(id > 0)
+            this.idPersona = id;
+    }
+    public void setIdPersona(){
+        PersonaEnt personaBd = new PersonaEnt();
+
+        Object [] datos = personaBd.ejecutarSelectPorAtributos(
+            nombre, apellidoPa, apellidoMa, (java.sql.Date) fecNac, colonia, calle, numExt, numInt,
+            cp, telefono, correo
+        );
+        Persona persona = Persona.importarPersonas(datos);
+        
+        this.idPersona = persona.getIdPersona();
+
+    }
+    public int getIdPersona() {
+        if(this.idPersona < 1)
+            setIdPersona();
+        
+        return this.idPersona;
     }
     // solo se obtiene el id ya que este no se va a modificar
 
@@ -214,10 +338,21 @@ public class Persona {
 
     public void setFecNac(String fecNacStr) {
         try {
-            Date fecNac = new SimpleDateFormat("yyyy-MM-dd").parse(fecNacStr);
-            this.fecNac = fecNac;
+            SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+            Date fecNac = new java.sql.Date(formato.parse(fecNacStr).getTime());
+            setFecNac(fecNac);
         } catch (ParseException e) {
-            throw new IllegalArgumentException("La fecha de nacimiento no es válida", e);
+            throw new IllegalArgumentException("La fecha de nacimiento no es válida");
         }
+    }
+    public void setFecNac(int dia, int mes, int anio) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, anio);
+        calendar.set(Calendar.MONTH, mes - 1);
+        calendar.set(Calendar.DAY_OF_MONTH, dia);
+        
+        long tiempo = calendar.getTimeInMillis();
+        Date fecNac = new java.sql.Date(tiempo);
+        setFecNac(fecNac);
     }
 }
