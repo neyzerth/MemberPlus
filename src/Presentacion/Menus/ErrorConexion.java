@@ -14,7 +14,7 @@ public class ErrorConexion {
         mensajeError.imprimirCuadro();
         System.out.println();
 
-        System.out.println("Error: " + error);
+        System.out.println(Color.rojo("Error: " + error));
         System.out.println("SQLState: " + state);
 
         

@@ -169,7 +169,7 @@ class SubmodBeneficio extends Menu{
 
     @Override
     public void tabla() {
-        tabla = new Tabla("ID", "Nombre", "Puntos", "Cashback", "Descuento");
+        tabla = new Tabla(Color.amarillo("ID"),Color.amarillo( "Nombre"),Color.amarillo("Puntos"), Color.amarillo("Cashback"), Color.amarillo("Descuento"));
 
         Beneficio [] beneficios = Beneficio.importarBeneficios();
 
@@ -191,7 +191,7 @@ class SubmodBeneficio extends Menu{
         if(!Beneficio.validarBeneficio(id))
             return false;
 
-        tabla = new Tabla("ID", "Nombre", "Fecha de inicio", "Fecha de vencimiento", "Puntos", "Cashback", "Descuento");
+        tabla = new Tabla (Color.amarillo("ID"), Color.amarillo("Nombre"), Color.amarillo("Fecha de inicio"), Color.amarillo("Fecha de vencimiento"), Color.amarillo("Puntos"), Color.amarillo("Cashback"), Color.amarillo("Descuento"));
 
         Beneficio beneficio = Beneficio.importarBeneficios(id);
 
@@ -222,7 +222,8 @@ class SubmodBeneficio extends Menu{
             }
             
         } catch (Exception e) {
-            Texto.esperarEnter("Dato incorrecto");
+            System.out.println();
+            Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
         }
         
         return false;
@@ -232,7 +233,8 @@ class SubmodBeneficio extends Menu{
     public boolean actualizar(int id) {
         Beneficio beneficio = Beneficio.importarBeneficios(id);
         if(beneficio == null){
-            Texto.esperarEnter("Beneficio no encontrado");
+            System.out.println();
+            Texto.esperarEnter(Color.rojo("Beneficio no encontrado"));
             return false;
         }
 
@@ -260,27 +262,31 @@ class SubmodBeneficio extends Menu{
         Beneficio beneficio = new Beneficio();
         int dia, mes, anio;
         try {
-            beneficio.setNombre(Texto.leerString("> * Nombre del beneficio: "));
-            System.out.println("\n- FECHA DE INICIO");
-            dia = Texto.leerInt("> * Dia: ");
-            mes = Texto.leerInt("> * Mes: ");
-            anio = Texto.leerInt("> * Año: ");
+            System.out.println();
+            beneficio.setNombre(Texto.leerString(Color.cian(Color.negrita(" > Nombre del beneficio: "))));
+            System.out.println();
+            System.out.println(Color.amarillo(Color.negrita(" Fecha de inicio")));
+            dia = Texto.leerInt(Color.cian(Color.negrita(" > Dia: ")));
+            mes = Texto.leerInt(Color.cian(Color.negrita(" > Mes: ")));
+            anio = Texto.leerInt(Color.cian(Color.negrita(" > Año: ")));
             beneficio.setFecInicio(dia, mes, anio);
 
-            System.out.println("\n- FECHA DE VENCIMIENTO");
-            dia = Texto.leerInt("> * Dia: ");
-            mes = Texto.leerInt("> * Mes: ");
-            anio = Texto.leerInt("> * Año: ");
+            System.out.println();
+            System.out.println(Color.amarillo(Color.negrita(" Fecha de vencimiento")));
+            dia = Texto.leerInt(Color.cian(Color.negrita(" > Dia: ")));
+            mes = Texto.leerInt(Color.cian(Color.negrita(" > Mes: ")));
+            anio = Texto.leerInt(Color.cian(Color.negrita(" > Año: ")));
             beneficio.setFecVen(dia, mes, anio);
             
-            System.out.println("\n- Beneficios");
-            beneficio.setPorcPuntos(Texto.leerInt("> Porcentaje de puntos: "));
-            beneficio.setPorcCashBack(Texto.leerInt("> Porcentaje de CashBack: "));
-            beneficio.setPorcDescuento(Texto.leerInt("> Porcentaje de Descuento: "));
+            System.out.println();
+            System.out.println(Color.amarillo(Color.negrita(" Beneficios")));
+            beneficio.setPorcPuntos(Texto.leerInt(Color.cian(Color.negrita(" > Porcentaje de puntos: "))));
+            beneficio.setPorcCashBack(Texto.leerInt(Color.cian(Color.negrita(" > Porcentaje de CashBack: "))));
+            beneficio.setPorcDescuento(Texto.leerInt(Color.cian(Color.negrita(" > Porcentaje de Descuento: "))));
 
-            
         } catch (Exception e) {
-            Texto.esperarEnter("Dato incorrecto");
+            System.out.println();
+            Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
             return null;
         }
 
