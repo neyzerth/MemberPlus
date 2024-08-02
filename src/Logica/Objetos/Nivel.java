@@ -1,5 +1,6 @@
 package Logica.Objetos;
 import Persistencia.Tablas.NivelEnt;
+import Persistencia.Tablas.Nivel_BeneficioEnt;
 
 public class Nivel {
     // ATRIBUTOS
@@ -42,6 +43,18 @@ public class Nivel {
         NivelEnt nivelBd = new NivelEnt();
         Object[] datos = nivelBd.obtenerNivelPorIdDB(id);
         return importarNiveles(datos);
+    }
+
+    public static Beneficio [] importarBeneficios(int idNivel){
+        Nivel_BeneficioEnt nivel_beneficioBd = new Nivel_BeneficioEnt();
+        Beneficio [] beneficios = new Beneficio[nivel_beneficioBd.obtenerCantRegistros()];
+
+        Object[] datos = nivel_beneficioBd.obtenerBeneficioPorIdNivel(idNivel);
+        
+        for (int i = 0; i < datos.length; i++) {
+            beneficios[i] = Beneficio.importarBeneficios( (int) datos[i]);
+        }
+        return beneficios;
     }
 
     public static Nivel[] importarNiveles(){

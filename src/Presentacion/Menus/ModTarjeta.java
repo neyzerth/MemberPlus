@@ -67,7 +67,7 @@ class SubmodTarjeta extends Menu{
     @Override
     public boolean actualizar(int id){
         Tarjeta tarjeta = Tarjeta.importarTarjeta(id);
-
+        return false;
 
 
     }
@@ -80,11 +80,23 @@ class SubmodTarjeta extends Menu{
         return Tarjeta.eliminarTarjeta(numTarjeta);
     }
 
-    public Tarjeta pedirDatos(){
-        Tarjeta tarjeta = new Tarjeta();
+	@Override
+	public void tabla() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'tabla'");
+	}
+
+	@Override
+	public boolean tabla(int id) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'tabla'");
+	}
+
+    //public Tarjeta pedirDatos(){
+    //    Tarjeta tarjeta = new Tarjeta();
 
         //tarjeta.set
-    }
+    //}
 
     
 }
@@ -143,14 +155,16 @@ class SubmodNivel extends Menu {
         if(!nivel.validarNivel())
             return false;
         
-        tabla = new Tabla("ID", "Nombre", "Costo Apertura","Anualidad");
+        tabla = new Tabla("ID", "Nombre", "Costo Apertura", "Anualidad", "Beneficios");
         
 
         tabla.agregarFila(
             nivel.getIdNivel(),
             nivel.getNombre(),
             Texto.moneda(nivel.getCostoApertura()),
-            Texto.moneda(nivel.getAnualidad())
+            Texto.moneda(nivel.getAnualidad()),
+            nombresBeneficios(nivel.getBeneficios())
+
         );
 
         return true;
@@ -167,6 +181,16 @@ class SubmodNivel extends Menu {
             Texto.esperarEnter("Dato no valido");
             return null;
         }
+    }
+    
+    public String nombresBeneficios(Beneficio [] beneficios){
+        String nomBeneficios = "";
+        for (int i = 0; i < beneficios.length; i++) {
+            nomBeneficios += beneficios[i].getNombre();
+            if(!(i < beneficios.length - 1))
+                nomBeneficios += " - ";
+        }
+        return nomBeneficios;
     }
 
 }

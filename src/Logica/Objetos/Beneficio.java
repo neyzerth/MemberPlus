@@ -25,7 +25,7 @@ public class Beneficio {
     }
 
     // METODOS
-    public void modificarTargeta(String nombre, String porcPuntosStr,
+    public void modificarTarjeta(String nombre, String porcPuntosStr,
             String porcentajeCashBackStr, String fecVenStr, String fecInicioStr) {
         this.setNombre(nombre);
         this.setPorcPuntos(porcPuntosStr);
@@ -71,6 +71,7 @@ public class Beneficio {
         }
         return beneficios;
     }
+    
     public static Beneficio[] importarBeneficiosTarjeta(int idTarjeta){
         BeneficioEnt beneficioBd = new BeneficioEnt();
         Beneficio[] beneficios = new Beneficio[beneficioBd.obtenerCantRegistros()];

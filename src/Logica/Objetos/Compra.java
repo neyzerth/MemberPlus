@@ -3,6 +3,7 @@ package Logica.Objetos;
 
 import Logica.FormatoFecha;
 import Persistencia.Tablas.CompraEnt;
+import Persistencia.Tablas.Compra_BeneficioEnt;
 
 import java.sql.Date;
 
@@ -12,6 +13,7 @@ public class Compra {
     private Date fechaCompra;
     private float total;
     private Tarjeta tarjeta;
+    private Beneficio []beneficios;
 
     // CONSTRUCTORES
 
@@ -53,6 +55,11 @@ public class Compra {
         }
         return compras;
     }
+
+    /*public static Beneficio [] importarBeneficios(int IdTarjeta){
+        Compra_BeneficioEnt compra_BeneficioEnt = new Compra_BeneficioEnt();
+
+    }*/
 
     //CRUD COMPRA
     public boolean insertarCompras(){

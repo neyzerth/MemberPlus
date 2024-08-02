@@ -14,6 +14,10 @@ public class Nivel_BeneficioEnt extends Query {
         return ejecutarSelectPorID(nivel);
     }
 
+    public Object[] obtenerBeneficioPorIdNivel(int nivel){
+        return ejecutarSelectPorAtributos(nivel);
+    }
+
     // Verificar si un registro ya existe en la base de datos por los ID nivel
     public boolean existeNivel_Beneficio(int nivel, int beneficio) {
         Object[] valores = { nivel };
