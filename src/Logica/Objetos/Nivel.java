@@ -1,5 +1,7 @@
 package Logica.Objetos;
 import Persistencia.Tablas.NivelEnt;
+import Persistencia.Tablas.Nivel_BeneficioEnt;
+import java.sql.Date;
 
 public class Nivel {
     // ATRIBUTOS
@@ -16,6 +18,7 @@ public class Nivel {
         this.nombre = nombre;
         this.anualidad = anualidad;
         this.costoApertura = costoApertura;
+        this.beneficios = Nivel.importarBeneficios(this.idNivel);
     }
 
     // METODOS
@@ -30,10 +33,10 @@ public class Nivel {
     public static Nivel importarNiveles(Object [] datos){
 
         Nivel nivel = new Nivel(
-        (int) datos[0],
-        (String) datos[1],
-        (int) datos[2],
-        (int) datos[3]
+            (int) datos[0],
+            (String) datos[1],
+            (int) datos[2],
+            (int) datos[3]
         );
         return nivel;
     }
@@ -42,6 +45,27 @@ public class Nivel {
         NivelEnt nivelBd = new NivelEnt();
         Object[] datos = nivelBd.obtenerNivelPorIdDB(id);
         return importarNiveles(datos);
+    }
+
+    public static Beneficio [] importarBeneficios(int idNivel){
+        Nivel_BeneficioEnt nivel_beneficioBd = new Nivel_BeneficioEnt();
+        Object [][] datosBeneficios = nivel_beneficioBd.obtenerBeneficioPorIdNivel(idNivel);
+
+        Beneficio [] beneficios = new Beneficio[datosBeneficios.length];
+
+        for (int i = 0; i < beneficios.length; i++) {
+            beneficios[i] = new Beneficio(
+                (int) datosBeneficios[i][0],
+                (String) datosBeneficios[i][1],
+                (Date) datosBeneficios[i][2],
+                (Date) datosBeneficios[i][3],
+                (int) datosBeneficios[i][4],
+                (int) datosBeneficios[i][5],
+                (int) datosBeneficios[i][6]
+            );
+        }
+        
+        return beneficios;
     }
 
     public static Nivel[] importarNiveles(){

@@ -60,6 +60,9 @@ public class Texto {
     public static String moneda(double cantidad) {
         return moneda(cantidad, 2);
     }
+    public static String moneda(int cantidad) {
+        return moneda(cantidad, 2);
+    }
 
     public static String moneda(double cantidad, int decim){
         String moneda = "";

@@ -3,7 +3,6 @@ package Logica.Objetos;
 
 import Logica.FormatoFecha;
 import Persistencia.Tablas.MovimientoEnt;
-
 import java.sql.Date;
 
 public class Movimiento {
@@ -26,7 +25,7 @@ public class Movimiento {
         this.fechaMov = fechaMov;
         this.usuario = usuario;
         this.tipo = tipo;
-       }    
+    }    
     
     // METODOS
 

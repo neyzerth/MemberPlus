@@ -31,7 +31,7 @@ public class ModTarjeta {
             switch (option) {
                 case 1: //submodTarjeta();
                     break;
-                case 2:
+                case 2: SubmodNivel.desplegarMenu();
                     break;
                 case 3: SubmodBeneficio.desplegarMenu();
                     break;
@@ -67,7 +67,7 @@ class SubmodTarjeta extends Menu{
     @Override
     public boolean actualizar(int id){
         Tarjeta tarjeta = Tarjeta.importarTarjeta(id);
-
+        return false;
 
 
     }
@@ -80,11 +80,23 @@ class SubmodTarjeta extends Menu{
         return Tarjeta.eliminarTarjeta(numTarjeta);
     }
 
-    public Tarjeta pedirDatos(){
-        Tarjeta tarjeta = new Tarjeta();
+	@Override
+	public void tabla() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'tabla'");
+	}
+
+	@Override
+	public boolean tabla(int id) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'tabla'");
+	}
+
+    //public Tarjeta pedirDatos(){
+    //    Tarjeta tarjeta = new Tarjeta();
 
         //tarjeta.set
-    }
+    //}
 
     
 }
@@ -93,6 +105,11 @@ class SubmodNivel extends Menu {
 
     public SubmodNivel(){
         super("Nivel", "Niveles");
+    }
+
+    public static void desplegarMenu(){
+        SubmodNivel modNivel = new SubmodNivel();
+        modNivel.menu();
     }
 
     @Override
@@ -131,9 +148,11 @@ class SubmodNivel extends Menu {
             tabla.agregarFila(
                 nivel.getIdNivel(),
                 nivel.getNombre(),
-                Texto.moneda(nivel.getAnualidad())
+                nivel.getAnualidad()
             );
         }
+        tabla.imprimirTablaSimple();
+
         
     }
 
@@ -143,15 +162,18 @@ class SubmodNivel extends Menu {
         if(!nivel.validarNivel())
             return false;
         
-        tabla = new Tabla("ID", "Nombre", "Costo Apertura","Anualidad");
+        tabla = new Tabla("ID", "Nombre", "Costo Apertura", "Anualidad", "Beneficios");
         
 
         tabla.agregarFila(
             nivel.getIdNivel(),
             nivel.getNombre(),
-            Texto.moneda(nivel.getCostoApertura()),
-            Texto.moneda(nivel.getAnualidad())
+            nivel.getCostoApertura(),
+            nivel.getAnualidad(),
+            nombresBeneficios(nivel.getBeneficios())
+
         );
+        tabla.imprimirTablaSimple();
 
         return true;
     }
@@ -167,6 +189,16 @@ class SubmodNivel extends Menu {
             Texto.esperarEnter("Dato no valido");
             return null;
         }
+    }
+    
+    public String nombresBeneficios(Beneficio [] beneficios){
+        String nomBeneficios = "";
+        for (int i = 0; i < beneficios.length; i++) {
+            nomBeneficios += beneficios[i].getNombre();
+            if((i < beneficios.length - 1))
+                nomBeneficios += " - ";
+        }
+        return nomBeneficios;
     }
 
 }

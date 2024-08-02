@@ -106,8 +106,6 @@ public class Tarjeta {
         TarjetaEnt tarjeta = new TarjetaEnt();
         return tarjeta.eliminarTarjetaDB(importarTarjeta(numTarjeta).getIdTarjeta());
     }
-    //public boolean 
-
 
     // Método para generar un número de tarjeta de 16 dígitos con los primeros 4 dígitos fijos
     public static String generarNumeroTarjeta() {

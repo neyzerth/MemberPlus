@@ -7,12 +7,12 @@ import Presentacion.Menus.IniciarSesion;
 public class Inicio {
     public static void main(String[] args) {
         do{
-            try{
+            //try{
                 Bienvenida.menu();
                 IniciarSesion.interfaz();
-            } catch (Exception e) {
-                Texto.esperarEnter("Error: " + e.getMessage());
-            }
+            //} catch (Exception e) {
+            //    Texto.esperarEnter("Error: " + e.getMessage());
+            //}
         } while(true);
     }
 
