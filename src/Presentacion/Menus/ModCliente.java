@@ -34,7 +34,8 @@ public class ModCliente extends Menu{
             }
 
         } catch (Exception e) {
-            Texto.esperarEnter("DATO NO VALIDO");
+            System.out.println();
+            Texto.esperarEnter(Color.rojo("DATO NO VALIDO"));
         }
         return false;
     }

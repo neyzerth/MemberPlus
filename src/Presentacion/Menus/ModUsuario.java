@@ -95,14 +95,14 @@ public class ModUsuario extends Menu {
             return false;
         }
 
-        tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Nombre Usuario"), Color.amarillo("Nombre"), Color.amarillo("Correo"), Color.amarillo("RFC"));
+        tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Nombre Usuario"), Color.amarillo("Nombre completo"), Color.amarillo("Correo"), Color.amarillo("RFC"));
 
         Usuario usuario = Usuario.importarUsuarios(id);
 
         tabla.agregarFila(
             usuario.getIdUsuario(),
             usuario.getNomUsuario(),
-            usuario.getNombre(),
+            usuario.getNombre() + " " + usuario.getApellidoPa() + " " + usuario.getApellidoMa(),
             usuario.getCorreo(),
             usuario.getRfc()
         );
