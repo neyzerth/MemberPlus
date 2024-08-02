@@ -148,6 +148,55 @@ public class Query {
         return rowCount;
     }
 
+    public String innerJoin(Query entForan, String colPrim, String colFor, String condicion){
+        return String.format("%s INNER JOIN %s ON %s = %s WHERE %s = ?", 
+            select(entForan.getColumnas()), entForan.getTabla(), colPrim, colFor, condicion);
+    }
+
+    public Object [][] ejecutarInnerJoin(Query entForan, String colPrim, String colFor, String condicion, int idCondicion){
+        Object[][] registros = null;
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+        String innerJoin = innerJoin(entForan, colPrim, colFor, condicion);
+
+        if (conn != null) {
+            try {
+                PreparedStatement pstmt = conn.prepareStatement(innerJoin , ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+                pstmt.setInt(1, idCondicion);
+                
+                ResultSet rs = pstmt.executeQuery();
+
+                // Mueve el cursor a la última fila para obtener el número de filas
+                rs.last();
+                int rowCount = rs.getRow();
+                
+                // Mueve el cursor antes de la primera fila para poder leer las filas
+                rs.beforeFirst();
+                
+                int cantColumnas = entForan.getCantColumnas();
+                registros = new Object[rowCount][cantColumnas];
+
+                int rowIndex = 0;
+                while (rs.next()) {
+                    for(int i = 0; i < cantColumnas; i++){
+                        registros[rowIndex][i] = rs.getObject(entForan.getNomColumna(i));
+                    }
+                    rowIndex++;
+                }
+
+                rs.close();
+                pstmt.close();
+                conn.close();
+
+            } catch (SQLException e) {
+                return null;
+            }
+        }
+        return registros;
+    }
+
+    
+
     public boolean existeRegistro(String[] columna, Object... valor) {
         boolean existe = false;
         Conexion conexion = new Conexion();

@@ -31,7 +31,7 @@ public class ModTarjeta {
             switch (option) {
                 case 1: //submodTarjeta();
                     break;
-                case 2:
+                case 2: SubmodNivel.desplegarMenu();
                     break;
                 case 3: SubmodBeneficio.desplegarMenu();
                     break;
@@ -107,6 +107,11 @@ class SubmodNivel extends Menu {
         super("Nivel", "Niveles");
     }
 
+    public static void desplegarMenu(){
+        SubmodNivel modNivel = new SubmodNivel();
+        modNivel.menu();
+    }
+
     @Override
     public boolean registrar() {
         Nivel nivel = pedirDatos();
@@ -143,9 +148,11 @@ class SubmodNivel extends Menu {
             tabla.agregarFila(
                 nivel.getIdNivel(),
                 nivel.getNombre(),
-                Texto.moneda(nivel.getAnualidad())
+                nivel.getAnualidad()
             );
         }
+        tabla.imprimirTablaSimple();
+
         
     }
 
@@ -161,11 +168,12 @@ class SubmodNivel extends Menu {
         tabla.agregarFila(
             nivel.getIdNivel(),
             nivel.getNombre(),
-            Texto.moneda(nivel.getCostoApertura()),
-            Texto.moneda(nivel.getAnualidad()),
+            nivel.getCostoApertura(),
+            nivel.getAnualidad(),
             nombresBeneficios(nivel.getBeneficios())
 
         );
+        tabla.imprimirTablaSimple();
 
         return true;
     }
@@ -187,7 +195,7 @@ class SubmodNivel extends Menu {
         String nomBeneficios = "";
         for (int i = 0; i < beneficios.length; i++) {
             nomBeneficios += beneficios[i].getNombre();
-            if(!(i < beneficios.length - 1))
+            if((i < beneficios.length - 1))
                 nomBeneficios += " - ";
         }
         return nomBeneficios;

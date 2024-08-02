@@ -14,8 +14,18 @@ public class Nivel_BeneficioEnt extends Query {
         return ejecutarSelectPorID(nivel);
     }
 
-    public Object[] obtenerBeneficioPorIdNivel(int nivel){
-        return ejecutarSelectPorAtributos(nivel);
+    public Object[][] obtenerBeneficioPorIdNivel(int nivel){
+        BeneficioEnt beneficioEnt = new BeneficioEnt();
+        Object [][] beneficios = ejecutarInnerJoin(
+            beneficioEnt, 
+            getNomColumna(1), 
+            beneficioEnt.getNomColumna(0),
+            getNomColumna(0),
+            nivel
+        );
+
+
+        return beneficios;
     }
 
     // Verificar si un registro ya existe en la base de datos por los ID nivel
