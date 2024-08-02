@@ -1,5 +1,8 @@
 package Persistencia.Tablas;
 
+import Persistencia.Query;
+import java.sql.Date;
+
 public class MovimientoEnt extends Query {
 
     public MovimientoEnt() {
@@ -26,15 +29,15 @@ public class MovimientoEnt extends Query {
     }
 
     // Actualizar un movimiento
-    public boolean actualizarMovimientoDB(int idMovimiento, String fechaMovimiento, String estado, String comentario, int idUsuario, int idTarjeta, int idTipoMovimiento) {
+    public boolean actualizarMovimientoDB(int idMovimiento, Date fechaMovimiento, String estado, String comentario, int idUsuario, int idTarjeta, int idTipoMovimiento) {
         Object[] valores = { idMovimiento, fechaMovimiento, estado, comentario, idUsuario, idTarjeta, idTipoMovimiento };
         String query = update(valores, idMovimiento);
         return ejecutarUpdate(query);
     }
 
     // Insertar un movimiento
-    public boolean insertarMovimientoDB(int idMovimiento, String fechaMovimiento, String estado, String comentario, int idUsuario, int idTarjeta, int idTipoMovimiento) {
-        Object[] valores = { idMovimiento, fechaMovimiento, estado, comentario, idUsuario, idTarjeta, idTipoMovimiento };
+    public boolean insertarMovimientoDB( Date fechaMovimiento, String estado, String comentario, int idUsuario, int idTarjeta, int idTipoMovimiento) {
+        Object[] valores = { fechaMovimiento, estado, comentario, idUsuario, idTarjeta, idTipoMovimiento };
         String query = insert(valores);
         return ejecutarInsert(query);
     }

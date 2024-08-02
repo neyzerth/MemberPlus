@@ -2,6 +2,8 @@ package Persistencia.Tablas;
 
 import java.sql.Date;
 
+import Persistencia.Query;
+
 public class TarjetaEnt extends Query {
 
     public TarjetaEnt() {
@@ -36,10 +38,10 @@ public class TarjetaEnt extends Query {
     }
 
     // Insertar una tarjeta solo si el número de tarjeta no existe previamente
-    public boolean insertarTarjetaDB(int idTarjeta, String numTarjeta, Date fecExp, Date fecVen, boolean activo,
+    public boolean insertarTarjetaDB( String numTarjeta, Date fecExp, Date fecVen, boolean activo,
     float saldo, int puntos, int cliente, int nivel) {
         if (!existeNumTarjeta(numTarjeta)) { // Verifica que no exista una tarjeta con ese número
-            Object[] valores = { idTarjeta, numTarjeta, fecExp, fecVen, activo, saldo, puntos, cliente, nivel };
+            Object[] valores = {numTarjeta, fecExp, fecVen, activo, saldo, puntos, cliente, nivel };
             String query = insert(valores);
             return ejecutarInsert(query);
         } else {
@@ -50,6 +52,10 @@ public class TarjetaEnt extends Query {
     // Verificar si el numTarjeta ya existe en la base de datos
     public boolean existeNumTarjeta(String numTarjeta) {
         return existeRegistro(getNomColumna(1), numTarjeta);
+    }
+
+    public boolean existeIdTarjeta(int id){
+        return existeRegistro(getNomColumna(0), id);
     }
 
     // Eliminar una tarjeta

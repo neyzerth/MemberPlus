@@ -1,5 +1,8 @@
 package Persistencia.Tablas;
 
+import Persistencia.Query;
+import java.sql.Date;
+
 public class CompraEnt extends Query {
     public CompraEnt() {
         super("compra",
@@ -22,15 +25,15 @@ public class CompraEnt extends Query {
     }
 
     // Actualizar una compra
-    public boolean actualizarCompraDB(int idCompra, String fecha, int porcPunto, int descuento, int idTarjeta, float total) {
+    public boolean actualizarCompraDB(int idCompra, Date fecha, int porcPunto, int descuento, int idTarjeta, float total) {
         Object[] valores = { idCompra, fecha, porcPunto, descuento, idTarjeta, total };
         String query = update(valores, idCompra);
         return ejecutarUpdate(query);
     }
 
     // Insertar una compra
-    public boolean insertarCompraDB(int idCompra, String fecha, int porcPunto, int descuento, int idTarjeta, float total) {
-        Object[] valores = { idCompra, fecha, porcPunto, descuento, idTarjeta, total };
+    public boolean insertarCompraDB( Date fecha, int porcPunto, int descuento, int idTarjeta, float total) {
+        Object[] valores = { fecha, porcPunto, descuento, idTarjeta, total };
         String query = insert(valores);
         return ejecutarInsert(query);
     }

@@ -1,7 +1,9 @@
 package Persistencia.Tablas;
 
-public class ClienteENT extends Query {
-    public ClienteENT() {
+import Persistencia.Query;
+
+public class ClienteEnt extends Query {
+    public ClienteEnt() {
         super("cliente",
                 "idCliente",
                 "persona"); 
@@ -25,9 +27,8 @@ public class ClienteENT extends Query {
     }
 
     // Insertar un cliente
-    public boolean insertarClienteDB(int idCliente, int idPersona) {
-        Object[] valores = { idCliente, idPersona };
-        String query = insert(valores);
+    public boolean insertarClienteDB(int idPersona) {
+        String query = insert(idPersona);
         return ejecutarInsert(query);
     }
 

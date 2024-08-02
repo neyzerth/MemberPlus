@@ -1,5 +1,7 @@
 package Persistencia.Tablas;
 
+import Persistencia.Query;
+
 public class RolEnt extends Query {
 
     public RolEnt() {
@@ -28,8 +30,8 @@ public class RolEnt extends Query {
     
     
     // Insertar un rol
-    public boolean insertarRolDB(int idRol,String nombre, String descripcion) {
-        Object[] valores = { idRol,nombre, descripcion };
+    public boolean insertarRolDB(String nombre, String descripcion) {
+        Object[] valores = {nombre, descripcion };
         String query = insert(valores);
         return ejecutarInsert(query);
     }

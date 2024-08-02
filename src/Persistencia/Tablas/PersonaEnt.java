@@ -2,6 +2,8 @@ package Persistencia.Tablas;
 
 import java.sql.Date;
 
+import Persistencia.Query;
+
 public class PersonaEnt extends Query {
     
     public PersonaEnt() {
@@ -17,12 +19,23 @@ public class PersonaEnt extends Query {
                 "numInt",
                 "cp",
                 "telefono",
-                "correo");
+                "correo"
+            );
     }
 
     // Obtener una persona específica por su ID
     public Object[] obtenerPersonaPorIdDB(int idPersona) {
         return ejecutarSelectPorID(idPersona);
+    }
+
+    public Object[] obtenerPersonaPorAtributos(
+        String nombre, String apellidoPa, String apellidoMa, Date fecNac,
+        String colonia, String calle, int numExt, int numInt, String cp, String telefono, String correo
+    ) {
+        return ejecutarSelectPorAtributos(
+            nombre, apellidoPa, apellidoMa, fecNac,
+            colonia, calle, numExt, numInt, cp, telefono, correo
+        );
     }
 
    // Verificar si una persona ya existe en la base de datos por nombre, apellidos y fecha de nacimiento
@@ -34,8 +47,10 @@ public class PersonaEnt extends Query {
 }
 
     // Actualizar una persona
-    public boolean actualizarPersonaDB(int idPersona, String nombre, String apellidoPa, String apellidoMa, Date fecNac,
-            String colonia, String calle, int numExt, int numInt, String cp, String telefono, String correo) {
+    public boolean actualizarPersonaDB(
+        int idPersona, String nombre, String apellidoPa, String apellidoMa, Date fecNac,
+        String colonia, String calle, int numExt, int numInt, String cp, String telefono, String correo
+    ) {
         Object[] valores = { idPersona, nombre, apellidoPa, apellidoMa, fecNac, colonia, calle, numExt, numInt, cp,
                 telefono, correo };
         String query = update(valores, idPersona);
@@ -43,10 +58,13 @@ public class PersonaEnt extends Query {
     }
 
     // Insertar una persona
-    public boolean insertarPersonaDB(int idPersona, String nombre, String apellidoPa, String apellidoMa, Date fecNac,
-            String colonia, String calle, int numExt, int numInt, String cp, String telefono, String correo) {
-        Object[] valores = { idPersona, nombre, apellidoPa, apellidoMa, fecNac, colonia, calle, numExt, numInt, cp,
-                telefono, correo };
+    public boolean insertarPersonaDB(String nombre, String apellidoPa, String apellidoMa, Date fecNac,
+            String colonia, String calle, int numExt, int numInt, String cp, String telefono, String correo
+        ) {
+        Object[] valores = { 
+            nombre, apellidoPa, apellidoMa, fecNac,
+            colonia, calle, numExt, numInt, cp, telefono, correo 
+        };
         String query = insert(valores);
         return ejecutarInsert(query);
     }

@@ -6,27 +6,28 @@ import java.sql.SQLException;
 public class Conexion {
     private String bd="member_plus";
     private String host, url, user, password;
+    private String error;
+    private String sqlState;
+    private int opc = 2;
 
     //Conexion
-    public Connection conectar(){
+    public Connection conectarHost(){
         Connection connection = null;
-        setLocal();
+
         url = "jdbc:mysql://"+ host +"/" + bd;
         try{
             connection = DriverManager.getConnection(url, user, password);            
         } catch(SQLException e){
-            System.out.println(e.getMessage());
+            this.error = e.getMessage();
+            this.sqlState = e.getSQLState();
         }
         return connection;
     }
-    public void probarConexion(){
-        Connection conn = conectar();
-        if(conn == null) {
-            System.out.println("Fallo de conexion  bd \'"+ bd +"\' en \'" + host);
-            return;
-        }
-        System.out.println("Conexion exitosa a bd \'"+ bd +"\' en \'" + host +"\'");
 
+    public Connection conectar(){
+        if (opc == 1) setVlan(); 
+        else setLocal(); 
+        return conectarHost();
     }
 
     private void setLocal(){
@@ -34,11 +35,59 @@ public class Conexion {
         user = "root";
         password = "";
     }
-    @SuppressWarnings("unused")
     private void setVlan(){
         host = "192.168.60.20";
         user = "admin";
         password = "12345678";
+    }
+
+
+    public String getBd() {
+        return this.bd;
+    }
+
+    public void setBd(String bd) {
+        this.bd = bd;
+    }
+
+    public String getHost() {
+        return this.host;
+    }
+
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    public String getUrl() {
+        return this.url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getUser() {
+        return this.user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getError() {
+        return this.error;
+    }
+
+    public String getSqlState() {
+        return this.sqlState;
     }
     
 }
