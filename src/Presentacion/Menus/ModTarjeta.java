@@ -47,9 +47,10 @@ public class ModTarjeta {
 }
 
 class SubmodTarjeta extends Menu{
+    
 
     public SubmodTarjeta(){
-        super("Tarjeta", "Tarjetas");
+        super("Membresia", "Membresias");
     }
 
     public static void desplegarMenu(){
@@ -59,8 +60,6 @@ class SubmodTarjeta extends Menu{
 
     @Override
     public boolean registrar(){
-        Tarjeta tarjeta = new Tarjeta();
-        Tarjeta.generarNumeroTarjeta();
 
         return false;
     }
@@ -89,17 +88,37 @@ class SubmodTarjeta extends Menu{
 
 	@Override
 	public boolean tabla(int id) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'tabla'");
+        Tarjeta tarjeta = Tarjeta.importarTarjeta(id);
+        if(!tarjeta.validarIdTarjeta())
+            return false;
+		tabla = new Tabla("Numero de tarjeta", "Fecha de registro", "Fecha vencimiento", "Nivel");
+
+        tabla.agregarFila(
+            tarjeta.getNumTarjeta(),
+            tarjeta.getFecExp(),
+            tarjeta.getFecVen(),
+            tarjeta.nivel.getNombre()
+        );
+
+        tabla.imprimirTablaSimple();
+        return true;
 	}
+	public boolean tabla(String numTarjeta) {
+        Tarjeta tarjeta = Tarjeta.importarTarjeta(numTarjeta);
+        if(!tarjeta.validarIdTarjeta())
+            return false;
+		tabla = new Tabla("Numero de tarjeta", "Fecha de registro", "Fecha vencimiento", "Nivel");
 
-    //public Tarjeta pedirDatos(){
-    //    Tarjeta tarjeta = new Tarjeta();
+        tabla.agregarFila(
+            Texto.tarjeta(tarjeta.getNumTarjeta()),
+            tarjeta.getFecExp(),
+            tarjeta.getFecVen(),
+            tarjeta.nivel.getNombre()
+        );
 
-        //tarjeta.set
-    //}
-
-    //Pedir datos de la tarjeta
+        tabla.imprimirTablaSimple();
+        return true;
+	}
 
     
 }
@@ -108,6 +127,10 @@ class SubmodNivel extends Menu {
 
     public SubmodNivel(){
         super("Nivel", "Niveles");
+    }
+    public static void desplegarNiveles(){
+        SubmodNivel niveles = new SubmodNivel();
+        niveles.tabla();
     }
 
     public static void desplegarMenu(){

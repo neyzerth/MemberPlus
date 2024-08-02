@@ -56,4 +56,30 @@ public class FormatoFecha {
         return calendar.get(Calendar.YEAR);
     }
 
+    public static int getDia(Date fecha){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fecha);
+        return calendar.get(Calendar.DAY_OF_MONTH);
+    }
+    public static int getMes(Date fecha){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fecha);
+        return calendar.get(Calendar.MONTH) + 1;
+    }
+    
+    public static int getSigMes(Date fecha){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fecha);
+        int mes = calendar.get(Calendar.MONTH);
+        if(mes == 11)
+            return 1;
+
+        return mes + 2;
+    }
+    public static int getAnio(Date fecha){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(fecha);
+        return calendar.get(Calendar.YEAR);
+    }
+
 }

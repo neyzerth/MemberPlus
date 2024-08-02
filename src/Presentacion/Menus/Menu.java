@@ -119,9 +119,10 @@ public abstract class Menu {
         if(registrar()){
             System.out.println();
             Texto.esperarEnter((" ")+Color.verde(modSing) + Color.verde(" registrado con exito"));
-        } else
+        } else {
             System.out.println();
             Texto.esperarEnter(Color.rojo(Color.negrita(" Error al registrar " + modSing)));
+        }
     
 
     }

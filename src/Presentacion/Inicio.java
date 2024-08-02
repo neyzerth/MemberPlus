@@ -21,14 +21,14 @@ public class Inicio {
             //No saldra del ciclo hasta que inicie sesion
             } while (!sesionIniciada);
 
-            try {
+            //try {
                 //Hasta que salga del ciclo, se desplegara el menu principal
                 Principal.menu();
 
-            } catch (Exception e) {
+            //} catch (Exception e) {
 
-                Texto.esperarEnter(Color.rojo("Error: " + e));
-            }
+            //    Texto.esperarEnter(Color.rojo("Error: " + e));
+            //}
         } while ( true ); //El programa nunca se termina, incluso si da error
     }
 

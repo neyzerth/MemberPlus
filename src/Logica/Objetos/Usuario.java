@@ -6,7 +6,7 @@ import Persistencia.Tablas.UsuarioEnt;
 
 public class Usuario extends Persona {
     // ATRIBUTOS
-    private int idUsuario, idRol;
+    private int idUsuario;
     private String nomUsuario, contrasena, rfc;
     public Rol rol;
     
@@ -76,14 +76,14 @@ public class Usuario extends Persona {
     public boolean insertarUsuario(){
         UsuarioEnt usuario = new UsuarioEnt();
         if(validarPersona(this.getIdPersona()))
-            return usuario.insertarUsuarioDB(this.nomUsuario, this.contrasena, this.rfc , this.getIdPersona(), this.idRol);
+            return usuario.insertarUsuarioDB(this.nomUsuario, this.contrasena, this.rfc , this.getIdPersona(), this.rol.getIdRol());
 
         return false;
     }
     public boolean actualizarUsuario(){
         UsuarioEnt usuario = new UsuarioEnt();
         if(this.actualizarPersona())
-            return usuario.actualizarUsuarioDB(this.idUsuario, this.nomUsuario, this.contrasena, this.rfc , this.getIdPersona(), this.idRol);
+            return usuario.actualizarUsuarioDB(this.idUsuario, this.nomUsuario, this.contrasena, this.rfc , this.getIdPersona(), this.rol.getIdRol());
 
         return false;
     }
@@ -149,7 +149,7 @@ public class Usuario extends Persona {
         UsuarioEnt usuarioBd = new UsuarioEnt();
 
         Object [] datos = usuarioBd.ejecutarSelectPorAtributos(
-            nomUsuario, contrasena, rfc, getIdPersona(), idRol
+            nomUsuario, contrasena, rfc, getIdPersona(), rol.getIdRol()
         );
         Usuario usuario = Usuario.importarUsuarios(datos);
 

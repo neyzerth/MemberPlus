@@ -26,7 +26,7 @@ public class TarjetaEnt extends Query {
 
     // Método para interactuar con el usuario y mostrar la tarjeta por número
     public Object[] obtenerTarjetaPorNum(String numTarjeta) {
-        return ejecutarSelectUno(getNomColumna(1), numTarjeta);
+        return ejecutarSelectUno(selectUno(getNomColumna(1)), numTarjeta);
     }
 
     // Actualizar una tarjeta

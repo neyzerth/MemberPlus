@@ -12,16 +12,34 @@ public class Tarjeta {
     private int idTarjeta, puntos;
     private Date fecExp, fecVen;
     private boolean activo;
-    private Cliente cliente;
-    private Nivel nivel;
+    public Cliente cliente;
+    public Nivel nivel;
 
     // CONSTRUCTORES
 
     public Tarjeta() {
+        this.cliente = new Cliente();
+        this.nivel = new Nivel();
     }
 
-    public Tarjeta(int idTarjeta, String numTarjeta, float saldo,
-     int puntos, Date fecExp, Date fecVen, boolean activo, Cliente cliente, Nivel nivel) {
+    public Tarjeta(Cliente cliente, Nivel nivel){
+        this.numTarjeta = Tarjeta.generarNumeroTarjeta();
+        this.saldo = 0;
+        this.puntos= 0;
+        this.fecExp = FormatoFecha.fechaActual();
+        this.fecVen = FormatoFecha.fecha(
+            FormatoFecha.getDia(fecExp),
+            FormatoFecha.getSigMes(fecExp),
+            FormatoFecha.getAnio(fecExp)
+        );
+        activo = true;
+        this.cliente = cliente;
+        this.nivel = nivel;
+    }
+
+    public Tarjeta(int idTarjeta, String numTarjeta,  Date fecExp, Date fecVen, boolean activo,
+        float saldo, int puntos, Cliente cliente, Nivel nivel) 
+    {
         this.idTarjeta = idTarjeta;
         this.numTarjeta = numTarjeta;
         this.saldo = saldo;
@@ -42,13 +60,13 @@ public class Tarjeta {
         Tarjeta tarjeta = new Tarjeta(
             (int) datos[0],
             (String) datos[1],  
-            (float) datos[2],
-            (int) datos[3],
-            (Date) datos[4],
-            (Date) datos[5],
-            (boolean) datos[6],
-            (Cliente) datos[7],
-            (Nivel) datos[8]
+            (Date) datos[2],
+            (Date) datos[3],
+            (boolean) datos[4],
+            (float) datos[5],
+            (int) datos[6],
+            (Cliente) Cliente.importarClientes((int)datos[7]),
+            (Nivel) Nivel.importarNiveles((int)datos[8])
         );
         return tarjeta;
     }
@@ -120,7 +138,11 @@ public class Tarjeta {
             resto.append(digitoAleatorio);
         }
 
-        return primerosCuatro + resto.toString();
+        String num =  primerosCuatro + resto.toString();
+        if(validarNumTarjeta(num))
+            return generarNumeroTarjeta();
+
+        return num;
     }
 
     // GETTERS AND SETTERS
@@ -256,4 +278,6 @@ public class Tarjeta {
             throw new IllegalArgumentException("El estado de activo no es válido", e);
         }
     }
+
+    
 }

@@ -1,11 +1,15 @@
 package Presentacion.Menus;
 
 import Logica.Objetos.Cliente;
+import Logica.Objetos.Nivel;
 import Logica.Objetos.Persona;
+import Logica.Objetos.Tarjeta;
+import Presentacion.Despliegue.Cuadro;
 import Presentacion.Despliegue.Tabla;
 import Presentacion.Formato.*;
 
 public class ModCliente extends Menu{
+    private static Cliente cliente;
 
     public ModCliente(){
         super("Cliente", "Clientes");
@@ -17,10 +21,48 @@ public class ModCliente extends Menu{
     }
 
     @Override
+    public void menuRegistrar(){
+        Texto.limpiarPantalla();
+
+        Cuadro modificar = new Cuadro(Color.morado(" Registrar Clientes" ));
+        modificar.imprimirCuadro();
+        
+        //Metodo dentro de if despliega el metodo abstracto registrar y regresa un booleano
+        if(!registrar()){
+            System.out.println();
+            Texto.esperarEnter(Color.rojo(Color.negrita(" Error al registrar Cliente")));
+            return;
+        }
+
+        System.out.println();
+        Texto.esperarEnter((" ")+Color.verde("Cliente") + Color.verde(" registrado con exito"));
+
+        SubmodNivel modNivel = new SubmodNivel();
+
+        Tarjeta tarjeta = new Tarjeta(); 
+        modNivel.tabla();
+
+        int idNivel = Texto.leerInt(Color.cian(Color.negrita(" > ID del nivel a solicitar: ")));
+
+        tarjeta.nivel = Nivel.importarNiveles(idNivel);
+
+        tarjeta = new Tarjeta(cliente, tarjeta.getNivel());
+        if(!tarjeta.insertarTarjeta()){
+            Texto.esperarEnter(Color.rojo(Color.negrita("Error al registrar Tarjeta")));
+            return;
+        }
+        
+        SubmodTarjeta modTarjeta = new SubmodTarjeta();
+        modTarjeta.tabla(tarjeta.getNumTarjeta());
+
+        Texto.esperarEnter(Color.verde(Color.negrita("Tarjeta registrada con exito")));
+        //Si se inserto solo faltaria mostrar la tarjeta 
+    }
+
+    @Override
     public boolean registrar(){
 
         Persona persona = ModPersona.datosPersona();
-        Cliente cliente = new Cliente();
         try {
 
             if(persona.insertarPersona()){
@@ -29,7 +71,7 @@ public class ModCliente extends Menu{
             }
 
             if( cliente.insertarCliente()){
-                Cliente.importarClientes(cliente.getIdCliente());
+                ModCliente.cliente = Cliente.importarClientes(cliente.getIdCliente());
                 return true;
             }
 
