@@ -9,14 +9,16 @@ import java.util.Date;
 
 public class Query {
 
-    private String tabla;
-    private String [] columnas;
+    private String tabla; //nombre de la tabla de cada entidad
+    private String [] columnas; //nombres exactos de las columnas en bd
 
+    //Constructor
     public Query(String tabla, String... nomColumnas){
         this.tabla = tabla;
         this.columnas = nomColumnas;
     }
 
+    //seleccionar a partir de x columnas
     public String select(String... columnas){
         if (columnas ==  null)
             return select();
