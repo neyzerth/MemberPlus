@@ -7,65 +7,13 @@ import Logica.Objetos.Persona;
 import Logica.Objetos.Usuario;
 
 public class ModUsuario extends Menu {
-    public static void menu() {
-        boolean salir = false;
-        while (!salir) {
-            Texto.limpiarPantalla();
-            System.out.println(Color.morado(Color.negrita(Texto.espacio(8) + "> Módulo de Usuario <")));
 
-            Cuadro listaUsuario = new Cuadro(
-                    Color.morado("Lista de usuarios"),
-                    Color.morado("Información de usuario"),
-                    Color.morado("Registrar usuario"),
-                    Color.morado("Modificar usuario"),
-                    Color.morado("Eliminar usuario"),
-                    Color.rojo("Volver al menú principal"));
-            listaUsuario.imprimirCuadroNum();
-
-            System.out.println();
-
-            int option = Texto.leerInt(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
-
-            switch (option) {
-                case 1: verUsuarios();
-                    break;
-                case 2: verUsuario();
-                    break;
-                case 3: registrarUsuario();
-                    break;
-                case 4: actualizarUsuario();
-                    break;
-                case 5: eliminarUsuario();
-                    break;
-                case 6: default: salir = true;
-            }
-        }
+    public ModUsuario(){
+        super("Usuario", "Usuarios");
     }
-
-    private static void verUsuarios() {
-        Texto.limpiarPantalla(); 
-        Cuadro listaUsua = new Cuadro (
-                Color.cian(" Lista de usuarios"));
-        listaUsua.imprimirCuadro();
-
-        tablaUsuarios();
-
-        Texto.esperarEnter();
-    }
-
-    private static void verUsuario() {
-        Texto.limpiarPantalla();
-        Cuadro infoUsua = new Cuadro(
-                Color.cian(" Información de usuario"));
-        infoUsua.centrado(true);
-        infoUsua.imprimirCuadro();
-
-        tablaUsuarios();
-        System.out.println();
-
-        int id = Texto.leerInt(Color.amarillo(" > ID de usuario a desplegar: "));
-        tablaUsuarios(id);
-        Texto.esperarEnter();
+    public static void desplegarMenu() {
+        ModUsuario modUsuario = new ModUsuario();
+        modUsuario.menu();
     }
 
     @Override
@@ -73,12 +21,10 @@ public class ModUsuario extends Menu {
 
         Usuario usuario = new Usuario();
 
-        do{
-            System.out.println();
-            String nombre = Texto.leerString(Color.amarillo(Color.negrita(" > Nombre del usuario: ")));
-            String contrasena = Texto.leerContra(Color.amarillo(Color.negrita(" > Contraseña del usuario: ")));
-            String rfc = Texto.leerString(Color.amarillo(" > RFC del usuario: "));
-            int rol = Texto.leerInt(Color.amarillo(Color.negrita(" > ROL del usuario: ")));
+        String nombre = Texto.leerString("> * Nombre del usuario: ");
+        String contrasena = Texto.leerContra("> * Contraseña del usuario: ");
+        String rfc = Texto.leerString("> RFC del usuario: ");
+        int rol = Texto.leerInt("> ROL del usuario: ");
 
         try {
             Persona persona = ModPersona.datosPersona();
@@ -100,33 +46,20 @@ public class ModUsuario extends Menu {
         return false;
     }
 
-    private static void actualizarUsuario(){
-        Texto.limpiarPantalla();
-        int id;
-        Cuadro modificarUsua = new Cuadro(
-                Color.cian(" Modificar informacion del usuario"));
-        modificarUsua.imprimirCuadro();
-
-        tablaUsuarios();
-
-        System.out.println();
-        id = Texto.leerInt(Color.amarillo(" > ID del usuario a modificar: "));
+    @Override
+    public boolean actualizar(int id){
+        Usuario usuario = Usuario.importarUsuarios(id);
         
-        
-        tablaUsuarios(id);
         do{
-            Usuario usuario = Usuario.importarUsuarios(id);
 
-            System.out.println();
             usuario.setNomUsuario(Texto.leerString(Color.amarillo(Color.negrita("> Nombre del usuario: "))));
             usuario.setContrasena(Texto.leerContra(Color.amarillo(Color.negrita("> Contraseña del usuario: "))));
-            usuario.setRfc(Texto.leerString(Color.amarillo(Color.negrita("> RFC del usuario: "))));
+            usuario.setRfc(Texto.leerString("> RFC del usuario: "));
             usuario.setIdRol(Texto.leerInt(Color.amarillo(Color.negrita("> ROL del usuario: "))));
 
             try {
-                System.out.println();
-                System.out.println(Color.rojo(Color.negrita("> Desea modificar la informacion personal del usuario??")));
-                boolean conf = Texto.leerString(Color.rojo(" SI [s]  NO [n]: ")).toLowerCase().equals("s");
+                System.out.println(Color.rojo(Color.negrita("Desea modificar la informacion personal del usuario??")));
+                boolean conf = Texto.leerString(Color.rojo("SI[s]  NO[n]: ")).toLowerCase().equals("s");
 
                 if(conf){
                     Persona persona = ModPersona.datosPersona();
@@ -148,37 +81,19 @@ public class ModUsuario extends Menu {
         } while (false);
     }
 
-    public static void eliminarUsuario() {
-        Texto.limpiarPantalla();
-        boolean eliminado = false;
-
-        Cuadro eliminarUsua = new Cuadro(
-                Color.cian(" Información de usuario"));
-        eliminarUsua.imprimirCuadro();
-
-        tablaUsuarios();
-
-        System.out.println();
-        int id = Texto.leerInt(Color.amarillo("> ID del usuario a eliminar: "));
-
-        tablaUsuarios(id);
-        System.out.println();
-        System.out.println(Color.rojo(Color.negrita(Color.rojo(Color.negrita("> Seguro que desea eliminar este usuario?")))));
-        boolean conf = Texto.leerString(Color.rojo("   SI [s]  NO [n]: ")).toLowerCase().equals("s");
-
-        if (conf)
-            eliminado = Usuario.eliminarUsuario(id);
-        Texto.esperarEnter(String.valueOf(eliminado));
-
+    @Override
+    public boolean eliminar(int id) {
+        return Usuario.eliminarUsuario(id);
     }
 
-    private static Usuario tablaUsuarios(int id) {
+    @Override
+    public boolean tabla(int id) {
         
         if (!Usuario.validarUsuario(id)){
             return false;
         }
 
-        Tabla tabla = new Tabla(Color.morado("ID"), Color.morado("Nombre Usuario"), Color.morado("RFC"));
+        tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Nombre Usuario"), Color.amarillo("RFC"));
 
         Usuario usuario = Usuario.importarUsuarios(id);
 
@@ -192,8 +107,9 @@ public class ModUsuario extends Menu {
         return true;
     }
 
-    private static Usuario[] tablaUsuarios() {
-        Tabla tabla = new Tabla(Color.morado("ID"), Color.morado("Nombre Usuario"), Color.morado("RFC"));
+    @Override
+    public void tabla() {
+        tabla = new Tabla("ID", "Nombre Usuario", "RFC");
         Usuario[] usuarios =  Usuario.importarUsuarios();
 
         for (Usuario usuario : usuarios) {
