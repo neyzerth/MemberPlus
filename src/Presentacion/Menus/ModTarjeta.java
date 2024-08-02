@@ -1,6 +1,7 @@
 package Presentacion.Menus;
 
 import Logica.Objetos.Beneficio;
+import Logica.Objetos.Nivel;
 import Logica.Objetos.Tarjeta;
 import Presentacion.Despliegue.Cuadro;
 import Presentacion.Despliegue.Tabla;
@@ -82,37 +83,75 @@ public class ModTarjeta {
 class SubmodNivel extends Menu {
 
     public SubmodNivel(){
-        super("Nivel", "Nivel");
+        super("Nivel", "Niveles");
     }
 
     @Override
     public boolean registrar() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'registrar'");
+        Nivel nivel = pedirDatos();
+
+        if(nivel == null)
+            return false;
+
+        tabla(nivel.getIdNivel());
+        return nivel.insertarNivel();
     }
 
     @Override
     public boolean actualizar(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actualizar'");
+        Nivel nivel = pedirDatos();
+        if(nivel == null)
+            return false;
+        
+        nivel.setIdNivel(id);
+        return nivel.actualizarNivel();
     }
 
     @Override
     public boolean eliminar(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'eliminar'");
+        return eliminar(id);
     }
 
     @Override
     public void tabla() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'tabla'");
+        tabla = new Tabla("ID", "Nombre", "Descripcion");
+        
+        Nivel [] nivel = Nivel.importarNiveles();
+        
     }
 
     @Override
     public boolean tabla(int id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'tabla'");
+    }
+
+    public Nivel pedirDatos(){
+        Nivel nivel = new Nivel();
+        try{
+            nivel.setNombre(Texto.leerString("> *Nombre del nivel: "));
+            nivel.setCostoApertura(Texto.leerInt("> *Costo de apertura: $"));
+            nivel.setAnualidad(Texto.leerString("> *Costo de la anualidad: $"));
+            return nivel;
+        } catch (Exception e){
+            Texto.esperarEnter("Dato no valido");
+            return null;
+        }
+    }
+    public String beneficios(int puntos, int cashback, int descuento){
+        String beneficios = "";
+        String porcPuntos;
+        if(puntos > 0)
+            beneficios += puntos + "% Puntos";
+        if(cashback > 0)
+            beneficios += " + " + cashback + "% Cashback";
+        if(descuento > 0)
+            beneficios += " + " + descuento + "% Descuento";
+
+        if(beneficios.isBlank())
+            return "Sin beneficios";
+
+        return beneficios;
     }
 
 }

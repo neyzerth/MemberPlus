@@ -128,6 +128,7 @@ public abstract class Menu {
         }
 
         if(actualizar(id)){
+            tabla(id);
             Texto.esperarEnter(modSing + " actualizado con exito");
             return;
         }
