@@ -21,10 +21,11 @@ public class ModUsuario extends Menu {
 
         Usuario usuario = new Usuario();
 
-        String nombre = Texto.leerString("> * Nombre del usuario: ");
-        String contrasena = Texto.leerContra("> * Contraseña del usuario: ");
-        String rfc = Texto.leerString("> RFC del usuario: ");
-        int rol = Texto.leerInt("> ROL del usuario: ");
+        System.out.println();
+        String nombre = Texto.leerString(Color.cian(Color.negrita(" > Nombre del usuario: ")));
+        String contrasena = Texto.leerContra(Color.cian(Color.negrita(" > Contraseña del usuario: ")));
+        String rfc = Texto.leerString(Color.cian(" > RFC del usuario: "));
+        int rol = Texto.leerInt(Color.cian(Color.negrita(" > ROL del usuario: ")));
 
         try {
             Persona persona = ModPersona.datosPersona();
@@ -40,7 +41,7 @@ public class ModUsuario extends Menu {
             }
 
         } catch (Exception e) {
-            Texto.esperarEnter("DATO NO VALIDO");
+            Texto.esperarEnter(Color.rojo(Color.negrita(" DATO NO VALIDO")));
         }
 
         return false;
@@ -51,15 +52,17 @@ public class ModUsuario extends Menu {
         Usuario usuario = Usuario.importarUsuarios(id);
         
         do{
-
-            usuario.setNomUsuario(Texto.leerString(Color.amarillo(Color.negrita("> Nombre del usuario: "))));
-            usuario.setContrasena(Texto.leerContra(Color.amarillo(Color.negrita("> Contraseña del usuario: "))));
-            usuario.setRfc(Texto.leerString("> RFC del usuario: "));
-            usuario.setIdRol(Texto.leerInt(Color.amarillo(Color.negrita("> ROL del usuario: "))));
+            System.out.println();
+            usuario.setNomUsuario(Texto.leerString(Color.cian(Color.negrita(" > Nombre del usuario: "))));
+            usuario.setContrasena(Texto.leerContra(Color.cian(Color.negrita(" > Contraseña del usuario: "))));
+            usuario.setRfc(Texto.leerString(Color.cian(" > RFC del usuario: ")));
+            usuario.setIdRol(Texto.leerInt(Color.cian(Color.negrita(" > ROL del usuario: "))));
 
             try {
-                System.out.println(Color.rojo(Color.negrita("Desea modificar la informacion personal del usuario??")));
-                boolean conf = Texto.leerString(Color.rojo("SI[s]  NO[n]: ")).toLowerCase().equals("s");
+                System.out.println();
+                System.out.println(Color.rojo(Color.negrita(" Desea modificar la informacion personal del usuario??")));
+                boolean conf = Texto.leerString(Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
+                System.out.println();
 
                 if(conf){
                     Persona persona = ModPersona.datosPersona();
@@ -68,13 +71,12 @@ public class ModUsuario extends Menu {
             
 
                 if(usuario.actualizarUsuario()){
-                    tabla(id);
                     return true;
                 }
                 
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                Texto.esperarEnter("DATO NO VALIDO");
+                Texto.esperarEnter(Color.rojo(Color.negrita(" DATO NO VALIDO")));
                 
             }
             return false;
@@ -93,13 +95,15 @@ public class ModUsuario extends Menu {
             return false;
         }
 
-        tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Nombre Usuario"), Color.amarillo("RFC"));
+        tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Nombre Usuario"), Color.amarillo("Nombre completo"), Color.amarillo("Correo"), Color.amarillo("RFC"));
 
         Usuario usuario = Usuario.importarUsuarios(id);
 
         tabla.agregarFila(
             usuario.getIdUsuario(),
             usuario.getNomUsuario(),
+            usuario.getNombre() + " " + usuario.getApellidoPa() + " " + usuario.getApellidoMa(),
+            usuario.getCorreo(),
             usuario.getRfc()
         );
         tabla.imprimirTablaSimple();
@@ -109,7 +113,7 @@ public class ModUsuario extends Menu {
 
     @Override
     public void tabla() {
-        tabla = new Tabla("ID", "Nombre Usuario", "RFC");
+        tabla = new Tabla(Color.amarillo("ID"),Color.amarillo( "Nombre Usuario"), Color.amarillo("RFC"));
         Usuario[] usuarios =  Usuario.importarUsuarios();
 
         for (Usuario usuario : usuarios) {

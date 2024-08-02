@@ -32,13 +32,13 @@ public abstract class Menu {
 
         while (!salir) {
             Texto.limpiarPantalla();
-            System.out.println(Color.morado(Color.negrita(Texto.espacio(8) + "> Módulo de " + modPlur + " <")));
+            System.out.println(Color.morado(Color.negrita(Texto.espacio(6) + "> Módulo de " + modPlur + " <")));
 
             opciones.imprimirCuadroNum();
 
             System.out.println();
 
-            int opcion = Texto.leerInt(Color.cian("> Seleccione una opción: "));
+            int opcion = Texto.leerInt(Color.cian(" > Seleccione una opción: "));
             
             salir = conexionMenus(opcion);
             
@@ -61,7 +61,8 @@ public abstract class Menu {
             case 6: return true;
 
             default:
-                System.out.println(Color.rojo("Opción inválida, por favor intente de nuevo."));
+                System.out.println();
+                System.out.println(Color.rojo(" Opción inválida, por favor intente de nuevo."));
                 Texto.esperar(1);
             break;
         }
@@ -72,7 +73,7 @@ public abstract class Menu {
     private void menuVerTodos(){
         Texto.limpiarPantalla();
 
-        Cuadro lista = new Cuadro(Color.amarillo("> Lista de " + modPlur));
+        Cuadro lista = new Cuadro(Color.morado(" Lista de " + modPlur));
         lista.imprimirCuadro();
         tabla();
 
@@ -81,16 +82,18 @@ public abstract class Menu {
     
     private void menuVerUno(){
         
-        Cuadro info = new Cuadro( Color.amarillo("> Informacion de " + modSing));
+        Cuadro info = new Cuadro( Color.morado(" Informacion de " + modSing));
         
         Texto.limpiarPantalla();
         info.imprimirCuadro();
 
         tabla();
 
-        int id = Texto.leerInt("> ID del " + modSing + " a ver: ");
+        System.out.println();
+        int id = Texto.leerInt(Color.cian(" > ID del " + modSing + " a ver: "));
         if(!tabla(id)) { 
-            Texto.esperarEnter("No existe " + modSing + " con ID " + id + "...");
+            System.out.println();
+            Texto.esperarEnter(Color.rojo(" No existe " + modSing + " con ID " + id + "..."));
             return;
         }
     
@@ -100,48 +103,53 @@ public abstract class Menu {
     public void menuRegistrar(){
         Texto.limpiarPantalla();
 
-        Cuadro modificar = new Cuadro(Color.amarillo("> Registrar " + modSing));
+        Cuadro modificar = new Cuadro(Color.morado(" Registrar " + modSing));
         modificar.imprimirCuadro();
         
 
-        if(registrar())
-            Texto.esperarEnter(modSing + " registrado con exito");
-        else
-            Texto.esperarEnter("Error al registrar " + modSing);
+        if(registrar()){
+            System.out.println();
+            Texto.esperarEnter((" ")+Color.verde(modSing) + Color.verde(" registrado con exito"));
+            } else
+            System.out.println();
+            Texto.esperarEnter(Color.rojo(Color.negrita(" Error al registrar " + modSing)));
     
 
     }
 
     public void menuActualizar(){
 
-        Cuadro actualizar = new Cuadro(Color.amarillo("> Modificar informacion de " + modSing));
+        Cuadro actualizar = new Cuadro(Color.morado(" Modificar informacion de " + modSing));
         Texto.limpiarPantalla();
 
         actualizar.imprimirCuadro();
         tabla();
 
-        int id = Texto.leerInt("> ID del " + modSing +" a modificar: ");
+        System.out.println();
+        int id = Texto.leerInt(Color.cian(" > ID del " + modSing +" a modificar: "));
 
         if(!tabla(id)) { 
-            Texto.esperarEnter("No existe " + modSing + " con ID " + id + "...");
+            System.out.println();
+            Texto.esperarEnter(Color.rojo(Color.negrita(" No existe " + modSing + " con ID " + id + "...")));
             return;
         }
 
         if(actualizar(id)){
             tabla(id);
-            Texto.esperarEnter(modSing + " actualizado con exito");
+            System.out.println();
+            Texto.esperarEnter(Color.verde(" "+ modSing + " actualizado con exito"));
             return;
         }
         else
-            Texto.esperarEnter("Error al actualizar " + modSing);
-            
+            System.out.println();
+            Texto.esperarEnter(Color.rojo(" Error al actualizar " + modSing));
     }
 
     private void menuEliminar(){
         boolean repetir = false;
 
         Cuadro eliminar = new Cuadro(
-                Color.amarillo("> Eliminar " + modSing));
+                Color.morado(" Eliminar " + modSing));
         
         do{
             Texto.limpiarPantalla();
@@ -149,25 +157,31 @@ public abstract class Menu {
             eliminar.imprimirCuadro();
             tabla();
 
-            int id = Texto.leerInt("> ID de " + modSing + " a eliminar");
+            System.out.println();
+            int id = Texto.leerInt(Color.cian(" > ID de " + modSing + " a eliminar: "));
 
             if(!tabla(id)) { 
-                Texto.esperarEnter("No existe " + modSing + " con ID " + id + "...");
+                System.out.println();
+                Texto.esperarEnter(Color.rojo(Color.negrita(" No existe " + modSing + " con ID " + id + "...")));
                 repetir = true;
                 return;
             }
 
-            System.out.println(Color.rojo(Color.negrita("Seguro que desea eliminar este " + modSing + "?")));
-            boolean conf = Texto.leerString("SI[s]  NO[n]: ").toLowerCase().equals("s");
+            System.out.println();
+            System.out.println(Color.rojo(Color.negrita(" ¿Seguro que desea eliminar este " + modSing + "?")));
+            boolean conf = Texto.leerString (Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
+            System.out.println();
 
             if (conf)
                 if(eliminar(id)){
                     tabla();
-                    Texto.esperarEnter(modSing + " eliminado con exito");
+                    System.out.println();
+                    Texto.esperarEnter(Color.verde(" " + modSing + " eliminado con exito"));
                     repetir = false;
                 }
                 else
-                    Texto.esperarEnter(" Error al eliminar " + modSing);
+                    System.out.println();
+                    Texto.esperarEnter(Color.rojo(" Error al eliminar " + modSing));
         } while (repetir);
         
     }

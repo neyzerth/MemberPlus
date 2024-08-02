@@ -20,7 +20,7 @@ public class Bienvenida {
         System.out.println(logo);
         bienvenida.imprimirCuadro();
 
-        Texto.esperarEnter(Color.cian("Enter para continuar..."));
+        Texto.esperarEnter(Color.cian(" Enter para continuar..."));
     }
 
     static String snoopy = Color.amarillo(

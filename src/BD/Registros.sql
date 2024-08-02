@@ -1,5 +1,5 @@
 -- SQLBook: Code
--- Active: 1721605316807@@127.0.0.1@3306@prueba
+-- Active: 1722578640281@@127.0.0.1@3306@member_plus
 --CREAR REGISTROS EN LA BASE DE DATOS
 INSERT INTO persona (idPersona, nombre, apellidoPa, apellidoMa, fecNac, colonia, calle, numExt, numInt, cp, telefono, correo) VALUES 
 (1, 'Jane', 'Smith', 'Doe', '1999-11-10', 'Centro', 'Calle Primera', 123, NULL, '22100', '6641112223', 'jane.doe@example.com'),
@@ -23,6 +23,25 @@ INSERT INTO persona (idPersona, nombre, apellidoPa, apellidoMa, fecNac, colonia,
 (19, 'Beatriz', 'Rodrigues', 'Ribeiro', '2008-09-20', 'Merivale', 'Dominion Road', 444, NULL, '20912', '6631245678', 'jessica.taylor@inbox.com'),
 (20, 'Mariana', 'Araujo', 'Almeida', '2009-10-25', 'Newmarket', 'Cuba Street', 323, NULL, '30098', '6633054586', 'david.clark@service.net');
 
+
+INSERT INTO rol (idRol, nombre, descripcion) VALUES
+(1, 'Administrador', 'Control total'),
+(2, 'Cajero', 'Empleado que se encarga sobre las ventas'),
+(3, 'Supervisor', 'Encargado de revisar niveles con sus beneficios'),
+(4, 'Gerente', 'Encargado de la gestión de usuarios');
+
+INSERT INTO usuario (idUsuario, nombreUsuario, contrasena, rfc, rol, Persona) VALUES
+(1, 'Jane', 'utt1', 'GAAJ920101XXX', 1, 1),
+(2, 'Mike', 'utt2', 'RAAA890908XXX', 3, 2),
+(3, 'Lucy', 'utt3', 'TOMG860109XXX', 2, 3),
+(4, 'Mark', 'utt4', 'GULG930210XXX', 4, 4),
+(5, 'Sophia', 'utt5', 'ROJJ850303XXX', 3, 5),
+(6, 'Liam', 'utt6', 'MUGL950504XXX', 2, 6),
+(7, 'Olivia', 'utt7', 'LOAA910706XXX', 1, 7),
+(8, 'Emma', 'utt8', 'PEAF840807XXX', 4, 8),
+(9, 'Noah', 'utt9', 'PKJJ850303XXX', 2, 9),
+(10, 'Ava', 'utt10', 'FKD12E1ZXXX', 1, 10)
+
 INSERT INTO cliente VALUES
 (1, 11),
 (2, 12),
@@ -35,24 +54,6 @@ INSERT INTO cliente VALUES
 (9, 19),
 (10, 20);
 
-INSERT INTO rol VALUES
-(1, 'administrador', 'Control total'),
-(2, 'cajero', 'Empleado que se encarga sobre las ventas'),
-(3, 'supervisor', 'Encargado de revisar niveles con sus beneficios'),
-(4, 'gerente', 'Encargado de la gestion de usuarios');
-
-INSERT INTO usuario VALUES
-(1, 'Juan', 'utt1', 'GAAJ920101XXX', 1, 1),
-(2, 'Adriana', 'utt2', 'RAAA890908XXX', 3, 3),
-(3, 'Miguel', 'utt3', 'TOMG860109XXX', 2, 2),
-(4, 'Laura', 'utt4', 'GULG930210XXX', 4, 4),
-(5, 'Lauro', 'utt5', 'ROJJ850303XXX', 6, 3),
-(6, 'Carlos', 'utt6', 'MUGL950504XXX', 5, 2),
-(7, 'Ana', 'utt7', 'LOAA910706XXX', 7, 1),
-(8, 'Francisco', 'utt8', 'PEAF840807XXX', 9, 4),
-(9, 'Miguel', 'utt9', 'PKJJ850303XXX', 8, 2),
-(10, 'Ashley', 'utt10', 'FKD12E1ZXXX', 10, 1);
-
 INSERT INTO nivel VALUES
 (1, 'Basica', 400, 50),
 (2, 'Oro', 550, 200),
@@ -61,29 +62,29 @@ INSERT INTO nivel VALUES
 (5, 'Black', 5000, 500);
 
 INSERT INTO tarjeta VALUES 
-(DEFAULT,1234567890123456, '2023-10-01', '2024-10-01', 1, 532.00, 12, 1,1),
-(DEFAULT,9876543210987654, '2023-10-17', '2024-10-17', 1, 651.00, 88, 2,2),
-(DEFAULT,2468135780246913, '2023-09-06', '2024-09-06', 1, 123.00, 22, 4,3),
-(DEFAULT,1357246891358024, '2023-08-16', '2024-08-16', 1, 358.00, 990, 8,4),
-(DEFAULT,8642975318642075, '2023-07-01', '2024-07-01', 1, 313.00, 123, 3,1),
-(DEFAULT,9753864220751864, '2023-06-21', '2024-06-21', 1, 3.00, 22, 6,2),
-(DEFAULT,3210987654321098, '2023-04-27', '2024-04-27', 1, 273.00, 44, 7,3),
-(DEFAULT,7890432187652109, '2023-03-14', '2024-03-14', 1, 146.00, 11, 9,4),
-(DEFAULT,4321876509876543, '2023-09-22', '2024-09-22', 1, 831.00, 32, 5,1),
-(DEFAULT,1238128923812938, '2024-05-14', '2024-05-14', 0, 786.00, 221, 10,2);
+(1,1234567890123456, '2023-10-01', '2024-10-01', 1, 532.00, 12, 1,1),
+(2,9876543210987654, '2023-10-17', '2024-10-17', 1, 651.00, 88, 2,2),
+(3,2468135780246913, '2023-09-06', '2024-09-06', 1, 123.00, 22, 4,3),
+(4,1357246891358024, '2023-08-16', '2024-08-16', 1, 358.00, 990, 8,4),
+(5,8642975318642075, '2023-07-01', '2024-07-01', 1, 313.00, 123, 3,1),
+(6,9753864220751864, '2023-06-21', '2024-06-21', 1, 3.00, 22, 6,2),
+(7,3210987654321098, '2023-04-27', '2024-04-27', 1, 273.00, 44, 7,3),
+(8,7890432187652109, '2023-03-14', '2024-03-14', 1, 146.00, 11, 9,4),
+(9,4321876509876543, '2023-09-22', '2024-09-22', 1, 831.00, 32, 5,1),
+(10,1238128923812938, '2024-05-14', '2024-05-14', 0, 786.00, 221, 10,2);
 
 
-INSERT INTO compra (fecha, porcPunto, descuento, tarjeta, total) VALUES
-('2024-05-02', 5, 3, 11, 543.4),
-('2024-05-18', 10, 6, 12, 234.0),
-('2024-05-16', 8, 2, 13, 864.0),
-('2024-05-18', 11, 9, 14, 535.5),
-('2024-06-13', 9, 3, 15, 212.8),
-('2024-06-27', 13, 6, 16, 600.2),
-('2024-06-28', 7, 3, 17, 677.9),
-('2024-07-04', 15, 5, 18, 540.7),
-('2024-07-05', 7, 8, 19, 232.0),
-('2024-07-06', 2, 1, 20, 100.7);
+INSERT INTO compra (idCompra,fecha, porcPunto, descuento, tarjeta, total) VALUES
+(1,'2024-05-02', 5, 3, 1, 543.4),
+(2,'2024-05-18', 10, 6, 2, 234.0),
+(3,'2024-05-16', 8, 2, 3, 864.0),
+(4,'2024-05-18', 11, 9, 4, 535.5),
+(5,'2024-06-13', 9, 3, 5, 212.8),
+(6,'2024-06-27', 13, 6, 6, 600.2),
+(7,'2024-06-28', 7, 3, 7, 677.9),
+(8,'2024-07-04', 15, 5, 8, 540.7),
+(9,'2024-07-05', 7, 8, 9, 232.0),
+(10,'2024-07-06', 2, 1, 10, 100.7);
 
 
 INSERT INTO beneficio VALUES
@@ -108,15 +109,15 @@ INSERT INTO tipo_movimiento VALUES
 
 
 INSERT INTO movimiento VALUES
-(1, '2005-01-20', 'Iniciado', 'El pago ha sido procesado y esta en su primera fase de verificacion.', 1, 11, 2),
-(2, '2003-02-15', 'Pausa', 'La transaccion ha sido temporalmente detenida debido a una revision de seguridad.', 4, 20, 3),
-(3, '2007-03-10', 'Finalizado', 'El pago ha sido completado exitosamente y confirmado.', 2, 14, 2),
-(4, '2001-04-05', 'Pausa', 'La operacion esta en espera mientras se revisan los detalles de la cuenta.', 3, 13, 1),
-(5, '2004-05-25', 'Finalizado', 'La transaccion ha sido finalizada y el pago se ha registrado correctamente.', 5, 17, 4),
-(6, '2006-06-18', 'Finalizado', 'El proceso de pago ha concluido y ha sido confirmado.', 7, 19, 2),
-(8, '2008-08-08', 'Iniciado', 'La solicitud de pago esta en curso y se esta procesando.', 8, 18, 1),
-(9, '2009-09-30', 'Pausa', 'La operacion esta suspendida momentaneamente a la espera de autorizacion.', 9, 15, 4),
-(10, '2010-10-22', 'Pausa', 'La transaccion se encuentra en espera hasta que se resuelvan algunos detalles.', 10, 16, 4);
+(1, '2005-01-20', 'Iniciado', 'El pago ha sido procesado y esta en su primera fase de verificacion.', 1, 1, 2),
+(2, '2003-02-15', 'Pausa', 'La transaccion ha sido temporalmente detenida debido a una revision de seguridad.', 4, 2, 3),
+(3, '2007-03-10', 'Finalizado', 'El pago ha sido completado exitosamente y confirmado.', 2, 4, 2),
+(4, '2001-04-05', 'Pausa', 'La operacion esta en espera mientras se revisan los detalles de la cuenta.', 3, 3, 1),
+(5, '2004-05-25', 'Finalizado', 'La transaccion ha sido finalizada y el pago se ha registrado correctamente.', 5, 7, 4),
+(6, '2006-06-18', 'Finalizado', 'El proceso de pago ha concluido y ha sido confirmado.', 7, 9, 2),
+(8, '2008-08-08', 'Iniciado', 'La solicitud de pago esta en curso y se esta procesando.', 8, 8, 1),
+(9, '2009-09-30', 'Pausa', 'La operacion esta suspendida momentaneamente a la espera de autorizacion.', 9, 5, 4),
+(10, '2010-10-22', 'Pausa', 'La transaccion se encuentra en espera hasta que se resuelvan algunos detalles.', 10, 6, 4);
 
 
 
@@ -128,7 +129,7 @@ INSERT INTO nivel_beneficio VALUES
 (5, 2);
 
 INSERT INTO compra_beneficio VALUES
-(21, 10),
-(22, 4),
-(23, 6),
-(24, 8);
+(1, 10),
+(2, 4),
+(3, 6),
+(4, 8);
