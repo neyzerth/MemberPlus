@@ -1,4 +1,5 @@
 package Persistencia.Tablas;
+import Persistencia.Query;
 
 public class Nivel_BeneficioEnt extends Query {
     public Nivel_BeneficioEnt() {
