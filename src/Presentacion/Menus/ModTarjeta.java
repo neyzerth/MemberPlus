@@ -1,5 +1,6 @@
 package Presentacion.Menus;
 
+import Logica.FormatoFecha;
 import Logica.Objetos.Beneficio;
 import Logica.Objetos.Nivel;
 import Logica.Objetos.Tarjeta;
@@ -51,11 +52,161 @@ class SubmodTarjeta extends Menu{
 
     public SubmodTarjeta(){
         super("Membresia", "Membresias");
+        this.opciones = new Cuadro(
+            Color.morado("Lista de " + modPlur),
+            Color.morado("Información de " + modSing),
+            Color.morado("Actualizar " + modSing),
+            Color.morado("Eliminar "+ modSing),
+            Color.rojo("Volver")
+        );
     }
+
+
 
     public static void desplegarMenu(){
         SubmodTarjeta modTarjeta = new SubmodTarjeta();
         modTarjeta.menu();
+    }
+
+    @Override
+    public boolean conexionMenus(int opcion){
+        switch (opcion) {
+            case 1: menuVerTodos();
+                break;
+            case 2: menuVerUno();
+                break;
+            case 3: menuActualizar();
+                break;
+            case 4: menuEliminar();
+                break;
+                
+            case 5: return true;
+
+            default:
+                System.out.println();
+                System.out.println(Color.rojo(" Opción inválida, por favor intente de nuevo."));
+                Texto.esperar(1);
+            break;
+        }
+        return false;
+
+    }
+
+    @Override
+    public void menuVerUno(){
+        Cuadro info = new Cuadro( Color.morado(" Informacion de " + modSing));
+        
+        Texto.limpiarPantalla();
+        info.imprimirCuadro();
+
+        tabla();
+
+        System.out.println();
+        String numTarjeta = Texto.leerString(Color.cian(" > Numero de " + modSing + " a ver: "));
+        if(!tabla(numTarjeta)) { 
+            System.out.println();
+            Texto.esperarEnter(Color.rojo(" No existe " + modSing + " con numero de tarjeta " + numTarjeta + "..."));
+            return;
+        }
+    
+        Texto.esperarEnter();
+    }
+
+    @Override 
+    public void menuActualizar(){
+
+        Cuadro actualizar = new Cuadro(Color.morado(" Modificar informacion de " + modSing));
+        Texto.limpiarPantalla();
+
+        actualizar.imprimirCuadro();
+
+        System.out.println();
+        String numTarjeta = Texto.leerString(Color.cian(" > Numero de tarjeta a modificar: "));
+
+        if(!tabla(numTarjeta)) { 
+            System.out.println();
+            Texto.esperarEnter(Color.rojo(Color.negrita(" No existe Tajeta con el numero " + numTarjeta + "...")));
+            return;
+        }
+
+        Tarjeta tarjeta = Tarjeta.importarTarjeta(numTarjeta);
+        boolean salir= false;
+
+        do{
+            System.out.println("Que desea realizar?");
+            System.out.println("Renovar $"+ tarjeta.nivel.getAnualidad() +"[1] - Cambiar nivel [2] - Salir [3]");
+            int opc = Texto.leerInt("> ");
+            switch (opc) {
+                case 1:
+                    
+                    System.out.println("Fecha de vencimiento: " + tarjeta.getFecVen());
+                    tarjeta.renovar();
+                    System.out.println("Nueva fecha de vencimiento: " + tarjeta.getFecVen());
+                    tarjeta.actualizarTarjeta();
+                    System.out.println(Color.cian("Tarjeta renovada con exito..."));
+                    Texto.esperarEnter();
+                    
+                    break;
+                case 2:
+                    System.out.println("Nivel actual: " + tarjeta.nivel.getNombre());
+                    int idNivel = Texto.leerInt("> ID del nuevo nivel: ");
+                    Nivel nivel = Nivel.importarNiveles(idNivel);
+                    tarjeta.nivel = nivel;
+                    tarjeta.actualizarTarjeta();
+                    
+                    break;
+                case 3:
+                    salir = true;
+                    break;
+            
+                default:
+                    Texto.esperarEnter("Opcion no valida");
+                    break;
+            }
+        } while (!salir);
+        
+    }
+
+    @Override
+    public void menuEliminar(){
+        boolean repetir = false;
+
+        Cuadro eliminar = new Cuadro(
+                Color.morado(" Eliminar " + modSing));
+        
+        do{
+            Texto.limpiarPantalla();
+
+            eliminar.imprimirCuadro();
+            tabla();
+
+            System.out.println();
+            String numTarjeta = Texto.leerString(Color.cian(" > Numero de " + modSing + " a eliminar: "));
+
+            if(!tabla(numTarjeta)) { 
+                System.out.println();
+                Texto.esperarEnter(Color.rojo(Color.negrita(" No existe " + modSing + " con numero " + numTarjeta + "...")));
+                repetir = true;
+                return;
+            }
+
+            System.out.println();
+            System.out.println(Color.rojo(Color.negrita(" ¿Seguro que desea eliminar este " + modSing + "?")));
+            boolean conf = Texto.leerString (Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
+            System.out.println();
+
+            if (conf)
+                if(eliminar(numTarjeta)){
+                    tabla();
+                    System.out.println();
+                    Texto.esperarEnter(Color.verde(" " + modSing + " eliminado con exito"));
+                    repetir = false;
+                    return;
+                }
+                else
+                    System.out.println();
+                    Texto.esperarEnter(Color.rojo(" Error al eliminar " + modSing));
+        } while (repetir);
     }
 
     @Override
@@ -64,12 +215,9 @@ class SubmodTarjeta extends Menu{
         return false;
     }
 
-    @Override
+    @Override 
     public boolean actualizar(int id){
-        Tarjeta tarjeta = Tarjeta.importarTarjeta(id);
         return false;
-
-
     }
 
     @Override 
@@ -82,8 +230,21 @@ class SubmodTarjeta extends Menu{
 
 	@Override
 	public void tabla() {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'tabla'");
+        Tarjeta[] tarjetas = Tarjeta.importarTarjeta();
+        
+		tabla = new Tabla("Numero de tarjeta", "Fecha vencimiento", "Cliente", "Nivel");
+
+
+        for (Tarjeta tarjeta : tarjetas) {
+            tabla.agregarFila(
+                Texto.tarjeta(tarjeta.getNumTarjeta()),
+                tarjeta.getFecVen(),
+                tarjeta.cliente.getNombre(),
+                tarjeta.nivel.getNombre()
+            );
+        }
+
+        tabla.imprimirTablaSimple();
 	}
 
 	@Override
@@ -91,33 +252,26 @@ class SubmodTarjeta extends Menu{
         Tarjeta tarjeta = Tarjeta.importarTarjeta(id);
         if(!tarjeta.validarIdTarjeta())
             return false;
-		tabla = new Tabla("Numero de tarjeta", "Fecha de registro", "Fecha vencimiento", "Nivel");
+		tabla = new Tabla("Numero de tarjeta", "Cliente", "Nivel", "Saldo", "Puntos", "Fecha vencimiento" );
 
         tabla.agregarFila(
-            tarjeta.getNumTarjeta(),
-            tarjeta.getFecExp(),
-            tarjeta.getFecVen(),
-            tarjeta.nivel.getNombre()
+            Texto.tarjeta(tarjeta.getNumTarjeta()),
+            tarjeta.cliente.getNombre(),
+            tarjeta.nivel.getNombre(),
+            tarjeta.getSaldo(),
+            tarjeta.getPuntos(),
+            tarjeta.getFecVen()
         );
 
         tabla.imprimirTablaSimple();
         return true;
 	}
+
 	public boolean tabla(String numTarjeta) {
         Tarjeta tarjeta = Tarjeta.importarTarjeta(numTarjeta);
         if(!tarjeta.validarIdTarjeta())
             return false;
-		tabla = new Tabla("Numero de tarjeta", "Fecha de registro", "Fecha vencimiento", "Nivel");
-
-        tabla.agregarFila(
-            Texto.tarjeta(tarjeta.getNumTarjeta()),
-            tarjeta.getFecExp(),
-            tarjeta.getFecVen(),
-            tarjeta.nivel.getNombre()
-        );
-
-        tabla.imprimirTablaSimple();
-        return true;
+		return tabla(tarjeta.getIdTarjeta());
 	}
 
     

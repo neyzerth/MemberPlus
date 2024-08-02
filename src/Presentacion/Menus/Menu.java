@@ -8,8 +8,8 @@ import Presentacion.Formato.Texto;
 //Padre de la mayoria de los modulos/menus
 public abstract class Menu {
 
-    private String modSing; //Nombre del modulo en singular
-    private String modPlur;  //Nombre del modulo en plural
+    public String modSing; //Nombre del modulo en singular
+    public String modPlur;  //Nombre del modulo en plural
     public Tabla tabla;     
     public Cuadro opciones; //El cuadro de opciones que van a tener
 
@@ -77,7 +77,7 @@ public abstract class Menu {
     }
 
     //Mirar todos los registros
-    private void menuVerTodos(){
+    public void menuVerTodos(){
         Texto.limpiarPantalla();
 
         Cuadro lista = new Cuadro(Color.morado(" Lista de " + modPlur));
@@ -88,7 +88,7 @@ public abstract class Menu {
     }
     
     //mirar a detalle un registro a partir de su id
-    private void menuVerUno(){
+    public void menuVerUno(){
         
         Cuadro info = new Cuadro( Color.morado(" Informacion de " + modSing));
         
@@ -158,7 +158,7 @@ public abstract class Menu {
     }
 
     //Pregunta y confirma si quiere eliminar un registro a partir de id
-    private void menuEliminar(){
+    public void menuEliminar(){
         boolean repetir = false;
 
         Cuadro eliminar = new Cuadro(

@@ -81,6 +81,36 @@ public class ModCliente extends Menu{
         }
         return false;
     }
+    @Override
+    public void menuActualizar(){
+        Cuadro actualizar = new Cuadro(Color.morado(" Modificar informacion de Cliente"));
+        Texto.limpiarPantalla();
+
+        actualizar.imprimirCuadro();
+        tabla();
+
+        System.out.println();
+        int id = Texto.leerInt(Color.cian(" > ID del Cliente a modificar: "));
+
+        if(!tabla(id)) { 
+            System.out.println();
+            Texto.esperarEnter(Color.rojo(Color.negrita(" No existe Cliente con ID " + id + "...")));
+            return;
+        }
+
+        //Metodo dentro de if despliega el metodo abstracto actualizar y regresa un booleano
+        if(!actualizar(id)){
+            System.out.println();
+            Texto.esperarEnter(Color.rojo(" Error al actualizar Cliente"));
+            return;
+        }
+
+        tabla(id);
+        System.out.println();
+        Texto.esperarEnter(Color.verde(" Cliente actualizado con exito"));
+        
+    }
+    
 
     @Override
     public boolean actualizar(int id){
@@ -147,7 +177,13 @@ public class ModCliente extends Menu{
             cliente.getCorreo()
         );
 
+        Tarjeta tarjeta = cliente.importarTarjeta();
+        SubmodTarjeta modTarjeta = new SubmodTarjeta();
+        
         tabla.imprimirTablaSimple();
+
+        System.out.println("\nDatos de membresia");
+        modTarjeta.tabla(tarjeta.getIdTarjeta());
         return true;
 
     }

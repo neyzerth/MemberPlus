@@ -2,6 +2,7 @@ package Logica.Objetos;
 
 import java.sql.Date;
 import Persistencia.Tablas.ClienteEnt;
+import Persistencia.Tablas.TarjetaEnt;
 
 //La clase cliente representa a un cliente que hereda de la clase persona
 //contiene informacion adicional especifica del cliente como su identificador unico
@@ -66,6 +67,13 @@ public class Cliente extends Persona {
 
         return importarClientes(datos);  
 
+    }
+
+    public  Tarjeta importarTarjeta(){
+        TarjetaEnt tarjetaBd = new TarjetaEnt();
+        Object [] datos = tarjetaBd.obtenerTarjetaPorCliente(this.getIdCliente());
+
+        return Tarjeta.importarTarjeta(datos);
     }
 
     //CRUD

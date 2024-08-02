@@ -99,6 +99,18 @@ public class Nivel {
     // GETTERS AND SETTERS
 
     public int getIdNivel() {
+        if(this.idNivel > 0)
+            return this.idNivel;
+        
+        NivelEnt nivelBd = new NivelEnt();
+        
+        Object [] datos = nivelBd.ejecutarSelectPorAtributos(
+            this.nombre, this.anualidad, this.costoApertura
+        );
+            
+        Nivel nivel = Nivel.importarNiveles(datos);
+        this.idNivel = nivel.getIdNivel();
+
         return this.idNivel;
     }
 

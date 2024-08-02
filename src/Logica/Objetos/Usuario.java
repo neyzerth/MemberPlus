@@ -82,10 +82,8 @@ public class Usuario extends Persona {
     }
     public boolean actualizarUsuario(){
         UsuarioEnt usuario = new UsuarioEnt();
-        if(this.actualizarPersona())
-            return usuario.actualizarUsuarioDB(this.idUsuario, this.nomUsuario, this.contrasena, this.rfc , this.getIdPersona(), this.rol.getIdRol());
+        return usuario.actualizarUsuarioDB(this.idUsuario, this.nomUsuario, this.contrasena, this.rfc , this.getIdPersona(), this.rol.getIdRol());
 
-        return false;
     }
 
     public static boolean eliminarUsuario(int id){

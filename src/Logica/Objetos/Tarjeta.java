@@ -85,6 +85,19 @@ public class Tarjeta {
         return importarTarjeta(datos);
     }
 
+    public static Tarjeta[] importarTarjeta(){
+        TarjetaEnt tarjetaBd = new TarjetaEnt();
+        Tarjeta[] tarjetas = new Tarjeta[tarjetaBd.obtenerCantRegistros()];
+        Object [][] datos = tarjetaBd.ejecutarSelect();
+
+        for (int i = 0; i < tarjetas.length; i++) {
+            tarjetas[i] = importarTarjeta(datos[i]);
+        }
+
+        return tarjetas;
+
+    }
+
     //CRUD de tarjeta
     public boolean insertarTarjeta(){
         TarjetaEnt tarjeta = new TarjetaEnt();
@@ -184,12 +197,14 @@ public class Tarjeta {
         }
     }
 
+
+
     public float getSaldo() {
         return this.saldo;
     }
 
     public void setSaldo(float saldo) {
-        if (saldo <= 0)
+        if (saldo < 0)
             throw new IllegalArgumentException("El saldo no puede ser negativo o cero");
         this.saldo = saldo;
     }
@@ -244,6 +259,13 @@ public class Tarjeta {
         if (fecVen == null)
             throw new IllegalArgumentException("La fecha de vencimineto no puede estar vacía");
         this.fecVen = fecVen;
+    }
+
+    public void renovar(){
+        int mes = FormatoFecha.getSigMes(fecVen);
+        int anio = FormatoFecha.getAnio(fecVen);
+        int dia = FormatoFecha.getDia(fecVen);
+        this.setFecVen(FormatoFecha.fecha(dia, mes, anio));
     }
 
     public void setFecVen(String fecVenStr) {

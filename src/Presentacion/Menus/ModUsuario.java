@@ -48,9 +48,12 @@ public class ModUsuario extends Menu {
     @Override
     public boolean actualizar(int id){
         Usuario usuario = Usuario.importarUsuarios(id);
+        int idPersona = usuario.getIdPersona();
         
         System.out.println();
         usuario = pedirDatos();
+        usuario.setIdUsuario(id);
+        usuario.setIdPersona(idPersona);
 
         try {
             System.out.println();
@@ -60,13 +63,13 @@ public class ModUsuario extends Menu {
 
             if(conf){
                 Persona persona = ModPersona.datosPersona();
-                persona.setIdPersona(usuario.getIdPersona());
+                persona.setIdPersona(idPersona);
+                persona.actualizarPersona();
             }
         
 
-            if(usuario.actualizarUsuario()){
-                return true;
-            }
+            return usuario.actualizarUsuario();
+            
             
         } catch (Exception e) {
             System.out.println(e.getMessage());

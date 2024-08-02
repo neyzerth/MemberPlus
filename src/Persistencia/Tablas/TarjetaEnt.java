@@ -28,6 +28,9 @@ public class TarjetaEnt extends Query {
     public Object[] obtenerTarjetaPorNum(String numTarjeta) {
         return ejecutarSelectUno(selectUno(getNomColumna(1)), numTarjeta);
     }
+    public Object[] obtenerTarjetaPorCliente(int idCliente) {
+        return ejecutarSelectUno(selectUno(getNomColumna(7)), idCliente);
+    }
 
     // Actualizar una tarjeta
     public boolean actualizarTarjetaDB(int idTarjeta, String numTarjeta, Date fecExp, Date fecVen,
