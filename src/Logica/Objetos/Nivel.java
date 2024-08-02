@@ -5,6 +5,7 @@ public class Nivel {
     // ATRIBUTOS
     private int idNivel, anualidad, costoApertura;
     private String nombre;
+    private Beneficio [] beneficios;
 
     // CONSTRUCTORES
     public Nivel(){}
@@ -126,6 +127,18 @@ public class Nivel {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    public Beneficio[] getBeneficios() {
+        return this.beneficios;
+    }
+    public Beneficio getBeneficio(int i) {
+        return this.beneficios[i];
+    }
+
+    public void setBeneficios(Beneficio[] beneficios) {
+        this.beneficios = beneficios;
+    }
+
     
 
 }

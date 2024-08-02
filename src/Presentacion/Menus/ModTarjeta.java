@@ -46,39 +46,48 @@ public class ModTarjeta {
     }
 }
 
-//class SubmodTarjeta extends Menu{
-//
-//    public SubmodTarjeta(){
-//        super("Tarjeta", "Tarjetas");
-//    }
-//
-//    public static void desplegarMenu(){
-//        SubmodTarjeta modTarjeta = new SubmodTarjeta();
-//        modTarjeta.menu();
-//    }
-//
-//    @Override
-//    public boolean registrar(){
-//        Tarjeta tarjeta = new Tarjeta();
-//
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean actualizar(int id){
-//
-//    }
-//
-//    @Override 
-//    public boolean eliminar(int id){
-//        return Tarjeta.eliminarTarjeta(id);
-//    }
-//    public boolean eliminar(String numTarjeta){
-//        return Tarjeta.eliminarTarjeta(numTarjeta);
-//    }
-//
-//    
-//}
+class SubmodTarjeta extends Menu{
+
+    public SubmodTarjeta(){
+        super("Tarjeta", "Tarjetas");
+    }
+
+    public static void desplegarMenu(){
+        SubmodTarjeta modTarjeta = new SubmodTarjeta();
+        modTarjeta.menu();
+    }
+
+    @Override
+    public boolean registrar(){
+        Tarjeta tarjeta = new Tarjeta();
+
+        return false;
+    }
+
+    @Override
+    public boolean actualizar(int id){
+        Tarjeta tarjeta = Tarjeta.importarTarjeta(id);
+
+
+
+    }
+
+    @Override 
+    public boolean eliminar(int id){
+        return Tarjeta.eliminarTarjeta(id);
+    }
+    public boolean eliminar(String numTarjeta){
+        return Tarjeta.eliminarTarjeta(numTarjeta);
+    }
+
+    public Tarjeta pedirDatos(){
+        Tarjeta tarjeta = new Tarjeta();
+
+        //tarjeta.set
+    }
+
+    
+}
 
 class SubmodNivel extends Menu {
 
@@ -114,16 +123,37 @@ class SubmodNivel extends Menu {
 
     @Override
     public void tabla() {
-        tabla = new Tabla("ID", "Nombre", "Descripcion");
+        tabla = new Tabla("ID", "Nombre", "Anualidad");
         
-        Nivel [] nivel = Nivel.importarNiveles();
+        Nivel [] niveles = Nivel.importarNiveles();
+
+        for (Nivel nivel : niveles) {
+            tabla.agregarFila(
+                nivel.getIdNivel(),
+                nivel.getNombre(),
+                Texto.moneda(nivel.getAnualidad())
+            );
+        }
         
     }
 
     @Override
     public boolean tabla(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'tabla'");
+        Nivel nivel = Nivel.importarNiveles(id);
+        if(!nivel.validarNivel())
+            return false;
+        
+        tabla = new Tabla("ID", "Nombre", "Costo Apertura","Anualidad");
+        
+
+        tabla.agregarFila(
+            nivel.getIdNivel(),
+            nivel.getNombre(),
+            Texto.moneda(nivel.getCostoApertura()),
+            Texto.moneda(nivel.getAnualidad())
+        );
+
+        return true;
     }
 
     public Nivel pedirDatos(){
@@ -137,21 +167,6 @@ class SubmodNivel extends Menu {
             Texto.esperarEnter("Dato no valido");
             return null;
         }
-    }
-    public String beneficios(int puntos, int cashback, int descuento){
-        String beneficios = "";
-        String porcPuntos;
-        if(puntos > 0)
-            beneficios += puntos + "% Puntos";
-        if(cashback > 0)
-            beneficios += " + " + cashback + "% Cashback";
-        if(descuento > 0)
-            beneficios += " + " + descuento + "% Descuento";
-
-        if(beneficios.isBlank())
-            return "Sin beneficios";
-
-        return beneficios;
     }
 
 }

@@ -71,6 +71,16 @@ public class Beneficio {
         }
         return beneficios;
     }
+    public static Beneficio[] importarBeneficiosTarjeta(int idTarjeta){
+        BeneficioEnt beneficioBd = new BeneficioEnt();
+        Beneficio[] beneficios = new Beneficio[beneficioBd.obtenerCantRegistros()];
+        Object [][] datos = beneficioBd.ejecutarSelect();
+
+        for (int i = 0; i < datos.length; i++) {
+            beneficios[i] = importarBeneficios(datos[i]);
+        }
+        return beneficios;
+    }
 
     //CRUD BENEFICIO
     public boolean insetarBeneficio(){

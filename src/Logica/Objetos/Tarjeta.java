@@ -97,6 +97,15 @@ public class Tarjeta {
         TarjetaEnt tarjeta = new TarjetaEnt();
         return tarjeta.existeIdTarjeta(idTarjeta);
     }
+
+    public static boolean eliminarTarjeta(int idTarjeta){
+        TarjetaEnt tarjeta = new TarjetaEnt();
+        return tarjeta.eliminarTarjetaDB(idTarjeta);
+    }
+    public static boolean eliminarTarjeta(String numTarjeta){
+        TarjetaEnt tarjeta = new TarjetaEnt();
+        return tarjeta.eliminarTarjetaDB(importarTarjeta(numTarjeta).getIdTarjeta());
+    }
     //public boolean 
 
 
