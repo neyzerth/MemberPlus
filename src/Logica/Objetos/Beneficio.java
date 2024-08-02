@@ -104,7 +104,7 @@ public class Beneficio {
     // GETTERS AND SETTERS
     
     public int getIdBeneficio() {
-        if(this.idBeneficio < 1);
+        if(this.idBeneficio < 1)
             this.setIdBeneficio();
         return this.idBeneficio;
     }

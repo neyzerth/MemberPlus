@@ -4,6 +4,8 @@ import Presentacion.Despliegue.Cuadro;
 import Presentacion.Formato.*;
 
 public class Bienvenida {
+    public static String color1 = Color.cian;
+    public static String color2 = Color.negroBrillante;
     public static void menu() {
         Texto.limpiarPantalla();
 
@@ -12,10 +14,11 @@ public class Bienvenida {
             Color.cian("a Member +")
         );
         bienvenida.centrado(true);
-        bienvenida.setMaxLinea(30);
+        bienvenida.setMaxLinea(54);
+        
+        System.out.println();
+        System.out.println(logo);
         bienvenida.imprimirCuadro();
-
-        System.out.println(snoopy);
 
         Texto.esperarEnter(Color.cian("Enter para continuar..."));
     }
@@ -30,4 +33,32 @@ public class Bienvenida {
             "   /  __/~|   /       |\n" +
             " =(  _____| (_________|)\n"
         );
+
+    static String logo = 
+        "                       " + Color.colorText(color2, ":***#*****#:")+"                   \r\n" + //
+        "                  " + Color.colorText(color2, "     =#::::::::%=    ")+"               \r\n" + //
+        "                " + Color.colorText(color2, "-@-+@  =#::::::::%- =@-#% ")+"            \r\n" + //
+        "              " + Color.colorText(color2, ":@:::::=@+::::::::::*@:::::%# ")+"          \r\n" + //
+        "       :=====" + Color.colorText(color2, "@=::::::::::::::::::::::::::::%#")+"=====:   \r\n" + //
+        "     +@     " + Color.colorText(color2, "%#::::::::::::::::::::::::::::::@:")+"     @+ \r\n" + //
+        "     @        " + Color.colorText(color2, "%*:::::::::*@%#*%@#-::::::::%*")+"        @ \r\n" + //
+        "     @    " + Color.colorText(color2, "::::=@::::::-@-        :@=::::::@:::::")+"    @ \r\n" + //
+        "     @   " + Color.colorText(color2, ":#-==========@            #===========@")+"    @ \r\n" + //
+        "     @   " + Color.colorText(color2, ":*") +"*"+ Color.colorText(color1, "@@@@@@@@@@@=          .@@@@@@@@@@@@")+ "*    @ \r\n" + //
+        "     @   " + Color.colorText(color2, ":*") +"*"+ Color.colorText(color1, "@@@@@@@@@@@@*        :@@@@@@@@@@@@@")+ "*    @ \r\n" + //
+        "     @   " + Color.colorText(color2, ":*") +"*"+ Color.colorText(color1, "@@@@@@@@@@@@@%      :@@@@@@@@@@@@@@")+ "*    @ \r\n" + //
+        "     @   " + Color.colorText(color2, ":*") +"*"+ Color.colorText(color1, "@@@@@@@@@@@@@@%    =@@@@@@@@@@@@@@@")+ "*    @ \r\n" + //
+        "     @     *" + Color.colorText(color1, "@@@@@@@@@@@@@@@@  +@@@@@@@@@@@@@@@@")+ "     @ \r\n" + //
+        "     @     +" + Color.colorText(color1, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")+ "     @ \r\n" + //
+        "     @     +" + Color.colorText(color1, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")+ "     @ \r\n" + //
+        "     @     +" + Color.colorText(color1, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")+ "     @ \r\n" + //
+        "     @     +" + Color.colorText(color1, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")+ "     @ \r\n" + //
+        "     @     +" + Color.colorText(color1, "@@@@@@@@@@@*@@@@@@@@@@-@@@@@@@@@@@@")+ "     @ \r\n" + //
+        "     @     +" + Color.colorText(color1, "@@@@@@@@@@@:%:*@@@@*:%:@@@@@@@@@@@@")+ "     @ \r\n" + //
+        "     @     +" + Color.colorText(color1, "@@@@@@@@@@@:    @@    :@@@@@@@@@@@@")+ "     @ \r\n" + //
+        "     @     +" + Color.colorText(color1, "@@@@@@@@@@@:          :@@@@@@@@@@@@")+ "     @ \r\n" + //
+        "     @     +" + Color.colorText(color1, "@@@@@@@@@@@:          :@@@@@@@@@@@@")+ "     @ \r\n" + //
+        "     @                                              @ \r\n" + //
+        "      @@##########################################@@  \r\n" //
+        ;
 }

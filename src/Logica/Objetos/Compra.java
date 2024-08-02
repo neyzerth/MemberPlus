@@ -21,7 +21,7 @@ public class Compra {
         this.total = total;
     }
     //COMUNICACION CON PERSISTENCIA
-    public static Compra importarCompras(Object [] datos){
+/* public static Compra importarCompras(Object [] datos){
 
         Compra compra = new Compra(
             (int) datos[0],
@@ -30,8 +30,7 @@ public class Compra {
             (Date) datos[3],
             (float) datos[4]
             );
-        return compra;
-    }
+    } */
 
     // METODOS
     public void modificarCompra(String porcentajePuntoStr, String descuentoStr, String fechaCompraStr,
