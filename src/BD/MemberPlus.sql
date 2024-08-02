@@ -1,5 +1,5 @@
 -- SQLBook: Code
--- Active: 1721605316807@@127.0.0.1@3306@prueba
+-- Active: 1722578640281@@127.0.0.1@3306@member_plus
 DROP DATABASE member_plus;
 CREATE DATABASE member_plus;
 USE member_plus;
