@@ -1,5 +1,5 @@
 package Persistencia.Tablas;
-
+import Persistencia.Query;
 
 public class Compra_BeneficioEnt extends Query {
     public Compra_BeneficioEnt() {
