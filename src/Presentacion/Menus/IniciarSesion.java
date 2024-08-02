@@ -16,10 +16,10 @@ public class IniciarSesion {
         do {
             Texto.limpiarPantalla();
 
-            Cuadro inicioS = new Cuadro(Color.morado(" > Iniciar sesión <"));
+            Cuadro inicioS = new Cuadro(Color.morado("  Iniciar sesión "));
             inicioS.imprimirCuadro();
 
-            System.out.println(Color.morado(Color.negrita(Texto.espacio(4)+"Ingrese sus datos:")));
+            System.out.println(Color.morado(Color.negrita(Texto.espacio(3)+"Ingrese sus datos:")));
 
             if(errorSesion){
                 System.out.println();

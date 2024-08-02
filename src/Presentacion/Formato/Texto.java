@@ -16,7 +16,7 @@ public class Texto {
             }
         } catch (IOException | InterruptedException ex) {
             System.out.println();
-            System.out.println(Color.rojo("Error al limpiar la consola: " + ex.getMessage()));
+            System.out.println(Color.rojo(" Error al limpiar la consola: " + ex.getMessage()));
         }
     }
 
@@ -39,7 +39,7 @@ public class Texto {
     }
 
     public static void esperarEnter(){
-        esperarEnter(Color.amarillo("\n Enter para continuar..."));
+        esperarEnter(Color.morado("\n Enter para continuar..."));
     }
 
     public static void esperar(double seg) {
@@ -111,11 +111,11 @@ public class Texto {
             return dato;
         } catch (NoSuchElementException e) {
             System.out.println();
-            System.out.println(Color.rojo(Color.negrita("Error: ") + (Color.rojo("Ocurrio un error inesperado."))));
+            System.out.println(Color.rojo(Color.negrita(" Error: ") + (Color.rojo("Ocurrio un error inesperado."))));
             return null; // o alguna otra acción de error
         } catch (Exception e) {
             System.out.println();
-            System.out.println(Color.rojo(Color.negrita("Error: ") + (Color.rojo("no se ingresó ningún valor."))));
+            System.out.println(Color.rojo(Color.negrita(" Error: ") + (Color.rojo("no se ingresó ningún valor."))));
             return null; // o alguna otra acción de error
         }
     }
@@ -137,7 +137,7 @@ public class Texto {
                 return Integer.parseInt(num);
         } catch (NumberFormatException e) {
             System.out.println();
-            System.out.println(Color.rojo(Color.negrita("Error: ") + (Color.rojo("no se ingresó un valor entero."))));
+            System.out.println(Color.rojo(Color.negrita(" Error: ") + (Color.rojo("no se ingresó un valor entero."))));
             return 0;
         }
     }
@@ -152,7 +152,7 @@ public class Texto {
                 return Double.parseDouble(num);
         } catch (NumberFormatException e) {
             System.out.println();
-            System.out.println(Color.rojo(Color.negrita("Error: ") + (Color.rojo("no se ingresó un valor numerico."))));
+            System.out.println(Color.rojo(Color.negrita(" Error: ") + (Color.rojo("no se ingresó un valor numerico."))));
             return 0;
         }
     }
@@ -167,7 +167,7 @@ public class Texto {
                 return Float.parseFloat(num);
         } catch (NumberFormatException e) {
             System.out.println();
-            System.out.println(Color.rojo(Color.negrita("Error: ") + (Color.rojo("no se ingresó un valor numerico."))));
+            System.out.println(Color.rojo(Color.negrita(" Error: ") + (Color.rojo("no se ingresó un valor numerico."))));
             return 0;
         }
     }

@@ -14,7 +14,7 @@ public class ModVenta {
             Cuadro venta = new Cuadro(
                     Color.morado("Numero de tarjeta"),
                     Color.morado("Recoger el total"),
-                    Color.rojo("Volver al menú principal"));
+                    Color.rojo("Volver"));
             venta.imprimirCuadroNum();
 
             System.out.println();
