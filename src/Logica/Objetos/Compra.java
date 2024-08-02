@@ -2,6 +2,8 @@ package Logica.Objetos;
 
 
 import Logica.FormatoFecha;
+import Persistencia.Tablas.CompraEnt;
+
 import java.sql.Date;
 
 public class Compra {
@@ -13,24 +15,65 @@ public class Compra {
 
     // CONSTRUCTORES
 
-    public Compra(int idCompra, int porcentajePunto, int descuento, Date fechaCompra, float total) {
+    public Compra(int idCompra, int porcentajePunto, int descuento, Date fechaCompra, float total, Tarjeta tarjeta) {
         this.idCompra = idCompra;
         this.porcentajePunto = porcentajePunto;
         this.descuento = descuento;
         this.fechaCompra = fechaCompra;
         this.total = total;
+        this.tarjeta = tarjeta;
     }
     //COMUNICACION CON PERSISTENCIA
-/* public static Compra importarCompras(Object [] datos){
+    public static Compra importarCompras(Object [] datos){
 
         Compra compra = new Compra(
             (int) datos[0],
             (int) datos[1],
             (int) datos[2],
             (Date) datos[3],
-            (float) datos[4]
+            (float) datos[4],
+            (Tarjeta) datos[5]
             );
-    } */
+        return compra;
+    }
+
+    public static Compra importarCompras(int id){
+        CompraEnt compraBd = new CompraEnt();
+        Object[] datos = compraBd.obtenerCompraPorIdDB(id);
+
+        return importarCompras(datos);
+    }
+
+    public static Compra[] importCompras(){
+        CompraEnt compraBd = new CompraEnt();
+        Compra[] compras = new Compra[compraBd.obtenerCantRegistros()];
+        Object[][] datos = compraBd.ejecutarSelect();
+        for (int i = 0; i < datos.length; i++) {
+            compras[i] = importarCompras(datos[i]);
+        }
+        return compras;
+    }
+
+    //CRUD COMPRA
+    public boolean insertarCompras(){
+        CompraEnt compra = new CompraEnt();
+        return compra.insertarCompraDB(fechaCompra,porcentajePunto,descuento,tarjeta.getIdTarjeta(),total);
+    }
+
+    public boolean actualizarCompra(){
+        CompraEnt compra = new CompraEnt();
+        return compra.actualizarCompraDB(idCompra,fechaCompra,porcentajePunto,descuento,tarjeta.getIdTarjeta(),total);
+    }
+
+    public boolean validarCompra(){
+        CompraEnt compra = new CompraEnt();
+        return compra.existeCompra(fechaCompra, tarjeta.getNumTarjeta());
+    }
+    
+    public static boolean eliminarCompra(int idCompra){
+        CompraEnt compra = new CompraEnt();
+        return compra.eliminarCompraDB(idCompra);
+    }
 
     // METODOS
     public void modificarCompra(String porcentajePuntoStr, String descuentoStr, String fechaCompraStr,

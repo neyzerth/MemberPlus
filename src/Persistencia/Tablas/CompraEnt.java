@@ -20,7 +20,8 @@ public class CompraEnt extends Query {
     }
 
     // Verificar si una compra ya existe en la base de datos por fecha y total
-    public boolean existeCompra(String fecha,String tarjeta) {
+    //En fecha era String pero lo cambie a Date
+    public boolean existeCompra(Date fecha,String tarjeta) {
         return existeRegistro(getNomColumna(2), fecha) && existeRegistro(getNomColumna(5), tarjeta);
     }
 
