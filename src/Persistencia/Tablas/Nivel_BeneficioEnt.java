@@ -9,33 +9,33 @@ public class Nivel_BeneficioEnt extends Query {
     }
 
     // Obtener un registro específico por el ID de nivel 
-    public Object[] obtenerRegistroPorIdDB(int nivel, int beneficio) {
-        Object[] valores = { nivel};
+    public Object[] obtenerNivel_BeneficioPorIdDB(int nivel, int beneficio) {
+        Object[] valores = { nivel,beneficio};
         return ejecutarSelectPorID(nivel);
     }
 
     // Verificar si un registro ya existe en la base de datos por los ID nivel
-    public boolean existeRegistro(int nivel, int beneficio) {
+    public boolean existeNivel_Beneficio(int nivel, int beneficio) {
         Object[] valores = { nivel };
         return existeRegistro(getNomColumna(0), nivel);
     }
 
     // Insertar un nuevo registro
-    public boolean insertarRegistroDB(int nivel, int beneficio) {
+    public boolean insertarNivel_BeneficiooDB(int nivel, int beneficio) {
         Object[] valores = { nivel, beneficio };
         String query = insert(valores);
         return ejecutarInsert(query);
     }
 
     // Eliminar un registro
-    public boolean eliminarRegistroDB(int nivel, int beneficio) {
+    public boolean eliminarNivel_BeneficioDB(int nivel, int beneficio) {
         Object[] valores = { nivel };
         String query = delete(nivel);
         return ejecutarDelete(query);
     }
 
     // Método para obtener un registro por el ID de nivel 
-    public Object[] obtenerPorIdsDB(int nivel, int beneficio) {
+    public Object[] obtenerNivel_BeneficioPorNombreDB(int nivel, int beneficio) {
         Object[] valores = { nivel };
         return ejecutarSelectUno(getNomColumna(0), nivel);
     }
