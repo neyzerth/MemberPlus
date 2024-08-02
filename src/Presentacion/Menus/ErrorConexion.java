@@ -21,5 +21,10 @@ public class ErrorConexion {
         Texto.esperarEnter("\nEnter para regresar");
 
     }
+
+    public static void menu(String [] error){
+        if(error[1] != null)
+            menu(error[0], error[1], error[2]);
+    }
     
 }

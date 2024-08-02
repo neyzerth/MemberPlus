@@ -14,13 +14,13 @@ public class Usuario extends Persona {
 
     public Usuario(){}
 
-    public Usuario(int idUsuario, String nomUsuario, String contrasena, String rfc, Persona persona, int idRol){
+    public Usuario(int idUsuario, String nomUsuario, String contrasena, String rfc, Persona persona, Rol rol){
         super(persona);
         this.nomUsuario = nomUsuario;
         this.contrasena = contrasena;
         this.rfc = rfc;
         this.idUsuario = idUsuario;
-        this.idRol = idRol;
+        this.rol = rol;
 
     }
 
@@ -49,7 +49,7 @@ public class Usuario extends Persona {
             (String) datos[2], 
             (String) datos[3],
             persona,
-            (int) datos[5]
+            Rol.importarRoles((int) datos[5])
         );            
         return usuario;
     }
@@ -162,12 +162,22 @@ public class Usuario extends Persona {
         this.idUsuario = id;
     }
 
-    public int getIdRol() {
-        return this.idRol;
+    public Rol getRol() {
+        return this.rol;
     }
 
-    public void setIdRol(int idRol) {
-        this.idRol = idRol;
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+    public void setRol(int idRol) {
+        if(idRol < 1)
+            try {
+                throw new Exception("El id del rol no puede ser menor a 1");
+            } catch (Exception e) {
+                this.rol = null;
+            }
+            
+        this.rol = Rol.importarRoles(idRol);
     }
 
 }

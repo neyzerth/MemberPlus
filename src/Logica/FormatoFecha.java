@@ -34,4 +34,26 @@ public class FormatoFecha {
         }
     }
 
+    public static Date fechaActual(){
+        Calendar calendar = Calendar.getInstance();
+        long tiempo = calendar.getTimeInMillis();
+        Date fecha = new java.sql.Date(tiempo);
+        return fecha;
+    }
+
+    public static int diaActual(){
+        Calendar calendar = Calendar.getInstance();
+        return calendar.get(Calendar.DAY_OF_MONTH);
+    }
+
+    public static int mesActual(){
+        Calendar calendar = Calendar.getInstance();
+        return calendar.get(Calendar.MONTH) + 1;
+    }
+
+    public static int anioActual(){
+        Calendar calendar = Calendar.getInstance();
+        return calendar.get(Calendar.YEAR);
+    }
+
 }

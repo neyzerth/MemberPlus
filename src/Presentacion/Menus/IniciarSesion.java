@@ -7,46 +7,44 @@ import Logica.ConectarBD;
 import Logica.Sesion;
 
 public class IniciarSesion {
+    private static boolean sesionIniciada = true;
 
-    public static void interfaz() {
+    public static boolean menu() {
         String usuario;
         String contrasena;
-        boolean errorSesion = false;
         
-        do {
-            Texto.limpiarPantalla();
+        
+        Texto.limpiarPantalla();
 
-            Cuadro inicioS = new Cuadro(Color.morado("  Iniciar sesión "));
-            inicioS.imprimirCuadro();
+        Cuadro inicioS = new Cuadro(Color.morado("  Iniciar sesión "));
+        inicioS.imprimirCuadro();
 
-            System.out.println(Color.morado(Color.negrita(Texto.espacio(3)+"Ingrese sus datos:")));
+        System.out.println(Color.morado(Color.negrita(Texto.espacio(3)+"Ingrese sus datos:")));
 
-            if(errorSesion){
-                System.out.println();
-                System.out.println(Color.rojo(Color.negrita(Texto.espacio(2)+" ¡Datos incorrectos! ")));
-                System.out.println(Color.rojo(Texto.espacio(2)+" Intentelo de nuevo "));
-            }
+        if(!sesionIniciada){
             System.out.println();
+            System.out.println(Color.rojo(Color.negrita(Texto.espacio(2)+" ¡Datos incorrectos! ")));
+            System.out.println(Color.rojo(Texto.espacio(2)+" Intentelo de nuevo "));
+        }
+        System.out.println();
 
-            // Solicitar nombre de usuario
-            usuario = Texto.leerString(Color.cian(" > Usuario: "));
+        // Solicitar nombre de usuario
+        usuario = Texto.leerString(Color.cian(" > Usuario: "));
 
-            // Solicitar contraseña de forma segura
-            contrasena = Texto.leerContra(Color.cian(" > Contraseña: "));
+        // Solicitar contraseña de forma segura
+        contrasena = Texto.leerContra(Color.cian(" > Contraseña: "));
 
-            System.out.println();
-            System.out.print(Color.amarillo(" Conectando con base de datos"));
-            Texto.suspensivos();
-            errorSesion = !Sesion.iniciarSesion(usuario, contrasena);
+        System.out.println();
+        System.out.print(Color.amarillo(" Conectando con base de datos"));
+        Texto.suspensivos();
 
-            if(errorSesion){
-                String[] error = ConectarBD.probar(); 
-                if(error[1] != null)
-                    ErrorConexion.menu(error[0], error[1], error[2]);
-            }
+        //Cambiar el valor estatico
+        IniciarSesion.sesionIniciada = Sesion.iniciarSesion(usuario, contrasena);
 
-        } while (errorSesion);
+        if(sesionIniciada)
+            ErrorConexion.menu(ConectarBD.probar()); 
 
-        Principal.menu();
+        return sesionIniciada;
+    
     }
 }

@@ -55,10 +55,12 @@ public class ModCliente extends Menu{
 
             cliente = new Cliente(id, persona);
 
-            if( cliente.actualizarCliente()){
-                tabla(id);
-                return true;
-            }
+            if(!cliente.actualizarCliente())
+                return false;
+            
+            tabla(id);
+            return true;
+            
                 
         } catch (Exception e) {
             Texto.esperarEnter("DATO NO VALIDO");

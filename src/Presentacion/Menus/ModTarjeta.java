@@ -29,7 +29,7 @@ public class ModTarjeta {
             int option = Texto.leerInt(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
 
             switch (option) {
-                case 1: //submodTarjeta();
+                case 1: SubmodTarjeta.desplegarMenu();
                     break;
                 case 2: SubmodNivel.desplegarMenu();
                     break;
@@ -60,6 +60,7 @@ class SubmodTarjeta extends Menu{
     @Override
     public boolean registrar(){
         Tarjeta tarjeta = new Tarjeta();
+        Tarjeta.generarNumeroTarjeta();
 
         return false;
     }
@@ -97,6 +98,8 @@ class SubmodTarjeta extends Menu{
 
         //tarjeta.set
     //}
+
+    //Pedir datos de la tarjeta
 
     
 }

@@ -4,6 +4,7 @@ import Presentacion.Despliegue.Tabla;
 import Presentacion.Formato.*;
 
 import Logica.Objetos.Persona;
+import Logica.Objetos.Rol;
 import Logica.Objetos.Usuario;
 
 public class ModUsuario extends Menu {
@@ -22,17 +23,14 @@ public class ModUsuario extends Menu {
         Usuario usuario = new Usuario();
 
         System.out.println();
-        String nombre = Texto.leerString(Color.cian(Color.negrita(" > Nombre del usuario: ")));
-        String contrasena = Texto.leerContra(Color.cian(Color.negrita(" > Contraseña del usuario: ")));
-        String rfc = Texto.leerString(Color.cian(" > RFC del usuario: "));
-        int rol = Texto.leerInt(Color.cian(Color.negrita(" > ROL del usuario: ")));
+        usuario = pedirDatos();
 
         try {
             Persona persona = ModPersona.datosPersona();
 
             if(persona.insertarPersona()){
                 persona.setIdPersona();
-                usuario = new Usuario(0, nombre, contrasena, rfc, persona, rol);
+                usuario.setIdPersona(persona.getIdPersona());
             }
 
             if( usuario.insertarUsuario()){
@@ -51,41 +49,60 @@ public class ModUsuario extends Menu {
     public boolean actualizar(int id){
         Usuario usuario = Usuario.importarUsuarios(id);
         
-        do{
+        System.out.println();
+        usuario = pedirDatos();
+
+        try {
             System.out.println();
-            usuario.setNomUsuario(Texto.leerString(Color.cian(Color.negrita(" > Nombre del usuario: "))));
-            usuario.setContrasena(Texto.leerContra(Color.cian(Color.negrita(" > Contraseña del usuario: "))));
-            usuario.setRfc(Texto.leerString(Color.cian(" > RFC del usuario: ")));
-            usuario.setIdRol(Texto.leerInt(Color.cian(Color.negrita(" > ROL del usuario: "))));
+            System.out.println(Color.rojo(Color.negrita(" Desea modificar la informacion personal del usuario??")));
+            boolean conf = Texto.leerString(Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
+            System.out.println();
 
-            try {
-                System.out.println();
-                System.out.println(Color.rojo(Color.negrita(" Desea modificar la informacion personal del usuario??")));
-                boolean conf = Texto.leerString(Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
-                System.out.println();
-
-                if(conf){
-                    Persona persona = ModPersona.datosPersona();
-                    persona.setIdPersona(usuario.getIdPersona());
-                }
-            
-
-                if(usuario.actualizarUsuario()){
-                    return true;
-                }
-                
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                Texto.esperarEnter(Color.rojo(Color.negrita(" DATO NO VALIDO")));
-                
+            if(conf){
+                Persona persona = ModPersona.datosPersona();
+                persona.setIdPersona(usuario.getIdPersona());
             }
-            return false;
-        } while (false);
+        
+
+            if(usuario.actualizarUsuario()){
+                return true;
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            Texto.esperarEnter(Color.rojo(Color.negrita(" DATO NO VALIDO")));
+            
+        }
+        return false;
     }
 
     @Override
     public boolean eliminar(int id) {
         return Usuario.eliminarUsuario(id);
+    }
+
+    public Usuario pedirDatos(){
+        Usuario usuario = new Usuario();
+        try{
+            usuario.setNomUsuario(Texto.leerString(Color.cian(Color.negrita(" > Nombre del usuario: "))));
+            usuario.setContrasena(Texto.leerContra(Color.cian(Color.negrita(" > Contraseña del usuario: "))));
+            usuario.setRfc(Texto.leerString(Color.cian(" > RFC del usuario: ")));
+
+            Tabla tablaRol = new Tabla("ID", "Nombre", "Descripcion");
+            Rol[] roles = Rol.importarRoles();
+            for (Rol rol : roles) {
+                tablaRol.agregarFila(
+                    rol.getIdRol(), rol.getNombre(), rol.getDescripcion()
+                );
+            }
+            tablaRol.imprimirTablaSimple();
+            
+            usuario.setRol(Texto.leerInt(Color.cian(Color.negrita(" > ID del ROL del usuario: "))));
+
+            return usuario;   
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override

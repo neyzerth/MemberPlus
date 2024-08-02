@@ -4,12 +4,14 @@ import Presentacion.Despliegue.*;
 import Presentacion.Formato.Color;
 import Presentacion.Formato.Texto;
 
+//CLASE ABSTRACTA 
+//Padre de la mayoria de los modulos/menus
 public abstract class Menu {
 
-    private String modSing;
-    private String modPlur;
-    public Tabla tabla;
-    public Cuadro opciones;
+    private String modSing; //Nombre del modulo en singular
+    private String modPlur;  //Nombre del modulo en plural
+    public Tabla tabla;     
+    public Cuadro opciones; //El cuadro de opciones que van a tener
 
     public Menu(String singular, String plural){
         setNombres(singular, plural);
@@ -23,10 +25,13 @@ public abstract class Menu {
         );
     }
 
-    
+    //METODOS ABSTRACTOS
+    //Despliega una tabla con todos los registros 
     public abstract void tabla();
+    //Despliega una tabla con solo un registro (es mas especifica) 
     public abstract boolean tabla(int id);
 
+    //Menu a desplegar
     public void menu() {
         boolean salir = false;
 
@@ -45,6 +50,7 @@ public abstract class Menu {
         }
     }
 
+    //Default de orden de las opciones
     public boolean conexionMenus(int opcion){
         switch (opcion) {
             case 1: menuVerTodos();
@@ -70,6 +76,7 @@ public abstract class Menu {
 
     }
 
+    //Mirar todos los registros
     private void menuVerTodos(){
         Texto.limpiarPantalla();
 
@@ -80,6 +87,7 @@ public abstract class Menu {
         Texto.esperarEnter();
     }
     
+    //mirar a detalle un registro a partir de su id
     private void menuVerUno(){
         
         Cuadro info = new Cuadro( Color.morado(" Informacion de " + modSing));
@@ -100,23 +108,25 @@ public abstract class Menu {
         Texto.esperarEnter();
     }
 
+    //Reegistrar
     public void menuRegistrar(){
         Texto.limpiarPantalla();
 
         Cuadro modificar = new Cuadro(Color.morado(" Registrar " + modSing));
         modificar.imprimirCuadro();
         
-
+        //Metodo dentro de if despliega el metodo abstracto registrar y regresa un booleano
         if(registrar()){
             System.out.println();
             Texto.esperarEnter((" ")+Color.verde(modSing) + Color.verde(" registrado con exito"));
-            } else
+        } else
             System.out.println();
             Texto.esperarEnter(Color.rojo(Color.negrita(" Error al registrar " + modSing)));
     
 
     }
 
+    //Actualizar a partir del id
     public void menuActualizar(){
 
         Cuadro actualizar = new Cuadro(Color.morado(" Modificar informacion de " + modSing));
@@ -134,6 +144,7 @@ public abstract class Menu {
             return;
         }
 
+        //Metodo dentro de if despliega el metodo abstracto actualizar y regresa un booleano
         if(actualizar(id)){
             tabla(id);
             System.out.println();
@@ -145,6 +156,7 @@ public abstract class Menu {
             Texto.esperarEnter(Color.rojo(" Error al actualizar " + modSing));
     }
 
+    //Pregunta y confirma si quiere eliminar un registro a partir de id
     private void menuEliminar(){
         boolean repetir = false;
 
@@ -186,6 +198,8 @@ public abstract class Menu {
         
     }
 
+    //METODOS ABSTRACTOS
+    //cada clase hija registra, actualiza y elimina de manera distinta
     public abstract boolean registrar();
     public abstract boolean actualizar(int id);
     public abstract boolean eliminar(int id);
