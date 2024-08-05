@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 import Persistencia.Tablas.PersonaEnt;
+import Logica.FormatoFecha;
 
 
 public class Persona {
@@ -293,34 +294,6 @@ public class Persona {
     }*/
 
     public void setFecNac(int dia, int mes, int anio) {
-        int currentYear = LocalDate.now().getYear();
-
-        if (dia >= 1 && dia <= 31 && (dia / 10) < 10 && 
-            mes >= 1 && mes <= 12 && (mes / 10) < 10 && 
-            anio >= 1000 && anio <= currentYear) {
-            
-            this.fecNac = FormatoFecha.fecha(dia, mes, anio);
-        } else {
-            throw new IllegalArgumentException("Día y mes deben tener 2 dígitos, y el año debe tener 4 dígitos y no puede ser mayor al año actual.");
-        }
-    }
-
-    public void setFecNac(String fecNacStr) {
-        int currentYear = LocalDate.now().getYear();
-
-        if (fecNacStr.matches("\\d{2}/\\d{2}/\\d{4}")) {
-            String[] parts = fecNacStr.split("/");
-            int dia = Integer.parseInt(parts[0]);
-            int mes = Integer.parseInt(parts[1]);
-            int anio = Integer.parseInt(parts[2]);
-
-            if (dia >= 1 && dia <= 31 && mes >= 1 && mes <= 12 && anio <= currentYear) {
-                this.fecNac = FormatoFecha.fecha(fecNacStr);
-            } else {
-                throw new IllegalArgumentException("Día y mes deben estar en el rango adecuado, y el año no puede ser mayor al año actual.");
-            }
-        } else {
-            throw new IllegalArgumentException("La fecha debe estar en formato dd/mm/yyyy.");
-        }
+        this.fecNac = FormatoFecha.fecha(dia, mes, anio);
     }
 }

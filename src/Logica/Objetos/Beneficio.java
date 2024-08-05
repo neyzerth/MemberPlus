@@ -206,28 +206,20 @@ public class Beneficio {
         this.fecVen = fecVen;
     }
 
-    /*public void setFecVen(int dia, int mes, int anio) {
+    public void setFecVen(int dia, int mes, int anio) {
         this.fecVen = FormatoFecha.fecha(dia, mes, anio);
     }
     public void setFecVen(String fecVenStr) {
         this.fecVen = FormatoFecha.fecha(fecVenStr);
-    }*/
-
-    public void setFecVen(int dia, int mes, int anio) {
-    if (dia >= 1 && dia <= 31 && (dia / 10) < 10 && (mes >= 1 && mes <= 12) && (mes / 10) < 10 && (anio >= 1000 && anio <= 9999)) {
-        this.fecVen = FormatoFecha.fecha(dia, mes, anio);
-    } else {
-        throw new IllegalArgumentException("Día y mes deben tener 2 dígitos, y el año debe tener 4 dígitos.");
     }
-}
 
-public void setFecVen(String fecVenStr) {
-    if (fecVenStr.matches("\\d{2}/\\d{2}/\\d{4}")) {
-        this.fecVen = FormatoFecha.fecha(fecVenStr);
-    } else {
-        throw new IllegalArgumentException("La fecha debe estar en formato dd/mm/yyyy.");
-    }
-}
+    //public void setFecVen(String fecVenStr) {
+    //    if (fecVenStr.matches("\\d{2}/\\d{2}/\\d{4}")) {
+    //        this.fecVen = FormatoFecha.fecha(fecVenStr);
+    //    } else {
+    //        throw new IllegalArgumentException("La fecha debe estar en formato dd/mm/yyyy.");
+    //    }
+    //}
 
 
     public Date getFecInicio() {
