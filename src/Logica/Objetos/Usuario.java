@@ -156,9 +156,9 @@ public class Usuario extends Persona {
         return this.idUsuario;
     }
 
-    /*public void setIdUsuario(int id) {
+    public void setIdUsuario(int id) {
         this.idUsuario = id;
-    }*///Lo mismo que en logica
+    }//Lo mismo que en logica
 
     public Rol getRol() {
         return this.rol;
