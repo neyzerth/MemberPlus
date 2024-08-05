@@ -238,7 +238,7 @@ class SubmodTarjeta extends Menu{
         for (Tarjeta tarjeta : tarjetas) {
             tabla.agregarFila(
                 Texto.tarjeta(tarjeta.getNumTarjeta()),
-                tarjeta.getFecVen(),
+                Texto.fecha(tarjeta.getFecVen()),
                 tarjeta.cliente.getNombre(),
                 tarjeta.nivel.getNombre()
             );
@@ -260,7 +260,7 @@ class SubmodTarjeta extends Menu{
             tarjeta.nivel.getNombre(),
             tarjeta.getSaldo(),
             tarjeta.getPuntos(),
-            tarjeta.getFecVen()
+            Texto.fecha(tarjeta.getFecVen())
         );
 
         tabla.imprimirTablaSimple();
@@ -315,7 +315,9 @@ class SubmodNivel extends Menu {
 
     @Override
     public boolean eliminar(int id) {
-        return eliminar(id);
+        return false;
+        //TODO funcion estatica eliminarNivel(int id) 
+        //return Nivel.eliminarNivel(id);
     }
 
     @Override
@@ -328,7 +330,7 @@ class SubmodNivel extends Menu {
             tabla.agregarFila(
                 nivel.getIdNivel(),
                 nivel.getNombre(),
-                nivel.getAnualidad()
+                Texto.moneda(nivel.getAnualidad())
             );
         }
         tabla.imprimirTablaSimple();
@@ -348,8 +350,8 @@ class SubmodNivel extends Menu {
         tabla.agregarFila(
             nivel.getIdNivel(),
             nivel.getNombre(),
-            nivel.getCostoApertura(),
-            nivel.getAnualidad(),
+            Texto.moneda(nivel.getCostoApertura()),
+            Texto.moneda(nivel.getAnualidad()),
             nombresBeneficios(nivel.getBeneficios())
 
         );

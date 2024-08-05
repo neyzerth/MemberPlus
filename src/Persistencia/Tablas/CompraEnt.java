@@ -6,12 +6,15 @@ import java.sql.Date;
 public class CompraEnt extends Query {
     public CompraEnt() {
         super("compra",
-                "idCompra",
-                "fecha",
-                "porcPunto",
-                "descuento",
-                "tarjeta",
-                "total");
+            "idCompra",
+            "fecha",
+            "puntos",
+            "descuento",
+            "cashback",
+            "tarjeta",
+            "subtotal",
+            "total"
+        );
     }
 
     // Obtener una compra específica por su ID
@@ -26,15 +29,15 @@ public class CompraEnt extends Query {
     }
 
     // Actualizar una compra
-    public boolean actualizarCompraDB(int idCompra, Date fecha, int porcPunto, int descuento, int idTarjeta, float total) {
-        Object[] valores = { idCompra, fecha, porcPunto, descuento, idTarjeta, total };
+    public boolean actualizarCompraDB(int idCompra, Date fecha, int puntos, float descuento, float cashback, int idTarjeta, float subtotal, float total) {
+        Object[] valores = { idCompra, fecha, puntos, descuento, cashback,idTarjeta, subtotal, total };
         String query = update(valores, idCompra);
         return ejecutarUpdate(query);
     }
 
     // Insertar una compra
-    public boolean insertarCompraDB( Date fecha, int porcPunto, int descuento, int idTarjeta, float total) {
-        Object[] valores = { fecha, porcPunto, descuento, idTarjeta, total };
+    public boolean insertarCompraDB( Date fecha, int puntos, float descuento, float cashback, int idTarjeta, float subtotal, float total) {
+        Object[] valores = { fecha, puntos, descuento, cashback,idTarjeta, subtotal, total };
         String query = insert(valores);
         return ejecutarInsert(query);
     }

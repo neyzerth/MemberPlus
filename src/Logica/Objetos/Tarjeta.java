@@ -218,14 +218,42 @@ public class Tarjeta {
         }
     }
 
+    public void sumarSaldo(float cashback){
+        this.saldo += cashback;
+    }
+
+    public void usarSaldo(){
+        this.saldo = 0;
+    }
+
     public int getPuntos() {
         return this.puntos;
+    }
+    public int getPuntosConvertidos() {
+        // 200 puntos -> $1
+        int conversion = 200;
+        int i = conversion;
+        int canjesValidos = 0;
+
+        while(i <= puntos){
+            ++canjesValidos;
+            i+=conversion;
+        }
+        return canjesValidos;
     }
 
     public void setPuntos(int puntos) {
         if (puntos <= 0)
             throw new IllegalArgumentException("Los puntos no puede ser negativos o cero");
         this.puntos = puntos;
+    }
+
+    
+    public void sumarPuntos(int puntos){
+        this.puntos += puntos;
+    }
+    public void usarPuntos(){
+        this.puntos -= getPuntosConvertidos() * 200;
     }
 
     public void setPuntos(String puntosString) {

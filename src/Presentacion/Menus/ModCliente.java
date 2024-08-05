@@ -171,7 +171,7 @@ public class ModCliente extends Menu{
         tabla.agregarFila(
             cliente.getIdCliente(),
             cliente.getNombre() + " " + cliente.getApellidoPa() + " " + cliente.getApellidoMa(),
-            cliente.getFecNac(),
+            Texto.fecha(cliente.getFecNac()),
             cliente.getCalle() + " " + cliente.getNumExt() + " " + cliente.getNumInt() + " " + cliente.getColonia() + " " + cliente.getCp(),
             cliente.getTelefono(),
             cliente.getCorreo()
