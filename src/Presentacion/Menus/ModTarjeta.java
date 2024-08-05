@@ -298,7 +298,6 @@ class SubmodNivel extends Menu {
         if(nivel == null)
             return false;
 
-        tabla(nivel.getIdNivel());
         return nivel.insertarNivel();
     }
 
@@ -444,8 +443,8 @@ class SubmodBeneficio extends Menu{
             beneficio = pedirDatos();
 
             if(beneficio != null){
-                tabla(beneficio.getIdBeneficio());
                 beneficio.insetarBeneficio();
+                tabla(beneficio.getIdBeneficio());
                 return true;
             }
             

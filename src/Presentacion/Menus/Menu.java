@@ -185,16 +185,18 @@ public abstract class Menu {
             boolean conf = Texto.leerString (Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
             System.out.println();
 
-            if (conf)
+            if (conf){
                 if(eliminar(id)){
                     tabla();
                     System.out.println();
                     Texto.esperarEnter(Color.verde(" " + modSing + " eliminado con exito"));
                     repetir = false;
                 }
-                else
+                else{
                     System.out.println();
                     Texto.esperarEnter(Color.rojo(" Error al eliminar " + modSing));
+                }
+            }
         } while (repetir);
         
     }
