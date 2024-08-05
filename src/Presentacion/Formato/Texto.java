@@ -61,26 +61,41 @@ public class Texto {
     public static String moneda(double cantidad) {
         return moneda(cantidad, 2);
     }
-    public static String moneda(int cantidad) {
+    public static String moneda(float cantidad) {
         return moneda(cantidad, 2);
+    }
+    public static String moneda(int cantidad) {
+        double nuevaCantidad = cantidad + 0.0;
+        return moneda(nuevaCantidad, 2);
     }
 
     public static String moneda(double cantidad, int decim){
         String moneda = "";
+        //Divido en dos con la funcion split cuando encuentre un "."
         String[] numeros = String.valueOf(cantidad).split("\\.");
 
+        //los enteros se guardan en la primera posicion
+        //para mas facilidad, inverti los enteros para agregarles coma
         String enteros = invertir(numeros[0]);
+        
+        //los decimales se guardan en la segunda posicion
         String decimales = numeros[1];
 
-        int digitos = enteros.length();
+        //si solo tiene un digito, se le agrega un 0 extra
+        if(decimales.length() < 2)
+            decimales += "0";
+
+        int digitos = enteros.length(); //solo guardo los digitos de los enteros
 
         for (int i = 0; i < digitos; i++) {
             moneda += enteros.charAt(i);
+            //Cada que itere en una tercera posicion, agrega ","
+            //menos cuando sea el ultimo digito (digitos-1)
             if ((i+1) % 3 == 0 && i < digitos - 1)
                 moneda += ",";
         }
 
-        return "$" + invertir(moneda) + "." + decimales.substring(0, decim);
+        return "$" + invertir(moneda) + "." + decimales.substring(0, decim); //dependiento cuantos decimales quiere (defecto 2)
     }
 
     public static String tarjeta(String numTarjeta){

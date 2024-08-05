@@ -315,7 +315,9 @@ class SubmodNivel extends Menu {
 
     @Override
     public boolean eliminar(int id) {
-        return eliminar(id);
+        return false;
+        //TODO funcion estatica eliminarNivel(int id) 
+        //return Nivel.eliminarNivel(id);
     }
 
     @Override
@@ -328,7 +330,7 @@ class SubmodNivel extends Menu {
             tabla.agregarFila(
                 nivel.getIdNivel(),
                 nivel.getNombre(),
-                nivel.getAnualidad()
+                Texto.moneda(nivel.getAnualidad())
             );
         }
         tabla.imprimirTablaSimple();
@@ -348,8 +350,8 @@ class SubmodNivel extends Menu {
         tabla.agregarFila(
             nivel.getIdNivel(),
             nivel.getNombre(),
-            nivel.getCostoApertura(),
-            nivel.getAnualidad(),
+            Texto.moneda(nivel.getCostoApertura()),
+            Texto.moneda(nivel.getAnualidad()),
             nombresBeneficios(nivel.getBeneficios())
 
         );
