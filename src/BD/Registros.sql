@@ -1,5 +1,5 @@
 -- SQLBook: Code
--- Active: 1721605316807@@127.0.0.1@3306@prueba
+-- Active: 1719648459430@@localhost@3306@member_plus
 --CREAR REGISTROS EN LA BASE DE DATOS
 INSERT INTO persona (idPersona, nombre, apellidoPa, apellidoMa, fecNac, colonia, calle, numExt, numInt, cp, telefono, correo) VALUES 
 (1, 'Jane', 'Smith', 'Doe', '1999-11-10', 'Centro', 'Calle Primera', 123, NULL, '22100', '6641112223', 'jane.doe@example.com'),
@@ -128,7 +128,7 @@ INSERT INTO nivel_beneficio VALUES
 (5, 2);
 
 INSERT INTO compra_beneficio VALUES
-(11, 2),
-(12, 3),
-(13, 2),
-(14, 1);
+(1, 2),
+(2, 3),
+(3, 2),
+(4, 1);
