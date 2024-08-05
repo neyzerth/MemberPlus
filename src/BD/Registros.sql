@@ -24,16 +24,16 @@ INSERT INTO persona (idPersona, nombre, apellidoPa, apellidoMa, fecNac, colonia,
 (20, 'Mariana', 'Araujo', 'Almeida', '2009-10-25', 'Newmarket', 'Cuba Street', 323, NULL, '30098', '6633054586', 'david.clark@service.net');
 
 INSERT INTO cliente VALUES
-(1, 11),
-(2, 12),
-(3, 13),
-(4, 14),
-(5, 15),
-(6, 16),
-(7, 17),
-(8, 18),
-(9, 19),
-(10, 20);
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 9),
+(10, 10);
 
 INSERT INTO rol VALUES
 (1, 'administrador', 'Control total'),
@@ -73,17 +73,17 @@ INSERT INTO tarjeta VALUES
 (DEFAULT,1238128923812938, '2024-05-14', '2024-05-14', 0, 786.00, 221, 10,2);
 
 
-INSERT INTO compra (fecha, porcPunto, descuento, tarjeta, total) VALUES
-('2024-05-02', 5, 3, 11, 543.4),
-('2024-05-18', 10, 6, 12, 234.0),
-('2024-05-16', 8, 2, 13, 864.0),
-('2024-05-18', 11, 9, 14, 535.5),
-('2024-06-13', 9, 3, 15, 212.8),
-('2024-06-27', 13, 6, 16, 600.2),
-('2024-06-28', 7, 3, 17, 677.9),
-('2024-07-04', 15, 5, 18, 540.7),
-('2024-07-05', 7, 8, 19, 232.0),
-('2024-07-06', 2, 1, 20, 100.7);
+INSERT INTO compra (fecha, puntos, descuento, cashback, tarjeta, subtotal, total) VALUES
+('2024-05-02', 5, 3, 1, 10, 543.4, 500),
+('2024-05-18', 10, 6, 2, 9, 234.0, 200),
+('2024-05-16', 8, 2, 3, 8, 864.0, 850),
+('2024-05-18', 11, 9, 5, 7, 535.5, 522.2),
+('2024-06-13', 9, 3, 4, 6, 212.8, 205.90),
+('2024-06-27', 13, 6, 6, 5, 600.2, 590),
+('2024-06-28', 7, 3, 7, 4, 677.9, 666.999),
+('2024-07-04', 15, 5, 9, 3, 540.7, 536.78),
+('2024-07-05', 7, 8, 10, 2, 232.0, 227.22),
+('2024-07-06', 2, 1, 11, 1, 100.7, 100);
 
 
 INSERT INTO beneficio VALUES
@@ -108,15 +108,15 @@ INSERT INTO tipo_movimiento VALUES
 
 
 INSERT INTO movimiento VALUES
-(1, '2005-01-20', 'Iniciado', 'El pago ha sido procesado y esta en su primera fase de verificacion.', 1, 11, 2),
-(2, '2003-02-15', 'Pausa', 'La transaccion ha sido temporalmente detenida debido a una revision de seguridad.', 4, 20, 3),
-(3, '2007-03-10', 'Finalizado', 'El pago ha sido completado exitosamente y confirmado.', 2, 14, 2),
-(4, '2001-04-05', 'Pausa', 'La operacion esta en espera mientras se revisan los detalles de la cuenta.', 3, 13, 1),
-(5, '2004-05-25', 'Finalizado', 'La transaccion ha sido finalizada y el pago se ha registrado correctamente.', 5, 17, 4),
-(6, '2006-06-18', 'Finalizado', 'El proceso de pago ha concluido y ha sido confirmado.', 7, 19, 2),
-(8, '2008-08-08', 'Iniciado', 'La solicitud de pago esta en curso y se esta procesando.', 8, 18, 1),
-(9, '2009-09-30', 'Pausa', 'La operacion esta suspendida momentaneamente a la espera de autorizacion.', 9, 15, 4),
-(10, '2010-10-22', 'Pausa', 'La transaccion se encuentra en espera hasta que se resuelvan algunos detalles.', 10, 16, 4);
+(1, '2005-01-20', 'Iniciado', 'El pago ha sido procesado y esta en su primera fase de verificacion.', 1, 1, 2),
+(2, '2003-02-15', 'Pausa', 'La transaccion ha sido temporalmente detenida debido a una revision de seguridad.', 4, 2, 3),
+(3, '2007-03-10', 'Finalizado', 'El pago ha sido completado exitosamente y confirmado.', 2, 3, 2),
+(4, '2001-04-05', 'Pausa', 'La operacion esta en espera mientras se revisan los detalles de la cuenta.', 3, 4, 1),
+(5, '2004-05-25', 'Finalizado', 'La transaccion ha sido finalizada y el pago se ha registrado correctamente.', 5, 5, 4),
+(6, '2006-06-18', 'Finalizado', 'El proceso de pago ha concluido y ha sido confirmado.', 7, 6, 2),
+(8, '2008-08-08', 'Iniciado', 'La solicitud de pago esta en curso y se esta procesando.', 8, 7, 1),
+(9, '2009-09-30', 'Pausa', 'La operacion esta suspendida momentaneamente a la espera de autorizacion.', 9, 8, 4),
+(10, '2010-10-22', 'Pausa', 'La transaccion se encuentra en espera hasta que se resuelvan algunos detalles.', 10, 9, 4);
 
 
 
@@ -128,7 +128,7 @@ INSERT INTO nivel_beneficio VALUES
 (5, 2);
 
 INSERT INTO compra_beneficio VALUES
-(21, 10),
-(22, 4),
-(23, 6),
-(24, 8);
+(11, 2),
+(12, 3),
+(13, 2),
+(14, 1);

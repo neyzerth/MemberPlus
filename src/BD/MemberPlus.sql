@@ -72,7 +72,7 @@ Create table compra (
     descuento FLOAT NULL,
     cashback FLOAT NULL,
     tarjeta int not null,
-    subtotal FLOAT NULL,--CHEQUEN
+    subtotal FLOAT NULL,
     total FLOAT NOT NULL,
     FOREIGN KEY (tarjeta) REFERENCES tarjeta(idTarjeta) ON DELETE CASCADE
 );
