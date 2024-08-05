@@ -4,7 +4,10 @@ package Logica.Objetos;
 import java.util.Calendar;
 import Logica.FormatoFecha;
 import java.sql.Date;
+import java.time.LocalDate;
+
 import Persistencia.Tablas.PersonaEnt;
+import Logica.FormatoFecha;
 
 
 public class Persona {
@@ -276,7 +279,7 @@ public class Persona {
         return this.fecNac;
     }
 
-    public void setFecNac(Date fecNac) {
+    /*public void setFecNac(Date fecNac) {
         if (fecNac == null)
             throw new IllegalArgumentException("La fecha de nacimiento no puede estar vacía");
         this.fecNac = fecNac;
@@ -285,6 +288,11 @@ public class Persona {
     public void setFecNac(String fecNacStr) {
         this.fecNac = FormatoFecha.fecha(fecNacStr);
     }
+
+    public void setFecNac(int dia, int mes, int anio) {
+        this.fecNac = FormatoFecha.fecha(dia, mes, anio);
+    }*/
+
     public void setFecNac(int dia, int mes, int anio) {
         this.fecNac = FormatoFecha.fecha(dia, mes, anio);
     }
