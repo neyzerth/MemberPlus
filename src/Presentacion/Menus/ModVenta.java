@@ -1,5 +1,6 @@
 package Presentacion.Menus;
 
+import Logica.Objetos.Tarjeta;
 import Presentacion.Despliegue.Cuadro;
 import Presentacion.Formato.*;
 
@@ -11,44 +12,60 @@ public class ModVenta {
             Texto.limpiarPantalla();
             System.out.println(Color.morado(Color.negrita(Texto.espacio(8) + "> Módulo de Venta <")));
 
-            Cuadro venta = new Cuadro(
-                    Color.morado("Numero de tarjeta"),
-                    Color.morado("Recoger el total"),
-                    Color.rojo("Volver"));
-            venta.imprimirCuadroNum();
-
             System.out.println();
 
-            int opcion = Texto.leerInt(Color.cian(" > Seleccione una opción: "));
+            Cuadro cuadroTarjeta = new Cuadro(
+                Color.morado("> Numero de tarjeta")
+            );
 
-            switch (opcion) {
-                case 1:
-                    Texto.limpiarPantalla();
+            Cuadro recogerTotal = new Cuadro(
+                Color.morado("> Recoger el total")
+            );
 
-                    Cuadro numTarjeta = new Cuadro(
-                            Color.morado("> Numero de tarjeta"));
 
-                    numTarjeta.imprimirCuadro();
+            cuadroTarjeta.imprimirCuadro();
 
-                    Texto.leerString("> ");
-                    break;
-                case 2:
-                    Texto.limpiarPantalla();
+            String numTarjeta = Texto.leerString("> ");
 
-                    Cuadro recogerTotal = new Cuadro(
-                            Color.morado("> Recoger el total"));
-                    recogerTotal.imprimirCuadro();
-
-                    Texto.leerInt("> $");
-                    break;
-                case 3:
-                    Texto.limpiarPantalla();
-                    salir = true;
-                    break;
-                default:
-                    System.out.println(Color.rojo("Opción inválida, por favor intente de nuevo."));
-                    Texto.esperar(1);
+            if(!Tarjeta.validarNumTarjeta(numTarjeta)){
+                Texto.esperarEnter(Color.rojo("No se encontro la tarjeta " + Texto.tarjeta(numTarjeta)));
+                return;
             }
+
+            Tarjeta tarjetaCompra = Tarjeta.importarTarjeta(numTarjeta);
+
+            recogerTotal.imprimirCuadro();
+
+            float total = Texto.leerFloat("> $");
+            System.out.println(Texto.moneda(total));
+            
+            //Compra compra = Compra.realizarVenta(tarjetaCompra, total);
+
+            //if(compra.tuvoBeneficios)){
+            System.out.println("Con esta compra, usted... ");
+                //if(compra.getPuntos() > 0)
+                    System.out.println("ganó " + /*compra.getPuntos()+*/ "puntos!");
+                //if(compra.getCashback() > 0)
+                    System.out.println("ganó " + /*Texto.moneda(compra.getCashback())+*/ "!");
+                //if(compra.getDescuento() > 0)
+                    System.out.println("ahorró $" + /*compra.getDescuento()+*/ "!");
+            //}
+
+
+            //if(tarjetaCompra.getPuntos() > 0){
+                System.out.println(Color.verde(Color.negrita(" Desea usar sus puntos acumulados? ("+/*tajeta.getPuntos+*/")?")));
+                boolean usarPuntos = Texto.leerString(Color.verde(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
+            //}
+            //if(tarjeta.getSaldo() > 0){
+                System.out.println(Color.verde(Color.negrita(" Desea usar su saldo ("+/*Texto.moneda(tajeta.getSaldo)+*/")?")));
+                boolean usarSaldo = Texto.leerString(Color.verde(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
+            //}
+            //compra.usarBeneficios(tarjetaCompra, usarPuntos, usarSaldo)
+
+
+            System.out.println("Su nuevo total es de " /* + Texto.moneda(compra.getSubtotal())*/);
+            Texto.esperarEnter();
+            salir = true;
         }
     }
     
