@@ -3,7 +3,6 @@ package Logica.Objetos;
 
 import Logica.FormatoFecha;
 import Persistencia.Tablas.CompraEnt;
-import Persistencia.Tablas.Compra_BeneficioEnt;
 
 import java.sql.Date;
 
