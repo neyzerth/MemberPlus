@@ -68,7 +68,7 @@ CREATE TABLE tarjeta (
 Create table compra (
     idCompra INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     fecha DATE NOT NULL,
-    Puntos int NULL,
+    puntos int NULL,
     descuento int NULL,
     cashback FLOAT NULL,
     tarjeta int not null,
