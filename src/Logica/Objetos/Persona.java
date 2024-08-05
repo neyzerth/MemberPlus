@@ -4,10 +4,8 @@ package Logica.Objetos;
 import java.util.Calendar;
 import Logica.FormatoFecha;
 import java.sql.Date;
-import java.time.LocalDate;
 
 import Persistencia.Tablas.PersonaEnt;
-import Logica.FormatoFecha;
 
 
 public class Persona {

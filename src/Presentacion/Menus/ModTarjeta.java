@@ -1,6 +1,5 @@
 package Presentacion.Menus;
 
-import Logica.FormatoFecha;
 import Logica.Objetos.Beneficio;
 import Logica.Objetos.Nivel;
 import Logica.Objetos.Tarjeta;
