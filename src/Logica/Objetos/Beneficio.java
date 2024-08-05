@@ -86,7 +86,7 @@ public class Beneficio {
     //CRUD BENEFICIO
     public boolean insetarBeneficio(){
         BeneficioEnt beneficio = new BeneficioEnt();
-        return beneficio.insertarBeneficioDB( nombre, (java.sql.Date) fecInicio, (java.sql.Date) fecVen, 
+        return beneficio.insertarBeneficioDB( nombre, fecInicio, fecVen, 
             porcPuntos, porcCashBack, porcDescuento);
     }
 

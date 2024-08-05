@@ -158,9 +158,9 @@ public class Usuario extends Persona {
         return this.idUsuario;
     }
 
-    public void setIdUsuario(int id) {
+    /*public void setIdUsuario(int id) {
         this.idUsuario = id;
-    }
+    }*///Segun yo esto no lo debe de tener
 
     public int getIdRol() {
         return this.idRol;
