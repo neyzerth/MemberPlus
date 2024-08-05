@@ -68,9 +68,11 @@ CREATE TABLE tarjeta (
 Create table compra (
     idCompra INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     fecha DATE NOT NULL,
-    porcPunto int,
-    descuento int,
+    Puntos int NULL,
+    descuento int NULL,
+    cashback FLOAT NULL,
     tarjeta int not null,
+    subtotal FLOAT NULL,--CHEQUEN
     total FLOAT NOT NULL,
     FOREIGN KEY (tarjeta) REFERENCES tarjeta(idTarjeta) ON DELETE CASCADE
 );
