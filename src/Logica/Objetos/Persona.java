@@ -171,7 +171,7 @@ public class Persona {
         PersonaEnt personaBd = new PersonaEnt();
 
         Object [] datos = personaBd.ejecutarSelectPorAtributos(
-            nombre, apellidoPa, apellidoMa, (java.sql.Date) fecNac, colonia, calle, numExt, numInt,
+            nombre, apellidoPa, apellidoMa, fecNac, colonia, calle, numExt, numInt,
             cp, telefono, correo
         );
         Persona persona = Persona.importarPersonas(datos);
