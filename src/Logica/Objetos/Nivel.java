@@ -96,6 +96,11 @@ public class Nivel {
         return nivel.existeNivel(nombre);
     }
     
+    public static boolean eliminarNivel(int id){
+        NivelEnt nivel = new NivelEnt();
+        return nivel.eliminarNivelDB(id);
+    }
+    
     // GETTERS AND SETTERS
 
     public int getIdNivel() {

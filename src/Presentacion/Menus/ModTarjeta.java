@@ -313,9 +313,7 @@ class SubmodNivel extends Menu {
 
     @Override
     public boolean eliminar(int id) {
-        return false;
-        //TODO funcion estatica eliminarNivel(int id) 
-        //return Nivel.eliminarNivel(id);
+        return Nivel.eliminarNivel(id);
     }
 
     @Override
