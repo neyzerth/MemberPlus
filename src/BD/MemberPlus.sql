@@ -69,7 +69,7 @@ Create table compra (
     idCompra INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     fecha DATE NOT NULL,
     puntos int NULL,
-    descuento int NULL,
+    descuento FLOAT NULL,
     cashback FLOAT NULL,
     tarjeta int not null,
     subtotal FLOAT NULL,--CHEQUEN
