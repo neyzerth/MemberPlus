@@ -7,7 +7,7 @@ public class Nivel {
     // ATRIBUTOS
     private int idNivel, anualidad, costoApertura;
     private String nombre;
-    private Beneficio [] beneficios;
+    public Beneficio [] beneficios;
 
     // CONSTRUCTORES
     public Nivel(){}

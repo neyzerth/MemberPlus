@@ -1,5 +1,6 @@
 package Presentacion.Menus;
 
+import Logica.Objetos.Compra;
 import Logica.Objetos.Tarjeta;
 import Presentacion.Despliegue.Cuadro;
 import Presentacion.Formato.*;
@@ -32,38 +33,44 @@ public class ModVenta {
                 return;
             }
 
-            Tarjeta tarjetaCompra = Tarjeta.importarTarjeta(numTarjeta);
+            Compra compra = new Compra(numTarjeta);
 
             recogerTotal.imprimirCuadro();
 
             float total = Texto.leerFloat("> $");
             System.out.println(Texto.moneda(total));
             
-            //Compra compra = Compra.realizarVenta(tarjetaCompra, total);
+            compra.empezarVenta(total);
 
-            //if(compra.tuvoBeneficios)){
+            if(compra.tuvoBeneficios()){
             System.out.println("Con esta compra, usted... ");
-                //if(compra.getPuntos() > 0)
-                    System.out.println("ganó " + /*compra.getPuntos()+*/ "puntos!");
-                //if(compra.getCashback() > 0)
-                    System.out.println("ganó " + /*Texto.moneda(compra.getCashback())+*/ "!");
-                //if(compra.getDescuento() > 0)
-                    System.out.println("ahorró $" + /*compra.getDescuento()+*/ "!");
-            //}
+                if(compra.getPuntos() > 0)
+                    System.out.println("obtuvo " + compra.getPuntos()+ " puntos!");
+                if(compra.getCashback() > 0)
+                    System.out.println("obtuvo " + Texto.moneda(compra.getCashback())+ " de cashback!");
+                if(compra.getDescuento() > 0)
+                    System.out.println("ahorró $" + compra.getDescuento()+ "!");
+            }
 
 
-            //if(tarjetaCompra.getPuntos() > 0){
-                System.out.println(Color.verde(Color.negrita(" Desea usar sus puntos acumulados? ("+/*tajeta.getPuntos+*/")?")));
-                boolean usarPuntos = Texto.leerString(Color.verde(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
-            //}
-            //if(tarjeta.getSaldo() > 0){
-                System.out.println(Color.verde(Color.negrita(" Desea usar su saldo ("+/*Texto.moneda(tajeta.getSaldo)+*/")?")));
-                boolean usarSaldo = Texto.leerString(Color.verde(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
-            //}
-            //compra.usarBeneficios(tarjetaCompra, usarPuntos, usarSaldo)
+            boolean usarPuntos = false;
+            boolean usarSaldo = false;
+            if(compra.tarjeta.getPuntos() > 0){
+                System.out.println(Color.verde(Color.negrita(" Desea usar sus puntos acumulados? ("+compra.tarjeta.getPuntos()+" -> $"+ compra.tarjeta.getPuntosConvertidos()+")?")));
+                usarPuntos = Texto.leerString(Color.verde(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
+            }
+            if(compra.tarjeta.getSaldo() > 0){
+                System.out.println(Color.verde(Color.negrita(" Desea usar su saldo ("+Texto.moneda(compra.tarjeta.getSaldo())+")?")));
+                usarSaldo = Texto.leerString(Color.verde(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
+            }
+            compra.usarBeneficios(usarPuntos, usarSaldo);
 
 
-            System.out.println("Su nuevo total es de " /* + Texto.moneda(compra.getSubtotal())*/);
+            System.out.println("Su nuevo total es de "  + Texto.moneda(compra.getSubtotal()));
+            if(compra.insertarCompras())
+                System.out.println("La compra fue exitosa");
+            else
+                System.out.println("Error en la compra");
             Texto.esperarEnter();
             salir = true;
         }

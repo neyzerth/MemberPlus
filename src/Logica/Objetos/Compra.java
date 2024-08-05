@@ -9,32 +9,49 @@ import java.sql.Date;
 
 public class Compra {
     // ATRIBUTOS
-    private int idCompra, porcentajePunto, descuento;
+    private int idCompra, puntos;
     private Date fechaCompra;
-    private float total;
-    private Tarjeta tarjeta;
-    private Beneficio []beneficios;
+    private float total, subtotal, cashback, descuento;
+    public Tarjeta tarjeta;
+    public Beneficio [] beneficios;
 
     // CONSTRUCTORES
-
-    public Compra(int idCompra, int porcentajePunto, int descuento, Date fechaCompra, float total, Tarjeta tarjeta) {
-        this.idCompra = idCompra;
-        this.porcentajePunto = porcentajePunto;
-        this.descuento = descuento;
-        this.fechaCompra = fechaCompra;
-        this.total = total;
+    public Compra(Tarjeta tarjeta){
         this.tarjeta = tarjeta;
     }
+
+    public Compra(String numTarjeta){
+        this.tarjeta = Tarjeta.importarTarjeta(numTarjeta);
+    }
+
+    public Compra(int idCompra, Date fechaCompra, int puntos,
+     float descuento, float cashback,Tarjeta tarjeta, 
+     float subtotal, float total,Beneficio[] beneficios) {
+        this.idCompra = idCompra;
+        this.fechaCompra = fechaCompra;
+        this.puntos = puntos;
+        this.descuento = descuento;
+        this.cashback = cashback;
+        this.tarjeta = tarjeta;
+        this.subtotal = subtotal;
+        this.total = total;
+        this.beneficios = beneficios;
+    }
+
+    
     //COMUNICACION CON PERSISTENCIA
     public static Compra importarCompras(Object [] datos){
 
         Compra compra = new Compra(
             (int) datos[0],
-            (int) datos[1],
+            (Date) datos[1],
             (int) datos[2],
-            (Date) datos[3],
+            (float) datos[3],
             (float) datos[4],
-            (Tarjeta) datos[5]
+            (Tarjeta) datos[5],
+            (float) datos[6],
+            (float) datos[7],
+            (Beneficio[]) datos[8]
             );
         return compra;
     }
@@ -64,12 +81,13 @@ public class Compra {
     //CRUD COMPRA
     public boolean insertarCompras(){
         CompraEnt compra = new CompraEnt();
-        return compra.insertarCompraDB(fechaCompra,porcentajePunto,descuento,tarjeta.getIdTarjeta(),total);
+        this.tarjeta.actualizarTarjeta();
+        return compra.insertarCompraDB(fechaCompra,puntos,descuento,cashback,tarjeta.getIdTarjeta(),subtotal,total);
     }
 
     public boolean actualizarCompra(){
         CompraEnt compra = new CompraEnt();
-        return compra.actualizarCompraDB(idCompra,fechaCompra,porcentajePunto,descuento,tarjeta.getIdTarjeta(),total);
+        return compra.actualizarCompraDB(idCompra,fechaCompra,puntos,descuento,cashback,tarjeta.getIdTarjeta(),subtotal,total);
     }
 
     public boolean validarCompra(){
@@ -83,12 +101,47 @@ public class Compra {
     }
 
     // METODOS
-    public void modificarCompra(String porcentajePuntoStr, String descuentoStr, String fechaCompraStr,
-            String totalStr) {
-        this.setPorcentajePunto(porcentajePuntoStr);
-        this.setDescuento(descuentoStr);
-        this.setFechaCompra(fechaCompraStr);
-        this.setTotal(totalStr);
+    public void empezarVenta(float total){
+        setFechaCompra(FormatoFecha.fechaActual());
+        setTotal(total);
+        setSubtotal(total);
+        setBeneficios(tarjeta.nivel.beneficios);
+        calcularBeneficios();
+    }
+
+    private void calcularBeneficios(){
+        float porcPuntos = 0;
+        float porcCashback = 0;
+        float porcDescuento = 0;
+
+        for (Beneficio beneficio : this.beneficios) {
+            porcPuntos = Math.max(beneficio.getPorcPuntos(), porcPuntos);
+            porcCashback = Math.max(beneficio.getPorcCashBack(), porcCashback);
+            porcDescuento = Math.max(beneficio.getPorcDescuento(), porcDescuento);
+        }
+        setPuntos((int)(porcPuntos/100 * total));
+        tarjeta.sumarPuntos(this.puntos);
+
+        setCashback(porcCashback/100 * total);
+        tarjeta.sumarSaldo(this.cashback);
+
+        setDescuento(porcDescuento/100 * total);
+        setSubtotal(this.total - this.descuento);
+    }
+
+    public boolean tuvoBeneficios(){
+        return puntos > 0 || cashback > 0 || descuento > 0;
+    }
+
+    public void usarBeneficios(boolean puntos, boolean saldo){
+        if(puntos){
+            subtotal -= (int) (tarjeta.getPuntosConvertidos());
+            tarjeta.usarPuntos();
+        }
+        if(saldo){
+            subtotal -= (int) (tarjeta.getSaldo());
+            tarjeta.usarSaldo();
+        }
     }
 
     // GETTERS AND SETTERS
@@ -101,42 +154,33 @@ public class Compra {
         this.idCompra = idCompra;
     }
 
-    public int getPorcentajePunto() {
-        return this.porcentajePunto;
+    public int getPuntos() {
+        return this.puntos;
     }
 
-    public void setPorcentajePunto(int porcentajePunto) {
-        if (porcentajePunto <= 0)
+    public void setPuntos(int porcentajePunto) {
+        if (porcentajePunto < 0)
             throw new IllegalArgumentException("El porcentaje no puede ser inferioir a 0");
-        this.porcentajePunto = porcentajePunto;
+        this.puntos = porcentajePunto;
     }
 
     public void setPorcentajePunto(String porcentajePuntoStr) {
         try {
             int porcentajePunto = Integer.parseInt(porcentajePuntoStr);
-            this.setPorcentajePunto(porcentajePunto);
+            this.setPuntos(porcentajePunto);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("El porcentaje no es válido");
         }
     }
 
-    public int getDescuento() {
+    public float getDescuento() {
         return this.descuento;
     }
 
-    public void setDescuento(int descuento) {
-        if (descuento <= 0)
+    public void setDescuento(float descuento) {
+        if (descuento < 0)
             throw new IllegalArgumentException("El descuento no puede ser inferioir a 0");
         this.descuento = descuento;
-    }
-
-    public void setDescuento(String descuentoStr) {
-        try {
-            int descuento = Integer.parseInt(descuentoStr);
-            this.setDescuento(descuento);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("El descuento no es válido");
-        }
     }
 
     public Date getFechaCompra() {
@@ -171,5 +215,39 @@ public class Compra {
             throw new IllegalArgumentException("El total no es válido");
         }
     }
+
+
+    public float getSubtotal() {
+        return this.subtotal;
+    }
+
+    public void setSubtotal(float subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public float getCashback() {
+        return this.cashback;
+    }
+
+    public void setCashback(float cashback) {
+        this.cashback = cashback;
+    }
+
+    public Tarjeta getTarjeta() {
+        return this.tarjeta;
+    }
+
+    public void setTarjeta(Tarjeta tarjeta) {
+        this.tarjeta = tarjeta;
+    }
+
+    public Beneficio[] getBeneficios() {
+        return this.beneficios;
+    }
+
+    public void setBeneficios(Beneficio[] beneficios) {
+        this.beneficios = beneficios;
+    }
+
 
 }
