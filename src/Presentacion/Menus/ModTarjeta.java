@@ -238,7 +238,7 @@ class SubmodTarjeta extends Menu{
         for (Tarjeta tarjeta : tarjetas) {
             tabla.agregarFila(
                 Texto.tarjeta(tarjeta.getNumTarjeta()),
-                tarjeta.getFecVen(),
+                Texto.fecha(tarjeta.getFecVen()),
                 tarjeta.cliente.getNombre(),
                 tarjeta.nivel.getNombre()
             );
@@ -260,7 +260,7 @@ class SubmodTarjeta extends Menu{
             tarjeta.nivel.getNombre(),
             tarjeta.getSaldo(),
             tarjeta.getPuntos(),
-            tarjeta.getFecVen()
+            Texto.fecha(tarjeta.getFecVen())
         );
 
         tabla.imprimirTablaSimple();

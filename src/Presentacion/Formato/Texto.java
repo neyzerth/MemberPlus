@@ -1,6 +1,8 @@
 package Presentacion.Formato;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -110,6 +112,11 @@ public class Texto {
                 formatoTarjeta += " ";
         }
         return formatoTarjeta;
+    }
+
+    public static String fecha(Date fecha){
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        return formato.format(fecha);
     }
 
     private static String invertir(String s) {
