@@ -19,7 +19,7 @@ public class ModMembresia {
                 Color.morado("Administrar tarjetas"),
                 Color.morado("Administrar Niveles de membresias"),
                 Color.morado("Administrar beneficios"),
-                Color.morado("Administrar Movimientos")
+                Color.morado("Administrar Movimientos"),
                 Color.rojo("Volver al menú principal")
             );
             
@@ -546,6 +546,7 @@ class SubmodBeneficio extends Menu{
     }
 
     //Submodulo de movimientos
+    
 
 }
 
