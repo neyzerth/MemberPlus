@@ -109,7 +109,6 @@ public class ModCliente extends Menu{
             return;
         }
 
-        tabla(id);
         System.out.println();
         Texto.esperarEnter(Color.verde(" Cliente actualizado con exito"));
         
