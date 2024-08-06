@@ -10,7 +10,9 @@ public class Nivel {
     public Beneficio [] beneficios;
 
     // CONSTRUCTORES
-    public Nivel(){}
+    public Nivel(){
+        this.beneficios = new Beneficio[1];
+    }
 
 
     public Nivel(int idNivel, String nombre,int anualidad, int costoApertura) {
@@ -83,7 +85,13 @@ public class Nivel {
 
     public boolean insertarNivel(){
         NivelEnt nivel = new NivelEnt();
-        return nivel.insertarNivelDB(nombre, anualidad, costoApertura);
+        boolean insertado = nivel.insertarNivelDB(nombre, anualidad, costoApertura);
+        if(insertado)
+            for (Beneficio beneficio : beneficios) {
+                Nivel_BeneficioEnt nivBen = new Nivel_BeneficioEnt();
+                nivBen.insertarNivel_BeneficioDB(getIdNivel(), beneficio.getIdBeneficio());
+            }
+        return insertado;
     }
 
     public boolean actualizarNivel(){
@@ -174,6 +182,36 @@ public class Nivel {
     }
     public Beneficio getBeneficio(int i) {
         return this.beneficios[i];
+    }
+
+    public void agregarBeneficio(Beneficio beneficio){
+        if(this.beneficios[0] ==  null){
+            this.beneficios[0] = beneficio;
+            return;
+        }
+        if(!noRepetido(beneficio))
+            throw new IllegalArgumentException("Beneficio con ");
+
+        Beneficio[] beneficiosAux = new Beneficio[this.beneficios.length + 1];
+
+        System.arraycopy(this.beneficios, 0, beneficiosAux, 0, this.beneficios.length);
+        
+        beneficiosAux[this.beneficios.length] = beneficio;
+        this.beneficios = beneficiosAux;
+    }
+
+    //Comprobar que no ponga dos veces el mismo beneficio
+    public boolean noRepetido(Beneficio beneficio){
+        for (Beneficio b : this.beneficios) {
+            if (b.getIdBeneficio() == beneficio.getIdBeneficio())
+                return false;
+        }
+        return true;
+    }
+
+    public void agregarBeneficio(int idBeneficio){
+        Beneficio beneficio = Beneficio.importarBeneficios(idBeneficio);
+        agregarBeneficio(beneficio);
     }
 
     public void setBeneficios(Beneficio[] beneficios) {

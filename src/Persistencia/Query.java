@@ -73,6 +73,7 @@ public class Query {
         }
         return registros;
     }
+    
     public Object[][] ejecutarSelect() {
         String [] columnasNull = null;
         return ejecutarSelect(columnasNull);
@@ -244,7 +245,7 @@ public class Query {
     }
 
 
-    public String insert(Object... valores) {
+    private String insertBase(int inicio,Object... valores) {
         String query = "INSERT INTO " + tabla + " (";
         
         // Construir la lista de columnas
@@ -273,6 +274,12 @@ public class Query {
         query += ")";
         
         return query;
+    }
+    public String insert(Object... valores) {
+        return insertBase(1, valores);
+    }
+    public String insertConId(Object... valores) {
+        return insertBase(0, valores);
     }
 
     public boolean ejecutarInsert(String query) {

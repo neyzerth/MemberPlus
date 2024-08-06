@@ -3,10 +3,10 @@ package Presentacion.Menus;
 import Logica.Objetos.Beneficio;
 import Logica.Objetos.Nivel;
 import Logica.Objetos.Tarjeta;
-import Presentacion.Despliegue.Cuadro;
-import Presentacion.Despliegue.Tabla;
+import Presentacion.Despliegue.*;
 import Presentacion.Formato.*;
 
+//------------ MODULO PRINCIPAL ---------
 public class ModTarjeta {
     public static void menu() {
         boolean salir = false;
@@ -46,8 +46,8 @@ public class ModTarjeta {
     }
 }
 
+//------------ MODULO DE TARJETA ---------
 class SubmodTarjeta extends Menu{
-    
 
     public SubmodTarjeta(){
         super("Membresia", "Membresias");
@@ -248,9 +248,9 @@ class SubmodTarjeta extends Menu{
 
 	@Override
 	public boolean tabla(int id) {
-        Tarjeta tarjeta = Tarjeta.importarTarjeta(id);
-        if(!tarjeta.validarIdTarjeta())
+        if(!Tarjeta.validarIdTarjeta(id))
             return false;
+        Tarjeta tarjeta = Tarjeta.importarTarjeta(id);
 		tabla = new Tabla("Numero de tarjeta", "Cliente", "Nivel", "Saldo", "Puntos", "Fecha vencimiento" );
 
         tabla.agregarFila(
@@ -267,15 +267,16 @@ class SubmodTarjeta extends Menu{
 	}
 
 	public boolean tabla(String numTarjeta) {
-        Tarjeta tarjeta = Tarjeta.importarTarjeta(numTarjeta);
-        if(!tarjeta.validarIdTarjeta())
+        if(!Tarjeta.validarNumTarjeta(numTarjeta))
             return false;
+        Tarjeta tarjeta = Tarjeta.importarTarjeta(numTarjeta);
 		return tabla(tarjeta.getIdTarjeta());
 	}
 
     
 }
 
+//------------ MODULO DE NIVEL ---------
 class SubmodNivel extends Menu {
 
     public SubmodNivel(){
@@ -362,6 +363,23 @@ class SubmodNivel extends Menu {
             nivel.setNombre(Texto.leerString("> *Nombre del nivel: "));
             nivel.setCostoApertura(Texto.leerInt("> *Costo de apertura: $"));
             nivel.setAnualidad(Texto.leerString("> *Costo de la anualidad: $"));
+            SubmodBeneficio verBeneficios = new SubmodBeneficio();
+            
+            boolean agregarNivel = false;
+            verBeneficios.tabla();
+            do{
+                int idBeneficio = Texto.leerInt("> Selecciona ID del beneficio: ");
+                if(Beneficio.validarBeneficio(idBeneficio)){
+                    try{
+                        nivel.agregarBeneficio(idBeneficio);
+                        System.out.println("Desea agregar otro beneficio?");
+                        agregarNivel = 1 == Texto.leerInt("> SI[1] NO[2]: ");
+                        
+                    }catch(Exception e){
+                        System.out.println(e);
+                    }
+                }
+            } while (agregarNivel);
             return nivel;
         } catch (Exception e){
             Texto.esperarEnter("Dato no valido");
@@ -381,6 +399,7 @@ class SubmodNivel extends Menu {
 
 }
 
+//------------ MODULO DE BENEFICIO ---------
 class SubmodBeneficio extends Menu{
 
     public SubmodBeneficio(){
