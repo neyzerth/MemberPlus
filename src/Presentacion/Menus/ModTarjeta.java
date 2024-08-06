@@ -231,7 +231,7 @@ class SubmodTarjeta extends Menu{
 	public void tabla() {
         Tarjeta[] tarjetas = Tarjeta.importarTarjeta();
         
-		tabla = new Tabla("Numero de tarjeta", "Fecha vencimiento", "Cliente", "Nivel");
+		tabla = new Tabla(Color.amarillo("Numero de tarjeta"), Color.amarillo("Fecha vencimiento"), Color.amarillo("Cliente"), Color.amarillo("Nivel"));
 
 
         for (Tarjeta tarjeta : tarjetas) {
@@ -251,7 +251,7 @@ class SubmodTarjeta extends Menu{
         if(!Tarjeta.validarIdTarjeta(id))
             return false;
         Tarjeta tarjeta = Tarjeta.importarTarjeta(id);
-		tabla = new Tabla("Numero de tarjeta", "Cliente", "Nivel", "Saldo", "Puntos", "Fecha vencimiento" );
+		tabla = new Tabla(Color.amarillo("Numero de tarjeta"), Color.amarillo("Cliente"), Color.amarillo("Nivel"), Color.amarillo("Saldo"), Color.amarillo("Puntos"), Color.amarillo("Fecha de vencimiento" ));
 
         tabla.agregarFila(
             Texto.tarjeta(tarjeta.getNumTarjeta()),

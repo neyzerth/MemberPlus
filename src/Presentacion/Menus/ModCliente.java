@@ -147,7 +147,7 @@ public class ModCliente extends Menu{
 
     @Override
     public void tabla(){
-        tabla = new Tabla("ID", "Nombre Completo", "Correo", "Telefono");
+        tabla = new Tabla(Color. amarillo("ID"),Color.amarillo("Nombre Completo"),Color.amarillo("Correo"),Color.amarillo("Telefono"));
         Cliente[] clientes = Cliente.importarClientes();
 
         for (Cliente cliente : clientes) {
@@ -165,7 +165,7 @@ public class ModCliente extends Menu{
         if (!Cliente.validarCliente(id))
             return false;
             
-        tabla = new Tabla("ID", "Nombre Completo","Fecha de nacimiento", "Direccion", "Telefono", "Correo");
+        tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Nombre Completo"),Color.amarillo("Fecha de nacimiento"), Color.amarillo("Direccion"), Color.amarillo("Telefono"), Color.amarillo("Correo"));
         Cliente cliente = Cliente.importarClientes(id);
 
         tabla.agregarFila(
@@ -182,7 +182,8 @@ public class ModCliente extends Menu{
         
         tabla.imprimirTablaSimple();
 
-        System.out.println("\nDatos de membresia");
+        System.out.println();
+        System.out.println(Color.amarillo(Color.negrita(" Datos de membresia")));
         modTarjeta.tabla(tarjeta.getIdTarjeta());
         return true;
 
