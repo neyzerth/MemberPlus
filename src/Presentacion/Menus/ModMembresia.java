@@ -137,6 +137,7 @@ class SubmodTarjeta extends Menu{
         boolean salir= false;
 
         do{
+            System.out.println();
             System.out.println(" ¿Que desea realizar?");
             System.out.println("Renovar $"+ tarjeta.nivel.getAnualidad() +"[1] - Cambiar nivel [2] - Salir [3]");
             int opc = Leer.entero("> ");
@@ -153,11 +154,16 @@ class SubmodTarjeta extends Menu{
                     break;
                 case 2:
                     System.out.println("Nivel actual: " + tarjeta.nivel.getNombre());
+                    SubmodNivel modNivel = new SubmodNivel();
+                    modNivel.tabla();
                     int idNivel = Leer.entero("> ID del nuevo nivel: ");
                     Nivel nivel = Nivel.importarNiveles(idNivel);
                     tarjeta.nivel = nivel;
-                    tarjeta.actualizarTarjeta();
-                    
+                    if(tarjeta.actualizarTarjeta())
+                        System.out.println(Color.verde("Nuevo nivel: " + tarjeta.nivel.getNombre()));
+                    else
+                        System.out.println(Color.rojo("Error al cambiar nivel "));
+
                     break;
                 case 3:
                     salir = true;
