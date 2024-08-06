@@ -14,10 +14,12 @@ public class ModVenta {
             Cuadro cuadroTarjeta = new Cuadro(
                 Color.morado("Numero de tarjeta")
             );
-
+            cuadroTarjeta.setMaxLinea(30);
+            
             Cuadro recogerTotal = new Cuadro(
                 Color.cian(" > Recoger el total")
             );
+            recogerTotal.setMaxLinea(30);
 
 
             cuadroTarjeta.imprimirCuadro();
@@ -41,12 +43,12 @@ public class ModVenta {
 
             if(compra.tuvoBeneficios()){
             System.out.println(" Con esta compra, usted... ");
-                if(compra.getPuntos() > 0)
-                    System.out.println("obtuvo " + compra.getPuntos()+ " puntos!");
+                if(compra.tarjeta.getPuntosConvertidos() > 0)
+                    System.out.println("  obtuvo " + compra.getPuntos()+ " puntos!");
                 if(compra.getCashback() > 0)
-                    System.out.println("obtuvo " + Texto.moneda(compra.getCashback())+ " de cashback!");
+                    System.out.println("  obtuvo " + Texto.moneda(compra.getCashback())+ " de cashback!");
                 if(compra.getDescuento() > 0)
-                    System.out.println("ahorró $" + compra.getDescuento()+ "!");
+                    System.out.println("  tuvo un descuento de $" + compra.getDescuento()+ "!");
             }
 
 

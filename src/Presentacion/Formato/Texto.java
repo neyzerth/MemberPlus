@@ -53,11 +53,17 @@ public class Texto {
         }
     }
 
-    public static void suspensivos(){
-        for (int i = 0; i < 5; i++) {
+    public static void suspensivos(int puntos, double seg){
+        for (int i = 0; i < puntos; i++) {
             System.out.print(".");
-            esperar(0.1);
+            esperar(seg);
         }
+    }
+    public static void suspensivos(int puntos){
+        suspensivos(puntos, 0.1);
+    }
+    public static void suspensivos(){
+        suspensivos(5);
     }
 
     public static String moneda(double cantidad) {
@@ -163,7 +169,7 @@ public class Texto {
         } catch (NumberFormatException e) {
             System.out.println();
             System.out.println(Color.rojo(Color.negrita(" Error: ") + (Color.rojo("no se ingresó un valor entero."))));
-            return 0;
+            return -1;
         }
     }
 
