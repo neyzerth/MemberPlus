@@ -147,11 +147,12 @@ public class Tarjeta {
 
     //Problema con el id
     public static boolean eliminarTarjeta(String numTarjeta){
-        TarjetaEnt tarjeta = new TarjetaEnt();
-        boolean insertado = tarjeta.eliminarTarjetaDB(importarTarjeta(numTarjeta).getIdTarjeta());
+        TarjetaEnt tarjetaBD = new TarjetaEnt();
+        Tarjeta tarjeta = Tarjeta.importarTarjeta(numTarjeta);
+        boolean insertado = tarjetaBD.eliminarTarjetaDB(tarjeta.getIdTarjeta());
         if (insertado) {
             MovimientoEnt movimientoBd = new MovimientoEnt();
-            boolean movimientoInsertado = movimientoBd.insertarMovimientoDB(movimiento.getFechaMov(), movimiento.getEstado(), movimiento.getComentario(),usuario.getIdUsuario(),2,movimiento.getId_movimiento());//El 2 deberia suplatarse por el id
+            boolean movimientoInsertado = movimientoBd.insertarMovimientoDB(movimiento.getFechaMov(), movimiento.getEstado(), movimiento.getComentario(),usuario.getIdUsuario(),tarjeta.getIdTarjeta(),movimiento.getId_movimiento());//El 2 deberia suplatarse por el id
             return movimientoInsertado;
         }
         return false;
