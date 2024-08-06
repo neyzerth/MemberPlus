@@ -14,12 +14,10 @@ public class ModVenta {
             Cuadro cuadroTarjeta = new Cuadro(
                 Color.morado("Numero de tarjeta")
             );
-            cuadroTarjeta.setMaxLinea(30);
             
             Cuadro recogerTotal = new Cuadro(
                 Color.cian(" > Recoger el total")
             );
-            recogerTotal.setMaxLinea(30);
 
 
             cuadroTarjeta.imprimirCuadro();

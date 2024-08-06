@@ -81,7 +81,7 @@ public class Leer {
     }
 
     public static boolean booleano(String color, String txt, String placeholder){
-        return 1 == entero(Color.colorText(color, txt+"\n> SI [1] - NO [2]: "));
+        return 1 == entero(Color.colorText(color, Color.negrita(txt)+"\n> SI [1] - NO [2]: "));
     }
     public static boolean booleano(String color,  String txt){
         return booleano(color, txt, "");

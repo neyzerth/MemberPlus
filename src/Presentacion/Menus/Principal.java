@@ -74,8 +74,8 @@ public class Principal {
                 case 0: //SALIR
                     Sesion.cerrarSesion();
 
-                    System.out.println(Color.rojo("Saliendo del programa..."));
-                    Texto.esperar(1);
+                    System.out.println(Color.rojo("Saliendo del programa"));
+                    Texto.suspensivos(3,0.6);
                     
                     salir = true;
                     break;
