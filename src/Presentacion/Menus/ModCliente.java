@@ -36,26 +36,30 @@ public class ModCliente extends Menu{
 
         System.out.println();
         Texto.esperarEnter((" ")+Color.verde("Cliente") + Color.verde(" registrado con exito"));
+        System.out.println();
 
         SubmodNivel modNivel = new SubmodNivel();
 
         Tarjeta tarjeta = new Tarjeta(); 
         modNivel.tabla();
 
+        System.out.println();
         int idNivel = Texto.leerInt(Color.cian(Color.negrita(" > ID del nivel a solicitar: ")));
 
         tarjeta.nivel = Nivel.importarNiveles(idNivel);
 
         tarjeta = new Tarjeta(cliente, tarjeta.getNivel());
         if(!tarjeta.insertarTarjeta()){
-            Texto.esperarEnter(Color.rojo(Color.negrita("Error al registrar Tarjeta")));
+            System.out.println();
+            Texto.esperarEnter(Color.rojo(Color.negrita(" Error al registrar Tarjeta")));
             return;
         }
         
         SubmodTarjeta modTarjeta = new SubmodTarjeta();
         modTarjeta.tabla(tarjeta.getNumTarjeta());
 
-        Texto.esperarEnter(Color.verde(Color.negrita("Tarjeta registrada con exito")));
+        System.out.println();
+        Texto.esperarEnter(Color.verde(Color.negrita(" Tarjeta registrada con exito")));
         //Si se inserto solo faltaria mostrar la tarjeta 
     }
 
@@ -77,7 +81,7 @@ public class ModCliente extends Menu{
 
         } catch (Exception e) {
             System.out.println();
-            Texto.esperarEnter(Color.rojo("DATO NO VALIDO"));
+            Texto.esperarEnter(Color.rojo(Color.negrita(" DATO NO VALIDO")));
         }
         return false;
     }
@@ -135,7 +139,7 @@ public class ModCliente extends Menu{
             
                 
         } catch (Exception e) {
-            Texto.esperarEnter("DATO NO VALIDO");
+            Texto.esperarEnter(Color.rojo(Color.negrita(" DATO NO VALIDO")));
         }
         return false;
     }
@@ -147,7 +151,7 @@ public class ModCliente extends Menu{
 
     @Override
     public void tabla(){
-        tabla = new Tabla("ID", "Nombre Completo", "Correo", "Telefono");
+        tabla = new Tabla(Color. amarillo("ID"),Color.amarillo("Nombre Completo"),Color.amarillo("Correo"),Color.amarillo("Telefono"));
         Cliente[] clientes = Cliente.importarClientes();
 
         for (Cliente cliente : clientes) {
@@ -165,7 +169,7 @@ public class ModCliente extends Menu{
         if (!Cliente.validarCliente(id))
             return false;
             
-        tabla = new Tabla("ID", "Nombre Completo","Fecha de nacimiento", "Direccion", "Telefono", "Correo");
+        tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Nombre Completo"),Color.amarillo("Fecha de nacimiento"), Color.amarillo("Direccion"), Color.amarillo("Telefono"), Color.amarillo("Correo"));
         Cliente cliente = Cliente.importarClientes(id);
 
         tabla.agregarFila(
@@ -182,7 +186,8 @@ public class ModCliente extends Menu{
         
         tabla.imprimirTablaSimple();
 
-        System.out.println("\nDatos de membresia");
+        System.out.println();
+        System.out.println(Color.amarillo(Color.negrita("  Datos de membresia")));
         modTarjeta.tabla(tarjeta.getIdTarjeta());
         return true;
 

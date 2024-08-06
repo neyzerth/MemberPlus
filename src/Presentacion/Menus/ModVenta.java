@@ -11,16 +11,12 @@ public class ModVenta {
         
         while (!salir) {
             Texto.limpiarPantalla();
-            System.out.println(Color.morado(Color.negrita(Texto.espacio(8) + "> Módulo de Venta <")));
-
-            System.out.println();
-
             Cuadro cuadroTarjeta = new Cuadro(
-                Color.morado("> Numero de tarjeta")
+                Color.morado("Numero de tarjeta")
             );
 
             Cuadro recogerTotal = new Cuadro(
-                Color.morado("> Recoger el total")
+                Color.cian(" > Recoger el total")
             );
 
 
@@ -29,7 +25,8 @@ public class ModVenta {
             String numTarjeta = Texto.leerString("> ");
 
             if(!Tarjeta.validarNumTarjeta(numTarjeta)){
-                Texto.esperarEnter(Color.rojo("No se encontro la tarjeta " + Texto.tarjeta(numTarjeta)));
+                System.out.println();
+                Texto.esperarEnter(Color.rojo(" No se encontro la tarjeta " + Texto.tarjeta(numTarjeta)));
                 return;
             }
 
@@ -43,7 +40,7 @@ public class ModVenta {
             compra.empezarVenta(total);
 
             if(compra.tuvoBeneficios()){
-            System.out.println("Con esta compra, usted... ");
+            System.out.println(" Con esta compra, usted... ");
                 if(compra.getPuntos() > 0)
                     System.out.println("obtuvo " + compra.getPuntos()+ " puntos!");
                 if(compra.getCashback() > 0)

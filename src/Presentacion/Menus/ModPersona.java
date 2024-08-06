@@ -34,7 +34,7 @@ public class ModPersona {
 
             System.out.println();
             System.out.println(Color.amarillo(Color.negrita(" Contacto")));
-            persona.setTelefono(Texto.leerString(Color.cian(Color.negrita(" > Telefono :"))));
+            persona.setTelefono(Texto.leerString(Color.cian(Color.negrita(" > Telefono : "))));
             persona.setCorreo(Texto.leerString(Color.cian(" > Correo: ")));
 
         } catch (Exception e) {

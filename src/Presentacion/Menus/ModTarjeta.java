@@ -132,7 +132,7 @@ class SubmodTarjeta extends Menu{
         boolean salir= false;
 
         do{
-            System.out.println("Que desea realizar?");
+            System.out.println(" ¿Que desea realizar?");
             System.out.println("Renovar $"+ tarjeta.nivel.getAnualidad() +"[1] - Cambiar nivel [2] - Salir [3]");
             int opc = Texto.leerInt("> ");
             switch (opc) {
@@ -231,7 +231,7 @@ class SubmodTarjeta extends Menu{
 	public void tabla() {
         Tarjeta[] tarjetas = Tarjeta.importarTarjeta();
         
-		tabla = new Tabla("Numero de tarjeta", "Fecha vencimiento", "Cliente", "Nivel");
+		tabla = new Tabla(Color.amarillo("Numero de tarjeta"), Color.amarillo("Fecha vencimiento"), Color.amarillo("Cliente"), Color.amarillo("Nivel"));
 
 
         for (Tarjeta tarjeta : tarjetas) {
@@ -251,7 +251,7 @@ class SubmodTarjeta extends Menu{
         if(!Tarjeta.validarIdTarjeta(id))
             return false;
         Tarjeta tarjeta = Tarjeta.importarTarjeta(id);
-		tabla = new Tabla("Numero de tarjeta", "Cliente", "Nivel", "Saldo", "Puntos", "Fecha vencimiento" );
+		tabla = new Tabla(Color.amarillo("Numero de tarjeta"), Color.amarillo("Cliente"), Color.amarillo("Nivel"), Color.amarillo("Saldo"), Color.amarillo("Puntos"), Color.amarillo("Fecha de vencimiento" ));
 
         tabla.agregarFila(
             Texto.tarjeta(tarjeta.getNumTarjeta()),
@@ -319,7 +319,7 @@ class SubmodNivel extends Menu {
 
     @Override
     public void tabla() {
-        tabla = new Tabla("ID", "Nombre", "Anualidad");
+        tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Nombre"), Color.amarillo("Anualidad"));
         
         Nivel [] niveles = Nivel.importarNiveles();
 
@@ -341,7 +341,7 @@ class SubmodNivel extends Menu {
         if(!nivel.validarNivel())
             return false;
         
-        tabla = new Tabla("ID", "Nombre", "Costo Apertura", "Anualidad", "Beneficios");
+        tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Nombre"), Color.amarillo("Costo Apertura"), Color.amarillo("Anualidad"), Color.amarillo("Beneficios"));
         
 
         tabla.agregarFila(
@@ -360,20 +360,23 @@ class SubmodNivel extends Menu {
     public Nivel pedirDatos(){
         Nivel nivel = new Nivel();
         try{
-            nivel.setNombre(Texto.leerString("> *Nombre del nivel: "));
-            nivel.setCostoApertura(Texto.leerInt("> *Costo de apertura: $"));
-            nivel.setAnualidad(Texto.leerString("> *Costo de la anualidad: $"));
+            nivel.setNombre(Texto.leerString(Color.cian(Color.negrita(" > Nombre del nivel: "))));
+            nivel.setCostoApertura(Texto.leerInt(Color.cian(Color.negrita(" > Costo de apertura: $"))));
+            nivel.setAnualidad(Texto.leerString(Color.cian(Color.negrita(" > Costo de la anualidad: $"))));
+            System.out.println();
             SubmodBeneficio verBeneficios = new SubmodBeneficio();
             
             boolean agregarNivel = false;
             verBeneficios.tabla();
             do{
-                int idBeneficio = Texto.leerInt("> Selecciona ID del beneficio: ");
+                System.out.println();
+                int idBeneficio = Texto.leerInt(Color.cian(" > Selecciona ID del beneficio: "));
                 if(Beneficio.validarBeneficio(idBeneficio)){
                     try{
                         nivel.agregarBeneficio(idBeneficio);
-                        System.out.println("Desea agregar otro beneficio?");
-                        agregarNivel = 1 == Texto.leerInt("> SI[1] NO[2]: ");
+                        System.out.println();
+                        System.out.println(Color.amarillo(" Desea agregar otro beneficio?"));
+                        agregarNivel = 1 == Texto.leerInt(  Color.amarillo(Color.negrita(" > SI[1] NO[2]: ")));
 
                     }catch(Exception e){
                         System.out.println(e.getMessage());
@@ -383,7 +386,7 @@ class SubmodNivel extends Menu {
             
             return nivel;
         } catch (Exception e){
-            Texto.esperarEnter("Dato no valido");
+            Texto.esperarEnter(Color.rojo(Color.negrita(" Dato no valido")));
             return null;
         }
     }
