@@ -2,7 +2,6 @@ package Logica.Objetos;
 
 
 import Logica.FormatoFecha;
-import Persistencia.Tablas.BeneficioEnt;
 import Persistencia.Tablas.MovimientoEnt;
 import java.sql.Date;
 

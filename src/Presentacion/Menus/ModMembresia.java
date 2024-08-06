@@ -546,102 +546,103 @@ class SubmodBeneficio extends Menu{
         return beneficio;
         
     }
-
+    
+    //TODO
     //Submodulo de movimientos
-    class SubmodMovimiento extends Menu{
+    // class SubmodMovimiento extends Menu{
 
-        public SubmodMovimiento(){
-            super("Movimiento", "Movimientos");
-        }
+    //     public SubmodMovimiento(){
+    //         super("Movimiento", "Movimientos");
+    //     }
     
-        public static void desplegarMenu(){
-            SubmodMovimiento menuMovimiento = new SubmodMovimiento();
-            menuMovimiento.menu();
-        }
+    //     public static void desplegarMenu(){
+    //         SubmodMovimiento menuMovimiento = new SubmodMovimiento();
+    //         menuMovimiento.menu();
+    //     }
     
-        @Override
-        public void tabla() {
-            tabla = new Tabla(Color.amarillo("ID"),Color.amarillo( "Fecha de movimiento"),Color.amarillo("Estado"), Color.amarillo("Comentario"));
+    //     @Override
+    //     public void tabla() {
+    //         tabla = new Tabla(Color.amarillo("ID"),Color.amarillo( "Fecha de movimiento"),Color.amarillo("Estado"), Color.amarillo("Comentario"));
     
-            Movimiento [] movimientos = Movimiento.importarMovimientos();
+    //         Movimiento [] movimientos = Movimiento.importarMovimientos();
             
-            for (Movimiento movimiento : movimientos) {  
-                tabla.agregarFila(
-                    movimiento.getId_movimiento(),
-                    movimiento.getFechaMov(),
-                    movimiento.getEstado(),
-                    movimiento.getComentario()
-                );
-            }
+    //         for (Movimiento movimiento : movimientos) {  
+    //             tabla.agregarFila(
+    //                 movimiento.getId_movimiento(),
+    //                 movimiento.getFechaMov(),
+    //                 movimiento.getEstado(),
+    //                 movimiento.getComentario()
+    //             );
+    //         }
     
-            tabla.imprimirTablaSimple();
-        }
+    //         tabla.imprimirTablaSimple();
+    //     }
         
-        @Override
-        public boolean tabla(int id) {
-            if(!Movimiento.validarMovimiento(id))
-                return false;
+    //     @Override
+    //     public boolean tabla(int id) {
+    //         if(!Movimiento.validarMovimiento(id))
+    //             return false;
     
-            tabla = new Tabla (Color.amarillo("ID"),Color.amarillo( "Fecha de movimiento"),Color.amarillo("Estado"), Color.amarillo("Comentario"));
+    //         tabla = new Tabla (Color.amarillo("ID"),Color.amarillo( "Fecha de movimiento"),Color.amarillo("Estado"), Color.amarillo("Comentario"));
     
-            Movimiento movimiento = Movimiento.importarMovimientos(id);
+    //         Movimiento movimiento = Movimiento.importarMovimientos(id);
     
-            tabla.agregarFila(
-                movimiento.getId_movimiento(),
-                movimiento.getFechaMov(),
-                movimiento.getEstado(),
-                movimiento.getComentario()
-            );
+    //         tabla.agregarFila(
+    //             movimiento.getId_movimiento(),
+    //             movimiento.getFechaMov(),
+    //             movimiento.getEstado(),
+    //             movimiento.getComentario()
+    //         );
     
-            tabla.imprimirTablaSimple();
-            return true;
-        }
+    //         tabla.imprimirTablaSimple();
+    //         return true;
+    //     }
         
-        @Override
-        public boolean registrar() {
-            Movimiento movimiento = new Movimiento();
-            try {
-                movimiento = pedirDatos();
+    //     @Override
+    //     public boolean registrar() {
+    //         Movimiento movimiento = new Movimiento();
+    //         try {
+    //             movimiento = pedirDatos();
     
-                if(movimiento != null){
-                    //?movimiento.insertarMovimiento();//?
-                    tabla(movimiento.getId_movimiento());
-                    return true;
-                }
+    //             if(movimiento != null){
+    //                 //?movimiento.insertarMovimiento();//?
+    //                 tabla(movimiento.getId_movimiento());
+    //                 return true;
+    //             }
                 
-            } catch (Exception e) {
-                System.out.println();
-                Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
-            }
+    //         } catch (Exception e) {
+    //             System.out.println();
+    //             Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
+    //         }
             
-            return false;
-        }
+    //         return false;
+    //     }
     
-        @Override
-        public boolean actualizar(int id) {
-            Beneficio beneficio = Beneficio.importarBeneficios(id);
-            if(beneficio == null){
-                System.out.println();
-                Texto.esperarEnter(Color.rojo("Beneficio no encontrado"));
-                return false;
-            }
+    //     @Override
+    //     public boolean actualizar(int id) {
+    //         Beneficio beneficio = Beneficio.importarBeneficios(id);
+    //         if(beneficio == null){
+    //             System.out.println();
+    //             Texto.esperarEnter(Color.rojo("Beneficio no encontrado"));
+    //             return false;
+    //         }
     
-            try {
-                //?beneficio = pedirDatos();
+    //         try {
+    //             //?beneficio = pedirDatos();
     
-                if(beneficio != null){
-                    tabla(id);
-                    return beneficio.actualizarBeneficio();
-                }
+    //             if(beneficio != null){
+    //                 tabla(id);
+    //                 return beneficio.actualizarBeneficio();
+    //             }
     
-            } catch (Exception e) {
-                Texto.esperarEnter("Dato incorrecto");
-            }
+    //         } catch (Exception e) {
+    //             Texto.esperarEnter("Dato incorrecto");
+    //         }
             
-            return false;
-        }
+    //         return false;
+    //     }
     
-        @Override
+        
         //?public boolean eliminar(int id) {
             //?return Movimiento.eliminarMovimiento(id);
         //?}
@@ -684,40 +685,40 @@ class SubmodBeneficio extends Menu{
     }
 
     //Submodulo tipo de movimiento
-    class SubmoduloTipoMovimiento extends Menu{
-        //?Se puede tomar de rol
-        public SubmoduloTipoMovimiento(){
-            super("Tipo de movimiento", "Tipos de movimientos")
-        }
+    // class SubmoduloTipoMovimiento extends Menu{
+    //     //?Se puede tomar de rol
+    //     public SubmoduloTipoMovimiento(){
+    //         super("Tipo de movimiento", "Tipos de movimientos");
+    //     }
 
-        public static void desplegarMenu(){
-            SubmoduloTipoMovimiento menuTipoMovimiento = new SubmoduloTipoMovimiento();
-            menuTipoMovimiento.menu();
-        }
+    //     public static void desplegarMenu(){
+    //         SubmoduloTipoMovimiento menuTipoMovimiento = new SubmoduloTipoMovimiento();
+    //         menuTipoMovimiento.menu();
+    //     }
 
-        @Override
-        public void tabla(){
-            tabla = new Tabla(Color.amarillo("ID"),Color.amarillo("Nombre"), Color.amarillo("Descripcion"));
+    //     @Override
+    //     public void tabla(){
+    //         tabla = new Tabla(Color.amarillo("ID"),Color.amarillo("Nombre"), Color.amarillo("Descripcion"));
 
-            TipoMovimiento []tipoMovimientos = TipoMovimiento.importarTipoMovimientos();
+    //         TipoMovimiento []tipoMovimientos = TipoMovimiento.importarTipoMovimientos();
 
-            for (TipoMovimiento tipoMovimiento : tipoMovimientos) {
-                tabla.agregarFila(
-                    tipoMovimiento.getIdTipoMovimiento(),
-                    tipoMovimiento.getNombre(),
-                    tipoMovimiento.getDescripcion()
-                );
-            }
+    //         for (TipoMovimiento tipoMovimiento : tipoMovimientos) {
+    //             tabla.agregarFila(
+    //                 tipoMovimiento.getIdTipoMovimiento(),
+    //                 tipoMovimiento.getNombre(),
+    //                 tipoMovimiento.getDescripcion()
+    //             );
+    //         }
 
-            tabla.imprimirTablaSimple();
-        }
+    //         tabla.imprimirTablaSimple();
+    //     }
 
-        @Override
-        public boolean tabla(int id){
-            if(!TipoMovimiento.validarTipoMovimiento())
-                return false;
-        }
-    }
+    //     @Override
+    //     public boolean tabla(int id){
+    //         if(!TipoMovimiento.validarTipoMovimiento())
+    //             return false;
+    //     }
+    // }
 
-}
+
 

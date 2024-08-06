@@ -1,5 +1,6 @@
 package Logica.Objetos;
 
+import Persistencia.Tablas.MovimientoEnt;
 import Persistencia.Tablas.TarjetaEnt;
 import java.sql.Date;
 import java.util.Random;
@@ -14,6 +15,8 @@ public class Tarjeta {
     private boolean activo;
     public Cliente cliente;
     public Nivel nivel;
+    public static Movimiento movimiento; //Estatico por que la funcion de eliminar lo requeria
+    public static Usuario usuario; //Estatico por que la funcion de eliminar lo requeria
 
     // CONSTRUCTORES
 
@@ -98,14 +101,27 @@ public class Tarjeta {
     }
 
     //CRUD de tarjeta
-    public boolean insertarTarjeta(){
-        TarjetaEnt tarjeta = new TarjetaEnt();
-        return tarjeta.insertarTarjetaDB(numTarjeta,fecExp,fecVen,activo,saldo,puntos,cliente.getIdCliente() ,nivel.getIdNivel());
+    public boolean insertarTarjeta() {
+    TarjetaEnt tarjeta = new TarjetaEnt();
+    boolean insertado = tarjeta.insertarTarjetaDB(numTarjeta, fecExp, fecVen, activo, saldo, puntos, cliente.getIdCliente(), nivel.getIdNivel());
+    if (insertado) {
+        MovimientoEnt movimientoBd = new MovimientoEnt();
+        boolean movimientoInsertado = movimientoBd.insertarMovimientoDB(movimiento.getFechaMov(), movimiento.getEstado(), movimiento.getComentario(),usuario.getIdUsuario(),idTarjeta,movimiento.getId_movimiento());
+        return movimientoInsertado;
     }
+    return false;
+}
+
 
     public boolean actualizarTarjeta(){
         TarjetaEnt tarjeta = new TarjetaEnt();
-        return tarjeta.actualizarTarjetaDB(idTarjeta, numTarjeta, fecExp, fecVen, activo, saldo, puntos, cliente.getIdCliente(), nivel.getIdNivel());
+        boolean insertado = tarjeta.actualizarTarjetaDB(idTarjeta, numTarjeta, fecExp, fecVen, activo, saldo, puntos, cliente.getIdCliente(), nivel.getIdNivel());
+        if (insertado) {
+            MovimientoEnt movimientoBd = new MovimientoEnt();
+            boolean movimientoInsertado = movimientoBd.insertarMovimientoDB(movimiento.getFechaMov(), movimiento.getEstado(), movimiento.getComentario(),usuario.getIdUsuario(),idTarjeta,movimiento.getId_movimiento());
+            return movimientoInsertado;
+        }
+        return false;
     }
 
     public static boolean validarNumTarjeta(String numTarjeta){
@@ -120,11 +136,25 @@ public class Tarjeta {
 
     public static boolean eliminarTarjeta(int idTarjeta){
         TarjetaEnt tarjeta = new TarjetaEnt();
-        return tarjeta.eliminarTarjetaDB(idTarjeta);
+        boolean insertado = tarjeta.eliminarTarjetaDB(idTarjeta);
+        if (insertado) {
+            MovimientoEnt movimientoBd = new MovimientoEnt();
+            boolean movimientoInsertado = movimientoBd.insertarMovimientoDB(movimiento.getFechaMov(), movimiento.getEstado(), movimiento.getComentario(),usuario.getIdUsuario(),idTarjeta,movimiento.getId_movimiento());
+            return movimientoInsertado;
+        }
+        return false;
     }
+
+    //Problema con el id
     public static boolean eliminarTarjeta(String numTarjeta){
         TarjetaEnt tarjeta = new TarjetaEnt();
-        return tarjeta.eliminarTarjetaDB(importarTarjeta(numTarjeta).getIdTarjeta());
+        boolean insertado = tarjeta.eliminarTarjetaDB(importarTarjeta(numTarjeta).getIdTarjeta());
+        if (insertado) {
+            MovimientoEnt movimientoBd = new MovimientoEnt();
+            boolean movimientoInsertado = movimientoBd.insertarMovimientoDB(movimiento.getFechaMov(), movimiento.getEstado(), movimiento.getComentario(),usuario.getIdUsuario(),2,movimiento.getId_movimiento());//El 2 deberia suplatarse por el id
+            return movimientoInsertado;
+        }
+        return false;
     }
 
     // Método para generar un número de tarjeta de 16 dígitos con los primeros 4 dígitos fijos
