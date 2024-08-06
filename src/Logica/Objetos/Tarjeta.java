@@ -279,8 +279,8 @@ public class Tarjeta {
     }
 
     public void renovar(){
-        int mes = FormatoFecha.getSigMes(fecVen);
-        int anio = FormatoFecha.getAnio(fecVen);
+        int mes = FormatoFecha.getMes(fecVen);
+        int anio = FormatoFecha.getAnio(fecVen) + 1;
         int dia = FormatoFecha.getDia(fecVen);
         this.setFecVen(FormatoFecha.fecha(dia, mes, anio));
     }

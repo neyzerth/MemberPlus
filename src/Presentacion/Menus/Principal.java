@@ -22,7 +22,7 @@ public class Principal {
                 Color.morado("Modulo de Usuario"),
                 Color.morado("Módulo de Ventas"),
                 Color.morado("Módulo de Clientes"),
-                Color.morado("Módulo de Tarjeta"),
+                Color.morado("Módulo de Membresias"),
                 Color.rojo("Salir")
             );
             principal.imprimirCuadroNum();
@@ -38,7 +38,7 @@ public class Principal {
                     break;
                 case 3: ModCliente.desplegarMenu();
                     break;
-                case 4: ModTarjeta.menu();
+                case 4: ModMembresia.menu();
                     break;
 
                 case 5: //SALIR

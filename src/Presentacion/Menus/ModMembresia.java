@@ -7,7 +7,7 @@ import Presentacion.Despliegue.*;
 import Presentacion.Formato.*;
 
 //------------ MODULO PRINCIPAL ---------
-public class ModTarjeta {
+public class ModMembresia {
     public static void menu() {
         boolean salir = false;
 
@@ -17,7 +17,7 @@ public class ModTarjeta {
 
             Cuadro tarjeta = new Cuadro(
                 Color.morado("Administrar tarjetas"),
-                Color.morado("Administrar Niveles de tarjetas"),
+                Color.morado("Administrar Niveles de membresias"),
                 Color.morado("Administrar beneficios"),
                 Color.rojo("Volver al menú principal")
             );
@@ -50,11 +50,11 @@ public class ModTarjeta {
 class SubmodTarjeta extends Menu{
 
     public SubmodTarjeta(){
-        super("Membresia", "Membresias");
+        super("Tarjeta", "Tarjetas");
         this.opciones = new Cuadro(
             Color.morado("Lista de " + modPlur),
             Color.morado("Información de " + modSing),
-            Color.morado("Actualizar " + modSing),
+            Color.morado("Renovar " + modSing),
             Color.morado("Eliminar "+ modSing),
             Color.rojo("Volver")
         );
@@ -104,7 +104,7 @@ class SubmodTarjeta extends Menu{
         String numTarjeta = Texto.leerString(Color.cian(" > Numero de " + modSing + " a ver: "));
         if(!tabla(numTarjeta)) { 
             System.out.println();
-            Texto.esperarEnter(Color.rojo(" No existe " + modSing + " con numero de tarjeta " + numTarjeta + "..."));
+            Texto.esperarEnter(Color.rojo(" No existe " + modSing + " con el numero " + numTarjeta + "..."));
             return;
         }
     
@@ -114,17 +114,17 @@ class SubmodTarjeta extends Menu{
     @Override 
     public void menuActualizar(){
 
-        Cuadro actualizar = new Cuadro(Color.morado(" Modificar informacion de " + modSing));
+        Cuadro actualizar = new Cuadro(Color.morado(" Renovar informacion de " + modSing));
         Texto.limpiarPantalla();
 
         actualizar.imprimirCuadro();
 
         System.out.println();
-        String numTarjeta = Texto.leerString(Color.cian(" > Numero de tarjeta a modificar: "));
+        String numTarjeta = Texto.leerString(Color.cian(" > Numero de "+modSing+" a modificar: "));
 
         if(!tabla(numTarjeta)) { 
             System.out.println();
-            Texto.esperarEnter(Color.rojo(Color.negrita(" No existe Tajeta con el numero " + numTarjeta + "...")));
+            Texto.esperarEnter(Color.rojo(Color.negrita(" No existe "+ modSing +" con el numero " + numTarjeta + "...")));
             return;
         }
 
