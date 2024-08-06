@@ -1,8 +1,7 @@
 package Presentacion.Menus;
 
 import Presentacion.Despliegue.*;
-import Presentacion.Formato.Color;
-import Presentacion.Formato.Texto;
+import Presentacion.Formato.*;
 
 //CLASE ABSTRACTA 
 //Padre de la mayoria de los modulos/menus
@@ -43,7 +42,7 @@ public abstract class Menu {
 
             System.out.println();
 
-            int opcion = Texto.leerInt(Color.cian(" > Seleccione una opción: "));
+            int opcion = Leer.entero(Color.cian(" > Seleccione una opción: "));
             
             salir = conexionMenus(opcion);
             
@@ -98,7 +97,7 @@ public abstract class Menu {
         tabla();
 
         System.out.println();
-        int id = Texto.leerInt(Color.cian(" > ID del " + modSing + " a ver: "));
+        int id = Leer.entero(Color.cian(" > ID del " + modSing + " a ver: "));
         if(!tabla(id)) { 
             System.out.println();
             Texto.esperarEnter(Color.rojo(" No existe " + modSing + " con ID " + id + "..."));
@@ -137,7 +136,7 @@ public abstract class Menu {
         tabla();
 
         System.out.println();
-        int id = Texto.leerInt(Color.cian(" > ID del " + modSing +" a modificar: "));
+        int id = Leer.entero(Color.cian(" > ID del " + modSing +" a modificar: "));
 
         if(!tabla(id)) { 
             System.out.println();
@@ -171,7 +170,7 @@ public abstract class Menu {
             tabla();
 
             System.out.println();
-            int id = Texto.leerInt(Color.cian(" > ID de " + modSing + " a eliminar: "));
+            int id = Leer.entero(Color.cian(" > ID de " + modSing + " a eliminar: "));
 
             if(!tabla(id)) { 
                 System.out.println();
@@ -182,7 +181,7 @@ public abstract class Menu {
 
             System.out.println();
             System.out.println(Color.rojo(Color.negrita(" ¿Seguro que desea eliminar este " + modSing + "?")));
-            boolean conf = Texto.leerString (Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
+            boolean conf = Leer.cadena (Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
             System.out.println();
 
             if (conf){

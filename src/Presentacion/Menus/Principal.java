@@ -44,7 +44,7 @@ public class Principal {
 
             System.out.println();
 
-            int opcion = Texto.leerInt(Color.cian((Texto.espacio(1) + "> Seleccione una opción: ")));
+            int opcion = Leer.entero(Color.cian((Texto.espacio(1) + "> Seleccione una opción: ")));
 
             //alterar la opcion dependiendo el rol
             int opcionRol = opcion;
