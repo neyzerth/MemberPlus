@@ -24,7 +24,7 @@ public class Sesion {
         Sesion.setNombre(sesion.getNombre());
         Sesion.setNomUsuario(sesion.getNombre());
         Sesion.setIdRol(sesion.rol.getIdRol());
-        Sesion.setRol(sesion.rol.getNombre());
+        Sesion.setRol(sesion.rol.getNombre().toLowerCase());
         return true;
     }
     
