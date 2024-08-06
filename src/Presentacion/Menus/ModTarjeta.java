@@ -374,9 +374,9 @@ class SubmodNivel extends Menu {
                         nivel.agregarBeneficio(idBeneficio);
                         System.out.println("Desea agregar otro beneficio?");
                         agregarNivel = 1 == Texto.leerInt("> SI[1] NO[2]: ");
-                        
+
                     }catch(Exception e){
-                        System.out.println(e);
+                        System.out.println(e.getMessage());
                     }
                 }
             } while (agregarNivel);

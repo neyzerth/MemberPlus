@@ -249,7 +249,7 @@ public class Query {
         String query = "INSERT INTO " + tabla + " (";
         
         // Construir la lista de columnas
-        for (int i = 1; i < columnas.length; i++) {
+        for (int i = inicio; i < columnas.length; i++) {
             query += columnas[i];
             if (i != columnas.length - 1) {
                 query += ", ";
