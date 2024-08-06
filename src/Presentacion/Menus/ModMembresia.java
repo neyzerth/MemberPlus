@@ -1,8 +1,10 @@
 package Presentacion.Menus;
 
 import Logica.Objetos.Beneficio;
+import Logica.Objetos.Movimiento;
 import Logica.Objetos.Nivel;
 import Logica.Objetos.Tarjeta;
+import Logica.Objetos.TipoMovimiento;
 import Presentacion.Despliegue.*;
 import Presentacion.Formato.*;
 
@@ -546,7 +548,176 @@ class SubmodBeneficio extends Menu{
     }
 
     //Submodulo de movimientos
+    class SubmodMovimiento extends Menu{
+
+        public SubmodMovimiento(){
+            super("Movimiento", "Movimientos");
+        }
     
+        public static void desplegarMenu(){
+            SubmodMovimiento menuMovimiento = new SubmodMovimiento();
+            menuMovimiento.menu();
+        }
+    
+        @Override
+        public void tabla() {
+            tabla = new Tabla(Color.amarillo("ID"),Color.amarillo( "Fecha de movimiento"),Color.amarillo("Estado"), Color.amarillo("Comentario"));
+    
+            Movimiento [] movimientos = Movimiento.importarMovimientos();
+            
+            for (Movimiento movimiento : movimientos) {  
+                tabla.agregarFila(
+                    movimiento.getId_movimiento(),
+                    movimiento.getFechaMov(),
+                    movimiento.getEstado(),
+                    movimiento.getComentario()
+                );
+            }
+    
+            tabla.imprimirTablaSimple();
+        }
+        
+        @Override
+        public boolean tabla(int id) {
+            if(!Movimiento.validarMovimiento(id))
+                return false;
+    
+            tabla = new Tabla (Color.amarillo("ID"),Color.amarillo( "Fecha de movimiento"),Color.amarillo("Estado"), Color.amarillo("Comentario"));
+    
+            Movimiento movimiento = Movimiento.importarMovimientos(id);
+    
+            tabla.agregarFila(
+                movimiento.getId_movimiento(),
+                movimiento.getFechaMov(),
+                movimiento.getEstado(),
+                movimiento.getComentario()
+            );
+    
+            tabla.imprimirTablaSimple();
+            return true;
+        }
+        
+        @Override
+        public boolean registrar() {
+            Movimiento movimiento = new Movimiento();
+            try {
+                movimiento = pedirDatos();
+    
+                if(movimiento != null){
+                    //?movimiento.insertarMovimiento();//?
+                    tabla(movimiento.getId_movimiento());
+                    return true;
+                }
+                
+            } catch (Exception e) {
+                System.out.println();
+                Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
+            }
+            
+            return false;
+        }
+    
+        @Override
+        public boolean actualizar(int id) {
+            Beneficio beneficio = Beneficio.importarBeneficios(id);
+            if(beneficio == null){
+                System.out.println();
+                Texto.esperarEnter(Color.rojo("Beneficio no encontrado"));
+                return false;
+            }
+    
+            try {
+                //?beneficio = pedirDatos();
+    
+                if(beneficio != null){
+                    tabla(id);
+                    return beneficio.actualizarBeneficio();
+                }
+    
+            } catch (Exception e) {
+                Texto.esperarEnter("Dato incorrecto");
+            }
+            
+            return false;
+        }
+    
+        @Override
+        //?public boolean eliminar(int id) {
+            //?return Movimiento.eliminarMovimiento(id);
+        //?}
+    
+        /*public Movimiento pedirDatos(){
+            Movimiento movimiento = new Movimiento();
+            int dia, mes, anio;
+            try {
+                System.out.println();
+                beneficio.setNombre(Leer.cadena(Color.cian(Color.negrita(" > Nombre del beneficio: "))));
+                System.out.println();
+                System.out.println(Color.amarillo(Color.negrita(" Fecha de inicio")));
+                dia = Leer.entero(Color.cian(Color.negrita(" > Dia: ")));
+                mes = Leer.entero(Color.cian(Color.negrita(" > Mes: ")));
+                anio = Leer.entero(Color.cian(Color.negrita(" > Año: ")));
+                beneficio.setFecInicio(dia, mes, anio);
+    
+                System.out.println();
+                System.out.println(Color.amarillo(Color.negrita(" Fecha de vencimiento")));
+                dia = Leer.entero(Color.cian(Color.negrita(" > Dia: ")));
+                mes = Leer.entero(Color.cian(Color.negrita(" > Mes: ")));
+                anio = Leer.entero(Color.cian(Color.negrita(" > Año: ")));
+                beneficio.setFecVen(dia, mes, anio);
+                
+                System.out.println();
+                System.out.println(Color.amarillo(Color.negrita(" Beneficios")));
+                beneficio.setPorcPuntos(Leer.entero(Color.cian(Color.negrita(" > Porcentaje de puntos: "))));
+                beneficio.setPorcCashBack(Leer.entero(Color.cian(Color.negrita(" > Porcentaje de CashBack: "))));
+                beneficio.setPorcDescuento(Leer.entero(Color.cian(Color.negrita(" > Porcentaje de Descuento: "))));
+    
+            } catch (Exception e) {
+                System.out.println();
+                Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
+                return null;
+            }
+    
+            return beneficio;
+            
+        }*/
+    }
+
+    //Submodulo tipo de movimiento
+    class SubmoduloTipoMovimiento extends Menu{
+        //?Se puede tomar de rol
+        public SubmoduloTipoMovimiento(){
+            super("Tipo de movimiento", "Tipos de movimientos")
+        }
+
+        public static void desplegarMenu(){
+            SubmoduloTipoMovimiento menuTipoMovimiento = new SubmoduloTipoMovimiento();
+            menuTipoMovimiento.menu();
+        }
+
+        @Override
+        public void tabla(){
+            tabla = new Tabla(Color.amarillo("ID"),Color.amarillo("Nombre"), Color.amarillo("Descripcion"));
+
+            TipoMovimiento []tipoMovimientos = TipoMovimiento.importarTipoMovimientos();
+
+            for (TipoMovimiento tipoMovimiento : tipoMovimientos) {
+                tabla.agregarFila(
+                    tipoMovimiento.getIdTipoMovimiento(),
+                    tipoMovimiento.getNombre(),
+                    tipoMovimiento.getDescripcion()
+                );
+            }
+
+            tabla.imprimirTablaSimple();
+        }
+
+        @Override
+        public boolean tabla(int id){
+            if(!TipoMovimiento.validarTipoMovimiento())
+                return false;
+        }
+    }
 
 }
 
