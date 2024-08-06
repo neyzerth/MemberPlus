@@ -647,39 +647,39 @@ class SubmodBeneficio extends Menu{
             //?return Movimiento.eliminarMovimiento(id);
         //?}
     
-        /*public Movimiento pedirDatos(){
-            Movimiento movimiento = new Movimiento();
-            int dia, mes, anio;
-            try {
-                System.out.println();
-                beneficio.setNombre(Leer.cadena(Color.cian(Color.negrita(" > Nombre del beneficio: "))));
-                System.out.println();
-                System.out.println(Color.amarillo(Color.negrita(" Fecha de inicio")));
-                dia = Leer.entero(Color.cian(Color.negrita(" > Dia: ")));
-                mes = Leer.entero(Color.cian(Color.negrita(" > Mes: ")));
-                anio = Leer.entero(Color.cian(Color.negrita(" > Año: ")));
-                beneficio.setFecInicio(dia, mes, anio);
-    
-                System.out.println();
-                System.out.println(Color.amarillo(Color.negrita(" Fecha de vencimiento")));
-                dia = Leer.entero(Color.cian(Color.negrita(" > Dia: ")));
-                mes = Leer.entero(Color.cian(Color.negrita(" > Mes: ")));
-                anio = Leer.entero(Color.cian(Color.negrita(" > Año: ")));
-                beneficio.setFecVen(dia, mes, anio);
-                
-                System.out.println();
-                System.out.println(Color.amarillo(Color.negrita(" Beneficios")));
-                beneficio.setPorcPuntos(Leer.entero(Color.cian(Color.negrita(" > Porcentaje de puntos: "))));
-                beneficio.setPorcCashBack(Leer.entero(Color.cian(Color.negrita(" > Porcentaje de CashBack: "))));
-                beneficio.setPorcDescuento(Leer.entero(Color.cian(Color.negrita(" > Porcentaje de Descuento: "))));
-    
-            } catch (Exception e) {
-                System.out.println();
-                Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
-                return null;
-            }
-    
-            return beneficio;
+    /*public Movimiento pedirDatos(){
+        Movimiento movimiento = new Movimiento();
+        int dia, mes, anio;
+        try {
+            System.out.println();
+            beneficio.setNombre(Leer.cadena(Color.cian(Color.negrita(" > Nombre del beneficio: "))));
+            System.out.println();
+            System.out.println(Color.amarillo(Color.negrita(" Fecha de inicio")));
+            dia = Leer.entero(Color.cian(Color.negrita(" > Dia: ")));
+            mes = Leer.entero(Color.cian(Color.negrita(" > Mes: ")));
+            anio = Leer.entero(Color.cian(Color.negrita(" > Año: ")));
+            beneficio.setFecInicio(dia, mes, anio);
+
+            System.out.println();
+            System.out.println(Color.amarillo(Color.negrita(" Fecha de vencimiento")));
+            dia = Leer.entero(Color.cian(Color.negrita(" > Dia: ")));
+            mes = Leer.entero(Color.cian(Color.negrita(" > Mes: ")));
+            anio = Leer.entero(Color.cian(Color.negrita(" > Año: ")));
+            beneficio.setFecVen(dia, mes, anio);
+            
+            System.out.println();
+            System.out.println(Color.amarillo(Color.negrita(" Beneficios")));
+            beneficio.setPorcPuntos(Leer.entero(Color.cian(Color.negrita(" > Porcentaje de puntos: "))));
+            beneficio.setPorcCashBack(Leer.entero(Color.cian(Color.negrita(" > Porcentaje de CashBack: "))));
+            beneficio.setPorcDescuento(Leer.entero(Color.cian(Color.negrita(" > Porcentaje de Descuento: "))));
+
+        } catch (Exception e) {
+            System.out.println();
+            Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
+            return null;
+        }
+        
+        return beneficio;
             
         }*/
     }
