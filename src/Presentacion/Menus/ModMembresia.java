@@ -4,7 +4,6 @@ import Logica.Objetos.Beneficio;
 import Logica.Objetos.Movimiento;
 import Logica.Objetos.Nivel;
 import Logica.Objetos.Tarjeta;
-import Logica.Objetos.TipoMovimiento;
 import Presentacion.Despliegue.*;
 import Presentacion.Formato.*;
 
