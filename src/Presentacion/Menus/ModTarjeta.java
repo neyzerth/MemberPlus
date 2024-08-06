@@ -380,6 +380,7 @@ class SubmodNivel extends Menu {
                     }
                 }
             } while (agregarNivel);
+            
             return nivel;
         } catch (Exception e){
             Texto.esperarEnter("Dato no valido");

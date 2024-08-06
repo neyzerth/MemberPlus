@@ -190,7 +190,7 @@ public class Nivel {
             return;
         }
         if(!noRepetido(beneficio))
-            throw new IllegalArgumentException("Beneficio con ");
+            throw new IllegalArgumentException("Este beneficio ya esta incluido");
 
         Beneficio[] beneficiosAux = new Beneficio[this.beneficios.length + 1];
 
