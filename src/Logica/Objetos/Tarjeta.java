@@ -16,7 +16,8 @@ public class Tarjeta {
     public Cliente cliente;
     public Nivel nivel;
     public static Movimiento movimiento; //Estatico por que la funcion de eliminar lo requeria
-    public static Usuario usuario; //Estatico por que la funcion de eliminar lo requeria
+    //?public Movimiento[] movimiento; //Estatico por que la funcion de eliminar lo requeria
+    //?public static Usuario usuario; //Estatico por que la funcion de eliminar lo requeria
 
     // CONSTRUCTORES
 
