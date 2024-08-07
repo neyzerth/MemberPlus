@@ -38,7 +38,7 @@ public class ModPersona {
 
         } catch (Exception e) {
             System.out.println();
-            System.out.println(Color.rojo(Color.negrita(" DATO NO VALIDO")));
+            System.out.println(Color.rojo(Color.negrita(e.getMessage())));
             return null;
         }
 

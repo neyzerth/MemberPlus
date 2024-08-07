@@ -212,7 +212,7 @@ public class Cuadro{
         this.centrado = opc;
     }
 
-    public void agregarFila(String... texto){
+    public void agregarTexto(String... texto){
         String[] temp = new String[this.texto.length + texto.length];
         
         System.arraycopy(this.texto, 0, temp, 0, this.texto.length);

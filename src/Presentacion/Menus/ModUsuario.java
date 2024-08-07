@@ -63,11 +63,14 @@ public class ModUsuario extends Menu {
 
             if(conf){
                 Persona persona = ModPersona.datosPersona();
-                persona.setIdPersona(idPersona);
-                persona.actualizarPersona();
+                if(persona != null){
+                    persona.setIdPersona(idPersona);
+                    persona.actualizarPersona();
+                } else return false;
+            
             }
         
-
+            
             return usuario.actualizarUsuario();
             
             

@@ -100,7 +100,7 @@ create table movimiento(
     estado varchar(30),
     comentario VARCHAR(100),
     usuario int not null,
-    tarjeta int not null,
+    tarjeta int ,
     tipoMovimiento int not null,
     FOREIGN KEY (usuario) REFERENCES usuario(idUsuario) ON DELETE CASCADE,
     FOREIGN KEY (tarjeta) REFERENCES tarjeta(idTarjeta) ON DELETE CASCADE,
