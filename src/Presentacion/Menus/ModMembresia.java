@@ -9,8 +9,6 @@ import Logica.Objetos.TipoMovimiento;
 import Presentacion.Despliegue.*;
 import Presentacion.Formato.*;
 
-
-
 //------------ MODULO PRINCIPAL ---------
 public class ModMembresia {
     public static void menu() {
@@ -43,7 +41,7 @@ public class ModMembresia {
                 case 3:
                     SubmodBeneficio.desplegarMenu();
                     break;
-                
+
                 case 4:
                     SubmodMovimiento.desplegarMenu();
                     break;
@@ -159,9 +157,8 @@ class SubmodTarjeta extends Menu {
                     System.out.println("Nueva fecha de vencimiento: " + tarjeta.getFecVen());
                     tarjeta.actualizarTarjeta();
                     System.out.println(Color.cian("Tarjeta renovada con exito..."));
-                    Movimiento.registrarMovimiento( "Renovacion de tarjeta", tarjeta, 2);//Checar lo de el id
+                    Movimiento.registrarMovimiento("Renovacion de tarjeta", tarjeta, 2);// Checar lo de el id
                     Texto.esperarEnter();
-                    
 
                     break;
                 case 2:
@@ -171,11 +168,10 @@ class SubmodTarjeta extends Menu {
                     int idNivel = Leer.entero("> ID del nuevo nivel: ");
                     Nivel nivel = Nivel.importarNiveles(idNivel);
                     tarjeta.nivel = nivel;
-                    if (tarjeta.actualizarTarjeta()){
+                    if (tarjeta.actualizarTarjeta()) {
                         System.out.println(Color.verde("Nuevo nivel: " + tarjeta.nivel.getNombre()));
-                        Movimiento.registrarMovimiento( "Cambiar nivel", tarjeta, 2);//Checar lo de el id
-                    }
-                    else{
+                        Movimiento.registrarMovimiento("Cambiar nivel", tarjeta, 2);// Checar lo de el id
+                    } else {
                         System.out.println(Color.rojo("Error al cambiar nivel "));
                     }
 
@@ -211,7 +207,7 @@ class SubmodTarjeta extends Menu {
                 System.out.println();
                 Texto.esperarEnter(
                         Color.rojo(Color.negrita(" No existe " + modSing + " con numero " + numTarjeta + "...")));
-                        repetir = true;
+                repetir = true;
                 return;
             }
 
@@ -220,19 +216,20 @@ class SubmodTarjeta extends Menu {
             boolean conf = Leer.cadena(Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
             System.out.println();
 
-            if (conf)
-                //registrarMovimiento(4, "Eliminación de tarjeta");
+            if (conf) {
+                Tarjeta tarjeta = Tarjeta.importarTarjeta(numTarjeta);
+                Movimiento.registrarMovimiento("Eliminacion de membresia", tarjeta, 3);
                 if (eliminar(numTarjeta)) {
                     tabla();
                     System.out.println();
                     Texto.esperarEnter(Color.verde(" " + modSing + " eliminado con exito"));
-                    
-                
+
                     repetir = false;
                     return;
                 } else
                     System.out.println();
-            Texto.esperarEnter(Color.rojo(" Error al eliminar " + modSing));
+                Texto.esperarEnter(Color.rojo(" Error al eliminar " + modSing));
+            }
         } while (repetir);
     }
 
@@ -240,7 +237,6 @@ class SubmodTarjeta extends Menu {
     public boolean registrar() {
         return false;
     }
-    
 
     @Override
     public boolean actualizar(int id) {
@@ -299,13 +295,13 @@ class SubmodTarjeta extends Menu {
             return false;
         Tarjeta tarjeta = Tarjeta.importarTarjeta(numTarjeta);
         return tabla(tarjeta.getIdTarjeta());
-    }    
-    
+    }
+
     public int obtenerIdUsuarioActual() {
         return Sesion.getId();
-        
+
     }
-    
+
 }
 
 // ------------ MODULO DE NIVEL ---------
@@ -643,9 +639,9 @@ class SubmodTipoMovimiento extends Menu {
         return tipoMovimiento.actualizarTipoMovimiento();
     }
 
-    @Override 
+    @Override
     public boolean eliminar(int id) {
-        return  TipoMovimiento.eliminarTipoMovimiento(id);
+        return TipoMovimiento.eliminarTipoMovimiento(id);
     }
 
     public TipoMovimiento pedirDatos() {
@@ -654,7 +650,8 @@ class SubmodTipoMovimiento extends Menu {
             System.out.println();
             tipoMovimiento.setNombre(Leer.cadena(Color.cian(Color.negrita(" > Nombre del tipo de movimiento: "))));
             System.out.println();
-            tipoMovimiento.setDescripcion(Leer.cadena(Color.cian(Color.negrita(" > Descripción del tipo de movimiento: "))));
+            tipoMovimiento
+                    .setDescripcion(Leer.cadena(Color.cian(Color.negrita(" > Descripción del tipo de movimiento: "))));
 
         } catch (Exception e) {
             System.out.println();
@@ -679,7 +676,8 @@ class SubmodMovimiento extends Menu {
 
     @Override
     public void tabla() {
-        tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Comentario"), Color.amarillo("Estado"), Color.amarillo("Fecha"), Color.amarillo("Usuario"), Color.amarillo("Tipo Movimiento"));
+        tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Comentario"), Color.amarillo("Estado"),
+                Color.amarillo("Fecha"), Color.amarillo("Usuario"), Color.amarillo("Tipo Movimiento"));
 
         Movimiento[] movimientos = Movimiento.importarMovimientos();
 
@@ -688,8 +686,7 @@ class SubmodMovimiento extends Menu {
                     movimiento.getId_movimiento(),
                     movimiento.getComentario(),
                     movimiento.getEstado(),
-                    movimiento.getFechaMov()
-            );
+                    movimiento.getFechaMov());
         }
 
         tabla.imprimirTablaSimple();
@@ -701,7 +698,8 @@ class SubmodMovimiento extends Menu {
             return false;
         }
 
-        tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Comentario"), Color.amarillo("Estado"), Color.amarillo("Fecha"), Color.amarillo("Usuario"), Color.amarillo("Tipo Movimiento"));
+        tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Comentario"), Color.amarillo("Estado"),
+                Color.amarillo("Fecha"), Color.amarillo("Usuario"), Color.amarillo("Tipo Movimiento"));
 
         Movimiento movimiento = Movimiento.importarMovimientos(id);
 
@@ -709,8 +707,7 @@ class SubmodMovimiento extends Menu {
                 movimiento.getId_movimiento(),
                 movimiento.getComentario(),
                 movimiento.getEstado(),
-                movimiento.getFechaMov() 
-        );
+                movimiento.getFechaMov());
 
         tabla.imprimirTablaSimple();
         return true;
@@ -721,7 +718,7 @@ class SubmodMovimiento extends Menu {
         // Movimiento movimiento = pedirDatos();
 
         // if (movimiento == null) {
-        //     return false;
+        // return false;
         // }
 
         // return movimiento.insertarMovimiento();
@@ -733,7 +730,7 @@ class SubmodMovimiento extends Menu {
         // Movimiento movimiento = pedirDatos();
 
         // if (movimiento == null) {
-        //     return false;
+        // return false;
         // }
 
         // movimiento.setId_movimiento(id);
@@ -741,7 +738,7 @@ class SubmodMovimiento extends Menu {
         return false;
     }
 
-    @Override 
+    @Override
     public boolean eliminar(int id) {
         // return Movimiento.eliminarMovimiento(id);
         return false;

@@ -5,6 +5,7 @@ import Persistencia.Tablas.TarjetaEnt;
 import java.sql.Date;
 import java.util.Random;
 import Logica.FormatoFecha;
+import Logica.Sesion;
 
 public class Tarjeta {
     // ATRIBUTOS
@@ -107,7 +108,7 @@ public class Tarjeta {
     boolean insertado = tarjeta.insertarTarjetaDB(numTarjeta, fecExp, fecVen, activo, saldo, puntos, cliente.getIdCliente(), nivel.getIdNivel());
     if (insertado) {
         MovimientoEnt movimientoBd = new MovimientoEnt();
-        boolean movimientoInsertado = movimientoBd.insertarMovimientoDB(movimiento.getFechaMov(), movimiento.getEstado(), movimiento.getComentario(),usuario.getIdUsuario(),idTarjeta,movimiento.getId_movimiento());
+        boolean movimientoInsertado = movimientoBd.insertarMovimientoDB(movimiento.getFechaMov(), movimiento.getEstado(), movimiento.getComentario(),Sesion.getId(),idTarjeta,movimiento.getId_movimiento());
         return movimientoInsertado;
     }
     return false;
@@ -119,7 +120,7 @@ public class Tarjeta {
         boolean insertado = tarjeta.actualizarTarjetaDB(idTarjeta, numTarjeta, fecExp, fecVen, activo, saldo, puntos, cliente.getIdCliente(), nivel.getIdNivel());
         if (insertado) {
             MovimientoEnt movimientoBd = new MovimientoEnt();
-            boolean movimientoInsertado = movimientoBd.insertarMovimientoDB(movimiento.getFechaMov(), movimiento.getEstado(), movimiento.getComentario(),usuario.getIdUsuario(),idTarjeta,movimiento.getId_movimiento());
+            boolean movimientoInsertado = movimientoBd.insertarMovimientoDB(movimiento.getFechaMov(), movimiento.getEstado(), movimiento.getComentario(),Sesion.getId(),idTarjeta,movimiento.getId_movimiento());
             return movimientoInsertado;
         }
         return false;
@@ -138,9 +139,10 @@ public class Tarjeta {
     public static boolean eliminarTarjeta(int idTarjeta){
         TarjetaEnt tarjeta = new TarjetaEnt();
         boolean insertado = tarjeta.eliminarTarjetaDB(idTarjeta);
+        Date fechaActual = new Date(System.currentTimeMillis());
         if (insertado) {
             MovimientoEnt movimientoBd = new MovimientoEnt();
-            boolean movimientoInsertado = movimientoBd.insertarMovimientoDB(movimiento.getFechaMov(), movimiento.getEstado(), movimiento.getComentario(),usuario.getIdUsuario(),idTarjeta,movimiento.getId_movimiento());
+            boolean movimientoInsertado = movimientoBd.insertarMovimientoDB(fechaActual, movimiento.getEstado(), movimiento.getComentario(),Sesion.getId(),idTarjeta,movimiento.getId_movimiento());
             return movimientoInsertado;
         }
         return false;
@@ -151,9 +153,10 @@ public class Tarjeta {
         TarjetaEnt tarjetaBD = new TarjetaEnt();
         Tarjeta tarjeta = Tarjeta.importarTarjeta(numTarjeta);
         boolean insertado = tarjetaBD.eliminarTarjetaDB(tarjeta.getIdTarjeta());
+        Date fechaActual = new Date(System.currentTimeMillis());
         if (insertado) {
             MovimientoEnt movimientoBd = new MovimientoEnt();
-            boolean movimientoInsertado = movimientoBd.insertarMovimientoDB(movimiento.getFechaMov(), movimiento.getEstado(), movimiento.getComentario(),usuario.getIdUsuario(),tarjeta.getIdTarjeta(),movimiento.getId_movimiento());//El 2 deberia suplatarse por el id
+            boolean movimientoInsertado = movimientoBd.insertarMovimientoDB(fechaActual, "Finalizado", "Eliminacion de tarjeta",Sesion.getId(),tarjeta.getIdTarjeta(),3);//El 2 deberia suplatarse por el id
             return movimientoInsertado;
         }
         return false;
