@@ -223,8 +223,6 @@ class SubmodTarjeta extends Menu {
                     tabla();
                     System.out.println();
                     Texto.esperarEnter(Color.verde(" " + modSing + " eliminado con exito"));
-                    Movimiento.registrarMovimiento( "Cambiar nivel", idTarjeta, 2);
-                    
                 
                     repetir = false;
                     return;
