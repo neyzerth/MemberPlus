@@ -315,15 +315,15 @@ class SubmodTarjeta extends Menu {
         }
     }
     
-    // Métodos auxiliares para obtener el ID del usuario y del tipo de movimiento
+   
     public int obtenerIdUsuarioActual() {
-        // Lógica para obtener el ID del usuario actual
-        return 1; // Ejemplo de ID de usuario
+     
+        return 1; 
     }
     
     public int obtenerIdTipoMovimiento() {
-        // Lógica para obtener el ID del tipo de movimiento
-        return 1; // Ejemplo de ID de tipo de movimiento
+
+        return 1; 
     }
 }
 
@@ -707,9 +707,7 @@ class SubmodMovimiento extends Menu {
                     movimiento.getId_movimiento(),
                     movimiento.getComentario(),
                     movimiento.getEstado(),
-
                     movimiento.getFechaMov()
-                
             );
         }
 
@@ -730,8 +728,7 @@ class SubmodMovimiento extends Menu {
                 movimiento.getId_movimiento(),
                 movimiento.getComentario(),
                 movimiento.getEstado(),
-                movimiento.getFechaMov()
-                
+                 movimiento.getFechaMov() // Convertir Date a String
         );
 
         tabla.imprimirTablaSimple();
@@ -768,9 +765,4 @@ class SubmodMovimiento extends Menu {
         // return Movimiento.eliminarMovimiento(id);
         return false;
     }
-
-   
-    
-
 }
-
