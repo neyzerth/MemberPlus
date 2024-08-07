@@ -15,15 +15,11 @@ public class ModVenta {
             Cuadro cuadroTarjeta = new Cuadro(
                 Color.morado("Numero de tarjeta")
             );
-            
-            Cuadro recogerTotal = new Cuadro(
-                Color.cian(" > Recoger el total")
-            );
-
-
             cuadroTarjeta.imprimirCuadro();
 
-            String numTarjeta = Leer.cadena("> ");
+            System.out.println();
+
+            String numTarjeta = Leer.cadena(Color.cian(Color.negrita(" > Ingrese los numeros de su tarjeta: ")));
 
             if(!Tarjeta.validarNumTarjeta(numTarjeta)){
                 System.out.println();
@@ -32,45 +28,53 @@ public class ModVenta {
             }
 
             Compra compra = new Compra(numTarjeta);
+    
+            System.out.println();
+            float total = Leer.flotante(Color.cian(Color.negrita(" > Ingrese el monto total: $")));
 
-            recogerTotal.imprimirCuadro();
-
-            float total = Leer.flotante("> $");
-            System.out.println(Texto.moneda(total));
+            System.out.println();
+            System.out.println(" " + Color.amarillo(Texto.moneda( total)));
             
             compra.empezarVenta(total);
 
             if(compra.tuvoBeneficios()){
-            System.out.println(" Con esta compra, usted... ");
-                if(compra.tarjeta.getPuntosConvertidos() > 0)
-                    System.out.println("  obtuvo " + compra.getPuntos()+ " puntos!");
+            System.out.println(Color.amarillo(" Con esta compra, usted... "));
+                if(compra.getPuntos() > 0)
+                    System.out.println();
+                    System.out.println(Color.amarillo(Color.negrita(" Obtuvo " + compra.getPuntos()+ " puntos!")));
                 if(compra.getCashback() > 0)
-                    System.out.println("  obtuvo " + Texto.moneda(compra.getCashback())+ " de cashback!");
+                    System.out.println(Color.amarillo(Color.negrita(" Obtuvo " + Texto.moneda(compra.getCashback())+ " de cashback!")));
                 if(compra.getDescuento() > 0)
-                    System.out.println("  tuvo un descuento de $" + compra.getDescuento()+ "!");
+                    System.out.println();
+                    System.out.println(Color.amarillo(Color.negrita(" Ahorró $" + compra.getDescuento()+ "!")));
             }
 
 
             boolean usarPuntos = false;
             boolean usarSaldo = false;
             if(compra.tarjeta.getPuntos() > 0){
-                System.out.println(Color.verde(Color.negrita(" Desea usar sus puntos acumulados? ("+compra.tarjeta.getPuntos()+" -> $"+ compra.tarjeta.getPuntosConvertidos()+")?")));
-                usarPuntos = Leer.cadena(Color.verde(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
+                System.out.println();
+                System.out.println(Color.rojo(Color.negrita(" Desea usar sus puntos acumulados? ("+compra.tarjeta.getPuntos()+" -> $"+ compra.tarjeta.getPuntosConvertidos()+")?")));
+                usarPuntos = Leer.cadena(Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
             }
             if(compra.tarjeta.getSaldo() > 0){
-                System.out.println(Color.verde(Color.negrita(" Desea usar su saldo ("+Texto.moneda(compra.tarjeta.getSaldo())+")?")));
-                usarSaldo = Leer.cadena(Color.verde(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
+                System.out.println();
+                System.out.println(Color.rojo(Color.negrita(" Desea usar su saldo ("+Texto.moneda(compra.tarjeta.getSaldo())+")?")));
+                usarSaldo = Leer.cadena(Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
             }
             compra.usarBeneficios(usarPuntos, usarSaldo);
 
 
-            System.out.println("Su nuevo total es de "  + Texto.moneda(compra.getSubtotal()));
+            System.out.println();
+            System.out.println(Color.amarillo(Color.negrita(" Su nuevo total es de "  + Texto.moneda(compra.getSubtotal()))));
             if(compra.insertarCompras()){
-                Movimiento.registrarMovimiento( "Renovacion de tarjeta", compra.tarjeta, 2);
-                System.out.println("La compra fue exitosa");
+                Movimiento.registrarMovimiento( "Renovacion de tarjeta", compra.tarjeta, 2);{
+                System.out.println();
+                System.out.println(Color.verde(" La compra fue exitosa"));
             }
-            else
-                System.out.println("Error en la compra");
+            }else
+                 System.out.println();
+                System.out.println(Color.rojo(Color.negrita(" Error en la compra")));
             Texto.esperarEnter();
             salir = true;
         }
