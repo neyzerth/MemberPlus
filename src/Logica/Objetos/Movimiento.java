@@ -127,5 +127,30 @@ public class Movimiento {
     public void setFechaMov(String fechaMovStr) {
         this.fechaMov = FormatoFecha.fecha(fechaMovStr);
     }
+
+    public int getIdMovimiento() {
+        return this.idMovimiento;
+    }
+
+    public void setIdMovimiento(int idMovimiento) {
+        this.idMovimiento = idMovimiento;
+    }
+
+    public Usuario getUsuario() {
+        return this.usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public TipoMovimiento getTipo() {
+        return this.tipo;
+    }
+
+    public void setTipo(TipoMovimiento tipo) {
+        this.tipo = tipo;
+    }
+
     
 }
