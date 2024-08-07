@@ -3,7 +3,6 @@ package Presentacion.Formato;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Texto {
@@ -53,11 +52,17 @@ public class Texto {
         }
     }
 
-    public static void suspensivos(){
-        for (int i = 0; i < 5; i++) {
+    public static void suspensivos(int puntos, double seg){
+        for (int i = 0; i < puntos; i++) {
             System.out.print(".");
-            esperar(0.1);
+            esperar(seg);
         }
+    }
+    public static void suspensivos(int puntos){
+        suspensivos(puntos, 0.1);
+    }
+    public static void suspensivos(){
+        suspensivos(5);
     }
 
     public static String moneda(double cantidad) {
@@ -127,73 +132,5 @@ public class Texto {
         return invertido;
     }
 
-    public static String leerString(String txt) {
-        System.out.print(txt);
-        @SuppressWarnings("resource")
-        Scanner entrada = new Scanner(System.in);
-        try {
-            String dato = entrada.nextLine();
-            return dato;
-        } catch (NoSuchElementException e) {
-            System.out.println();
-            System.out.println(Color.rojo(Color.negrita(" Error: ") + (Color.rojo("Ocurrio un error inesperado."))));
-            return null; // o alguna otra acción de error
-        } catch (Exception e) {
-            System.out.println();
-            System.out.println(Color.rojo(Color.negrita(" Error: ") + (Color.rojo("no se ingresó ningún valor."))));
-            return null; // o alguna otra acción de error
-        }
-    }
 
-    public static String leerContra(String txt){
-
-        String contrasena = leerString(txt + Color.invisible);
-        System.err.print(Color.reset);
-        return contrasena;
-    }
-
-    public static int leerInt(String txt) {
-        try {
-            String num = leerString(txt);
-
-            if(num.isBlank())
-                return 0;
-            else
-                return Integer.parseInt(num);
-        } catch (NumberFormatException e) {
-            System.out.println();
-            System.out.println(Color.rojo(Color.negrita(" Error: ") + (Color.rojo("no se ingresó un valor entero."))));
-            return 0;
-        }
-    }
-
-    public static double leerDoub(String txt) {
-        try {
-            String num = leerString(txt);
-            
-            if(num.isBlank())
-                return 0;
-            else
-                return Double.parseDouble(num);
-        } catch (NumberFormatException e) {
-            System.out.println();
-            System.out.println(Color.rojo(Color.negrita(" Error: ") + (Color.rojo("no se ingresó un valor numerico."))));
-            return 0;
-        }
-    }
-
-    public static float leerFloat(String txt) {
-        try {
-            String num = leerString(txt);
-            
-            if(num.isBlank())
-                return 0;
-            else
-                return Float.parseFloat(num);
-        } catch (NumberFormatException e) {
-            System.out.println();
-            System.out.println(Color.rojo(Color.negrita(" Error: ") + (Color.rojo("no se ingresó un valor numerico."))));
-            return 0;
-        }
-    }
 }

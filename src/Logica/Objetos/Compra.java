@@ -3,6 +3,7 @@ package Logica.Objetos;
 
 import Logica.FormatoFecha;
 import Persistencia.Tablas.CompraEnt;
+import Persistencia.Tablas.Compra_BeneficioEnt;
 
 import java.sql.Date;
 
@@ -17,10 +18,12 @@ public class Compra {
     // CONSTRUCTORES
     public Compra(Tarjeta tarjeta){
         this.tarjeta = tarjeta;
+        this.beneficios = this.tarjeta.nivel.beneficios;
     }
 
     public Compra(String numTarjeta){
-        this.tarjeta = Tarjeta.importarTarjeta(numTarjeta);
+        //Manda a llamar el constructor con parametro Tarjeta
+        this(Tarjeta.importarTarjeta(numTarjeta));
     }
 
     public Compra(int idCompra, Date fechaCompra, int puntos,
@@ -72,16 +75,19 @@ public class Compra {
         return compras;
     }
 
-    /*public static Beneficio [] importarBeneficios(int IdTarjeta){
-        Compra_BeneficioEnt compra_BeneficioEnt = new Compra_BeneficioEnt();
-
-    }*/
-
     //CRUD COMPRA
     public boolean insertarCompras(){
         CompraEnt compra = new CompraEnt();
         this.tarjeta.actualizarTarjeta();
-        return compra.insertarCompraDB(fechaCompra,puntos,descuento,cashback,tarjeta.getIdTarjeta(),subtotal,total);
+        int idCompra = compra.insertarCompraDB(fechaCompra,puntos,descuento,cashback,tarjeta.getIdTarjeta(),subtotal,total);
+        if(idCompra > 0){
+            this.idCompra = idCompra;
+            Compra_BeneficioEnt comBen = new Compra_BeneficioEnt();
+            for (Beneficio ben : beneficios) {
+                comBen.insertarCompra_BeneficioDB(this.idCompra, ben.getIdBeneficio());
+            }
+        }
+        return idCompra > 0;
     }
 
     public boolean actualizarCompra(){
@@ -146,6 +152,18 @@ public class Compra {
     // GETTERS AND SETTERS
 
     public int getIdCompra() {
+        if(this.idCompra > 0)
+            return this.idCompra;
+
+        CompraEnt compraBd = new CompraEnt();
+        Object[] datos = compraBd.ejecutarSelectPorAtributos(
+            this.fechaCompra, this.puntos, this.descuento, this.cashback,  
+            this.tarjeta.getIdTarjeta(),this.subtotal, this.total
+        );
+
+        Compra compra = Compra.importarCompras(datos);
+
+        this.idCompra = compra.getIdCompra();
         return this.idCompra;
     }
 

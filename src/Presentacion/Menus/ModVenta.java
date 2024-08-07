@@ -18,7 +18,7 @@ public class ModVenta {
 
             System.out.println();
 
-            String numTarjeta = Texto.leerString(Color.cian(Color.negrita(" > Ingrese los numeros de su tarjeta: ")));
+            String numTarjeta = Leer.cadena(Color.cian(Color.negrita(" > Ingrese los numeros de su tarjeta: ")));
 
             if(!Tarjeta.validarNumTarjeta(numTarjeta)){
                 System.out.println();
@@ -29,7 +29,7 @@ public class ModVenta {
             Compra compra = new Compra(numTarjeta);
     
             System.out.println();
-            float total = Texto.leerFloat(Color.cian(Color.negrita(" > Ingrese el monto total: $")));
+            float total = Leer.flotante(Color.cian(Color.negrita(" > Ingrese el monto total: $")));
 
             System.out.println();
             System.out.println(" " + Color.amarillo(Texto.moneda( total)));
@@ -54,12 +54,12 @@ public class ModVenta {
             if(compra.tarjeta.getPuntos() > 0){
                 System.out.println();
                 System.out.println(Color.rojo(Color.negrita(" Desea usar sus puntos acumulados? ("+compra.tarjeta.getPuntos()+" -> $"+ compra.tarjeta.getPuntosConvertidos()+")?")));
-                usarPuntos = Texto.leerString(Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
+                usarPuntos = Leer.cadena(Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
             }
             if(compra.tarjeta.getSaldo() > 0){
                 System.out.println();
                 System.out.println(Color.rojo(Color.negrita(" Desea usar su saldo ("+Texto.moneda(compra.tarjeta.getSaldo())+")?")));
-                usarSaldo = Texto.leerString(Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
+                usarSaldo = Leer.cadena(Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
             }
             compra.usarBeneficios(usarPuntos, usarSaldo);
 

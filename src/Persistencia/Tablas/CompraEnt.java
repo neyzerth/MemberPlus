@@ -36,10 +36,10 @@ public class CompraEnt extends Query {
     }
 
     // Insertar una compra
-    public boolean insertarCompraDB( Date fecha, int puntos, float descuento, float cashback, int idTarjeta, float subtotal, float total) {
+    public int insertarCompraDB( Date fecha, int puntos, float descuento, float cashback, int idTarjeta, float subtotal, float total) {
         Object[] valores = { fecha, puntos, descuento, cashback,idTarjeta, subtotal, total };
         String query = insert(valores);
-        return ejecutarInsert(query);
+        return obtenerIdInsert(query);
     }
 
     // Eliminar una compra

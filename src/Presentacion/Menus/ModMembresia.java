@@ -1,13 +1,15 @@
 package Presentacion.Menus;
 
 import Logica.Objetos.Beneficio;
+import Logica.Objetos.Movimiento;
 import Logica.Objetos.Nivel;
 import Logica.Objetos.Tarjeta;
+import Logica.Objetos.TipoMovimiento;
 import Presentacion.Despliegue.*;
 import Presentacion.Formato.*;
 
 //------------ MODULO PRINCIPAL ---------
-public class ModTarjeta {
+public class ModMembresia {
     public static void menu() {
         boolean salir = false;
 
@@ -17,8 +19,9 @@ public class ModTarjeta {
 
             Cuadro tarjeta = new Cuadro(
                 Color.morado("Administrar tarjetas"),
-                Color.morado("Administrar Niveles de tarjetas"),
+                Color.morado("Administrar Niveles de membresias"),
                 Color.morado("Administrar beneficios"),
+                Color.morado("Administrar Movimientos"),
                 Color.rojo("Volver al menú principal")
             );
             
@@ -26,7 +29,7 @@ public class ModTarjeta {
 
             System.out.println();
 
-            int option = Texto.leerInt(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
+            int option = Leer.entero(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
 
             switch (option) {
                 case 1: SubmodTarjeta.desplegarMenu();
@@ -35,7 +38,9 @@ public class ModTarjeta {
                     break;
                 case 3: SubmodBeneficio.desplegarMenu();
                     break;
-                case 4:
+                    case 4:
+                    break;
+                case 5:
                     salir = true;
                     break;
                 default:
@@ -50,11 +55,11 @@ public class ModTarjeta {
 class SubmodTarjeta extends Menu{
 
     public SubmodTarjeta(){
-        super("Membresia", "Membresias");
+        super("Tarjeta", "Tarjetas");
         this.opciones = new Cuadro(
             Color.morado("Lista de " + modPlur),
             Color.morado("Información de " + modSing),
-            Color.morado("Actualizar " + modSing),
+            Color.morado("Renovar " + modSing),
             Color.morado("Eliminar "+ modSing),
             Color.rojo("Volver")
         );
@@ -101,10 +106,10 @@ class SubmodTarjeta extends Menu{
         tabla();
 
         System.out.println();
-        String numTarjeta = Texto.leerString(Color.cian(" > Numero de " + modSing + " a ver: "));
+        String numTarjeta = Leer.cadena(Color.cian(" > Numero de " + modSing + " a ver: "));
         if(!tabla(numTarjeta)) { 
             System.out.println();
-            Texto.esperarEnter(Color.rojo(" No existe " + modSing + " con numero de tarjeta " + numTarjeta + "..."));
+            Texto.esperarEnter(Color.rojo(" No existe " + modSing + " con el numero " + numTarjeta + "..."));
             return;
         }
     
@@ -114,17 +119,17 @@ class SubmodTarjeta extends Menu{
     @Override 
     public void menuActualizar(){
 
-        Cuadro actualizar = new Cuadro(Color.morado(" Modificar informacion de " + modSing));
+        Cuadro actualizar = new Cuadro(Color.morado(" Renovar informacion de " + modSing));
         Texto.limpiarPantalla();
 
         actualizar.imprimirCuadro();
 
         System.out.println();
-        String numTarjeta = Texto.leerString(Color.cian(" > Numero de tarjeta a modificar: "));
+        String numTarjeta = Leer.cadena(Color.cian(" > Numero de "+modSing+" a modificar: "));
 
         if(!tabla(numTarjeta)) { 
             System.out.println();
-            Texto.esperarEnter(Color.rojo(Color.negrita(" No existe Tajeta con el numero " + numTarjeta + "...")));
+            Texto.esperarEnter(Color.rojo(Color.negrita(" No existe "+ modSing +" con el numero " + numTarjeta + "...")));
             return;
         }
 
@@ -134,7 +139,7 @@ class SubmodTarjeta extends Menu{
         do{
             System.out.println(" ¿Que desea realizar?");
             System.out.println("Renovar $"+ tarjeta.nivel.getAnualidad() +"[1] - Cambiar nivel [2] - Salir [3]");
-            int opc = Texto.leerInt("> ");
+            int opc = Leer.entero("> ");
             switch (opc) {
                 case 1:
                     
@@ -148,7 +153,7 @@ class SubmodTarjeta extends Menu{
                     break;
                 case 2:
                     System.out.println("Nivel actual: " + tarjeta.nivel.getNombre());
-                    int idNivel = Texto.leerInt("> ID del nuevo nivel: ");
+                    int idNivel = Leer.entero("> ID del nuevo nivel: ");
                     Nivel nivel = Nivel.importarNiveles(idNivel);
                     tarjeta.nivel = nivel;
                     tarjeta.actualizarTarjeta();
@@ -180,7 +185,7 @@ class SubmodTarjeta extends Menu{
             tabla();
 
             System.out.println();
-            String numTarjeta = Texto.leerString(Color.cian(" > Numero de " + modSing + " a eliminar: "));
+            String numTarjeta = Leer.cadena(Color.cian(" > Numero de " + modSing + " a eliminar: "));
 
             if(!tabla(numTarjeta)) { 
                 System.out.println();
@@ -191,7 +196,7 @@ class SubmodTarjeta extends Menu{
 
             System.out.println();
             System.out.println(Color.rojo(Color.negrita(" ¿Seguro que desea eliminar este " + modSing + "?")));
-            boolean conf = Texto.leerString (Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
+            boolean conf = Leer.cadena (Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
             System.out.println();
 
             if (conf)
@@ -360,9 +365,9 @@ class SubmodNivel extends Menu {
     public Nivel pedirDatos(){
         Nivel nivel = new Nivel();
         try{
-            nivel.setNombre(Texto.leerString(Color.cian(Color.negrita(" > Nombre del nivel: "))));
-            nivel.setCostoApertura(Texto.leerInt(Color.cian(Color.negrita(" > Costo de apertura: $"))));
-            nivel.setAnualidad(Texto.leerString(Color.cian(Color.negrita(" > Costo de la anualidad: $"))));
+            nivel.setNombre(Leer.cadena(Color.cian(Color.negrita(" > Nombre del nivel: "))));
+            nivel.setCostoApertura(Leer.entero(Color.cian(Color.negrita(" > Costo de apertura: $"))));
+            nivel.setAnualidad(Leer.cadena(Color.cian(Color.negrita(" > Costo de la anualidad: $"))));
             System.out.println();
             SubmodBeneficio verBeneficios = new SubmodBeneficio();
             
@@ -370,13 +375,13 @@ class SubmodNivel extends Menu {
             verBeneficios.tabla();
             do{
                 System.out.println();
-                int idBeneficio = Texto.leerInt(Color.cian(" > Selecciona ID del beneficio: "));
+                int idBeneficio = Leer.entero(Color.cian(" > Selecciona ID del beneficio: "));
                 if(Beneficio.validarBeneficio(idBeneficio)){
                     try{
                         nivel.agregarBeneficio(idBeneficio);
                         System.out.println();
                         System.out.println(Color.amarillo(" Desea agregar otro beneficio?"));
-                        agregarNivel = 1 == Texto.leerInt(  Color.amarillo(Color.negrita(" > SI[1] NO[2]: ")));
+                        agregarNivel = 1 == Leer.entero(  Color.amarillo(Color.negrita(" > SI[1] NO[2]: ")));
 
                     }catch(Exception e){
                         System.out.println(e.getMessage());
@@ -511,26 +516,26 @@ class SubmodBeneficio extends Menu{
         int dia, mes, anio;
         try {
             System.out.println();
-            beneficio.setNombre(Texto.leerString(Color.cian(Color.negrita(" > Nombre del beneficio: "))));
+            beneficio.setNombre(Leer.cadena(Color.cian(Color.negrita(" > Nombre del beneficio: "))));
             System.out.println();
             System.out.println(Color.amarillo(Color.negrita(" Fecha de inicio")));
-            dia = Texto.leerInt(Color.cian(Color.negrita(" > Dia: ")));
-            mes = Texto.leerInt(Color.cian(Color.negrita(" > Mes: ")));
-            anio = Texto.leerInt(Color.cian(Color.negrita(" > Año: ")));
+            dia = Leer.entero(Color.cian(Color.negrita(" > Dia: ")));
+            mes = Leer.entero(Color.cian(Color.negrita(" > Mes: ")));
+            anio = Leer.entero(Color.cian(Color.negrita(" > Año: ")));
             beneficio.setFecInicio(dia, mes, anio);
 
             System.out.println();
             System.out.println(Color.amarillo(Color.negrita(" Fecha de vencimiento")));
-            dia = Texto.leerInt(Color.cian(Color.negrita(" > Dia: ")));
-            mes = Texto.leerInt(Color.cian(Color.negrita(" > Mes: ")));
-            anio = Texto.leerInt(Color.cian(Color.negrita(" > Año: ")));
+            dia = Leer.entero(Color.cian(Color.negrita(" > Dia: ")));
+            mes = Leer.entero(Color.cian(Color.negrita(" > Mes: ")));
+            anio = Leer.entero(Color.cian(Color.negrita(" > Año: ")));
             beneficio.setFecVen(dia, mes, anio);
             
             System.out.println();
             System.out.println(Color.amarillo(Color.negrita(" Beneficios")));
-            beneficio.setPorcPuntos(Texto.leerInt(Color.cian(Color.negrita(" > Porcentaje de puntos: "))));
-            beneficio.setPorcCashBack(Texto.leerInt(Color.cian(Color.negrita(" > Porcentaje de CashBack: "))));
-            beneficio.setPorcDescuento(Texto.leerInt(Color.cian(Color.negrita(" > Porcentaje de Descuento: "))));
+            beneficio.setPorcPuntos(Leer.entero(Color.cian(Color.negrita(" > Porcentaje de puntos: "))));
+            beneficio.setPorcCashBack(Leer.entero(Color.cian(Color.negrita(" > Porcentaje de CashBack: "))));
+            beneficio.setPorcDescuento(Leer.entero(Color.cian(Color.negrita(" > Porcentaje de Descuento: "))));
 
         } catch (Exception e) {
             System.out.println();
@@ -541,6 +546,179 @@ class SubmodBeneficio extends Menu{
         return beneficio;
         
     }
+    
+    //TODO
+    //Submodulo de movimientos
+    // class SubmodMovimiento extends Menu{
 
-}
+    //     public SubmodMovimiento(){
+    //         super("Movimiento", "Movimientos");
+    //     }
+    
+    //     public static void desplegarMenu(){
+    //         SubmodMovimiento menuMovimiento = new SubmodMovimiento();
+    //         menuMovimiento.menu();
+    //     }
+    
+    //     @Override
+    //     public void tabla() {
+    //         tabla = new Tabla(Color.amarillo("ID"),Color.amarillo( "Fecha de movimiento"),Color.amarillo("Estado"), Color.amarillo("Comentario"));
+    
+    //         Movimiento [] movimientos = Movimiento.importarMovimientos();
+            
+    //         for (Movimiento movimiento : movimientos) {  
+    //             tabla.agregarFila(
+    //                 movimiento.getId_movimiento(),
+    //                 movimiento.getFechaMov(),
+    //                 movimiento.getEstado(),
+    //                 movimiento.getComentario()
+    //             );
+    //         }
+    
+    //         tabla.imprimirTablaSimple();
+    //     }
+        
+    //     @Override
+    //     public boolean tabla(int id) {
+    //         if(!Movimiento.validarMovimiento(id))
+    //             return false;
+    
+    //         tabla = new Tabla (Color.amarillo("ID"),Color.amarillo( "Fecha de movimiento"),Color.amarillo("Estado"), Color.amarillo("Comentario"));
+    
+    //         Movimiento movimiento = Movimiento.importarMovimientos(id);
+    
+    //         tabla.agregarFila(
+    //             movimiento.getId_movimiento(),
+    //             movimiento.getFechaMov(),
+    //             movimiento.getEstado(),
+    //             movimiento.getComentario()
+    //         );
+    
+    //         tabla.imprimirTablaSimple();
+    //         return true;
+    //     }
+        
+    //     @Override
+    //     public boolean registrar() {
+    //         Movimiento movimiento = new Movimiento();
+    //         try {
+    //             movimiento = pedirDatos();
+    
+    //             if(movimiento != null){
+    //                 //?movimiento.insertarMovimiento();//?
+    //                 tabla(movimiento.getId_movimiento());
+    //                 return true;
+    //             }
+                
+    //         } catch (Exception e) {
+    //             System.out.println();
+    //             Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
+    //         }
+            
+    //         return false;
+    //     }
+    
+    //     @Override
+    //     public boolean actualizar(int id) {
+    //         Beneficio beneficio = Beneficio.importarBeneficios(id);
+    //         if(beneficio == null){
+    //             System.out.println();
+    //             Texto.esperarEnter(Color.rojo("Beneficio no encontrado"));
+    //             return false;
+    //         }
+    
+    //         try {
+    //             //?beneficio = pedirDatos();
+    
+    //             if(beneficio != null){
+    //                 tabla(id);
+    //                 return beneficio.actualizarBeneficio();
+    //             }
+    
+    //         } catch (Exception e) {
+    //             Texto.esperarEnter("Dato incorrecto");
+    //         }
+            
+    //         return false;
+    //     }
+    
+        
+        //?public boolean eliminar(int id) {
+            //?return Movimiento.eliminarMovimiento(id);
+        //?}
+    
+    /*public Movimiento pedirDatos(){
+        Movimiento movimiento = new Movimiento();
+        int dia, mes, anio;
+        try {
+            System.out.println();
+            beneficio.setNombre(Leer.cadena(Color.cian(Color.negrita(" > Nombre del beneficio: "))));
+            System.out.println();
+            System.out.println(Color.amarillo(Color.negrita(" Fecha de inicio")));
+            dia = Leer.entero(Color.cian(Color.negrita(" > Dia: ")));
+            mes = Leer.entero(Color.cian(Color.negrita(" > Mes: ")));
+            anio = Leer.entero(Color.cian(Color.negrita(" > Año: ")));
+            beneficio.setFecInicio(dia, mes, anio);
+
+            System.out.println();
+            System.out.println(Color.amarillo(Color.negrita(" Fecha de vencimiento")));
+            dia = Leer.entero(Color.cian(Color.negrita(" > Dia: ")));
+            mes = Leer.entero(Color.cian(Color.negrita(" > Mes: ")));
+            anio = Leer.entero(Color.cian(Color.negrita(" > Año: ")));
+            beneficio.setFecVen(dia, mes, anio);
+            
+            System.out.println();
+            System.out.println(Color.amarillo(Color.negrita(" Beneficios")));
+            beneficio.setPorcPuntos(Leer.entero(Color.cian(Color.negrita(" > Porcentaje de puntos: "))));
+            beneficio.setPorcCashBack(Leer.entero(Color.cian(Color.negrita(" > Porcentaje de CashBack: "))));
+            beneficio.setPorcDescuento(Leer.entero(Color.cian(Color.negrita(" > Porcentaje de Descuento: "))));
+
+        } catch (Exception e) {
+            System.out.println();
+            Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
+            return null;
+        }
+        
+        return beneficio;
+            
+        }*/
+    }
+
+    //Submodulo tipo de movimiento
+    // class SubmoduloTipoMovimiento extends Menu{
+    //     //?Se puede tomar de rol
+    //     public SubmoduloTipoMovimiento(){
+    //         super("Tipo de movimiento", "Tipos de movimientos");
+    //     }
+
+    //     public static void desplegarMenu(){
+    //         SubmoduloTipoMovimiento menuTipoMovimiento = new SubmoduloTipoMovimiento();
+    //         menuTipoMovimiento.menu();
+    //     }
+
+    //     @Override
+    //     public void tabla(){
+    //         tabla = new Tabla(Color.amarillo("ID"),Color.amarillo("Nombre"), Color.amarillo("Descripcion"));
+
+    //         TipoMovimiento []tipoMovimientos = TipoMovimiento.importarTipoMovimientos();
+
+    //         for (TipoMovimiento tipoMovimiento : tipoMovimientos) {
+    //             tabla.agregarFila(
+    //                 tipoMovimiento.getIdTipoMovimiento(),
+    //                 tipoMovimiento.getNombre(),
+    //                 tipoMovimiento.getDescripcion()
+    //             );
+    //         }
+
+    //         tabla.imprimirTablaSimple();
+    //     }
+
+    //     @Override
+    //     public boolean tabla(int id){
+    //         if(!TipoMovimiento.validarTipoMovimiento())
+    //             return false;
+    //     }
+    // }
+
+
 

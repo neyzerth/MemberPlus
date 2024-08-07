@@ -86,11 +86,12 @@ public class Nivel {
     public boolean insertarNivel(){
         NivelEnt nivel = new NivelEnt();
         boolean insertado = nivel.insertarNivelDB(nombre, anualidad, costoApertura);
-        if(insertado)
+        if(insertado){
+            Nivel_BeneficioEnt nivBen = new Nivel_BeneficioEnt();
             for (Beneficio beneficio : beneficios) {
-                Nivel_BeneficioEnt nivBen = new Nivel_BeneficioEnt();
                 nivBen.insertarNivel_BeneficioDB(getIdNivel(), beneficio.getIdBeneficio());
             }
+        }
         return insertado;
     }
 

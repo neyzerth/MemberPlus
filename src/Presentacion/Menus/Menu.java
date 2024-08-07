@@ -1,8 +1,8 @@
 package Presentacion.Menus;
 
+import Logica.Sesion;
 import Presentacion.Despliegue.*;
-import Presentacion.Formato.Color;
-import Presentacion.Formato.Texto;
+import Presentacion.Formato.*;
 
 //CLASE ABSTRACTA 
 //Padre de la mayoria de los modulos/menus
@@ -15,14 +15,26 @@ public abstract class Menu {
 
     public Menu(String singular, String plural){
         setNombres(singular, plural);
-        this.opciones = new Cuadro(
+        String [] modulos = {
             Color.morado("Lista de " + modPlur),
             Color.morado("Información de " + modSing),
             Color.morado("Registrar " + modSing),
             Color.morado("Modificar " + modSing),
-            Color.morado("Eliminar "+ modSing),
-            Color.rojo("Volver")
-        );
+            Color.morado("Eliminar "+ modSing)
+        }; 
+        this.opciones = new Cuadro();
+        //Desplegar menu de manera distinta para cada rol
+        switch (Sesion.getRol()) {
+            case "administrador": case "gerente":
+                opciones = new Cuadro(modulos); //t0dos
+                break;
+            case "cajero": case "supervisor":
+                opciones = new Cuadro(modulos[1], modulos[2], modulos[3], modulos[4]);
+                break;
+        }
+
+
+        this.opciones.agregarSalir();
     }
 
     //METODOS ABSTRACTOS
@@ -43,7 +55,7 @@ public abstract class Menu {
 
             System.out.println();
 
-            int opcion = Texto.leerInt(Color.cian(" > Seleccione una opción: "));
+            int opcion = Leer.entero(Color.cian(" > Seleccione una opción: "));
             
             salir = conexionMenus(opcion);
             
@@ -52,6 +64,15 @@ public abstract class Menu {
 
     //Default de orden de las opciones
     public boolean conexionMenus(int opcion){
+        int opcionRol = opcion;
+        switch (Sesion.getRol()) {
+            case "cajero": case "supervisor":
+                //IF TERNARIO
+                opcionRol = opcion > 0 ? opcion+1 : -1;
+                opcionRol = opcion == 5 ? -1 : opcionRol;
+                opcionRol = opcion == 0 ? 0 : opcionRol;
+                break;
+        }
         switch (opcion) {
             case 1: menuVerTodos();
                 break;
@@ -64,12 +85,12 @@ public abstract class Menu {
             case 5: menuEliminar();
                 break;
                 
-            case 6: return true;
+            case 0: return true;
 
             default:
                 System.out.println();
-                System.out.println(Color.rojo(" Opción inválida, por favor intente de nuevo."));
-                Texto.esperar(1);
+                System.out.print(Color.rojo(" Opción inválida, por favor intente de nuevo."));
+                Texto.suspensivos(3,0.6);
             break;
         }
         return false;
@@ -98,7 +119,7 @@ public abstract class Menu {
         tabla();
 
         System.out.println();
-        int id = Texto.leerInt(Color.cian(" > ID del " + modSing + " a ver: "));
+        int id = Leer.entero(Color.cian(" > ID del " + modSing + " a ver: "));
         if(!tabla(id)) { 
             System.out.println();
             Texto.esperarEnter(Color.rojo(" No existe " + modSing + " con ID " + id + "..."));
@@ -137,7 +158,7 @@ public abstract class Menu {
         tabla();
 
         System.out.println();
-        int id = Texto.leerInt(Color.cian(" > ID del " + modSing +" a modificar: "));
+        int id = Leer.entero(Color.cian(" > ID del " + modSing +" a modificar: "));
 
         if(!tabla(id)) { 
             System.out.println();
@@ -171,7 +192,7 @@ public abstract class Menu {
             tabla();
 
             System.out.println();
-            int id = Texto.leerInt(Color.cian(" > ID de " + modSing + " a eliminar: "));
+            int id = Leer.entero(Color.cian(" > ID de " + modSing + " a eliminar: "));
 
             if(!tabla(id)) { 
                 System.out.println();
@@ -182,7 +203,7 @@ public abstract class Menu {
 
             System.out.println();
             System.out.println(Color.rojo(Color.negrita(" ¿Seguro que desea eliminar este " + modSing + "?")));
-            boolean conf = Texto.leerString (Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
+            boolean conf = Leer.cadena (Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
             System.out.println();
 
             if (conf){

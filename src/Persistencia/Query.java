@@ -306,6 +306,31 @@ public class Query {
         return resultado;
     }
 
+    public int obtenerIdInsert(String query) {
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+        int idGenerado = -1; // valor por defecto si no se genera un ID
+    
+        if (conn != null) {
+            try {
+                Statement stmt = conn.createStatement();
+                stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+    
+                ResultSet rs = stmt.getGeneratedKeys();
+                if (rs.next()) {
+                    idGenerado = rs.getInt(1); // obtener el ID generado
+                }
+    
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+                return -1; // error al ejecutar la consulta
+            }
+        }
+    
+        return idGenerado;
+    }
+
     public String update(Object[] valores, int id) {
         String query = "UPDATE " + tabla + " SET ";
     

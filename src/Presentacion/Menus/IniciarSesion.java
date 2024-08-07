@@ -29,10 +29,10 @@ public class IniciarSesion {
         System.out.println();
 
         // Solicitar nombre de usuario
-        usuario = Texto.leerString(Color.cian(" > Usuario: "));
+        usuario = Leer.cadena(Color.cian(" > Usuario: "));
 
         // Solicitar contraseña de forma segura
-        contrasena = Texto.leerContra(Color.cian(" > Contraseña: "));
+        contrasena = Leer.contra(Color.cian(" > Contraseña: "));
 
         System.out.println();
         System.out.print(Color.amarillo(" Conectando con base de datos"));

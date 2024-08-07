@@ -3,7 +3,7 @@ import Persistencia.Query;
 
 public class Compra_BeneficioEnt extends Query {
     public Compra_BeneficioEnt() {
-        super("compraBeneficio",
+        super("compra_beneficio",
                 "compra",
                 "beneficio");
     }
@@ -23,7 +23,7 @@ public class Compra_BeneficioEnt extends Query {
     // Insertar un nuevo registro
     public boolean insertarCompra_BeneficioDB(int idCompra, int idBeneficio) {
         Object[] valores = { idCompra, idBeneficio };
-        String query = insert(valores);
+        String query = insertConId(valores);
         return ejecutarInsert(query);
     }
 

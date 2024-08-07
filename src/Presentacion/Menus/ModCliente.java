@@ -44,7 +44,7 @@ public class ModCliente extends Menu{
         modNivel.tabla();
 
         System.out.println();
-        int idNivel = Texto.leerInt(Color.cian(Color.negrita(" > ID del nivel a solicitar: ")));
+        int idNivel = Leer.entero(Color.cian(Color.negrita(" > ID del nivel a solicitar: ")));
 
         tarjeta.nivel = Nivel.importarNiveles(idNivel);
 
@@ -94,7 +94,7 @@ public class ModCliente extends Menu{
         tabla();
 
         System.out.println();
-        int id = Texto.leerInt(Color.cian(" > ID del Cliente a modificar: "));
+        int id = Leer.entero(Color.cian(" > ID del Cliente a modificar: "));
 
         if(!tabla(id)) { 
             System.out.println();

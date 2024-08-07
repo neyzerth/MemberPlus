@@ -26,6 +26,8 @@ public class Movimiento {
         this.usuario = usuario;
         this.tipo = tipo;
     }    
+
+    public Movimiento(){}
     
     // METODOS
 
@@ -51,6 +53,18 @@ public class Movimiento {
         MovimientoEnt movimientoBd = new MovimientoEnt();
         Object[] datos = movimientoBd.obtenerMovimientoPorIdDB(id);
         return importarMovimientos(datos);
+    }
+    
+    //?
+    public static Movimiento[] importarMovimientos(){
+        MovimientoEnt movimientoBd = new MovimientoEnt();
+        Movimiento[] movimientos = new Movimiento[movimientoBd.obtenerCantRegistros()];
+        Object [][] datos = movimientoBd.ejecutarSelect();
+
+        for (int i = 0; i < datos.length; i++) {
+            movimientos[i] = importarMovimientos(datos[i]);
+        }
+        return movimientos;
     }
 
     //CRUD de movimiento
