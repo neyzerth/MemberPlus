@@ -7,7 +7,7 @@ import Presentacion.Despliegue.Cuadro;
 import Presentacion.Despliegue.Tabla;
 import Presentacion.Formato.*;
 
-public class ModTarjeta {
+public class ModMembresia {
     public static void menu() {
         boolean salir = false;
 
