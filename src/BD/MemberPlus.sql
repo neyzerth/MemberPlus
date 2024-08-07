@@ -1,8 +1,9 @@
 -- SQLBook: Code
--- Active: 1722578640281@@127.0.0.1@3306@member_plus
+-- Active: 1723058837855@@127.0.0.1@3306@member_plus
 DROP DATABASE member_plus;
 CREATE DATABASE member_plus;
 USE member_plus;
+
 
 CREATE TABLE persona (
     idPersona INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
