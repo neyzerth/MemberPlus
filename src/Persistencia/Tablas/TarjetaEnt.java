@@ -52,6 +52,8 @@ public class TarjetaEnt extends Query {
         }
     }
 
+    
+
     // Verificar si el numTarjeta ya existe en la base de datos
     public boolean existeNumTarjeta(String numTarjeta) {
         return existeRegistro(getNomColumna(1), numTarjeta);
@@ -65,6 +67,11 @@ public class TarjetaEnt extends Query {
     public boolean eliminarTarjetaDB(int idTarjeta) {
         String query = delete(idTarjeta);
         return ejecutarDelete(query);
+    }
+
+    public boolean cambiarActivo(int id){
+        String query=updateColumna(getNomColumna(4),"0",id);
+        return ejecutarUpdate(query);
     }
 
 }

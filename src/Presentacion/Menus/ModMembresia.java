@@ -218,7 +218,7 @@ class SubmodTarjeta extends Menu {
 
             if (conf) {
                 Tarjeta tarjeta = Tarjeta.importarTarjeta(numTarjeta);
-                Movimiento.registrarMovimiento("Eliminacion de membresia", tarjeta, 3);
+                Movimiento.registrarMovimiento("Cancelacion de membresia", tarjeta, 3);
                 if (eliminar(numTarjeta)) {
                     tabla();
                     System.out.println();
@@ -249,7 +249,7 @@ class SubmodTarjeta extends Menu {
     }
 
     public boolean eliminar(String numTarjeta) {
-        return Tarjeta.eliminarTarjeta(numTarjeta);
+        return Tarjeta.cancelarTarjeta(numTarjeta);
     }
 
     @Override

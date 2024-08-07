@@ -427,6 +427,11 @@ public class Query {
         return sb.toString();
     }
 
+    public String updateColumna(String columna, String valor, int id) {
+        String query = "UPDATE " + tabla +  " SET " + columna + " = " + valor + " WHERE " + columnas[0] + " = " + id;
+        return query;
+    }
+
     public String getTabla() {
         return this.tabla;
     }
