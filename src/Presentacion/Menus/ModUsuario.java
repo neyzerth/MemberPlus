@@ -1,5 +1,6 @@
 package Presentacion.Menus;
 
+import Presentacion.Despliegue.Cuadro;
 import Presentacion.Despliegue.Tabla;
 import Presentacion.Formato.*;
 
@@ -91,7 +92,10 @@ public class ModUsuario extends Menu {
             usuario.setContrasena(Texto.leerContra(Color.cian(Color.negrita(" > Contraseña del usuario: "))));
             usuario.setRfc(Texto.leerString(Color.cian(" > RFC del usuario: ")));
 
-            Tabla tablaRol = new Tabla("ID", "Nombre", "Descripcion");
+            System.out.println();
+            System.out.println(Texto.espacio(35) + Color.amarillo(Color.negrita("> Roles <")));
+
+            Tabla tablaRol = new Tabla(Color.amarillo("ID"), Color.amarillo("Nombre"), Color.amarillo("Descripcion"));
             Rol[] roles = Rol.importarRoles();
             for (Rol rol : roles) {
                 tablaRol.agregarFila(
@@ -100,6 +104,7 @@ public class ModUsuario extends Menu {
             }
             tablaRol.imprimirTablaSimple();
             
+            System.out.println();
             usuario.setRol(Texto.leerInt(Color.cian(Color.negrita(" > ID del ROL del usuario: "))));
 
             return usuario;   
