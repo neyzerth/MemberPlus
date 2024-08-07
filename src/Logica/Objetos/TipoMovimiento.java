@@ -1,6 +1,8 @@
 package Logica.Objetos;
 
+
 import Persistencia.Tablas.TipoMovimientoEnt;
+
 
 public class TipoMovimiento{
     // ATRIBUTOS
@@ -9,6 +11,12 @@ public class TipoMovimiento{
     
     
     // CONSTRUCTORES 
+
+    public TipoMovimiento() {
+    }
+
+
+
     public TipoMovimiento(int idTipoMovimiento, String nombre, String descripcion) {
         this.idTipoMovimiento = idTipoMovimiento;
         this.nombre = nombre;
@@ -16,12 +24,7 @@ public class TipoMovimiento{
     }
 
 
-    // public TipoMovimiento(int idMovimiento, String comentario, String estado, Date fechaMov,int idTipoMovimiento, String nombre, String descripcion) {
-    //     super(idMovimiento,comentario,estado,fechaMov);
-    //     this.idTipoMovimiento = idTipoMovimiento;
-    //     this.nombre = nombre;
-    //     this.descripcion = descripcion;
-    // }
+  
 
 
       // COMUNICACION CON PERSISTENCIA
@@ -70,6 +73,12 @@ public class TipoMovimiento{
         TipoMovimientoEnt tipoMovimientoEnt = new TipoMovimientoEnt();
         return tipoMovimientoEnt.existeTipoMovimiento(nombre);
     }
+
+    public static boolean eliminarTipoMovimiento(int id) {
+        TipoMovimientoEnt tipoMovimientoEnt = new TipoMovimientoEnt();
+        return tipoMovimientoEnt.eliminarTipoMovimientoDB(id);
+    }
+
 
 
 

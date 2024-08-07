@@ -67,7 +67,7 @@ public class ModUsuario extends Menu {
                     persona.setIdPersona(idPersona);
                     persona.actualizarPersona();
                 } else return false;
-              
+            
             }
         
             
