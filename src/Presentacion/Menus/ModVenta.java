@@ -1,6 +1,7 @@
 package Presentacion.Menus;
 
 import Logica.Objetos.Compra;
+import Logica.Objetos.Movimiento;
 import Logica.Objetos.Tarjeta;
 import Presentacion.Despliegue.Cuadro;
 import Presentacion.Formato.*;
@@ -64,8 +65,10 @@ public class ModVenta {
 
 
             System.out.println("Su nuevo total es de "  + Texto.moneda(compra.getSubtotal()));
-            if(compra.insertarCompras())
+            if(compra.insertarCompras()){
+                Movimiento.registrarMovimiento( "Renovacion de tarjeta", compra.tarjeta, 2);
                 System.out.println("La compra fue exitosa");
+            }
             else
                 System.out.println("Error en la compra");
             Texto.esperarEnter();

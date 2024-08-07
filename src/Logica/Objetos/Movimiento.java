@@ -2,6 +2,7 @@ package Logica.Objetos;
 
 
 import Logica.FormatoFecha;
+import Logica.Sesion;
 import Persistencia.Tablas.MovimientoEnt;
 import java.sql.Date;
 
@@ -10,8 +11,9 @@ public class Movimiento {
     private int idMovimiento;
     private String comentario, estado;
     private  Date fechaMov;
-    private Usuario usuario;
-    private TipoMovimiento tipo;
+    public Tarjeta tarjeta;
+    public Usuario usuario;
+    public TipoMovimiento tipo;
 
     // CONSTRUCTORES
 
@@ -28,6 +30,8 @@ public class Movimiento {
     }    
 
     public Movimiento(){}
+    
+
     
     // METODOS
 
@@ -68,9 +72,17 @@ public class Movimiento {
     }
 
     //CRUD de movimiento
-    public boolean insertarMovimiento(int idTarjeta){
+    public boolean insertarMovimiento(){
         MovimientoEnt movimientoBd = new MovimientoEnt();
-        return movimientoBd.insertarMovimientoDB(fechaMov, estado, comentario, idMovimiento, idTarjeta, idMovimiento);
+        Date fechaActual = new Date(System.currentTimeMillis());
+
+        return movimientoBd.insertarMovimientoDB(fechaActual, "Activo", comentario, Sesion.getId(), tarjeta.getIdTarjeta(), tipo.getIdTipoMovimiento());
+    }
+    public static boolean registrarMovimiento(String comentario, Tarjeta tarjeta, int idTipo){
+        MovimientoEnt movimientoBd = new MovimientoEnt();
+        Date fechaActual = new Date(System.currentTimeMillis());
+
+        return movimientoBd.insertarMovimientoDB(fechaActual, "Activo", comentario, Sesion.getId(), tarjeta.getIdTarjeta(), idTipo);
     }
 
     public boolean actualizarMovimiento( int idTarjeta){

@@ -1,5 +1,6 @@
 package Presentacion.Menus;
 
+import Logica.Sesion;
 import Logica.Objetos.Beneficio;
 import Logica.Objetos.Movimiento;
 import Logica.Objetos.Nivel;
@@ -160,7 +161,7 @@ class SubmodTarjeta extends Menu {
                     System.out.println("Nueva fecha de vencimiento: " + tarjeta.getFecVen());
                     tarjeta.actualizarTarjeta();
                     System.out.println(Color.cian("Tarjeta renovada con exito..."));
-                    registrarMovimiento(4, "Renovacion de tarjeta"); //Checar lo de el id
+                    Movimiento.registrarMovimiento( "Renovacion de tarjeta", tarjeta, 2);//Checar lo de el id
                     Texto.esperarEnter();
                     
 
@@ -174,7 +175,7 @@ class SubmodTarjeta extends Menu {
                     tarjeta.nivel = nivel;
                     if (tarjeta.actualizarTarjeta()){
                         System.out.println(Color.verde("Nuevo nivel: " + tarjeta.nivel.getNombre()));
-                        registrarMovimiento(4, "Renovacion de tarjeta");//Checar lo de el id
+                        Movimiento.registrarMovimiento( "Cambiar nivel", tarjeta, 2);//Checar lo de el id
                     }
                     else{
                         System.out.println(Color.rojo("Error al cambiar nivel "));
@@ -222,7 +223,7 @@ class SubmodTarjeta extends Menu {
             System.out.println();
 
             if (conf)
-                registrarMovimiento(4, "Eliminación de tarjeta");
+                //registrarMovimiento(4, "Eliminación de tarjeta");
                 if (eliminar(numTarjeta)) {
                     tabla();
                     System.out.println();
@@ -300,30 +301,17 @@ class SubmodTarjeta extends Menu {
             return false;
         Tarjeta tarjeta = Tarjeta.importarTarjeta(numTarjeta);
         return tabla(tarjeta.getIdTarjeta());
-    }
+    }    
     
-    public void registrarMovimiento(int idTarjeta, String comentario) {
-        MovimientoEnt movimientoBd = new MovimientoEnt();
-        Date fechaActual = new Date(System.currentTimeMillis());
-        int idUsuario = obtenerIdUsuarioActual();
-        int idTipoMovimiento = obtenerIdTipoMovimiento();
-    
-        if (movimientoBd.insertarMovimientoDB(fechaActual, comentario, "Activo", idUsuario, idTarjeta, idTipoMovimiento)) {
-            System.out.println("Movimiento registrado con éxito");
-        } else {
-            System.out.println("Error al registrar el movimiento");
-        }
-    }
-    
-   
     public int obtenerIdUsuarioActual() {
-     
-        return 1; 
+        return Sesion.getId();
+        
     }
     
     public int obtenerIdTipoMovimiento() {
-
-        return 1; 
+        Movimiento movimiento = new Movimiento();
+        return 1;
+        
     }
 }
 
@@ -728,7 +716,7 @@ class SubmodMovimiento extends Menu {
                 movimiento.getId_movimiento(),
                 movimiento.getComentario(),
                 movimiento.getEstado(),
-                 movimiento.getFechaMov() // Convertir Date a String
+                movimiento.getFechaMov() 
         );
 
         tabla.imprimirTablaSimple();
