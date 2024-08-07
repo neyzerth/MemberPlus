@@ -6,11 +6,9 @@ import Logica.Objetos.Movimiento;
 import Logica.Objetos.Nivel;
 import Logica.Objetos.Tarjeta;
 import Logica.Objetos.TipoMovimiento;
-import Persistencia.Tablas.MovimientoEnt;
 import Presentacion.Despliegue.*;
 import Presentacion.Formato.*;
 
-import java.sql.Date;
 
 
 //------------ MODULO PRINCIPAL ---------
@@ -308,11 +306,6 @@ class SubmodTarjeta extends Menu {
         
     }
     
-    public int obtenerIdTipoMovimiento() {
-        Movimiento movimiento = new Movimiento();
-        return 1;
-        
-    }
 }
 
 // ------------ MODULO DE NIVEL ---------
