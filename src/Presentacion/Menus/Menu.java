@@ -25,7 +25,7 @@ public abstract class Menu {
         this.opciones = new Cuadro();
         //Desplegar menu de manera distinta para cada rol
         switch (Sesion.getRol()) {
-            case "administrador": case "gerente":
+            case "administrador":
                 opciones = new Cuadro(modulos); //t0dos
                 break;
             case "cajero": case "supervisor":
@@ -65,15 +65,10 @@ public abstract class Menu {
     //Default de orden de las opciones
     public boolean conexionMenus(int opcion){
         int opcionRol = opcion;
-        switch (Sesion.getRol()) {
-            case "cajero": case "supervisor":
-                //IF TERNARIO
-                opcionRol = opcion > 0 ? opcion+1 : -1;
-                opcionRol = opcion == 5 ? -1 : opcionRol;
-                opcionRol = opcion == 0 ? 0 : opcionRol;
-                break;
+        if(!Sesion.getRol().equals("administrador")){
+            opcionRol = opcion == 4 ? - 1: opcion;
         }
-        switch (opcion) {
+        switch (opcionRol) {
             case 1: menuVerTodos();
                 break;
             case 2: menuVerUno();

@@ -17,15 +17,21 @@ public class ModMembresia {
         while (!salir) {
             Texto.limpiarPantalla();
             System.out.println(Color.morado(Color.negrita(Texto.espacio(8) + "> Módulo de Tarjeta <")));
+            String [] modulos = {
+                Color.morado("Administrar Tarjetas"),
+                Color.morado("Administrar Niveles de Membresias"),
+                Color.morado("Administrar Beneficios"),
+                Color.morado("Administrar Movimientos")
+            };
 
-            Cuadro tarjeta = new Cuadro(
-                    Color.morado("Administrar tarjetas"),
-                    Color.morado("Administrar Niveles de membresias"),
-                    Color.morado("Administrar beneficios"),
-                    Color.morado("Administrar Movimientos"),
-                    Color.rojo("Volver al menú principal"));
+            Cuadro menuTarjeta = new Cuadro();
+            if(Sesion.getRol().equals("administrador"))
+                menuTarjeta = new Cuadro(modulos);
+            else 
+                menuTarjeta = new Cuadro(modulos[0], modulos[1], modulos[2], modulos[3]);
+            
 
-            tarjeta.imprimirCuadroNum();
+            menuTarjeta.imprimirCuadroNum();
 
             System.out.println();
 

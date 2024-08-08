@@ -22,19 +22,15 @@ public class Principal {
                 Color.morado("Módulo de Ventas"),
                 Color.morado("Módulo de Clientes"),
                 Color.morado("Módulo de Membresias"),
-                Color.morado("Modulo de Usuario"),
+                Color.morado("Modulo de Usuario")
             };
             Cuadro principal = new Cuadro();
 
             //Desplegar menu de manera distinta para cada rol
-            switch (Sesion.getRol()) {
-                case "administrador":
-                    principal = new Cuadro(modulos); //t0dos
-                    break;
-                case "cajero": case "supervisor":
-                    principal = new Cuadro(modulos[0], modulos[1], modulos[2]);
-                    break;
-            }
+            if(Sesion.getRol().equals("administrador"))
+                principal = new Cuadro(modulos); //t0dos
+            else
+                principal = new Cuadro(modulos[0], modulos[1], modulos[2]);
 
             principal.agregarSalir();
             principal.imprimirCuadroNum();
@@ -43,20 +39,14 @@ public class Principal {
 
             int opcion = Leer.entero(Color.cian((Texto.espacio(1) + "> Seleccione una opción: ")));
 
-            //alterar la opcion dependiendo el rol
+            //alterar la opcion dependiendo si no es admin
             int opcionRol = opcion;
-            switch (Sesion.getRol()) {
-                case "cajero": case "supervisor":
-                    //IF TERNARIO
-                    // Si opcion == 4, regresa -1, sino, regresa el valor de opcion
-                    //se guarda en la variable opcionRol
-                    opcionRol = opcion == 4 ? -1 : opcion;
-                    break;
-                case "gerente":
-                    opcionRol = opcion > 0 ? opcion+1 : -1;
-                    opcionRol = opcion == 0 ? 0 : opcionRol;
-                    break;
-            }
+            if(!Sesion.getRol().equals("administrador")){
+                //IF TERNARIO
+                // Si opcion == 4, regresa -1, sino, regresa el valor de opcion
+                //se guarda en la variable opcionRol
+                opcionRol = opcion == 4 ? -1 : opcion;
+            }        
 
             switch (opcionRol) {
                 case 1: ModVenta.menu();
@@ -71,7 +61,7 @@ public class Principal {
                 case 0: //SALIR
                     Sesion.cerrarSesion();
 
-                    System.out.println(Color.rojo("Saliendo del programa"));
+                    System.out.print(Color.rojo("Saliendo del programa"));
                     Texto.suspensivos(3,0.6);
                     
                     salir = true;

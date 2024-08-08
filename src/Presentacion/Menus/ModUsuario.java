@@ -1,6 +1,5 @@
 package Presentacion.Menus;
 
-import Presentacion.Despliegue.Cuadro;
 import Presentacion.Despliegue.Tabla;
 import Presentacion.Formato.*;
 
@@ -77,7 +76,7 @@ public class ModUsuario extends Menu {
             
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            Texto.esperarEnter(Color.rojo(Color.negrita(" DATO NO VALIDO")));
+            Texto.esperarEnter(Color.rojo(Color.negrita(e.getMessage())));
             
         }
         return false;
