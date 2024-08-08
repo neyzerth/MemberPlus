@@ -1,12 +1,11 @@
 package Logica;
 
-import Logica.Objetos.Rol;
 import Logica.Objetos.Usuario;
 
 public class Sesion {
     //Estaticos, pues pertenecen a la clase y no a una instancia
-    private static String nombre, nomUsuario;
-    private static Rol rol;
+    private static int id, idRol;
+    private static String nombre, nomUsuario, rol;
 
     //Retorna un usuario a partir de su nombre de usuario y contrasena
     private static Usuario usuarioSesion(String usuario, String contrasena){
@@ -21,14 +20,32 @@ public class Sesion {
         if(sesion == null)
             return false;
         
+        Sesion.setId(sesion.getIdUsuario());
         Sesion.setNombre(sesion.getNombre());
         Sesion.setNomUsuario(sesion.getNombre());
-        Sesion.setRol(sesion.getRol());
+        Sesion.setIdRol(sesion.rol.getIdRol());
+        Sesion.setRol(sesion.rol.getNombre().toLowerCase());
         return true;
     }
     
     //SETTERS Y GETTERS
     //Al ser estatico, en ves de "this" se pone "Sesion" (la clase)
+    private static void setId(int idUsuario) {
+        Sesion.id = idUsuario;
+    }
+
+    public static int getId(){
+        return Sesion.id;
+    }        
+    
+    private static void setIdRol(int idRol) {
+        Sesion.idRol = idRol;
+    }
+    
+    public static int getIdRol(){
+        return Sesion.idRol;
+    }
+
     private static void setNombre(String nombre){
         Sesion.nombre = nombre;
     }
@@ -44,15 +61,16 @@ public class Sesion {
         return nomUsuario;
     }
 
-    private static void setRol(Rol rol2){
-        Sesion.rol = rol2;
+    private static void setRol(String rol){
+        Sesion.rol = rol;
     }
 
-    public static Rol getRol(){
+    public static String getRol(){
         return rol;
     }
 
     public static void cerrarSesion(){
+        id = 0;
         nombre = null;
         nomUsuario = null;
         rol = null;

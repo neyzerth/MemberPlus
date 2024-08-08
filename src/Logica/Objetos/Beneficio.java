@@ -25,14 +25,6 @@ public class Beneficio {
     }
 
     // METODOS
-    public void modificarTarjeta(String nombre, String porcPuntosStr,
-            String porcentajeCashBackStr, String fecVenStr, String fecInicioStr) {
-        this.setNombre(nombre);
-        this.setPorcPuntos(porcPuntosStr);
-        this.setPorcCashBack(porcentajeCashBackStr);
-        this.setFecVen(fecVenStr);
-        this.setFecInicio(fecInicioStr);
-    }
 
     //COMUNICACION CON PERSISTENCIA
     public static Beneficio importarBeneficios(Object [] datos){
@@ -151,15 +143,6 @@ public class Beneficio {
         this.porcPuntos = porcPuntos;
     }
 
-    public void setPorcPuntos(String porcPuntosStr) {
-        try {
-            int porcPuntos = Integer.parseInt(porcPuntosStr);
-            this.setPorcPuntos(porcPuntos);
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("El porcentaje no es válido");
-        }
-    }
-
     public int getPorcCashBack() {
         return this.porcCashBack;
     }
@@ -171,7 +154,7 @@ public class Beneficio {
     public void setPorcCashBack(int porcCashBack) {
         if (porcCashBack < 0 || porcCashBack > 100)
             throw new IllegalArgumentException("El porcentaje de cash back no es valido");
-        this.porcPuntos = porcCashBack;
+        this.porcCashBack = porcCashBack;
     }
 
     public void setPorcCashBack(String porcentajeCashBackStr) {

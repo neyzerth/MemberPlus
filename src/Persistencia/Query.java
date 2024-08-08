@@ -73,6 +73,7 @@ public class Query {
         }
         return registros;
     }
+    
     public Object[][] ejecutarSelect() {
         String [] columnasNull = null;
         return ejecutarSelect(columnasNull);
@@ -244,11 +245,11 @@ public class Query {
     }
 
 
-    public String insert(Object... valores) {
+    private String insertBase(int inicio,Object... valores) {
         String query = "INSERT INTO " + tabla + " (";
         
         // Construir la lista de columnas
-        for (int i = 1; i < columnas.length; i++) {
+        for (int i = inicio; i < columnas.length; i++) {
             query += columnas[i];
             if (i != columnas.length - 1) {
                 query += ", ";
@@ -274,6 +275,12 @@ public class Query {
         
         return query;
     }
+    public String insert(Object... valores) {
+        return insertBase(1, valores);
+    }
+    public String insertConId(Object... valores) {
+        return insertBase(0, valores);
+    }
 
     public boolean ejecutarInsert(String query) {
         Conexion conexion = new Conexion();
@@ -297,6 +304,31 @@ public class Query {
         }
 
         return resultado;
+    }
+
+    public int obtenerIdInsert(String query) {
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.conectar();
+        int idGenerado = -1; // valor por defecto si no se genera un ID
+    
+        if (conn != null) {
+            try {
+                Statement stmt = conn.createStatement();
+                stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+    
+                ResultSet rs = stmt.getGeneratedKeys();
+                if (rs.next()) {
+                    idGenerado = rs.getInt(1); // obtener el ID generado
+                }
+    
+                stmt.close();
+                conn.close();
+            } catch (SQLException e) {
+                return -1; // error al ejecutar la consulta
+            }
+        }
+    
+        return idGenerado;
     }
 
     public String update(Object[] valores, int id) {

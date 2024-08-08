@@ -2,6 +2,7 @@ package Logica.Objetos;
 
 
 import Logica.FormatoFecha;
+import Logica.Sesion;
 import Persistencia.Tablas.MovimientoEnt;
 import java.sql.Date;
 
@@ -10,8 +11,9 @@ public class Movimiento {
     private int idMovimiento;
     private String comentario, estado;
     private  Date fechaMov;
-    private Usuario usuario;
-    private TipoMovimiento tipo;
+    public Tarjeta tarjeta;
+    public Usuario usuario;
+    public TipoMovimiento tipo;
 
     // CONSTRUCTORES
 
@@ -26,6 +28,10 @@ public class Movimiento {
         this.usuario = usuario;
         this.tipo = tipo;
     }    
+
+    public Movimiento(){}
+    
+
     
     // METODOS
 
@@ -52,11 +58,31 @@ public class Movimiento {
         Object[] datos = movimientoBd.obtenerMovimientoPorIdDB(id);
         return importarMovimientos(datos);
     }
+    
+    //?
+    public static Movimiento[] importarMovimientos(){
+        MovimientoEnt movimientoBd = new MovimientoEnt();
+        Movimiento[] movimientos = new Movimiento[movimientoBd.obtenerCantRegistros()];
+        Object [][] datos = movimientoBd.ejecutarSelect();
+
+        for (int i = 0; i < datos.length; i++) {
+            movimientos[i] = importarMovimientos(datos[i]);
+        }
+        return movimientos;
+    }
 
     //CRUD de movimiento
-    public boolean insertarMovimiento(int idTarjeta){
+    public boolean insertarMovimiento(){
         MovimientoEnt movimientoBd = new MovimientoEnt();
-        return movimientoBd.insertarMovimientoDB(fechaMov, estado, comentario, idMovimiento, idTarjeta, idMovimiento);
+        Date fechaActual = new Date(System.currentTimeMillis());
+
+        return movimientoBd.insertarMovimientoDB(fechaActual, "Activo", comentario, Sesion.getId(), tarjeta.getIdTarjeta(), tipo.getIdTipoMovimiento());
+    }
+    public static boolean registrarMovimiento(String comentario, Tarjeta tarjeta, int idTipo){
+        MovimientoEnt movimientoBd = new MovimientoEnt();
+        Date fechaActual = new Date(System.currentTimeMillis());
+
+        return movimientoBd.insertarMovimientoDB(fechaActual, "Activo", comentario, Sesion.getId(), tarjeta.getIdTarjeta(), idTipo);
     }
 
     public boolean actualizarMovimiento( int idTarjeta){
@@ -113,5 +139,30 @@ public class Movimiento {
     public void setFechaMov(String fechaMovStr) {
         this.fechaMov = FormatoFecha.fecha(fechaMovStr);
     }
+
+    public int getIdMovimiento() {
+        return this.idMovimiento;
+    }
+
+    public void setIdMovimiento(int idMovimiento) {
+        this.idMovimiento = idMovimiento;
+    }
+
+    public Usuario getUsuario() {
+        return this.usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public TipoMovimiento getTipo() {
+        return this.tipo;
+    }
+
+    public void setTipo(TipoMovimiento tipo) {
+        this.tipo = tipo;
+    }
+
     
 }

@@ -1,5 +1,6 @@
 package Presentacion.Despliegue;
 
+import Presentacion.Formato.Color;
 import Presentacion.Formato.Texto;
 
 public class Cuadro{
@@ -218,6 +219,20 @@ public class Cuadro{
         System.arraycopy(texto, 0, temp, this.texto.length, texto.length);
 
         this.texto = temp;
+    }
+
+    public void agregarSalir(String simb, String txt){
+        this.texto[texto.length-1] += "\n"+simb +  txt;
+    }
+
+    public void agregarSalir(String txt){
+        agregarSalir("", txt);
+    }
+    public void agregarSalir(){
+        agregarSalir("", Color.rojo("ENTER para salir"));
+    }
+    public void agregarSalir(int simb){
+        agregarSalir(String.valueOf(simb), Color.rojo("Salir"));
     }
 
 }

@@ -58,16 +58,19 @@ public class ModUsuario extends Menu {
         try {
             System.out.println();
             System.out.println(Color.rojo(Color.negrita(" Desea modificar la informacion personal del usuario??")));
-            boolean conf = Texto.leerString(Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
+            boolean conf = Leer.cadena(Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
             System.out.println();
 
             if(conf){
                 Persona persona = ModPersona.datosPersona();
-                persona.setIdPersona(idPersona);
-                persona.actualizarPersona();
+                if(persona != null){
+                    persona.setIdPersona(idPersona);
+                    persona.actualizarPersona();
+                } else return false;
+            
             }
         
-
+            
             return usuario.actualizarUsuario();
             
             
@@ -87,9 +90,9 @@ public class ModUsuario extends Menu {
     public Usuario pedirDatos(){
         Usuario usuario = new Usuario();
         try{
-            usuario.setNomUsuario(Texto.leerString(Color.cian(Color.negrita(" > Nombre del usuario: "))));
-            usuario.setContrasena(Texto.leerContra(Color.cian(Color.negrita(" > Contraseña del usuario: "))));
-            usuario.setRfc(Texto.leerString(Color.cian(" > RFC del usuario: ")));
+            usuario.setNomUsuario(Leer.cadena(Color.cian(Color.negrita(" > Nombre del usuario: "))));
+            usuario.setContrasena(Leer.contra(Color.cian(Color.negrita(" > Contraseña del usuario: "))));
+            usuario.setRfc(Leer.cadena(Color.cian(" > RFC del usuario: ")));
 
             Tabla tablaRol = new Tabla("ID", "Nombre", "Descripcion");
             Rol[] roles = Rol.importarRoles();
@@ -100,7 +103,7 @@ public class ModUsuario extends Menu {
             }
             tablaRol.imprimirTablaSimple();
             
-            usuario.setRol(Texto.leerInt(Color.cian(Color.negrita(" > ID del ROL del usuario: "))));
+            usuario.setRol(Leer.entero(Color.cian(Color.negrita(" > ID del ROL del usuario: "))));
 
             return usuario;   
         } catch (Exception e) {

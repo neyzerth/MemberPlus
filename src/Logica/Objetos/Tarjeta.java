@@ -93,7 +93,6 @@ public class Tarjeta {
         for (int i = 0; i < tarjetas.length; i++) {
             tarjetas[i] = importarTarjeta(datos[i]);
         }
-
         return tarjetas;
 
     }
@@ -109,22 +108,12 @@ public class Tarjeta {
         return tarjeta.actualizarTarjetaDB(idTarjeta, numTarjeta, fecExp, fecVen, activo, saldo, puntos, cliente.getIdCliente(), nivel.getIdNivel());
     }
 
-    public boolean validarNumTarjeta(){
-        TarjetaEnt tarjeta = new TarjetaEnt();
-        return tarjeta.existeNumTarjeta(numTarjeta);
-    }
-
     public static boolean validarNumTarjeta(String numTarjeta){
         TarjetaEnt tarjeta = new TarjetaEnt();
         return tarjeta.existeNumTarjeta(numTarjeta);
     }
-
-    public boolean validarIdTarjeta(){
-        TarjetaEnt tarjeta = new TarjetaEnt();
-        return tarjeta.existeIdTarjeta(idTarjeta);
-    }
     
-    public boolean validarIdTarjeta(int idTarjeta){
+    public static boolean validarIdTarjeta(int idTarjeta){
         TarjetaEnt tarjeta = new TarjetaEnt();
         return tarjeta.existeIdTarjeta(idTarjeta);
     }
@@ -290,8 +279,8 @@ public class Tarjeta {
     }
 
     public void renovar(){
-        int mes = FormatoFecha.getSigMes(fecVen);
-        int anio = FormatoFecha.getAnio(fecVen);
+        int mes = FormatoFecha.getMes(fecVen);
+        int anio = FormatoFecha.getAnio(fecVen) + 1;
         int dia = FormatoFecha.getDia(fecVen);
         this.setFecVen(FormatoFecha.fecha(dia, mes, anio));
     }

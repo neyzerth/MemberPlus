@@ -1,6 +1,7 @@
 package Presentacion.Menus;
 
 import Logica.Objetos.Compra;
+import Logica.Objetos.Movimiento;
 import Logica.Objetos.Tarjeta;
 import Presentacion.Despliegue.Cuadro;
 import Presentacion.Formato.*;
@@ -11,25 +12,22 @@ public class ModVenta {
         
         while (!salir) {
             Texto.limpiarPantalla();
-            System.out.println(Color.morado(Color.negrita(Texto.espacio(8) + "> Módulo de Venta <")));
-
-            System.out.println();
-
             Cuadro cuadroTarjeta = new Cuadro(
-                Color.morado("> Numero de tarjeta")
+                Color.morado("Numero de tarjeta")
             );
-
+            
             Cuadro recogerTotal = new Cuadro(
-                Color.morado("> Recoger el total")
+                Color.cian(" > Recoger el total")
             );
 
 
             cuadroTarjeta.imprimirCuadro();
 
-            String numTarjeta = Texto.leerString("> ");
+            String numTarjeta = Leer.cadena("> ");
 
             if(!Tarjeta.validarNumTarjeta(numTarjeta)){
-                Texto.esperarEnter(Color.rojo("No se encontro la tarjeta " + Texto.tarjeta(numTarjeta)));
+                System.out.println();
+                Texto.esperarEnter(Color.rojo(" No se encontro la tarjeta " + Texto.tarjeta(numTarjeta)));
                 return;
             }
 
@@ -37,19 +35,19 @@ public class ModVenta {
 
             recogerTotal.imprimirCuadro();
 
-            float total = Texto.leerFloat("> $");
+            float total = Leer.flotante("> $");
             System.out.println(Texto.moneda(total));
             
             compra.empezarVenta(total);
 
             if(compra.tuvoBeneficios()){
-            System.out.println("Con esta compra, usted... ");
-                if(compra.getPuntos() > 0)
-                    System.out.println("obtuvo " + compra.getPuntos()+ " puntos!");
+            System.out.println(" Con esta compra, usted... ");
+                if(compra.tarjeta.getPuntosConvertidos() > 0)
+                    System.out.println("  obtuvo " + compra.getPuntos()+ " puntos!");
                 if(compra.getCashback() > 0)
-                    System.out.println("obtuvo " + Texto.moneda(compra.getCashback())+ " de cashback!");
+                    System.out.println("  obtuvo " + Texto.moneda(compra.getCashback())+ " de cashback!");
                 if(compra.getDescuento() > 0)
-                    System.out.println("ahorró $" + compra.getDescuento()+ "!");
+                    System.out.println("  tuvo un descuento de $" + compra.getDescuento()+ "!");
             }
 
 
@@ -57,18 +55,20 @@ public class ModVenta {
             boolean usarSaldo = false;
             if(compra.tarjeta.getPuntos() > 0){
                 System.out.println(Color.verde(Color.negrita(" Desea usar sus puntos acumulados? ("+compra.tarjeta.getPuntos()+" -> $"+ compra.tarjeta.getPuntosConvertidos()+")?")));
-                usarPuntos = Texto.leerString(Color.verde(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
+                usarPuntos = Leer.cadena(Color.verde(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
             }
             if(compra.tarjeta.getSaldo() > 0){
                 System.out.println(Color.verde(Color.negrita(" Desea usar su saldo ("+Texto.moneda(compra.tarjeta.getSaldo())+")?")));
-                usarSaldo = Texto.leerString(Color.verde(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
+                usarSaldo = Leer.cadena(Color.verde(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
             }
             compra.usarBeneficios(usarPuntos, usarSaldo);
 
 
             System.out.println("Su nuevo total es de "  + Texto.moneda(compra.getSubtotal()));
-            if(compra.insertarCompras())
+            if(compra.insertarCompras()){
+                Movimiento.registrarMovimiento( "Renovacion de tarjeta", compra.tarjeta, 2);
                 System.out.println("La compra fue exitosa");
+            }
             else
                 System.out.println("Error en la compra");
             Texto.esperarEnter();

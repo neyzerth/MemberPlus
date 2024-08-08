@@ -35,9 +35,9 @@ public class Nivel_BeneficioEnt extends Query {
     }
 
     // Insertar un nuevo registro
-    public boolean insertarNivel_BeneficiooDB(int nivel, int beneficio) {
+    public boolean insertarNivel_BeneficioDB(int nivel, int beneficio) {
         Object[] valores = { nivel, beneficio };
-        String query = insert(valores);
+        String query = insertConId(valores);
         return ejecutarInsert(query);
     }
 
