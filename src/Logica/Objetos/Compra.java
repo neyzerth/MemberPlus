@@ -1,6 +1,5 @@
 package Logica.Objetos;
 
-
 import Logica.FormatoFecha;
 import Persistencia.Tablas.CompraEnt;
 import Persistencia.Tablas.Compra_BeneficioEnt;
@@ -13,22 +12,22 @@ public class Compra {
     private Date fechaCompra;
     private float total, subtotal, cashback, descuento;
     public Tarjeta tarjeta;
-    public Beneficio [] beneficios;
+    public Beneficio[] beneficios;
 
     // CONSTRUCTORES
-    public Compra(Tarjeta tarjeta){
+    public Compra(Tarjeta tarjeta) {
         this.tarjeta = tarjeta;
         this.beneficios = this.tarjeta.nivel.beneficios;
     }
 
-    public Compra(String numTarjeta){
-        //Manda a llamar el constructor con parametro Tarjeta
+    public Compra(String numTarjeta) {
+        // Manda a llamar el constructor con parametro Tarjeta
         this(Tarjeta.importarTarjeta(numTarjeta));
     }
 
     public Compra(int idCompra, Date fechaCompra, int puntos,
-     float descuento, float cashback,Tarjeta tarjeta, 
-     float subtotal, float total,Beneficio[] beneficios) {
+            float descuento, float cashback, Tarjeta tarjeta,
+            float subtotal, float total, Beneficio[] beneficios) {
         this.idCompra = idCompra;
         this.fechaCompra = fechaCompra;
         this.puntos = puntos;
@@ -40,32 +39,30 @@ public class Compra {
         this.beneficios = beneficios;
     }
 
-    
-    //COMUNICACION CON PERSISTENCIA
-    public static Compra importarCompras(Object [] datos){
+    // COMUNICACION CON PERSISTENCIA
+    public static Compra importarCompras(Object[] datos) {
 
         Compra compra = new Compra(
-            (int) datos[0],
-            (Date) datos[1],
-            (int) datos[2],
-            (float) datos[3],
-            (float) datos[4],
-            (Tarjeta) datos[5],
-            (float) datos[6],
-            (float) datos[7],
-            (Beneficio[]) datos[8]
-            );
+                (int) datos[0],
+                (Date) datos[1],
+                (int) datos[2],
+                (float) datos[3],
+                (float) datos[4],
+                (Tarjeta) datos[5],
+                (float) datos[6],
+                (float) datos[7],
+                (Beneficio[]) datos[8]);
         return compra;
     }
 
-    public static Compra importarCompras(int id){
+    public static Compra importarCompras(int id) {
         CompraEnt compraBd = new CompraEnt();
         Object[] datos = compraBd.obtenerCompraPorIdDB(id);
 
         return importarCompras(datos);
     }
 
-    public static Compra[] importCompras(){
+    public static Compra[] importCompras() {
         CompraEnt compraBd = new CompraEnt();
         Compra[] compras = new Compra[compraBd.obtenerCantRegistros()];
         Object[][] datos = compraBd.ejecutarSelect();
@@ -75,12 +72,13 @@ public class Compra {
         return compras;
     }
 
-    //CRUD COMPRA
-    public boolean insertarCompras(){
+    // CRUD COMPRA
+    public boolean insertarCompras() {
         CompraEnt compra = new CompraEnt();
         this.tarjeta.actualizarTarjeta();
-        int idCompra = compra.insertarCompraDB(fechaCompra,puntos,descuento,cashback,tarjeta.getIdTarjeta(),subtotal,total);
-        if(idCompra > 0){
+        int idCompra = compra.insertarCompraDB(fechaCompra, puntos, descuento, cashback, tarjeta.getIdTarjeta(),
+                subtotal, total);
+        if (idCompra > 0) {
             this.idCompra = idCompra;
             Compra_BeneficioEnt comBen = new Compra_BeneficioEnt();
             for (Beneficio ben : beneficios) {
@@ -90,23 +88,24 @@ public class Compra {
         return idCompra > 0;
     }
 
-    public boolean actualizarCompra(){
+    public boolean actualizarCompra() {
         CompraEnt compra = new CompraEnt();
-        return compra.actualizarCompraDB(idCompra,fechaCompra,puntos,descuento,cashback,tarjeta.getIdTarjeta(),subtotal,total);
+        return compra.actualizarCompraDB(idCompra, fechaCompra, puntos, descuento, cashback, tarjeta.getIdTarjeta(),
+                subtotal, total);
     }
 
-    public boolean validarCompra(){
+    public boolean validarCompra() {
         CompraEnt compra = new CompraEnt();
         return compra.existeCompra(fechaCompra, tarjeta.getNumTarjeta());
     }
-    
-    public static boolean eliminarCompra(int idCompra){
+
+    public static boolean eliminarCompra(int idCompra) {
         CompraEnt compra = new CompraEnt();
         return compra.eliminarCompraDB(idCompra);
     }
 
     // METODOS
-    public void empezarVenta(float total){
+    public void empezarVenta(float total) {
         setFechaCompra(FormatoFecha.fechaActual());
         setTotal(total);
         setSubtotal(total);
@@ -114,7 +113,7 @@ public class Compra {
         calcularBeneficios();
     }
 
-    private void calcularBeneficios(){
+    private void calcularBeneficios() {
         float porcPuntos = 0;
         float porcCashback = 0;
         float porcDescuento = 0;
@@ -124,42 +123,48 @@ public class Compra {
             porcCashback = Math.max(beneficio.getPorcCashBack(), porcCashback);
             porcDescuento = Math.max(beneficio.getPorcDescuento(), porcDescuento);
         }
-        setPuntos((int)(porcPuntos/100 * total));
+        setPuntos((int) (porcPuntos / 100 * total));
         tarjeta.sumarPuntos(this.puntos);
 
-        setCashback(porcCashback/100 * total);
+        setCashback(porcCashback / 100 * total);
         tarjeta.sumarSaldo(this.cashback);
 
-        setDescuento(porcDescuento/100 * total);
+        setDescuento(porcDescuento / 100 * total);
         setSubtotal(this.total - this.descuento);
     }
 
-    public boolean tuvoBeneficios(){
+    public boolean tuvoBeneficios() {
         return puntos > 0 || cashback > 0 || descuento > 0;
     }
 
-    public void usarBeneficios(boolean puntos, boolean saldo){
-        if(puntos){
+    public void usarBeneficios(boolean puntos, boolean saldo) {
+        if (puntos) {
             subtotal -= (int) (tarjeta.getPuntosConvertidos());
             tarjeta.usarPuntos();
         }
-        if(saldo){
-            subtotal -= (int) (tarjeta.getSaldo());
-            tarjeta.usarSaldo();
+        if (saldo) {
+            float saldoDisponible = tarjeta.getSaldo();
+            if (subtotal >= saldoDisponible) {
+                subtotal -= saldoDisponible;
+                tarjeta.usarSaldo();
+            } else {
+                tarjeta.setSaldo(saldoDisponible- subtotal);
+                subtotal = 0;
+                
+            }
         }
     }
 
     // GETTERS AND SETTERS
 
     public int getIdCompra() {
-        if(this.idCompra > 0)
+        if (this.idCompra > 0)
             return this.idCompra;
 
         CompraEnt compraBd = new CompraEnt();
         Object[] datos = compraBd.ejecutarSelectPorAtributos(
-            this.fechaCompra, this.puntos, this.descuento, this.cashback,  
-            this.tarjeta.getIdTarjeta(),this.subtotal, this.total
-        );
+                this.fechaCompra, this.puntos, this.descuento, this.cashback,
+                this.tarjeta.getIdTarjeta(), this.subtotal, this.total);
 
         Compra compra = Compra.importarCompras(datos);
 
@@ -211,7 +216,7 @@ public class Compra {
     }
 
     public void setFechaCompra(String fechaCompraStr) {
-    this.fechaCompra = FormatoFecha.fecha(fechaCompraStr);
+        this.fechaCompra = FormatoFecha.fecha(fechaCompraStr);
     }
 
     public float getTotal() {
@@ -232,7 +237,6 @@ public class Compra {
             throw new IllegalArgumentException("El total no es válido");
         }
     }
-
 
     public float getSubtotal() {
         return this.subtotal;
@@ -265,6 +269,5 @@ public class Compra {
     public void setBeneficios(Beneficio[] beneficios) {
         this.beneficios = beneficios;
     }
-
 
 }

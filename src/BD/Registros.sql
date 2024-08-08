@@ -99,9 +99,9 @@ INSERT INTO beneficio VALUES
 
 INSERT INTO tipo_movimiento VALUES
 (1, 'alta', 'Cliente nuevo'),
-(2, 'renovacion', 'Renovacion tarjeta 9876 5432 1098 7654'),
+(2, 'renovacion', 'Renovacion de la membresia'),
 (3, 'cancelacion', 'Tarjeta cancelada'),
-(4, 'compra', 'Compra tarjeta 9753 8642 2075 1864');
+(4, 'compra', 'Compra con la tarjeta');
 
 
 

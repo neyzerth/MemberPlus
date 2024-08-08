@@ -20,12 +20,13 @@ public class Movimiento {
     //Constructores para inicializar un movimiento con los valores dados que son id del movimiento, el comentario
     //el estado del movimiento y la fecha del movimiento 
 
-    public Movimiento(int idMovimiento, String comentario, String estado, Date fechaMov, Usuario usuario, TipoMovimiento tipo) {
+    public Movimiento(int idMovimiento, Date fechaMov, String estado, String comentario,  Usuario usuario, Tarjeta tarjeta,TipoMovimiento tipo) {
         this.idMovimiento = idMovimiento;
         this.comentario = comentario;
         this.estado = estado;
         this.fechaMov = fechaMov;
         this.usuario = usuario;
+        this.tarjeta = tarjeta;
         this.tipo = tipo;
     }    
 
@@ -44,11 +45,12 @@ public class Movimiento {
 
         Movimiento movimiento = new Movimiento(
             (int)datos[0], 
-            (String)datos[1],
+            (Date)datos[1],
             (String)datos[2],
-            (Date)datos[3],
+            (String)datos[3],
             Usuario.importarUsuarios((int)datos[4]),
-            TipoMovimiento.importarTipoMovimientos((int)datos[5])
+            Tarjeta.importarTarjeta((int)datos[5]),
+            TipoMovimiento.importarTipoMovimientos((int)datos[6])
         );
         return movimiento;
     }
@@ -72,17 +74,30 @@ public class Movimiento {
     }
 
     //CRUD de movimiento
-    public boolean insertarMovimiento(){
+    
+    private static boolean registrarMovimiento(String comentario, Tarjeta tarjeta, int idTipo){
         MovimientoEnt movimientoBd = new MovimientoEnt();
         Date fechaActual = new Date(System.currentTimeMillis());
 
-        return movimientoBd.insertarMovimientoDB(fechaActual, "Activo", comentario, Sesion.getId(), tarjeta.getIdTarjeta(), tipo.getIdTipoMovimiento());
+        return movimientoBd.insertarMovimientoDB(fechaActual, "Finalizado", comentario, Sesion.getId(), tarjeta.getIdTarjeta(), idTipo);
     }
-    public static boolean registrarMovimiento(String comentario, Tarjeta tarjeta, int idTipo){
-        MovimientoEnt movimientoBd = new MovimientoEnt();
-        Date fechaActual = new Date(System.currentTimeMillis());
 
-        return movimientoBd.insertarMovimientoDB(fechaActual, "Activo", comentario, Sesion.getId(), tarjeta.getIdTarjeta(), idTipo);
+    public static boolean alta(String comentario, Tarjeta tarjeta){
+        return Movimiento.registrarMovimiento(comentario,tarjeta, 1);
+    }
+
+    public static boolean renovacion(String comentario, Tarjeta tarjeta){
+        return Movimiento.registrarMovimiento(comentario,tarjeta, 2);
+    }
+    
+    public static boolean cancelacion(String comentario, Tarjeta tarjeta){
+        return Movimiento.registrarMovimiento(comentario,tarjeta, 3);
+
+    }
+    
+    public static boolean compra(String comentario, Tarjeta tarjeta){
+        return Movimiento.registrarMovimiento(comentario,tarjeta, 4);
+
     }
 
     public boolean actualizarMovimiento( int idTarjeta){

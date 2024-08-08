@@ -39,7 +39,7 @@ public class ModUsuario extends Menu {
             }
 
         } catch (Exception e) {
-            Texto.esperarEnter(Color.rojo(Color.negrita(" DATO NO VALIDO")));
+            System.out.println(Color.rojo(Color.negrita(e.getMessage())));
         }
 
         return false;
