@@ -34,9 +34,6 @@ public class Principal {
                 case "cajero": case "supervisor":
                     principal = new Cuadro(modulos[0], modulos[1], modulos[2]);
                     break;
-                case "gerente":
-                    principal = new Cuadro(modulos[1], modulos[2], modulos[3]);
-                    break;
             }
 
             principal.agregarSalir();

@@ -20,6 +20,7 @@ public class Color {
     // Estilos de texto ANSI
     public static String negrita = "\u001B[1m";
     public static String invisible = "\u001B[8m";
+    public static String invertido = "\u001B[7m";
 
     public static String colorText(String color, String txt) {
         return color + txt + reset;
@@ -78,5 +79,9 @@ public class Color {
 
     public static String invisible(String txt) {
         return colorText(invisible, txt);
+    }
+
+    public static String invertido(String txt) {
+        return colorText(invertido, txt);
     }
 }
