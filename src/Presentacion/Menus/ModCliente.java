@@ -66,10 +66,7 @@ public class ModCliente extends Menu{
     public boolean registrar(){
         cliente = new Cliente();
 
-        ModPersona.datos(cliente, 1);
-        ModPersona.datos(cliente, 2);
-        ModPersona.datos(cliente, 3);
-        ModPersona.datos(cliente, 4);
+        ModPersona.pedirDatos(cliente);
 
         try {
 

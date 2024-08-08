@@ -77,14 +77,21 @@ public class ModPersona {
 
     }
 
+    public static void pedirDatos(Persona persona){
+        ModPersona.datos(persona, 1);
+        ModPersona.datos(persona, 2);
+        ModPersona.datos(persona, 3);
+        ModPersona.datos(persona, 4);
+    }
+
     public static void nombre(Persona persona) {
-        String nombreHold = "juan";
+        String nombreHold = "Juan";
         String pateHold = "Manuel";
         String mateHold = "Obrador";
         if (persona != null) {
             nombreHold = persona.getNombre() == null ? "" : persona.getNombre();
-            pateHold = persona.getApellidoPa() == null ? "" : persona.getNombre();
-            mateHold = persona.getApellidoMa() == null ? "" : persona.getNombre();
+            pateHold = persona.getApellidoPa() == null ? "" : persona.getApellidoPa();
+            mateHold = persona.getApellidoMa() == null ? "" : persona.getApellidoMa();
         }
 
         persona.setNombre(Leer.cadena(Color.cian(Color.negrita(" > Nombre: ")), nombreHold));
