@@ -3,6 +3,7 @@ package Logica.Objetos;
 import Persistencia.Tablas.MovimientoEnt;
 import Persistencia.Tablas.TarjetaEnt;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Random;
 import Logica.FormatoFecha;
 import Logica.Sesion;
@@ -61,7 +62,7 @@ public class Tarjeta {
 
     //COMUNICACION CON PERSISTENCIA
     public static Tarjeta importarTarjeta(Object[] datos){
-
+        
         Tarjeta tarjeta = new Tarjeta(
             (int) datos[0],
             (String) datos[1],  
@@ -92,14 +93,17 @@ public class Tarjeta {
 
     public static Tarjeta[] importarTarjeta(){
         TarjetaEnt tarjetaBd = new TarjetaEnt();
-        Tarjeta[] tarjetas = new Tarjeta[tarjetaBd.obtenerCantRegistros()];
         Object [][] datos = tarjetaBd.ejecutarSelect();
+        ArrayList<Tarjeta> tarjetas = new ArrayList<>();
 
-        for (int i = 0; i < tarjetas.length; i++) {
-            tarjetas[i] = importarTarjeta(datos[i]);
+        for (int i = 0; i < datos.length; i++) {
+            Tarjeta tarjeta = importarTarjeta(datos[i]);
+            if(tarjeta.activo){
+                tarjetas.add(tarjeta);
+            }
         }
-        return tarjetas;
 
+        return tarjetas.toArray(new Tarjeta[tarjetas.size()]);
     }
 
     //CRUD de tarjeta
@@ -127,13 +131,20 @@ public class Tarjeta {
     }
 
     public static boolean validarNumTarjeta(String numTarjeta){
-        TarjetaEnt tarjeta = new TarjetaEnt();
-        return tarjeta.existeNumTarjeta(numTarjeta);
+        TarjetaEnt tarjetaBd = new TarjetaEnt();
+        if(!tarjetaBd.existeNumTarjeta(numTarjeta))
+            return false;
+
+        return Tarjeta.importarTarjeta(numTarjeta).getActivo();
+
     }
     
     public static boolean validarIdTarjeta(int idTarjeta){
-        TarjetaEnt tarjeta = new TarjetaEnt();
-        return tarjeta.existeIdTarjeta(idTarjeta);
+        TarjetaEnt tarjetaBd = new TarjetaEnt();
+        if(!tarjetaBd.existeIdTarjeta(idTarjeta))
+            return false;
+
+        return Tarjeta.importarTarjeta(idTarjeta).getActivo();
     }
 
     public static boolean eliminarTarjeta(int idTarjeta){
@@ -160,6 +171,13 @@ public class Tarjeta {
             return movimientoInsertado;
         }
         return false;
+    }
+
+    public static boolean cancelarTarjeta(String numTarjeta){
+        TarjetaEnt tarjetaBD = new TarjetaEnt();
+        Tarjeta tarjeta = Tarjeta.importarTarjeta(numTarjeta);
+        boolean cancelado = tarjetaBD.cambiarActivo(tarjeta.getIdTarjeta());
+        return cancelado;
     }
 
     // Método para generar un número de tarjeta de 16 dígitos con los primeros 4 dígitos fijos
