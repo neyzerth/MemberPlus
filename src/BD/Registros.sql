@@ -29,8 +29,8 @@ INSERT INTO rol VALUES
 (3, 'supervisor', 'Encargado de revisar niveles con sus beneficios')
 
 INSERT INTO usuario (idUsuario, nombreUsuario, contrasena, rfc, rol, Persona) VALUES
-(2, 'axel', 'utt1', 'BOJM800215XXX', 1, 2),
-(1, 'ney', 'utt2', 'NJTH991110XXX', 1, 1),
+(1, 'axel', 'utt1', 'BOJM800215XXX', 1, 1),
+(2, 'ney', 'utt2', 'NJTH991110XXX', 1, 2),
 (3, 'arturo', 'utt3', 'WILL900320XXX', 1, 3),
 (4, 'pewpew', 'utt4', 'MATM000420XXX', 1, 4),
 (5, 'german', 'utt5', 'DAWS010505XXX', 1, 5),
