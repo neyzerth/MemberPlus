@@ -89,9 +89,9 @@ public class ModPersona {
         String pateHold = "Manuel";
         String mateHold = "Obrador";
         if (persona != null) {
-            nombreHold = persona.getNombre() == null ? "" : persona.getNombre();
-            pateHold = persona.getApellidoPa() == null ? "" : persona.getApellidoPa();
-            mateHold = persona.getApellidoMa() == null ? "" : persona.getApellidoMa();
+            nombreHold = persona.getNombre() == null ? nombreHold : persona.getNombre();
+            pateHold = persona.getApellidoPa() == null ? pateHold : persona.getApellidoPa();
+            mateHold = persona.getApellidoMa() == null ? mateHold : persona.getApellidoMa();
         }
 
         persona.setNombre(Leer.cadena(Color.cian(Color.negrita(" > Nombre: ")), nombreHold));
