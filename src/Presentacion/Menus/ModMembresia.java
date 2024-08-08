@@ -73,7 +73,7 @@ class SubmodTarjeta extends Menu {
                 Color.morado("Información de " + modSing),
                 Color.morado("Renovar " + modSing),
                 Color.morado("Eliminar " + modSing),
-                Color.rojo("Volver"));
+                Color.rojo("ENTER PARA REGRESAR")); //Falta quitar el numero
     }
 
     public static void desplegarMenu() {
@@ -91,13 +91,13 @@ class SubmodTarjeta extends Menu {
                 menuVerUno();
                 break;
             case 3:
-                menuActualizar();
+                menuActualizar(); 
                 break;
             case 4:
                 menuEliminar();
                 break;
 
-            case 5:
+            case 0:
                 return true;
 
             default:
