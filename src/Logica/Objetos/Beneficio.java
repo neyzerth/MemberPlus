@@ -80,6 +80,8 @@ public class Beneficio {
         BeneficioEnt beneficio = new BeneficioEnt();
         return beneficio.insertarBeneficioDB( nombre, fecInicio, fecVen, 
             porcPuntos, porcCashBack, porcDescuento);
+            //Sale error al importar beneficio puesto que su fecVen en nula
+        
     }
 
     public boolean actualizarBeneficio(){
@@ -106,7 +108,7 @@ public class Beneficio {
 
     //Funcion que valida que la fecha vencimiento este despues de la fecha Inicio(Se usara para la creacion de un beneficio)
     public boolean validarFechas() {
-        return fecVen.compareTo(fecInicio) > 0;
+        return fecVen.compareTo(fecInicio) > 0;  //devuelve true si la fecha de vencimiento es mayor
     }
 
     // GETTERS AND SETTERS
@@ -191,6 +193,10 @@ public class Beneficio {
     public void setFecVen(Date fecVen) {
         if (fecVen == null)
             throw new IllegalArgumentException("La fecha de vencimineto no puede estar vacía");
+        if (!validarFechas())
+            throw new IllegalArgumentException("La fecha de vencimiento no puede ser menor a la fecha de inicio");
+        if (fecVen.compareTo(FormatoFecha.fechaActual()) > 0)
+            throw new IllegalArgumentException("La fecha de vencimiento debe ser mayor a hoy");
         this.fecVen = fecVen;
     }
 

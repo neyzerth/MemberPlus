@@ -9,6 +9,9 @@ import Logica.Objetos.TipoMovimiento;
 import Presentacion.Despliegue.*;
 import Presentacion.Formato.*;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 //------------ MODULO PRINCIPAL ---------
 public class ModMembresia {
     public static void menu() {
@@ -17,19 +20,18 @@ public class ModMembresia {
         while (!salir) {
             Texto.limpiarPantalla();
             System.out.println(Color.morado(Color.negrita(Texto.espacio(8) + "> Módulo de Membresias <")));
-            String [] modulos = {
-                Color.morado("Administrar Tarjetas"),
-                Color.morado("Administrar Niveles de Membresias"),
-                Color.morado("Administrar Beneficios"),
-                Color.morado("Administrar Movimientos")
+            String[] modulos = {
+                    Color.morado("Administrar Tarjetas"),
+                    Color.morado("Administrar Niveles de Membresias"),
+                    Color.morado("Administrar Beneficios"),
+                    Color.morado("Administrar Movimientos")
             };
 
             Cuadro menuTarjeta = new Cuadro();
-            if(Sesion.getRol().equals("administrador"))
+            if (Sesion.getRol().equals("administrador"))
                 menuTarjeta = new Cuadro(modulos);
-            else 
+            else
                 menuTarjeta = new Cuadro(modulos[0], modulos[1], modulos[2], modulos[3]);
-            
 
             menuTarjeta.agregarSalir();
             menuTarjeta.imprimirCuadroNum();
@@ -73,10 +75,10 @@ class SubmodTarjeta extends Menu {
                 Color.morado("Información de " + modSing),
                 Color.morado("Renovar " + modSing),
                 Color.morado("Eliminar " + modSing)
-                
-            );
-            this.opciones.agregarSalir();
-                 //Falta quitar el numero
+
+        );
+        this.opciones.agregarSalir();
+        // Falta quitar el numero
     }
 
     public static void desplegarMenu() {
@@ -94,7 +96,7 @@ class SubmodTarjeta extends Menu {
                 menuVerUno();
                 break;
             case 3:
-                menuActualizar(); 
+                menuActualizar();
                 break;
             case 4:
                 menuEliminar();
@@ -166,11 +168,20 @@ class SubmodTarjeta extends Menu {
                 case 1:
 
                     System.out.println("Fecha de vencimiento: " + tarjeta.getFecVen());
-                    tarjeta.renovar();
-                    System.out.println("Nueva fecha de vencimiento: " + tarjeta.getFecVen());
-                    tarjeta.actualizarTarjeta();
-                    System.out.println(Color.cian("Tarjeta renovada con exito..."));
-                    Movimiento.renovacion("Renovacion de tarjeta", tarjeta);// Checar lo de el id
+
+                    LocalDate fechaActual = LocalDate.now();
+                    LocalDate fechaVencimiento = tarjeta.getFecVen().toLocalDate();
+
+                    long mesesRestantes = ChronoUnit.MONTHS.between(fechaActual, fechaVencimiento);
+                    if (mesesRestantes <= 2) {
+                        tarjeta.renovar();
+                        System.out.println(Color.cian("Tarjeta renovada con exito..."));
+                        tarjeta.actualizarTarjeta();
+                        System.out.println("Nueva fecha de vencimiento: " + tarjeta.getFecVen());
+                        Movimiento.renovacion("Renovacion de tarjeta", tarjeta);
+                    } else {
+                        System.out.println("No es posible renovar la tarjeta todavía.");
+                    }
                     Texto.esperarEnter();
 
                     break;
@@ -237,7 +248,7 @@ class SubmodTarjeta extends Menu {
                     tabla();
                     System.out.println();
                     Texto.esperarEnter(Color.verde(" " + modSing + " eliminado con exito"));
-                
+
                     repetir = false;
                     return;
                 } else
@@ -697,12 +708,11 @@ class SubmodMovimiento extends Menu {
 
         for (Movimiento movimiento : movimientos) {
             tabla.agregarFila(
-                movimiento.getId_movimiento(),
-                movimiento.getEstado(),
-                movimiento.getFechaMov(),
-                movimiento.usuario.getNomUsuario(),
-                movimiento.tipo.getNombre()
-            );
+                    movimiento.getId_movimiento(),
+                    movimiento.getEstado(),
+                    movimiento.getFechaMov(),
+                    movimiento.usuario.getNomUsuario(),
+                    movimiento.tipo.getNombre());
         }
 
         tabla.imprimirTablaSimple();
@@ -720,13 +730,12 @@ class SubmodMovimiento extends Menu {
         Movimiento movimiento = Movimiento.importarMovimientos(id);
 
         tabla.agregarFila(
-            movimiento.getId_movimiento(),
-            movimiento.getComentario(),
-            movimiento.getEstado(),
-            movimiento.getFechaMov(),
-            movimiento.usuario.getNomUsuario(),
-            movimiento.tipo.getNombre()
-        );
+                movimiento.getId_movimiento(),
+                movimiento.getComentario(),
+                movimiento.getEstado(),
+                movimiento.getFechaMov(),
+                movimiento.usuario.getNomUsuario(),
+                movimiento.tipo.getNombre());
 
         tabla.imprimirTablaSimple();
         return true;
