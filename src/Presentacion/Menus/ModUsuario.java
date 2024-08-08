@@ -3,7 +3,6 @@ package Presentacion.Menus;
 import Presentacion.Despliegue.Tabla;
 import Presentacion.Formato.*;
 
-import Logica.Objetos.Persona;
 import Logica.Objetos.Rol;
 import Logica.Objetos.Usuario;
 
@@ -137,8 +136,14 @@ public class ModUsuario extends Menu {
                 System.out.println();
                 System.out.println(Texto.espacio(35) + Color.amarillo(Color.negrita("> Roles <")));
 
-                SubmodBeneficio verBeneficios = new SubmodBeneficio();
-                verBeneficios.tabla();
+                Tabla tablaRol = new Tabla("ID", "Nombre", "Descripcion");
+                Rol[] roles = Rol.importarRoles();
+                for (Rol rol : roles) {
+                    tablaRol.agregarFila(
+                        rol.getIdRol(), rol.getNombre(), rol.getDescripcion()
+                    );
+                }
+                tablaRol.imprimirTablaSimple();
 
                 
                 System.out.println();
