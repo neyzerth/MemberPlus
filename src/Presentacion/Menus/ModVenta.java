@@ -70,7 +70,7 @@ public class ModVenta {
                 System.out.println(Color.verde(Color.negrita(" Desea usar su saldo ("+Texto.moneda(compra.tarjeta.getSaldo())+")?")));
                 usarSaldo = Leer.cadena(Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
             }
-            compra.usarBeneficios(usarPuntos, usarSaldo);
+            float saldoRestante= compra.usarBeneficios(usarPuntos, usarSaldo);
 
 
             System.out.println();
@@ -79,6 +79,7 @@ public class ModVenta {
                 Movimiento.compra( "Compra de "+ Texto.moneda(compra.getSubtotal()), compra.tarjeta);
                 System.out.println();
                 System.out.println(Color.verde(" La compra fue exitosa"));
+                System.out.println("El saldo restante es:"+saldoRestante);
             
             } else{
                  System.out.println();
