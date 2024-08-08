@@ -23,18 +23,18 @@ public class FormatoFecha {
 
         //Comprobar que el año este entre 1900 y 2200
         if (anio < 1900 || anio > 2200) {
-            throw new IllegalArgumentException("Año "+anio+" no valido");
+            throw new IllegalArgumentException("Año  no valido");
         }
 
         //Comprobar que el mes este entre 1 y 12
         if (mes < 1 || mes > 12) {
-            throw new IllegalArgumentException("Mes "+mes+" no valido.");
+            throw new IllegalArgumentException("Mes  no valido.");
 
         } else { //Si es valido, que compruebe el dia
 
             //Comprobar que el dia este entre 1 y 31
             if(dia > 31 || dia < 1)
-                throw new IllegalArgumentException("Dia "+dia+" no valido");
+                throw new IllegalArgumentException("Dia no valido");
 
             switch (mes) { //Excepciones en meses
 

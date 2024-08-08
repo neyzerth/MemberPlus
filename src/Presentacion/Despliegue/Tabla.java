@@ -185,7 +185,11 @@ public class Tabla extends Cuadro {
         int[] maximos = new int[columnas.length];
 
         for (int i = 0; i < maximos.length; i++) {
-            maximos[i] = columnas[i].length();
+            int longColumna = columnas[i].length();
+            if(contieneColor(columnas[i]))
+                longColumna -= 9;
+                
+            maximos[i] = longColumna;
         }
 
         for (Object[] fila : datos) {
@@ -305,8 +309,12 @@ public class Tabla extends Cuadro {
     }
 
     public void setMaxColumna(int i, String txt) {
-        if (txt.length() > maxColumna[i])
-            this.maxColumna[i] = txt.length();
+        int longTxt = txt.length();
+        if(contieneColor(txt))
+            longTxt -= 9;
+
+        if (longTxt > maxColumna[i])
+            this.maxColumna[i] = longTxt;
     }
 
     public void setTipoLinea(int tipoLinea) {

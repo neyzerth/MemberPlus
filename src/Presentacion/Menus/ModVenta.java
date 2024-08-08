@@ -19,8 +19,8 @@ public class ModVenta {
 
             System.out.println();
 
-            String numTarjeta = Leer.cadena(Color.cian(Color.negrita(" > Ingrese los numeros de su tarjeta: ")));
-
+            String numTarjeta1 = Leer.cadena(Color.cian(Color.negrita(" > Ingrese los numeros de su tarjeta: ")));
+            String numTarjeta = numTarjeta1.replace(" ", "");
             if(!Tarjeta.validarNumTarjeta(numTarjeta)){
                 System.out.println();
                 Texto.esperarEnter(Color.rojo(" No se encontro la tarjeta " + Texto.tarjeta(numTarjeta)));

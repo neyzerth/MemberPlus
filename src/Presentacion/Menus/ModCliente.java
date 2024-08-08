@@ -3,7 +3,6 @@ package Presentacion.Menus;
 
 import Logica.Objetos.Cliente;
 import Logica.Objetos.Nivel;
-import Logica.Objetos.Persona;
 import Logica.Objetos.Tarjeta;
 import Presentacion.Despliegue.Cuadro;
 import Presentacion.Despliegue.Tabla;
@@ -61,18 +60,21 @@ public class ModCliente extends Menu{
 
         System.out.println();
         Texto.esperarEnter(Color.verde(Color.negrita(" Tarjeta registrada con exito")));
-        //Si se inserto solo faltaria mostrar la tarjeta 
     }
 
     @Override
     public boolean registrar(){
+        cliente = new Cliente();
 
-        Persona persona = ModPersona.datosPersona();
+        ModPersona.datos(cliente, 1);
+        ModPersona.datos(cliente, 2);
+        ModPersona.datos(cliente, 3);
+        ModPersona.datos(cliente, 4);
+
         try {
 
-            if(persona.insertarPersona()){
-                persona.setIdPersona();
-                cliente = new Cliente(0, persona);
+            if(cliente.insertarPersona()){
+                cliente.setIdPersona();
             }
 
             if( cliente.insertarCliente()){
@@ -122,14 +124,14 @@ public class ModCliente extends Menu{
         if(cliente == null)
             return false;
         
-        Persona persona = ModPersona.datosPersona();
+        ModPersona.datosPersona(cliente);
         try {
             
-            persona.setIdPersona(cliente.getIdPersona());
-            if(!persona.actualizarPersona())
+            cliente.setIdPersona(cliente.getIdPersona());
+            if(!cliente.actualizarPersona())
                 return false;
 
-            cliente = new Cliente(id, persona);
+            cliente = new Cliente(id, cliente);
 
             if(!cliente.actualizarCliente())
                 return false;
@@ -176,7 +178,7 @@ public class ModCliente extends Menu{
             cliente.getIdCliente(),
             cliente.getNombre() + " " + cliente.getApellidoPa() + " " + cliente.getApellidoMa(),
             Texto.fecha(cliente.getFecNac()),
-            cliente.getCalle() + " " + cliente.getNumExt() + " " + cliente.getNumInt() + " " + cliente.getColonia() + " " + cliente.getCp(),
+            cliente.getDireccion(),
             cliente.getTelefono(),
             cliente.getCorreo()
         );

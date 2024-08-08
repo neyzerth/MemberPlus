@@ -104,6 +104,11 @@ public class Beneficio {
         return beneficio.eliminarBeneficioDB(id);
     }
 
+    //Funcion que valida que la fecha vencimiento este despues de la fecha Inicio(Se usara para la creacion de un beneficio)
+    public boolean validarFechas() {
+        return fecVen.compareTo(fecInicio) > 0;
+    }
+
     // GETTERS AND SETTERS
     
     public int getIdBeneficio() {
@@ -195,15 +200,6 @@ public class Beneficio {
     public void setFecVen(String fecVenStr) {
         this.fecVen = FormatoFecha.fecha(fecVenStr);
     }
-
-    //public void setFecVen(String fecVenStr) {
-    //    if (fecVenStr.matches("\\d{2}/\\d{2}/\\d{4}")) {
-    //        this.fecVen = FormatoFecha.fecha(fecVenStr);
-    //    } else {
-    //        throw new IllegalArgumentException("La fecha debe estar en formato dd/mm/yyyy.");
-    //    }
-    //}
-
 
     public Date getFecInicio() {
         return this.fecInicio;

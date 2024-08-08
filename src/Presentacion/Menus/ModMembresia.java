@@ -120,7 +120,9 @@ class SubmodTarjeta extends Menu {
         tabla();
 
         System.out.println();
-        String numTarjeta = Leer.cadena(Color.cian(" > Numero de " + modSing + " a ver: "));
+        String numTarjetaStr = Leer.cadena(Color.cian(" > Numero de " + modSing + " a ver: "));
+        String numTarjeta = numTarjetaStr.replace(" ", "");
+
         if (!tabla(numTarjeta)) {
             System.out.println();
             Texto.esperarEnter(Color.rojo(" No existe " + modSing + " con el numero " + numTarjeta + "..."));
@@ -139,7 +141,8 @@ class SubmodTarjeta extends Menu {
         actualizar.imprimirCuadro();
 
         System.out.println();
-        String numTarjeta = Leer.cadena(Color.cian(" > Numero de " + modSing + " a modificar: "));
+        String numTarjetaStr = Leer.cadena(Color.cian(" > Numero de " + modSing + " a modificar: "));
+        String numTarjeta = numTarjetaStr.replace(" ", "");
 
         if (!tabla(numTarjeta)) {
             System.out.println();
@@ -208,7 +211,8 @@ class SubmodTarjeta extends Menu {
             tabla();
 
             System.out.println();
-            String numTarjeta = Leer.cadena(Color.cian(" > Numero de " + modSing + " a eliminar: "));
+            String numTarjetaStr = Leer.cadena(Color.cian(" > Numero de " + modSing + " a eliminar: "));
+            String numTarjeta = numTarjetaStr.replace(" ", "");
 
             if (!tabla(numTarjeta)) {
                 System.out.println();
