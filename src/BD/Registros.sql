@@ -1,12 +1,11 @@
--- SQLBook: Code
--- Active: 1723058837855@@127.0.0.1@3306@member_plus
+-- Active: 1719648459430@@localhost@3306@member_plus
 --CREAR REGISTROS EN LA BASE DE DATOS
 INSERT INTO persona (idPersona, nombre, apellidoPa, apellidoMa, fecNac, colonia, calle, numExt, numInt, cp, telefono, correo) VALUES 
-(1, 'Jane', 'Smith', 'Doe', '1999-11-10', 'Centro', 'Calle Primera', 123, 12, '22100', '6641112223', 'jane.smith@hotmail.com'),
-(2, 'Mike', 'Brown', 'Jones', '1980-02-15', 'Chapultepec', 'Avenida Revolucion', 456, 19, '22200', '6642223334', 'mike.brown@gmail.com'),
-(3, 'Lucy', 'Williams', 'Liu', '1990-03-20', 'La Joya', 'Boulevard Agua Caliente', 789, 55, '22300', '6643334445', 'lucy.williams@yahoo.com'),
-(4, 'Mark', 'Martinez', 'Taylor', '2000-04-20', 'El Dorado', 'Callejon del Sol', 101, 30, '22400', '6644445556', 'mark.martinez@hotmail.com'),
-(5, 'Sophia', 'Davis', 'Wilson', '2001-05-05', 'Los Alamos', 'Avenida de la Paz', 202, NULL, '22500', '6645556667', 'sophia.davis@gmail.com'),
+(1, 'Yerlan Axel', 'Suastegui', 'Leyva', '2004-11-10', 'Centro', 'Calle Primera', 123, 12, '22100', '6641112223', '0322103828@ut-tijuana.edu.mx'),
+(2, 'Neyzer Joel', 'Toledo', 'Herrera', '2005-04-20', 'Altiplano', 'Avenida Altiplano', 456, NULL, '22204', '6642964316', '0323105969@ut-tijuana.edu.mx'),
+(3, 'Jesus Arturo', 'Herrera', 'Luevano', '2005-03-20', 'La Joya', 'Boulevard Agua Caliente', 789, 55, '22300', '6643334445', '0323205941@ut-tijuana.edu.mx'),
+(4, 'Yazmin', 'Ovando', 'Sanchez', '2005-07-31', 'El Dorado', 'Callejon del Sol', 101, 30, '22400', '6644445556', '0323105929@ut-tijuana.edu.mx'),
+(5, 'Geramn', 'Sanchez', 'Dario', '2003-05-05', 'Los Alamos', 'Avenida de la Paz', 202, NULL, '22500', '6645556667', '0322104023@ut-tijuana.edu.mx'),
 (6, 'Liam', 'Garcia', 'Johnson', '2003-06-12', 'San Angel', 'Calle Lazaro Cardenas', 303, 22, '22600', '6646667778', 'liam.garcia@yahoo.com'),
 (7, 'Olivia', 'Rodriguez', 'Martinez', '2005-07-18', 'La Cumbre', 'Boulevard Diaz Ordaz', 404, NULL, '22700', '6647778889', 'olivia.rodriguez@hotmail.com'),
 (8, 'Emma', 'Hernandez', 'Brown', '1979-08-22', 'Bella Vista', 'Callejon de los Rios', 505, 77, '22800', '6648889990', 'emma.hernandez@gmail.com'),
@@ -24,24 +23,22 @@ INSERT INTO persona (idPersona, nombre, apellidoPa, apellidoMa, fecNac, colonia,
 (20, 'Mariana', 'Araujo', 'Almeida', '2009-10-25', 'Newmarket', 'Cuba Street', 323, 99, '30098', '6633054586', 'mariana.araujo@gmail.com');
 
 
-
-INSERT INTO rol (idRol, nombre, descripcion) VALUES
-(1, 'Administrador', 'Control total'),
-(2, 'Cajero', 'Empleado que se encarga sobre las ventas'),
-(3, 'Supervisor', 'Encargado de revisar niveles con sus beneficios'),
-(4, 'Gerente', 'Encargado de la gestión de usuarios');
+INSERT INTO rol VALUES
+(1, 'administrador', 'Control total'),
+(2, 'cajero', 'Empleado que se encarga sobre las ventas'),
+(3, 'supervisor', 'Encargado de revisar niveles con sus beneficios')
 
 INSERT INTO usuario (idUsuario, nombreUsuario, contrasena, rfc, rol, Persona) VALUES
-(1, 'Jane', 'utt1', 'SIDJ991110XXX', 1, 1),
-(2, 'Mike', 'utt2', 'BOJM800215XXX', 3, 2),
-(3, 'Lucy', 'utt3', 'WILL900320XXX', 2, 3),
-(4, 'Mark', 'utt4', 'MATM000420XXX', 4, 4),
-(5, 'Sophia', 'utt5', 'DAWS010505XXX', 3, 5),
-(6, 'Liam', 'utt6', 'GAJL030612XXX', 2, 6),
-(7, 'Olivia', 'utt7', 'ROMO050718XXX', 1, 7),
-(8, 'Emma', 'utt8', 'HEBE790822XXX', 4, 8),
-(9, 'Noah', 'utt9', 'LOCL880907XXX', 2, 9),
-(10, 'Ava', 'utt10', 'GOHA821009XXX', 1, 10)
+(2, 'axel', 'utt1', 'BOJM800215XXX', 1, 2),
+(1, 'ney', 'utt2', 'NJTH991110XXX', 1, 1),
+(3, 'arturo', 'utt3', 'WILL900320XXX', 1, 3),
+(4, 'pewpew', 'utt4', 'MATM000420XXX', 1, 4),
+(5, 'german', 'utt5', 'DAWS010505XXX', 1, 5),
+(6, 'liam', 'utt6', 'GAJL030612XXX', 2, 6),
+(7, 'olivia', 'utt7', 'ROMO050718XXX', 3, 7),
+(8, 'emma', 'utt8', 'HEBE790822XXX', 2, 8),
+(9, 'noah', 'utt9', 'LOCL880907XXX', 2, 9),
+(10, 'ava', 'utt10', 'GOHA821009XXX', 2, 10)
 
 INSERT INTO cliente VALUES
 (1, 1),
@@ -54,24 +51,6 @@ INSERT INTO cliente VALUES
 (8, 8),
 (9, 9),
 (10, 10);
-
-INSERT INTO rol VALUES
-(1, 'administrador', 'Control total'),
-(2, 'cajero', 'Empleado que se encarga sobre las ventas'),
-(3, 'supervisor', 'Encargado de revisar niveles con sus beneficios')
-
-
-INSERT INTO usuario VALUES
-(1, 'Juan', 'utt1', 'GAAJ920101XXX', 1, 1),
-(2, 'Adriana', 'utt2', 'RAAA890908XXX', 3, 3),
-(3, 'Miguel', 'utt3', 'TOMG860109XXX', 2, 2),
-(4, 'Laura', 'utt4', 'GULG930210XXX', 4, 4),
-(5, 'Lauro', 'utt5', 'ROJJ850303XXX', 6, 3),
-(6, 'Carlos', 'utt6', 'MUGL950504XXX', 5, 2),
-(7, 'Ana', 'utt7', 'LOAA910706XXX', 7, 1),
-(8, 'Francisco', 'utt8', 'PEAF840807XXX', 9, 4),
-(9, 'Miguel', 'utt9', 'PKJJ850303XXX', 8, 2),
-(10, 'Ashley', 'utt10', 'FKD12E1ZXXX', 10, 1);
 
 INSERT INTO nivel VALUES
 (1, 'Basica', 400, 50),
@@ -90,7 +69,7 @@ INSERT INTO tarjeta VALUES
 (7,1729987654321098, '2023-04-27', '2024-04-27', 1, 273.00, 44, 7,3),
 (8,1729432187652109, '2023-03-14', '2024-03-14', 1, 146.00, 11, 9,4),
 (9,1729876509876543, '2023-09-22', '2024-09-22', 1, 831.00, 32, 5,1),
-(10,17298128923812938, '2024-05-14', '2024-05-14', 0, 786.00, 221, 10,2);
+(10,1729812892381293, '2024-05-14', '2024-05-14', 0, 786.00, 221, 10, 5);
 
 
 INSERT INTO compra (fecha, puntos, descuento, cashback, tarjeta, subtotal, total) VALUES
