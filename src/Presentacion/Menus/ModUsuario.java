@@ -58,7 +58,7 @@ public class ModUsuario extends Menu {
             System.out.println();
             System.out.println(Color.amarillo(Color.negrita(" ¿Que desea actualizar?")));
             System.out.println();
-            System.out.println(Color.cian(Color.negrita(" Nombre de usuario[1] Contrasena[2] RFC[3] Rol[4] Datos Personales[5] Terminar[ENTER]")));
+            System.out.println(Color.cian(Color.negrita(" Nombre de usuario[1] Contraseña[2] RFC[3] Rol[4] Datos Personales[5] Terminar[ENTER]")));
             opc = Leer.entero(Color.cian(" > "));
             datos(usuario, opc);
         } while (opc!=0);
@@ -91,7 +91,7 @@ public class ModUsuario extends Menu {
             repetir = false;
             
             try {
-                usuario.setNomUsuario(Leer.cadena(Color.cian(Color.negrita(" > Nombre del usuario: "))));
+                usuario.setNomUsuario(Leer.cadena(Color.cian(Color.negrita(" > *Nombre del usuario: "))));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 repetir = true;
@@ -106,7 +106,7 @@ public class ModUsuario extends Menu {
             repetir = false;
             
             try {
-                usuario.setContrasena(Leer.contra(Color.cian(Color.negrita(" > Contraseña del usuario: "))));
+                usuario.setContrasena(Leer.contra(Color.cian(Color.negrita(" > *Contraseña del usuario: "))));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 repetir = true;
@@ -148,7 +148,7 @@ public class ModUsuario extends Menu {
 
                 
                 System.out.println();
-                usuario.setRol(Leer.entero(Color.cian(Color.negrita(" > ID del ROL del usuario: "))));
+                usuario.setRol(Leer.entero(Color.cian(Color.negrita(" > *ID del ROL del usuario: "))));
             } catch (Exception e) {
                 System.out.println(e.getMessage());
                 repetir = true;

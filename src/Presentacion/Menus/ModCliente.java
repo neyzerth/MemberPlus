@@ -194,7 +194,7 @@ public class ModCliente extends Menu {
         tabla.imprimirTablaSimple();
 
         System.out.println();
-        System.out.println(Color.amarillo(Color.negrita("  Datos de membresia")));
+        System.out.println(Color.amarillo(Color.negrita(" Datos de membresia")));
         modTarjeta.tabla(tarjeta.getIdTarjeta());
 
         return true;

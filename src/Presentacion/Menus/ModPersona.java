@@ -95,8 +95,8 @@ public class ModPersona {
             mateHold = persona.getApellidoMa() == null ? mateHold : persona.getApellidoMa();
         }
 
-        persona.setNombre(Leer.cadena(Color.cian(Color.negrita(" > Nombre: ")), nombreHold));
-        persona.setApellidoPa(Leer.cadena(Color.cian(Color.negrita(" > Apellido Paterno: ")), pateHold));
+        persona.setNombre(Leer.cadena(Color.cian(Color.negrita(" > *Nombre: ")), nombreHold));
+        persona.setApellidoPa(Leer.cadena(Color.cian(Color.negrita(" > *Apellido Paterno: ")), pateHold));
         persona.setApellidoMa(Leer.cadena(Color.cian(" > Apellido Materno: "), mateHold));
     }
 
@@ -110,9 +110,9 @@ public class ModPersona {
             mesHold = String.valueOf(FormatoFecha.getMes(persona.getFecNac()));
             anioHold = String.valueOf(FormatoFecha.getAnio(persona.getFecNac()));
         }
-        int dia = Leer.entero(Color.cian(Color.negrita(" > Dia: ")), diaHold);
-        int mes = Leer.entero(Color.cian(Color.negrita(" > Mes: ")), mesHold);
-        int anio = Leer.entero(Color.cian(Color.negrita(" > Año: ")), anioHold);
+        int dia = Leer.entero(Color.cian(Color.negrita(" > *Dia: ")), diaHold);
+        int mes = Leer.entero(Color.cian(Color.negrita(" > *Mes: ")), mesHold);
+        int anio = Leer.entero(Color.cian(Color.negrita(" > *Año: ")), anioHold);
         persona.setFecNac(dia, mes, anio);
     }
 
@@ -145,7 +145,7 @@ public class ModPersona {
             correoHold = persona.getCorreo() == null ? "" : persona.getCorreo();
         }
 
-        persona.setTelefono(Leer.cadena(Color.cian(Color.negrita(" > Telefono : ")), telefonoHold));
+        persona.setTelefono(Leer.cadena(Color.cian(Color.negrita(" > *Telefono : ")), telefonoHold));
         persona.setCorreo(Leer.cadena(Color.cian(" > Correo: "), correoHold));
     }
 }
