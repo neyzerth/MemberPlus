@@ -7,10 +7,15 @@ import Presentacion.Despliegue.Cuadro;
 import Presentacion.Formato.*;
 
 public class ModVenta {
-    public static void menu() {
+    public static void desplegarMenu() {
         boolean salir = false;
+        do{
+            salir = menu();
+        } while(!salir);
+    }
+
+    private static boolean menu() {
         
-        while (!salir) {
             Texto.limpiarPantalla();
             Cuadro cuadroTarjeta = new Cuadro(
                 Color.morado("Numero de tarjeta")
@@ -24,7 +29,7 @@ public class ModVenta {
             if(!Tarjeta.validarNumTarjeta(numTarjeta)){
                 System.out.println();
                 Texto.esperarEnter(Color.rojo(" No se encontro la tarjeta " + Texto.tarjeta(numTarjeta)));
-                return;
+                return false;
             }
 
             Tarjeta tarjeta = Tarjeta.importarTarjeta(numTarjeta);
@@ -33,7 +38,7 @@ public class ModVenta {
                 System.out.println(Color.rojo(" Estimado Cliente, Member+ le informa que su membresia "+Color.fondoRojo(Texto.tarjeta(numTarjeta))+"presenta un saldo vencido por "+ Color.rojo(Texto.moneda(tarjeta.nivel.getAnualidad()))  ));
                 System.out.println();
                 Texto.esperarEnter(Color.rojo(Color.negrita(" PAGO INMEDIATO.")));
-                return;
+                return false;
             }
 
             Compra compra = new Compra(numTarjeta);
@@ -91,8 +96,7 @@ public class ModVenta {
             }
 
             Texto.esperarEnter();
-            salir = true;
-        }
+            return true;
     }
     
 }

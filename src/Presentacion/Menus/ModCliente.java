@@ -59,7 +59,7 @@ public class ModCliente extends Menu {
         SubmodTarjeta modTarjeta = new SubmodTarjeta();
         System.out.println();
         Texto.esperarEnter(Color.amarillo(Color.negrita("Se le cobrara el costo de apertura " + Texto.moneda(tarjeta.nivel.getCostoApertura()))));
-        System.out.println();//TODO
+        System.out.println();
         boolean conf = Leer.cadena(Color.verde(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
         if (conf) {
             modTarjeta.tabla(tarjeta.getNumTarjeta());
@@ -146,7 +146,7 @@ public class ModCliente extends Menu {
 
         } catch (Exception e) {
             System.out.println();
-            Texto.esperarEnter(Color.rojo(Color.negrita(" DATO NO VALIDO")));
+            Texto.esperarEnter(Color.rojo(Color.negrita(e.getMessage())));
         }
         return false;
     }
