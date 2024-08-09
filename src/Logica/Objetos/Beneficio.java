@@ -211,7 +211,7 @@ public class Beneficio {
     public void setFecInicio(Date fecInicio) {
         if (fecInicio == null)
             throw new IllegalArgumentException("La fecha de inicio no puede estar vacía");
-        if (!(fecVen.compareTo(fecInicio) > 0))
+        if (fecVen != null && !(fecVen.compareTo(fecInicio) > 0))
             throw new IllegalArgumentException("La fecha de vencimiento no puede ser menor a la fecha de inicio");
         this.fecInicio = fecInicio;
     }

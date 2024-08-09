@@ -129,7 +129,6 @@ public class ModCliente extends Menu {
             if (!cliente.actualizarCliente())
                 return false;
 
-            tabla(id);
             return true;
 
         } catch (Exception e) {

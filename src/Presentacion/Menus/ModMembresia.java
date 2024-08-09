@@ -608,8 +608,8 @@ class SubmodBeneficio extends Menu {
         cashback(beneficio);
         descuento(beneficio);
 
-        tabla(beneficio.getIdBeneficio());
-        return beneficio.insetarBeneficio();
+        beneficio.insetarBeneficio();
+        return tabla(beneficio.getIdBeneficio());
         
     }
 
@@ -624,8 +624,8 @@ class SubmodBeneficio extends Menu {
 
         pedirDatos(beneficio);
 
-        tabla(id);
-        return beneficio.actualizarBeneficio();
+        beneficio.actualizarBeneficio();
+        return tabla(id);
     }
 
     @Override
