@@ -428,7 +428,7 @@ class SubmodNivel extends Menu {
                         nivel.agregarBeneficio(idBeneficio);
                         System.out.println();
                         System.out.println(Color.amarillo(" Desea agregar otro beneficio?"));
-                        agregarNivel = 1 == Leer.entero(Color.amarillo(Color.negrita(" > SI[1] NO[2]: ")));
+                        agregarNivel = 1 == Leer.entero(Color.amarillo(Color.negrita(" > SI[s] NO[n]: ")));//TODO
 
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
@@ -749,14 +749,8 @@ class SubmodMovimiento extends Menu {
 
     @Override
     public boolean actualizar(int id) {
-        // Movimiento movimiento = pedirDatos();
-
-        // if (movimiento == null) {
-        // return false;
-        // }
-
-        // movimiento.setId_movimiento(id);
-        // return movimiento.actualizarMovimiento(id);
+ 
+        
         return false;
     }
 
