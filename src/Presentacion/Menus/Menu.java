@@ -84,7 +84,7 @@ public abstract class Menu {
 
             default:
                 System.out.println();
-                System.out.print(Color.rojo(" Opción inválida, por favor intente de nuevo."));
+                System.out.print(Color.rojo(Color.negrita(" Opción inválida, por favor intente de nuevo.")));
                 Texto.suspensivos(3,0.6);
             break;
         }

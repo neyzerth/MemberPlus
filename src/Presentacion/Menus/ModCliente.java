@@ -145,6 +145,7 @@ public class ModCliente extends Menu {
             return true;
 
         } catch (Exception e) {
+            System.out.println();
             Texto.esperarEnter(Color.rojo(Color.negrita(" DATO NO VALIDO")));
         }
         return false;

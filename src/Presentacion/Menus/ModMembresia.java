@@ -190,17 +190,19 @@ class SubmodTarjeta extends Menu {
 
                     break;
                 case 2:
-                    System.out.println("Nivel actual: " + tarjeta.nivel.getNombre());
+                    System.out.println(Color.amarillo(" Nivel actual: " + tarjeta.nivel.getNombre()));
                     SubmodNivel modNivel = new SubmodNivel();
                     modNivel.tabla();
-                    int idNivel = Leer.entero(" > ID del nuevo nivel: ");
+                    System.out.println();
+                    int idNivel = Leer.entero(Color.cian(" > ID del nuevo nivel: "));
                     Nivel nivel = Nivel.importarNiveles(idNivel);
                     tarjeta.nivel = nivel;
                     if (tarjeta.actualizarTarjeta()) {
-                        System.out.println(Color.verde("Nuevo nivel: " + tarjeta.nivel.getNombre()));
-                        Movimiento.renovacion("Cambiar nivel", tarjeta);// Checar lo de el id
+                        System.out.println();
+                        System.out.println(Color.verde(" Nuevo nivel: " + tarjeta.nivel.getNombre()));
+                        Movimiento.renovacion(Color.amarillo(Color.negrita(" Cambiar nivel")), tarjeta);// Checar lo de el id
                     } else {
-                        System.out.println(Color.rojo("Error al cambiar nivel "));
+                        System.out.println(Color.rojo(Color.negrita(" Error al cambiar nivel ")));
                     }
 
                     break;
@@ -209,6 +211,8 @@ class SubmodTarjeta extends Menu {
                     break;
 
                 default:
+                System.out.println(Color.rojo(" Opcion invalida "));
+                    System.out.println();
                     Texto.esperarEnter(Color.rojo(Color.negrita("Opcion no valida")));
                     break;
             }
@@ -247,7 +251,7 @@ class SubmodTarjeta extends Menu {
 
             if (conf) {
                 Tarjeta tarjeta = Tarjeta.importarTarjeta(numTarjeta);
-                Movimiento.cancelacion("Cancelacion de membresia", tarjeta);
+                Movimiento.cancelacion((Color.rojo(Color.negrita(" Cancelacion de membresia"))), tarjeta);
                 if (eliminar(numTarjeta)) {
                     tabla();
                     System.out.println();
@@ -431,7 +435,7 @@ class SubmodNivel extends Menu {
                     try {
                         nivel.agregarBeneficio(idBeneficio);
                         System.out.println();
-                        System.out.println(Color.amarillo(" Desea agregar otro beneficio?"));
+                        System.out.println(Color.amarillo(" ¿Desea agregar otro beneficio?"));
                         agregarNivel = 1 == Leer.entero(Color.amarillo(Color.negrita(" > SI[s] NO[n]: ")));//TODO
 
                     } catch (Exception e) {
@@ -528,7 +532,7 @@ class SubmodBeneficio extends Menu {
 
         } catch (Exception e) {
             System.out.println();
-            Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
+            Texto.esperarEnter(Color.rojo(Color.negrita(" Dato incorrecto")));
         }
 
         return false;
@@ -539,7 +543,7 @@ class SubmodBeneficio extends Menu {
         Beneficio beneficio = Beneficio.importarBeneficios(id);
         if (beneficio == null) {
             System.out.println();
-            Texto.esperarEnter(Color.rojo("Beneficio no encontrado"));
+            Texto.esperarEnter(Color.rojo(" Beneficio no encontrado"));
             return false;
         }
 
@@ -552,7 +556,8 @@ class SubmodBeneficio extends Menu {
             }
 
         } catch (Exception e) {
-            Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
+            System.out.println();
+            Texto.esperarEnter(Color.rojo(Color.negrita(" Dato incorrecto")));
         }
 
         return false;
@@ -591,7 +596,7 @@ class SubmodBeneficio extends Menu {
 
         } catch (Exception e) {
             System.out.println();
-            Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
+            Texto.esperarEnter(Color.rojo(Color.negrita(" Dato incorrecto")));
             return null;
         }
 
@@ -684,7 +689,7 @@ class SubmodTipoMovimiento extends Menu {
 
         } catch (Exception e) {
             System.out.println();
-            Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
+            Texto.esperarEnter(Color.rojo(Color.negrita(" Dato incorrecto")));
             return null;
         }
 
