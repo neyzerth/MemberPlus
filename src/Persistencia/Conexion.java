@@ -26,7 +26,7 @@ public class Conexion {
 
     public Connection conectar(){
         if (opc == 1) setVlan(); 
-        else setLocal(); 
+        else        setLocal(); 
         return conectarHost();
     }
 
@@ -54,8 +54,8 @@ public class Conexion {
         return this.host;
     }
 
-    public void setHost(String host) {
-        this.host = host;
+    public void setHost(int opcion) {
+        this.opc = opcion;
     }
 
     public String getUrl() {
