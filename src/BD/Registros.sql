@@ -85,22 +85,10 @@ INSERT INTO compra (fecha, puntos, descuento, cashback, tarjeta, subtotal, total
 
 --Cambiar nombres y valores en los descuentos
 INSERT INTO beneficio VALUES
-<<<<<<< HEAD
-(1, 'Basico', '2017-01-01', '2100-12-31', 5, 1,NULL),
-(2, 'Buen fin', '2024-11-20', '2024-11-28', 15, null,null),
-(3, 'Sorpresa mensual', '2024-01-30', '2024-01-30', 10, 2,null),
-(4, 'Descuento relampago', '2024-07-30', '2024-07-31', null, null,4),
-(5, 'Premium', '2017-01-01', '2100-08-20', 50, 6,6),
-(6, 'Regalo anual', '2017-01-01', '2100-12-31', 25, 5,5),
-(7, 'Estandar', '2017-01-01', '2100-12-31', 10, 2,2),
-(8, 'Recompensa dorada', '2024-10-20', '2024-10-21', 40, 8,8),
-(9, 'Descuento de verano', '2024-07-15', '2024-08-05', 15, 3,3),
-(10, 'Oferta de fiestas', '2024-12-01', '2024-12-20', 30, 10,10);
-=======
-(1, 'Inicio', '2023-01-01', '2024-12-31', 5, 1, NULL),
-(2, 'Mega Venta', '2024-11-25', '2024-12-01', 20, NULL, NULL),
-(3, 'Bono Mensual', '2024-02-01', '2025-02-01', 12, 3, NULL),
-(4, 'Descuento Rápido', '2024-08-01', '2026-08-02', NULL, NULL, 4),
+(1, 'Inicio', '2023-01-01', '2024-12-31', 5, 1, 0),
+(2, 'Mega Venta', '2024-11-25', '2024-12-01', 20, 0, 0),
+(3, 'Bono Mensual', '2024-02-01', '2025-02-01', 12, 3, 0),
+(4, 'Descuento Rápido', '2024-08-01', '2026-08-02', 0, 0, 4),
 (5, 'Élite', '2023-01-01', '2025-09-01', 60, 7, 7),
 (6, 'Bono Anual', '2023-01-01', '2025-12-31', 30, 6, 6),
 (7, 'Estándar Plus', '2023-01-01', '2024-12-31', 15, 4, 4),
@@ -108,7 +96,6 @@ INSERT INTO beneficio VALUES
 (9, 'Descuento de Verano', '2024-07-20', '2024-08-10', 18, 5, 5),
 (10, 'Oferta de Fiesta', '2024-12-05', '2024-12-25', 35, 10, 10);
 
->>>>>>> b935764ee7bf8f62d4bc704e5a0df19b6ea6f579
 
 
 INSERT INTO tipo_movimiento VALUES
