@@ -29,8 +29,8 @@ public class ModCliente extends Menu {
             Texto.limpiarPantalla();
 
             modificar.imprimirCuadro();
-            System.out.println("> Desea registrar un " + modSing + "?");
-            String opc = Leer.cadena("> SI[s] NO[n]", "     (ENTER para salir)");
+            System.out.println(Color.amarillo(Color.negrita(" ¿Desea registrar un " + modSing + "?")));
+            String opc = Leer.cadena(Color.cian(" SI[s] NO[n]"), "     (ENTER para salir)");
 
             if (!opc.equalsIgnoreCase("s")) {
                 return;

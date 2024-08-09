@@ -171,13 +171,13 @@ class SubmodTarjeta extends Menu {
 
         do {
             System.out.println();
-            System.out.println(" ¿Que desea realizar?");
-            System.out.println("Renovar $" + tarjeta.nivel.getAnualidad() + "[1] - Cambiar nivel [2] - Salir [3]");
+            System.out.println(Color.amarillo(Color.negrita(" ¿Que desea realizar?")));
+            System.out.println(Color.cian(" Renovar $" + tarjeta.nivel.getAnualidad() + "[1] - Cambiar nivel [2] - Salir [3]"));
             int opc = Leer.entero("> ");
             switch (opc) {
                 case 1:
 
-                    System.out.println("Fecha de vencimiento: " + tarjeta.getFecVen());
+                    System.out.println(Color.rojo(" Fecha de vencimiento: " + tarjeta.getFecVen()));
 
                     LocalDate fechaActual = LocalDate.now();
                     LocalDate fechaVencimiento = tarjeta.getFecVen().toLocalDate();
@@ -185,28 +185,32 @@ class SubmodTarjeta extends Menu {
                     long mesesRestantes = ChronoUnit.MONTHS.between(fechaActual, fechaVencimiento);
                     if (mesesRestantes <= 2) {
                         tarjeta.renovar();
-                        System.out.println(Color.cian("Tarjeta renovada con exito..."));
+                        System.out.println();
+                        System.out.println(Color.verde(" Tarjeta renovada con exito..."));
                         tarjeta.actualizarTarjeta();
-                        System.out.println("Nueva fecha de vencimiento: " + tarjeta.getFecVen());
-                        Movimiento.renovacion("Renovacion de tarjeta", tarjeta);
+                        System.out.println();
+                        System.out.println(Color.rojo(" Nueva fecha de vencimiento: " + tarjeta.getFecVen()));
+                        Movimiento.renovacion(Color.amarillo(" Renovacion de tarjeta"), tarjeta);
                     } else {
+                        System.out.println();
                         System.out.println(Color.rojo(Color.negrita(" No es posible renovar la tarjeta todavía.")));
                     }
                     Texto.esperarEnter();
 
                     break;
                 case 2:
-                    System.out.println("Nivel actual: " + tarjeta.nivel.getNombre());
+                    System.out.println(Color.amarillo(" Nivel actual: " + tarjeta.nivel.getNombre()));
                     SubmodNivel modNivel = new SubmodNivel();
                     modNivel.tabla();
-                    int idNivel = Leer.entero("> ID del nuevo nivel: ");
+                    System.out.println();
+                    int idNivel = Leer.entero(Color.cian(" > ID del nuevo nivel: "));
                     Nivel nivel = Nivel.importarNiveles(idNivel);
                     tarjeta.nivel = nivel;
                     if (tarjeta.actualizarTarjeta()) {
-                        System.out.println(Color.verde("Nuevo nivel: " + tarjeta.nivel.getNombre()));
-                        Movimiento.renovacion("Cambiar nivel", tarjeta);
+                        System.out.println(Color.verde(" Nuevo nivel: " + tarjeta.nivel.getNombre()));
+                        Movimiento.renovacion(Color.amarillo(" Cambiar nivel"), tarjeta);
                     } else {
-                        System.out.println(Color.rojo("Error al cambiar nivel "));
+                        System.out.println(Color.rojo(" Error al cambiar nivel "));
                     }
 
                     break;
@@ -215,7 +219,8 @@ class SubmodTarjeta extends Menu {
                     break;
 
                 default:
-                    Texto.esperarEnter("Opcion no valida");
+                    System.out.println();
+                    Texto.esperarEnter(Color.rojo(" Opcion no valida"));
                     break;
             }
         } while (!salir);
@@ -253,7 +258,7 @@ class SubmodTarjeta extends Menu {
 
             if (conf) {
                 Tarjeta tarjeta = Tarjeta.importarTarjeta(numTarjeta);
-                Movimiento.cancelacion("Cancelacion de membresia", tarjeta);
+                Movimiento.cancelacion(Color.rojo(" Cancelacion de membresia"), tarjeta);
                 if (eliminar(numTarjeta)) {
                     tabla();
                     System.out.println();
@@ -429,7 +434,7 @@ class SubmodNivel extends Menu {
             System.out.println();
             System.out.println(Color.amarillo(Color.negrita(" ¿Que desea actualizar?")));
             System.out.println();
-            Cuadro nivelCuadro = new Cuadro("Nombre de nivel", "Costo de Apertura", "Costo de Anualidad", "Agregar Beneficios");
+            Cuadro nivelCuadro = new Cuadro(Color.amarillo("Nombre de nivel"), Color.amarillo("Costo de Apertura"), Color.amarillo("Costo de Anualidad"), Color.amarillo("Agregar Beneficios"));
             nivelCuadro.agregarSalir();
             nivelCuadro.imprimirCuadroNum();
             opc = Leer.entero(Color.cian(" > "));
@@ -613,7 +618,7 @@ class SubmodBeneficio extends Menu {
         Beneficio beneficio = Beneficio.importarBeneficios(id);
         if (beneficio == null) {
             System.out.println();
-            Texto.esperarEnter(Color.rojo("Beneficio no encontrado"));
+            Texto.esperarEnter(Color.rojo(" Beneficio no encontrado"));
             return false;
         }
 
@@ -635,7 +640,7 @@ class SubmodBeneficio extends Menu {
             System.out.println();
             System.out.println(Color.amarillo(Color.negrita(" ¿Que desea actualizar?")));
             System.out.println();
-            Cuadro beneCuadro = new Cuadro("Nombre", "FechaInicio", "FechaVencimiento", "Puntos", "Cashback", "Descuento");
+            Cuadro beneCuadro = new Cuadro(Color.amarillo("Nombre"), Color.amarillo("FechaInicio"), Color.amarillo("FechaVencimiento"), Color.amarillo("Puntos"), Color.amarillo("Cashback"), Color.amarillo("Descuento"));
             beneCuadro.agregarSalir();
             beneCuadro.imprimirCuadroNum();
             

@@ -39,6 +39,7 @@ public class ModPersona {
             case 2:
                 do {
                     try {
+                        System.out.println();
                         System.out.println(Color.amarillo(Color.negrita(" Fecha de nacimiento")));
                         nacimiento(persona);
                         reiniciar = false;
@@ -50,6 +51,7 @@ public class ModPersona {
             case 3:
                 do {
                     try {
+                        System.out.println();
                         System.out.println(Color.amarillo(Color.negrita(" Direccion")));
 
                         direccion(persona);
@@ -63,6 +65,7 @@ public class ModPersona {
             case 4:
                 do {
                     try {
+                        System.out.println();
                         System.out.println(Color.amarillo(Color.negrita(" Contacto")));
 
                         contacto(persona);
