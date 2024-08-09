@@ -50,7 +50,7 @@ public class Nivel {
         Object[] datos = nivelBd.obtenerNivelPorIdDB(id);
         return importarNiveles(datos);
     }
-    //hhh
+    
     public static Beneficio [] importarBeneficios(int idNivel){
         Nivel_BeneficioEnt nivel_beneficioBd = new Nivel_BeneficioEnt();
         Object [][] datosBeneficios = nivel_beneficioBd.obtenerBeneficioPorIdNivel(idNivel);

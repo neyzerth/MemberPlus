@@ -30,7 +30,7 @@ public class Usuario extends Persona {
         Date fecNac
     ) {  
     
-        // El constructor le faltaban atributos, y el id de persona se transfiere
+
         super(idPersona, nombre, apellidoMa, apellidoPa, fecNac, colonia, calle, numExt, numInt, telefono, correo, cp);
         this.nomUsuario = nomUsuario;
         this.contrasena = contrasena;

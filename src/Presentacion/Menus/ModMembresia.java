@@ -181,25 +181,23 @@ class SubmodTarjeta extends Menu {
                         System.out.println("Nueva fecha de vencimiento: " + tarjeta.getFecVen());
                         Movimiento.renovacion("Renovacion de tarjeta", tarjeta);
                     } else {
-                        System.out.println("No es posible renovar la tarjeta todavía.");
+                        System.out.println(Color.rojo(Color.negrita(" No es posible renovar la tarjeta todavía.")));
                     }
                     Texto.esperarEnter();
 
                     break;
                 case 2:
-                    System.out.println(Color.amarillo(" Nivel actual: " + tarjeta.nivel.getNombre()));
+                    System.out.println("Nivel actual: " + tarjeta.nivel.getNombre());
                     SubmodNivel modNivel = new SubmodNivel();
                     modNivel.tabla();
-                    System.out.println();
-                    int idNivel = Leer.entero(Color.cian(" > ID del nuevo nivel: "));
+                    int idNivel = Leer.entero("> ID del nuevo nivel: ");
                     Nivel nivel = Nivel.importarNiveles(idNivel);
                     tarjeta.nivel = nivel;
                     if (tarjeta.actualizarTarjeta()) {
-                        System.out.println();
-                        System.out.println(Color.verde(" Nuevo nivel: " + tarjeta.nivel.getNombre()));
-                        Movimiento.renovacion(Color.amarillo(Color.negrita(" Cambiar nivel")), tarjeta);// Checar lo de el id
+                        System.out.println(Color.verde("Nuevo nivel: " + tarjeta.nivel.getNombre()));
+                        Movimiento.renovacion("Cambiar nivel", tarjeta);
                     } else {
-                        System.out.println(Color.rojo(Color.negrita(" Error al cambiar nivel ")));
+                        System.out.println(Color.rojo("Error al cambiar nivel "));
                     }
 
                     break;
@@ -208,9 +206,7 @@ class SubmodTarjeta extends Menu {
                     break;
 
                 default:
-                System.out.println(Color.rojo(" Opcion invalida "));
-                    System.out.println();
-                    Texto.esperarEnter(Color.rojo(Color.negrita("Opcion no valida")));
+                    Texto.esperarEnter("Opcion no valida");
                     break;
             }
         } while (!salir);
@@ -248,7 +244,7 @@ class SubmodTarjeta extends Menu {
 
             if (conf) {
                 Tarjeta tarjeta = Tarjeta.importarTarjeta(numTarjeta);
-                Movimiento.cancelacion((Color.rojo(Color.negrita(" Cancelacion de membresia"))), tarjeta);
+                Movimiento.cancelacion("Cancelacion de membresia", tarjeta);
                 if (eliminar(numTarjeta)) {
                     tabla();
                     System.out.println();
@@ -432,8 +428,10 @@ class SubmodNivel extends Menu {
                     try {
                         nivel.agregarBeneficio(idBeneficio);
                         System.out.println();
-                        System.out.println(Color.amarillo(" ¿Desea agregar otro beneficio?"));
-                        agregarNivel = 1 == Leer.entero(Color.amarillo(Color.negrita(" > SI[s] NO[n]: ")));//TODO
+                        System.out.println(Color.amarillo(" Desea agregar otro beneficio?"));
+                        agregarNivel = 1 == Leer.entero(Color.amarillo(Color.negrita(" > SI[1] NO[2]: ")));//TODO
+                        
+                        
 
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
@@ -529,7 +527,7 @@ class SubmodBeneficio extends Menu {
 
         } catch (Exception e) {
             System.out.println();
-            Texto.esperarEnter(Color.rojo(Color.negrita(" Dato incorrecto")));
+            Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
         }
 
         return false;
@@ -540,7 +538,7 @@ class SubmodBeneficio extends Menu {
         Beneficio beneficio = Beneficio.importarBeneficios(id);
         if (beneficio == null) {
             System.out.println();
-            Texto.esperarEnter(Color.rojo(" Beneficio no encontrado"));
+            Texto.esperarEnter(Color.rojo("Beneficio no encontrado"));
             return false;
         }
 
@@ -553,8 +551,7 @@ class SubmodBeneficio extends Menu {
             }
 
         } catch (Exception e) {
-            System.out.println();
-            Texto.esperarEnter(Color.rojo(Color.negrita(" Dato incorrecto")));
+            Texto.esperarEnter("Dato incorrecto");
         }
 
         return false;
@@ -593,7 +590,7 @@ class SubmodBeneficio extends Menu {
 
         } catch (Exception e) {
             System.out.println();
-            Texto.esperarEnter(Color.rojo(Color.negrita(" Dato incorrecto")));
+            Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
             return null;
         }
 
@@ -686,7 +683,7 @@ class SubmodTipoMovimiento extends Menu {
 
         } catch (Exception e) {
             System.out.println();
-            Texto.esperarEnter(Color.rojo(Color.negrita(" Dato incorrecto")));
+            Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
             return null;
         }
 
