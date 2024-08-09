@@ -162,14 +162,13 @@ class SubmodTarjeta extends Menu {
 
         do {
             System.out.println();
-            System.out.println(Color.amarillo(Color.negrita(" ¿Que desea realizar?")));
-            System.out.println(Color.cian(" Renovar $" + tarjeta.nivel.getAnualidad() + "[1] - Cambiar nivel [2] - Salir [3]"));
-            int opc = Leer.entero(Color.cian(" > "));
+            System.out.println(" ¿Que desea realizar?");
+            System.out.println("Renovar $" + tarjeta.nivel.getAnualidad() + "[1] - Cambiar nivel [2] - Salir [3]");
+            int opc = Leer.entero("> ");
             switch (opc) {
                 case 1:
 
-                    System.out.println();
-                    System.out.println(Color.rojo(" Fecha de vencimiento: " + tarjeta.getFecVen()));
+                    System.out.println("Fecha de vencimiento: " + tarjeta.getFecVen());
 
                     LocalDate fechaActual = LocalDate.now();
                     LocalDate fechaVencimiento = tarjeta.getFecVen().toLocalDate();
@@ -177,14 +176,12 @@ class SubmodTarjeta extends Menu {
                     long mesesRestantes = ChronoUnit.MONTHS.between(fechaActual, fechaVencimiento);
                     if (mesesRestantes <= 2) {
                         tarjeta.renovar();
-                        System.out.println();
-                        System.out.println(Color.verde(" Tarjeta renovada con exito..."));
+                        System.out.println(Color.cian("Tarjeta renovada con exito..."));
                         tarjeta.actualizarTarjeta();
-                        System.out.println();
-                        System.out.println(Color.amarillo(Color.negrita(" Nueva fecha de vencimiento: " + tarjeta.getFecVen())));
-                        Movimiento.renovacion(" Renovacion de tarjeta", tarjeta);
+                        System.out.println("Nueva fecha de vencimiento: " + tarjeta.getFecVen());
+                        Movimiento.renovacion("Renovacion de tarjeta", tarjeta);
                     } else {
-                        System.out.println(Color.rojo(Color.negrita(" No es posible renovar la tarjeta todavía.")));
+                        System.out.println("No es posible renovar la tarjeta todavía.");
                     }
                     Texto.esperarEnter();
 
@@ -421,8 +418,8 @@ class SubmodNivel extends Menu {
         Nivel nivel = new Nivel();
         try {
             nivel.setNombre(Leer.cadena(Color.cian(Color.negrita(" > Nombre del nivel: "))));
-            nivel.setCostoApertura(Leer.entero(Color.cian(Color.negrita(" > Costo de apertura: $"))));
-            nivel.setAnualidad(Leer.cadena(Color.cian(Color.negrita(" > Costo de la anualidad: $"))));
+            nivel.setCostoApertura(Leer.entero(Color.cian(Color.negrita(" > Costo de apertura: $  "))));
+            nivel.setAnualidad(Leer.cadena(Color.cian(Color.negrita(" > Costo de la anualidad: $  "))));
             System.out.println();
             SubmodBeneficio verBeneficios = new SubmodBeneficio();
 
