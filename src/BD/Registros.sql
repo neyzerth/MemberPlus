@@ -1,4 +1,4 @@
--- Active: 1719648459430@@localhost@3306@member_plus
+-- Active: 1723152817236@@127.0.0.1@3306@member_plus
 --CREAR REGISTROS EN LA BASE DE DATOS
 INSERT INTO persona (idPersona, nombre, apellidoPa, apellidoMa, fecNac, colonia, calle, numExt, numInt, cp, telefono, correo) VALUES 
 (1, 'Yerlan Axel', 'Suastegui', 'Leyva', '2004-11-10', 'Centro', 'Calle Primera', 123, 12, '22100', '6641112223', '0322103828@ut-tijuana.edu.mx'),
@@ -83,12 +83,12 @@ INSERT INTO compra (fecha, puntos, descuento, cashback, tarjeta, subtotal, total
 ('2024-07-05', 7, 8, 10, 2, 232.0, 227.22),
 ('2024-07-06', 2, 1, 11, 1, 100.7, 100);
 
-//Cambiar nombres y valores en los descuentos
+--Cambiar nombres y valores en los descuentos
 INSERT INTO beneficio VALUES
 (1, 'Basico', '2017-01-01', '2100-12-31', 5, 1,NULL),
 (2, 'Buen fin', '2024-11-20', '2024-11-28', 15, null,null),
 (3, 'Sorpresa mensual', '2024-01-30', '2024-01-30', 10, 2,null),
-(4, 'Descuento relampago', '2024-07-30', '2024-07-31', null, null,4,),
+(4, 'Descuento relampago', '2024-07-30', '2024-07-31', null, null,4),
 (5, 'Premium', '2017-01-01', '2100-08-20', 50, 6,6),
 (6, 'Regalo anual', '2017-01-01', '2100-12-31', 25, 5,5),
 (7, 'Estandar', '2017-01-01', '2100-12-31', 10, 2,2),
@@ -104,7 +104,7 @@ INSERT INTO tipo_movimiento VALUES
 (4, 'compra', 'Compra con la tarjeta');
 
 
-//comentarios mas cortos
+--comentarios mas cortos
 INSERT INTO movimiento VALUES
 (1, '2005-01-20', 'Iniciado', 'El pago ha sido procesado y esta en su primera fase de verificacion.', 1, 1, 2),
 (2, '2003-02-15', 'Pausa', 'La transaccion ha sido temporalmente detenida debido a una revision de seguridad.', 4, 2, 3),
@@ -117,7 +117,7 @@ INSERT INTO movimiento VALUES
 (10, '2010-10-22', 'Pausa', 'La transaccion se encuentra en espera hasta que se resuelvan algunos detalles.', 10, 9, 4);
 
 
-//ciertos niveles (como los black, platino) con mas beneficios
+--ciertos niveles (como los black, platino) con mas beneficios
 INSERT INTO nivel_beneficio VALUES
 (1, 7),
 (2, 3),
