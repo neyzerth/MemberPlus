@@ -109,7 +109,7 @@ public class Texto {
         String formatoTarjeta = "";
         
         if(numTarjeta.length() != 16)
-            return "Numero de tarjeta no valido";
+            return Color.rojo(Color.negrita(" Numero de tarjeta no valido"));
 
         for (int i = 0; i < numTarjeta.length(); i++) {
             formatoTarjeta += numTarjeta.charAt(i);
