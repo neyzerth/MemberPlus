@@ -142,8 +142,8 @@ public abstract class Menu {
             Texto.limpiarPantalla();
 
             modificar.imprimirCuadro();
-            System.out.println("> Desea registrar un "+ modSing+"?");
-            String opc = Leer.cadena("> SI[s] NO[n]", "     (ENTER para salir)");
+            System.out.println(Color.amarillo(" > Desea registrar un "+ modSing+"?"));
+            String opc = Leer.cadena(Color.cian(" SI[s] NO[n]"), "     (ENTER para salir)");
 
             if (!opc.equalsIgnoreCase("s")) {
                 return;
