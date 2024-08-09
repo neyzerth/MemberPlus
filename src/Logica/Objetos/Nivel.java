@@ -114,6 +114,10 @@ public class Nivel {
         NivelEnt nivel = new NivelEnt();
         return nivel.existeNivel(nombre);
     }
+    public static boolean validarNivel(int id){
+        NivelEnt nivel = new NivelEnt();
+        return nivel.existeRegistro(id);
+    }
     
     public static boolean eliminarNivel(int id){
         NivelEnt nivel = new NivelEnt();
@@ -166,8 +170,8 @@ public class Nivel {
     }
 
     public void setCostoApertura(int costoApertura) {
-        if (costoApertura <= 0)
-            throw new IllegalArgumentException("El costo de apertura no puede ser negativo o cero");
+        if (costoApertura < 0)
+            throw new IllegalArgumentException("Cantidad no valida");
         this.costoApertura = costoApertura;
     }
 

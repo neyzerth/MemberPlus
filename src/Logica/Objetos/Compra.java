@@ -229,7 +229,7 @@ public class Compra {
 
     public void setTotal(float total) {
         if (total <= 0)
-            throw new IllegalArgumentException("El total no puede ser inferioir a 0");
+            throw new IllegalArgumentException("El total debe ser mayor 0");
         this.total = total;
     }
 

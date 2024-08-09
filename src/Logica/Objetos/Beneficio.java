@@ -80,7 +80,7 @@ public class Beneficio {
         BeneficioEnt beneficio = new BeneficioEnt();
         return beneficio.insertarBeneficioDB( nombre, fecInicio, fecVen, 
             porcPuntos, porcCashBack, porcDescuento);
-            //Sale error al importar beneficio puesto que su fecVen en nula
+          
         
     }
 
@@ -193,18 +193,15 @@ public class Beneficio {
     public void setFecVen(Date fecVen) {
         if (fecVen == null)
             throw new IllegalArgumentException("La fecha de vencimineto no puede estar vacía");
-        if (!validarFechas())
+        if (!(fecVen.compareTo(fecInicio) > 0))
             throw new IllegalArgumentException("La fecha de vencimiento no puede ser menor a la fecha de inicio");
-        if (fecVen.compareTo(FormatoFecha.fechaActual()) > 0)
+        if (!(fecVen.compareTo(FormatoFecha.fechaActual()) > 0))
             throw new IllegalArgumentException("La fecha de vencimiento debe ser mayor a hoy");
         this.fecVen = fecVen;
     }
 
     public void setFecVen(int dia, int mes, int anio) {
-        this.fecVen = FormatoFecha.fecha(dia, mes, anio);
-    }
-    public void setFecVen(String fecVenStr) {
-        this.fecVen = FormatoFecha.fecha(fecVenStr);
+        setFecVen(FormatoFecha.fecha(dia, mes, anio));
     }
 
     public Date getFecInicio() {
@@ -214,14 +211,13 @@ public class Beneficio {
     public void setFecInicio(Date fecInicio) {
         if (fecInicio == null)
             throw new IllegalArgumentException("La fecha de inicio no puede estar vacía");
+        if (!(fecVen.compareTo(fecInicio) > 0))
+            throw new IllegalArgumentException("La fecha de vencimiento no puede ser menor a la fecha de inicio");
         this.fecInicio = fecInicio;
     }
 
     public void setFecInicio(int dia, int mes, int anio) {
-        this.fecInicio = FormatoFecha.fecha(dia, mes, anio);
-    }
-    public void setFecInicio(String fecInicioStr) {
-        this.fecInicio = FormatoFecha.fecha(fecInicioStr);
+        setFecInicio(FormatoFecha.fecha(dia, mes, anio));
     }
 
 }

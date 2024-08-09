@@ -35,30 +35,30 @@ public class Bienvenida {
         );
 
     static String logo = 
-                                            "                       " + Color.colorText(color2, ":***#*****#:")+"                   \r\n" + //
-                                            "                  " + Color.colorText(color2, "     =#::::::::%=    ")+"               \r\n" + //
-                                            "                " + Color.colorText(color2, "-@-+@  =#::::::::%- =@-#% ")+"            \r\n" + //
-                                            "              " + Color.colorText(color2, ":@:::::=@+::::::::::*@:::::%# ")+"          \r\n" + //
-                                            "       :=====" + Color.colorText(color2, "@=::::::::::::::::::::::::::::%#")+"=====:   \r\n" + //
-                                            "     +@     " + Color.colorText(color2, "%#::::::::::::::::::::::::::::::@:")+"     @+ \r\n" + //
-                                            "     @        " + Color.colorText(color2, "%*:::::::::*@%#*%@#-::::::::%*")+"        @ \r\n" + //
-                                            "     @    " + Color.colorText(color2, "::::=@::::::-@-        :@=::::::@:::::")+"    @ \r\n" + //
-                                            "     @   " + Color.colorText(color2, ":#-==========@            #===========@")+"    @ \r\n" + //
-        "     @   " + Color.colorText(color2, ":*") +"*"+ Color.colorText(color1, "@@@@@@@@@@@=          .@@@@@@@@@@@@")+ "*    @ \r\n" + //
-        "     @   " + Color.colorText(color2, ":*") +"*"+ Color.colorText(color1, "@@@@@@@@@@@@*        :@@@@@@@@@@@@@")+ "*    @ \r\n" + //
-        "     @   " + Color.colorText(color2, ":*") +"*"+ Color.colorText(color1, "@@@@@@@@@@@@@%      :@@@@@@@@@@@@@@")+ "*    @ \r\n" + //
-        "     @   " + Color.colorText(color2, ":*") +"*"+ Color.colorText(color1, "@@@@@@@@@@@@@@%    =@@@@@@@@@@@@@@@")+ "*    @ \r\n" + //
-                                             "     @     *" + Color.colorText(color1, "@@@@@@@@@@@@@@@@  +@@@@@@@@@@@@@@@@")+ "     @ \r\n" + //
-                                             "     @     +" + Color.colorText(color1, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")+ "     @ \r\n" + //
-                                             "     @     +" + Color.colorText(color1, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")+ "     @ \r\n" + //
-                                             "     @     +" + Color.colorText(color1, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")+ "     @ \r\n" + //
-                                             "     @     +" + Color.colorText(color1, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")+ "     @ \r\n" + //
-                                             "     @     +" + Color.colorText(color1, "@@@@@@@@@@@*@@@@@@@@@@-@@@@@@@@@@@@")+ "     @ \r\n" + //
-                                             "     @     +" + Color.colorText(color1, "@@@@@@@@@@@:%:*@@@@*:%:@@@@@@@@@@@@")+ "     @ \r\n" + //
-                                             "     @     +" + Color.colorText(color1, "@@@@@@@@@@@:    @@    :@@@@@@@@@@@@")+ "     @ \r\n" + //
-                                             "     @     +" + Color.colorText(color1, "@@@@@@@@@@@:          :@@@@@@@@@@@@")+ "     @ \r\n" + //
-                                             "     @     +" + Color.colorText(color1, "@@@@@@@@@@@:          :@@@@@@@@@@@@")+ "     @ \r\n" + //
-        "     @                                              @ \r\n" + //
-        "      @@##########################################@@  \r\n" //
+                                    "                       " + Color.colorText(color2, ":***#*****#:")+"                   \r\n" + //
+                                    "                  " + Color.colorText(color2, "     =#::::::::%=    ")+"               \r\n" + //
+                                    "                " + Color.colorText(color2, "-@-+@  =#::::::::%- =@-#% ")+"            \r\n" + //
+                                    "              " + Color.colorText(color2, ":@:::::=@+::::::::::*@:::::%# ")+"          \r\n" + //
+                                    "       :=====" + Color.colorText(color2, "@=::::::::::::::::::::::::::::%#")+"=====:   \r\n" + //
+                                    "     +@     " + Color.colorText(color2, "%#::::::::::::::::::::::::::::::@:")+"     @+ \r\n" + //
+                                    "     @        " + Color.colorText(color2, "%*:::::::::*@%#*%@#-::::::::%*")+"        @ \r\n" + //
+                                    "     @    " + Color.colorText(color2, "::::=@::::::-@-        :@=::::::@:::::")+"    @ \r\n" + //
+                                    "     @   " + Color.colorText(color2, ":#-==========@            #===========@")+"    @ \r\n" + //
+"     @   " + Color.colorText(color2, ":*") +"*"+ Color.colorText(color1, "@@@@@@@@@@@=          .@@@@@@@@@@@@")+ "*    @ \r\n" + //
+"     @   " + Color.colorText(color2, ":*") +"*"+ Color.colorText(color1, "@@@@@@@@@@@@*        :@@@@@@@@@@@@@")+ "*    @ \r\n" + //
+"     @   " + Color.colorText(color2, ":*") +"*"+ Color.colorText(color1, "@@@@@@@@@@@@@%      :@@@@@@@@@@@@@@")+ "*    @ \r\n" + //
+"     @   " + Color.colorText(color2, ":*") +"*"+ Color.colorText(color1, "@@@@@@@@@@@@@@%    =@@@@@@@@@@@@@@@")+ "*    @ \r\n" + //
+                                    "     @     *" + Color.colorText(color1, "@@@@@@@@@@@@@@@@  +@@@@@@@@@@@@@@@@")+ "     @ \r\n" + //
+                                    "     @     +" + Color.colorText(color1, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")+ "     @ \r\n" + //
+                                    "     @     +" + Color.colorText(color1, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")+ "     @ \r\n" + //
+                                    "     @     +" + Color.colorText(color1, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")+ "     @ \r\n" + //
+                                    "     @     +" + Color.colorText(color1, "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")+ "     @ \r\n" + //
+                                    "     @     +" + Color.colorText(color1, "@@@@@@@@@@@*@@@@@@@@@@-@@@@@@@@@@@@")+ "     @ \r\n" + //
+                                    "     @     +" + Color.colorText(color1, "@@@@@@@@@@@:%:*@@@@*:%:@@@@@@@@@@@@")+ "     @ \r\n" + //
+                                    "     @     +" + Color.colorText(color1, "@@@@@@@@@@@:    @@    :@@@@@@@@@@@@")+ "     @ \r\n" + //
+                                    "     @     +" + Color.colorText(color1, "@@@@@@@@@@@:          :@@@@@@@@@@@@")+ "     @ \r\n" + //
+                                    "     @     +" + Color.colorText(color1, "@@@@@@@@@@@:          :@@@@@@@@@@@@")+ "     @ \r\n" + //
+                                                                "     @                                              @ \r\n" + //
+                                                                "      @@##########################################@@  \r\n" //
         ;
 }

@@ -3,6 +3,7 @@ package Presentacion.Menus;
 
 import Logica.Objetos.Cliente;
 import Logica.Objetos.Nivel;
+import Logica.Objetos.Persona;
 import Logica.Objetos.Tarjeta;
 import Presentacion.Despliegue.Cuadro;
 import Presentacion.Despliegue.Tabla;
@@ -18,54 +19,68 @@ public class ModCliente extends Menu {
     public static void desplegarMenu() {
         ModCliente modCliente = new ModCliente();
         modCliente.menu();
+
     }
 
     @Override
     public void menuRegistrar() {
-        Texto.limpiarPantalla();
-
         Cuadro modificar = new Cuadro(Color.morado(" Registrar Clientes"));
-        modificar.imprimirCuadro();
+        do {
+            Texto.limpiarPantalla();
 
-        // Metodo dentro de if despliega el metodo abstracto registrar y regresa un
-        // booleano
-        if (!registrar()) {
+            modificar.imprimirCuadro();
+            System.out.println("> Desea registrar un " + modSing + "?");
+            String opc = Leer.cadena("> SI[s] NO[n]", "     (ENTER para salir)");
+
+            if (!opc.equalsIgnoreCase("s")) {
+                return;
+            }
+
+            // Metodo dentro de if despliega el metodo abstracto registrar y regresa un
+            // booleano
+            if (!registrar()) {
+                System.out.println();
+                Texto.esperarEnter(Color.rojo(Color.negrita(" Error al registrar Cliente")));
+                break;
+            }
+
             System.out.println();
-            Texto.esperarEnter(Color.rojo(Color.negrita(" Error al registrar Cliente")));
-            return;
-        }
-
-        System.out.println();
-        Texto.esperarEnter((" ") + Color.verde("Cliente") + Color.verde(" registrado con exito"));
-        System.out.println();
-
-        SubmodNivel modNivel = new SubmodNivel();
-
-        Tarjeta tarjeta = new Tarjeta();
-        modNivel.tabla();
-
-        System.out.println();
-        int idNivel = Leer.entero(Color.cian(Color.negrita(" > ID del nivel a solicitar: ")));
-
-        tarjeta.nivel = Nivel.importarNiveles(idNivel);
-
-        tarjeta = new Tarjeta(cliente, tarjeta.getNivel());
-        if (!tarjeta.insertarTarjeta()) {
+            Texto.esperarEnter((" ") + Color.verde("Cliente") + Color.verde(" registrado con exito"));
             System.out.println();
-            Texto.esperarEnter(Color.rojo(Color.negrita(" Error al registrar Tarjeta")));
-            return;
-        }
 
-        SubmodTarjeta modTarjeta = new SubmodTarjeta();
-        System.out.println();
-        Texto.esperarEnter(Color.amarillo(Color.negrita("Se le cobrara el costo de apertura " + Texto.moneda(tarjeta.nivel.getCostoApertura()))));
-        System.out.println();
-        boolean conf = Leer.cadena(Color.verde(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
-        if (conf) {
-            modTarjeta.tabla(tarjeta.getNumTarjeta());
+            SubmodNivel modNivel = new SubmodNivel();
+
+            Tarjeta tarjeta = new Tarjeta();
+            modNivel.tabla();
+
             System.out.println();
-            Texto.esperarEnter(Color.verde(Color.negrita(" Tarjeta registrada con exito")));
-        }
+            int idNivel = Leer.entero(Color.cian(Color.negrita(" > ID del nivel a solicitar: ")));
+
+            tarjeta.nivel = Nivel.importarNiveles(idNivel);
+
+            tarjeta = new Tarjeta(cliente, tarjeta.getNivel());
+            if (!tarjeta.insertarTarjeta()) {
+                System.out.println();
+                Texto.esperarEnter(Color.rojo(Color.negrita(" Error al registrar Tarjeta")));
+                break;
+            }
+
+            SubmodTarjeta modTarjeta = new SubmodTarjeta();
+            System.out.println();
+            Texto.esperarEnter(Color.amarillo(Color
+                    .negrita("Se le cobrara el costo de apertura " + Texto.moneda(tarjeta.nivel.getCostoApertura()))));
+            System.out.println();
+            boolean conf = Leer.cadena(Color.verde(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
+            if (conf) {
+                modTarjeta.tabla(tarjeta.getNumTarjeta());
+                System.out.println();
+                Texto.esperarEnter(Color.verde(Color.negrita(" Tarjeta registrada con exito")));
+            } else {
+                System.out.println(Color.rojo("Cancelando"));
+                Texto.suspensivos();
+                Persona.eliminarPersona(cliente.getIdPersona());
+            }
+        } while (true);
 
     }
 
@@ -88,47 +103,20 @@ public class ModCliente extends Menu {
 
         } catch (Exception e) {
             System.out.println();
-            Texto.esperarEnter(Color.rojo(Color.negrita(" DATO NO VALIDO")));
+            Texto.esperarEnter(Color.rojo(Color.negrita(e.getMessage())));
         }
         return false;
     }
 
-    @Override
-    public void menuActualizar() {
-        Cuadro actualizar = new Cuadro(Color.morado(" Modificar informacion de Cliente"));
-        Texto.limpiarPantalla();
 
-        actualizar.imprimirCuadro();
-        tabla();
-
-        System.out.println();
-        int id = Leer.entero(Color.cian(" > ID del Cliente a modificar: "));
-
-        if (!tabla(id)) {
-            System.out.println();
-            Texto.esperarEnter(Color.rojo(Color.negrita(" No existe Cliente con ID " + id + "...")));
-            return;
-        }
-
-        // Metodo dentro de if despliega el metodo abstracto actualizar y regresa un
-        // booleano
-        if (!actualizar(id)) {
-            System.out.println();
-            Texto.esperarEnter(Color.rojo(" Error al actualizar Cliente"));
-            return;
-        }
-
-        System.out.println();
-        Texto.esperarEnter(Color.verde(" Cliente actualizado con exito"));
-
-    }
 
     @Override
     public boolean actualizar(int id) {
-        Cliente cliente = Cliente.importarClientes(id);
-        if (cliente == null)
+
+        if (!Cliente.validarCliente(id))
             return false;
 
+        Cliente cliente = Cliente.importarClientes(id);
         ModPersona.datosPersona(cliente);
         try {
 
@@ -191,6 +179,7 @@ public class ModCliente extends Menu {
 
         Tarjeta tarjeta = cliente.importarTarjeta();
         SubmodTarjeta modTarjeta = new SubmodTarjeta();
+        System.out.println(Color.amarillo(Color.negrita("  Datos del cliente")));
         tabla.imprimirTablaSimple();
 
         System.out.println();

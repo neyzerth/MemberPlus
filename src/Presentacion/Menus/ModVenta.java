@@ -24,7 +24,10 @@ public class ModVenta {
 
             System.out.println();
 
-            String numTarjeta1 = Leer.cadena(Color.cian(Color.negrita(" > Ingrese los numeros de su tarjeta: ")));
+            String numTarjeta1 = Leer.cadena(Color.cian(Color.negrita(" > Ingrese los numeros de su tarjeta: ")), "(ENTER para salir)");
+            if(numTarjeta1.isBlank()){
+                return true;
+            }
             String numTarjeta = numTarjeta1.replace(" ", "");
             if(!Tarjeta.validarNumTarjeta(numTarjeta)){
                 System.out.println();
@@ -44,12 +47,21 @@ public class ModVenta {
             Compra compra = new Compra(numTarjeta);
     
             System.out.println();
-            float total = Leer.flotante(Color.cian(Color.negrita(" > Ingrese el monto total: "+Color.reset+"$")));
+            float total = Leer.flotante(Color.cian(Color.negrita(" > *Ingrese el monto total: "+Color.reset+"$")));
+
+            try {
+                compra.empezarVenta(total);
+                
+            } catch (Exception e) {
+                System.out.println();
+                System.out.println(Color.rojo(e.getMessage()));
+                Texto.esperarEnter();
+                return false;
+            }
 
             System.out.println();
             System.out.println(" " + Color.amarillo(Texto.moneda( total)));
             
-            compra.empezarVenta(total);
 
             if(compra.tuvoBeneficios()){
             System.out.println(Color.amarillo(" Con esta compra, usted... "));

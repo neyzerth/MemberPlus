@@ -1,4 +1,3 @@
-//-- Active: 1722526550724@@localhost@3306@member_plus
 package Presentacion.Menus;
 
 import Logica.Sesion;
@@ -6,7 +5,6 @@ import Logica.Objetos.Beneficio;
 import Logica.Objetos.Movimiento;
 import Logica.Objetos.Nivel;
 import Logica.Objetos.Tarjeta;
-import Logica.Objetos.TipoMovimiento;
 import Presentacion.Despliegue.*;
 import Presentacion.Formato.*;
 
@@ -32,16 +30,17 @@ public class ModMembresia {
             if (Sesion.getRol().equals("administrador"))
                 menuTarjeta = new Cuadro(modulos);
             else
-                menuTarjeta = new Cuadro(modulos[0], modulos[1], modulos[2], modulos[3]);
+                menuTarjeta = new Cuadro(modulos[0], modulos[1], modulos[2]);
 
             menuTarjeta.agregarSalir();
             menuTarjeta.imprimirCuadroNum();
 
             System.out.println();
 
-            int option = Leer.entero(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
+            int opc = Leer.entero(Color.cian(Texto.espacio(1) + "> Seleccione una opción: "));
 
-            switch (option) {
+            
+            switch (opc) {
                 case 1:
                     SubmodTarjeta.desplegarMenu();
                     break;
@@ -53,13 +52,16 @@ public class ModMembresia {
                     break;
 
                 case 4:
-                    SubmodMovimiento.desplegarMenu();
+                    if(Sesion.getRol().equals("administrador")){
+                        SubmodMovimiento.desplegarMenu();
+                        break;
+                    }
+                default:
+                    System.out.println(Color.rojo("Opción inválida, por favor intente de nuevo."));
                     break;
                 case 0:
                     salir = true;
                     break;
-                default:
-                    System.out.println(Color.rojo("Opción inválida, por favor intente de nuevo."));
             }
         } while (!salir);
 
@@ -71,15 +73,19 @@ class SubmodTarjeta extends Menu {
 
     public SubmodTarjeta() {
         super("Tarjeta", "Tarjetas");
-        this.opciones = new Cuadro(
+        String [] modulos = {
                 Color.morado("Lista de " + modPlur),
                 Color.morado("Información de " + modSing),
                 Color.morado("Renovar " + modSing),
                 Color.morado("Eliminar " + modSing)
 
-        );
+        };
+        //Desplegar menu de manera distinta para el administrador
+        if (Sesion.getRol().equals("administrador")) 
+            opciones = new Cuadro(modulos); //todos
+        else
+            opciones = new Cuadro(modulos[0], modulos[1], modulos[2]);
         this.opciones.agregarSalir();
-        // Falta quitar el numero
     }
 
     public static void desplegarMenu() {
@@ -100,17 +106,20 @@ class SubmodTarjeta extends Menu {
                 menuActualizar();
                 break;
             case 4:
-                menuEliminar();
-                break;
+                if(Sesion.getRol().equals("adnimistrador")){
+                    menuEliminar();
+                    break;
+                }
 
-            case 0:
-                return true;
 
             default:
                 System.out.println();
                 System.out.println(Color.rojo(" Opción inválida, por favor intente de nuevo."));
                 Texto.esperar(1);
                 break;
+                
+            case 0:
+                return true;
         }
         return false;
 
@@ -349,17 +358,20 @@ class SubmodNivel extends Menu {
 
     @Override
     public boolean registrar() {
-        Nivel nivel = pedirDatos();
-
-        if (nivel == null)
-            return false;
+        Nivel nivel = new Nivel();
+        nombre(nivel);
+        apertura(nivel);
+        anualidad(nivel);
+        beneficio(nivel);
 
         return nivel.insertarNivel();
     }
 
     @Override
     public boolean actualizar(int id) {
-        Nivel nivel = pedirDatos();
+        Nivel nivel = Nivel.importarNiveles(id);
+        pedirDatos(nivel);
+
         if (nivel == null)
             return false;
 
@@ -390,9 +402,9 @@ class SubmodNivel extends Menu {
 
     @Override
     public boolean tabla(int id) {
-        Nivel nivel = Nivel.importarNiveles(id);
-        if (!nivel.validarNivel())
+        if (!Nivel.validarNivel(id))
             return false;
+        Nivel nivel = Nivel.importarNiveles(id);
 
         tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Nombre"), Color.amarillo("Costo Apertura"),
                 Color.amarillo("Anualidad"), Color.amarillo("Beneficios"));
@@ -410,40 +422,108 @@ class SubmodNivel extends Menu {
         return true;
     }
 
-    public Nivel pedirDatos() {
-        Nivel nivel = new Nivel();
-        try {
-            nivel.setNombre(Leer.cadena(Color.cian(Color.negrita(" > Nombre del nivel: "))));
-            nivel.setCostoApertura(Leer.entero(Color.cian(Color.negrita(" > Costo de apertura: $  "))));
-            nivel.setAnualidad(Leer.cadena(Color.cian(Color.negrita(" > Costo de la anualidad: $  "))));
+    public Nivel pedirDatos(Nivel nivel) {
+        System.out.println();
+        int opc;
+        do {
             System.out.println();
-            SubmodBeneficio verBeneficios = new SubmodBeneficio();
+            System.out.println(Color.amarillo(Color.negrita(" ¿Que desea actualizar?")));
+            System.out.println();
+            Cuadro nivelCuadro = new Cuadro("Nombre de nivel", "Costo de Apertura", "Costo de Anualidad", "Agregar Beneficios");
+            nivelCuadro.agregarSalir();
+            nivelCuadro.imprimirCuadroNum();
+            opc = Leer.entero(Color.cian(" > "));
+            switch (opc) {
+                case 1: nombre(nivel);
+                    break;
+                case 2: apertura(nivel);
+                    break;
+                case 3: anualidad(nivel);
+                    break;
+                case 4: beneficio(nivel);
+                    break;
+                case 0: break;
+            
+                default:
+                    System.out.println();
+                    System.out.println(Color.rojo(Color.negrita(" Opcion no valida")));
+                    break;
+            }
+        } while (opc!=0);
+        
+        return nivel;
+        
+    }
 
-            boolean agregarNivel = false;
-            verBeneficios.tabla();
-            do {
+    public static void nombre(Nivel nivel){
+        boolean repetir = false;
+        do {
+            repetir = false;
+            try {
+                nivel.setNombre(Leer.cadena(Color.cian(Color.negrita(" > Nombre del nivel: "))));
+            } catch (Exception e) {
+                System.out.println(Color.rojo(Color.negrita(e.getMessage())));
+                repetir = true;
+            }
+        } while (repetir);
+    }
+    public static void apertura(Nivel nivel){
+        boolean repetir = false;
+        do {
+            repetir = false;
+            try {
+                nivel.setCostoApertura(Leer.entero(Color.cian(Color.negrita(" > Costo de apertura: $  "))));
+
+            } catch (Exception e) {
+                System.out.println(Color.rojo(Color.negrita(e.getMessage())));
+                repetir = true;
+            }
+        } while (repetir);
+    }
+    public static void anualidad(Nivel nivel){
+        boolean repetir = false;
+        do {
+            repetir = false;
+            try {
+                nivel.setAnualidad(Leer.cadena(Color.cian(Color.negrita(" > Costo de la anualidad: $  "))));
+            } catch (Exception e) {
+                System.out.println(Color.rojo(Color.negrita(e.getMessage())));
+                repetir = true;
+            }
+        } while (repetir);
+    }
+    public static void beneficio(Nivel nivel){
+        boolean repetir = false;
+        do {
+            repetir = false;
+            try {
+                SubmodBeneficio verBeneficios = new SubmodBeneficio();
+                boolean agregarNivel = false;
+                verBeneficios.tabla();
                 System.out.println();
-                int idBeneficio = Leer.entero(Color.cian(" > Selecciona ID del beneficio: "));
-                if (Beneficio.validarBeneficio(idBeneficio)) {
-                    try {
-                        nivel.agregarBeneficio(idBeneficio);
+                do {
+                    System.out.println();
+                    int idBeneficio = Leer.entero(Color.cian(" > Selecciona ID del beneficio: "));
+                    if (Beneficio.validarBeneficio(idBeneficio)) {
+                        try {
+                            nivel.agregarBeneficio(idBeneficio);
+                            System.out.println(Color.amarillo(" > ¿Desea agregar otro beneficio?"));
+                            String opc = Leer.cadena(Color.amarillo(" > SI[s] NO[n]: "));
+                            agregarNivel = opc.toLowerCase().equals("s");
+                        } catch (Exception e) {
+                            System.out.println(Color.rojo(Color.negrita(e.getMessage())));
+                        }
+                    } else {
                         System.out.println();
-                        //System.out.println(Color.amarillo(" ¿Desea agregar otro beneficio?"));
-                        agregarNivel = Leer.booleano(Color.amarillo+Color.negrita," > ¿Desea agregar otro beneficio? ");//TODO
-                        
-                        
-
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
+                        System.out.println(Color.rojo("  El beneficio no existe"));
+                        agregarNivel = true;
                     }
-                }
-            } while (agregarNivel);
-
-            return nivel;
-        } catch (Exception e) {
-            Texto.esperarEnter(Color.rojo(Color.negrita(" Dato no valido")));
-            return null;
-        }
+                } while (agregarNivel);
+            } catch (Exception e) {
+                System.out.println(Color.rojo(Color.negrita(e.getMessage())));
+                repetir = true;
+            }
+        } while (repetir);
     }
 
     public String nombresBeneficios(Beneficio[] beneficios) {
@@ -516,21 +596,16 @@ class SubmodBeneficio extends Menu {
     @Override
     public boolean registrar() {
         Beneficio beneficio = new Beneficio();
-        try {
-            beneficio = pedirDatos();
+        nombre(beneficio);
+        fechaInicio(beneficio);
+        fechaVencimiento(beneficio);
+        puntos(beneficio);
+        cashback(beneficio);
+        descuento(beneficio);
 
-            if (beneficio != null) {
-                beneficio.insetarBeneficio();
-                tabla(beneficio.getIdBeneficio());
-                return true;
-            }
-
-        } catch (Exception e) {
-            System.out.println();
-            Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
-        }
-
-        return false;
+        tabla(beneficio.getIdBeneficio());
+        return beneficio.insetarBeneficio();
+        
     }
 
     @Override
@@ -542,19 +617,10 @@ class SubmodBeneficio extends Menu {
             return false;
         }
 
-        try {
-            beneficio = pedirDatos();
+        pedirDatos(beneficio);
 
-            if (beneficio != null) {
-                tabla(id);
-                return beneficio.actualizarBeneficio();
-            }
-
-        } catch (Exception e) {
-            Texto.esperarEnter("Dato incorrecto");
-        }
-
-        return false;
+        tabla(id);
+        return beneficio.actualizarBeneficio();
     }
 
     @Override
@@ -562,135 +628,136 @@ class SubmodBeneficio extends Menu {
         return Beneficio.eliminarBeneficio(id);
     }
 
-    public Beneficio pedirDatos() {
-        Beneficio beneficio = new Beneficio();
-        int dia, mes, anio;
-        try {
+    public Beneficio pedirDatos(Beneficio beneficio) {
+        System.out.println();
+        int opc;
+        do {
             System.out.println();
-            beneficio.setNombre(Leer.cadena(Color.cian(Color.negrita(" > Nombre del beneficio: "))));
+            System.out.println(Color.amarillo(Color.negrita(" ¿Que desea actualizar?")));
             System.out.println();
-            System.out.println(Color.amarillo(Color.negrita(" Fecha de inicio")));
-            dia = Leer.entero(Color.cian(Color.negrita(" > Dia: ")));
-            mes = Leer.entero(Color.cian(Color.negrita(" > Mes: ")));
-            anio = Leer.entero(Color.cian(Color.negrita(" > Año: ")));
-            beneficio.setFecInicio(dia, mes, anio);
-
-            System.out.println();
-            System.out.println(Color.amarillo(Color.negrita(" Fecha de vencimiento")));
-            dia = Leer.entero(Color.cian(Color.negrita(" > Dia: ")));
-            mes = Leer.entero(Color.cian(Color.negrita(" > Mes: ")));
-            anio = Leer.entero(Color.cian(Color.negrita(" > Año: ")));
-            beneficio.setFecVen(dia, mes, anio);
-
-            System.out.println();
-            System.out.println(Color.amarillo(Color.negrita(" Beneficios")));
-            beneficio.setPorcPuntos(Leer.entero(Color.cian(Color.negrita(" > Porcentaje de puntos: "))));
-            beneficio.setPorcCashBack(Leer.entero(Color.cian(Color.negrita(" > Porcentaje de CashBack: "))));
-            beneficio.setPorcDescuento(Leer.entero(Color.cian(Color.negrita(" > Porcentaje de Descuento: "))));
-
-        } catch (Exception e) {
-            System.out.println();
-            Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
-            return null;
-        }
-
+            Cuadro beneCuadro = new Cuadro("Nombre", "FechaInicio", "FechaVencimiento", "Puntos", "Cashback", "Descuento");
+            beneCuadro.agregarSalir();
+            beneCuadro.imprimirCuadroNum();
+            
+            opc = Leer.entero(Color.cian(" > "));
+            switch (opc) {
+                case 1: nombre(beneficio);
+                    break;
+                case 2: fechaInicio(beneficio);
+                    break;
+                case 3: fechaVencimiento(beneficio);
+                    break;
+                case 4: puntos(beneficio);
+                    break;
+                case 5: cashback(beneficio);
+                    break;
+                case 6: descuento(beneficio);
+                    break;
+                case 0: break;
+            
+                default:
+                    System.out.println();
+                    System.out.println(Color.rojo(Color.negrita(" Opcion no valida")));
+                    break;
+            }
+        } while (opc!=0);
+        
         return beneficio;
 
     }
+
+    public static void nombre(Beneficio beneficio){
+        boolean repetir = false;
+        do {
+            repetir = false;
+            try {
+                beneficio.setNombre(Leer.cadena(Color.cian(Color.negrita(" > Nombre del beneficio: "))));
+            } catch (Exception e) {
+                System.out.println(Color.rojo(Color.negrita(e.getMessage())));
+                repetir = true;
+            }
+        } while (repetir);
+
+    }
+
+    public static void fechaInicio(Beneficio beneficio){
+        boolean repetir = false;
+        do {
+            repetir = false;
+            try {
+                System.out.println(Color.amarillo(Color.negrita(" Fecha de inicio")));
+                int dia = Leer.entero(Color.cian(Color.negrita(" > Dia: ")));
+                int mes = Leer.entero(Color.cian(Color.negrita(" > Mes: ")));
+                int anio = Leer.entero(Color.cian(Color.negrita(" > Año: ")));
+                beneficio.setFecInicio(dia, mes, anio);
+            } catch (Exception e) {
+                System.out.println(Color.rojo(Color.negrita(e.getMessage())));
+                repetir = true;
+            }
+        } while (repetir);
+
+    }
+
+    public static void fechaVencimiento(Beneficio beneficio){
+        boolean repetir = false;
+        do {
+            repetir = false;
+            try {
+                System.out.println(Color.amarillo(Color.negrita(" Fecha de vencimiento")));
+                int dia = Leer.entero(Color.cian(Color.negrita(" > Dia: ")));
+                int mes = Leer.entero(Color.cian(Color.negrita(" > Mes: ")));
+                int anio = Leer.entero(Color.cian(Color.negrita(" > Año: ")));
+                beneficio.setFecVen(dia, mes, anio);
+            } catch (Exception e) {
+                System.out.println(Color.rojo(Color.negrita(e.getMessage())));
+                repetir = true;
+            }
+        } while (repetir);
+
+    }
+    public static void puntos(Beneficio beneficio){
+        boolean repetir = false;
+        do {
+            repetir = false;
+            try {
+                beneficio.setPorcPuntos(Leer.entero(Color.cian(Color.negrita(" > Porcentaje de puntos: "))));
+
+            } catch (Exception e) {
+                System.out.println(Color.rojo(Color.negrita(e.getMessage())));
+                repetir = true;
+            }
+        } while (repetir);
+    }
+    public static void cashback(Beneficio beneficio){
+        boolean repetir = false;
+        do {
+            repetir = false;
+            try {
+                beneficio.setPorcCashBack(Leer.entero(Color.cian(Color.negrita(" > Porcentaje de CashBack: "))));
+
+
+            } catch (Exception e) {
+                System.out.println(Color.rojo(Color.negrita(e.getMessage())));
+                repetir = true;
+            }
+        } while (repetir);
+    }
+    public static void descuento(Beneficio beneficio){
+        boolean repetir = false;
+        do {
+            repetir = false;
+            try {
+                beneficio.setPorcDescuento(Leer.entero(Color.cian(Color.negrita(" > Porcentaje de Descuento: "))));
+            } catch (Exception e) {
+                System.out.println(Color.rojo(Color.negrita(e.getMessage())));
+                repetir = true;
+            }
+        } while (repetir);
+    }
+
 }
 
-// Submodulo tipo de movimiento
-class SubmodTipoMovimiento extends Menu {
-
-    public SubmodTipoMovimiento() {
-        super("Tipo Movimiento", "Tipos de Movimiento");
-    }
-
-    public static void desplegarMenu() {
-        SubmodTipoMovimiento menuTipoMovimiento = new SubmodTipoMovimiento();
-        menuTipoMovimiento.menu();
-    }
-
-    @Override
-    public void tabla() {
-        tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Nombre"));
-
-        TipoMovimiento[] tipoMovimientos = TipoMovimiento.importarTipoMovimientos();
-
-        for (TipoMovimiento tipoMovimiento : tipoMovimientos) {
-            tabla.agregarFila(
-                    tipoMovimiento.getIdTipoMovimiento(),
-                    tipoMovimiento.getNombre());
-        }
-
-        tabla.imprimirTablaSimple();
-    }
-
-    @Override
-    public boolean tabla(int id) {
-        if (!TipoMovimiento.importarTipoMovimientos(id).validarTipoMovimiento())
-            return false;
-
-        tabla = new Tabla(Color.amarillo("ID"), Color.amarillo("Nombre"), Color.amarillo("Descripción"));
-
-        TipoMovimiento tipoMovimiento = TipoMovimiento.importarTipoMovimientos(id);
-
-        tabla.agregarFila(
-                tipoMovimiento.getIdTipoMovimiento(),
-                tipoMovimiento.getNombre(),
-                tipoMovimiento.getDescripcion());
-
-        tabla.imprimirTablaSimple();
-        return true;
-    }
-
-    @Override
-    public boolean registrar() {
-        TipoMovimiento tipoMovimiento = pedirDatos();
-
-        if (tipoMovimiento == null) {
-            return false;
-        }
-
-        return tipoMovimiento.insertarTipoMovimiento();
-    }
-
-    @Override
-    public boolean actualizar(int id) {
-        TipoMovimiento tipoMovimiento = pedirDatos();
-
-        if (tipoMovimiento == null) {
-            return false;
-        }
-
-        tipoMovimiento.setIdTipoMovimiento(id);
-        return tipoMovimiento.actualizarTipoMovimiento();
-    }
-
-    @Override
-    public boolean eliminar(int id) {
-        return TipoMovimiento.eliminarTipoMovimiento(id);
-    }
-
-    public TipoMovimiento pedirDatos() {
-        TipoMovimiento tipoMovimiento = new TipoMovimiento(0, "", "");
-        try {
-            System.out.println();
-            tipoMovimiento.setNombre(Leer.cadena(Color.cian(Color.negrita(" > Nombre del tipo de movimiento: "))));
-            System.out.println();
-            tipoMovimiento
-                    .setDescripcion(Leer.cadena(Color.cian(Color.negrita(" > Descripción del tipo de movimiento: "))));
-
-        } catch (Exception e) {
-            System.out.println();
-            Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
-            return null;
-        }
-
-        return tipoMovimiento;
-    }
-}
-
+// ------------ MODULO DE MOVIMIENTO ---------
 class SubmodMovimiento extends Menu {
 
     public SubmodMovimiento() {
@@ -699,7 +766,7 @@ class SubmodMovimiento extends Menu {
 
     public static void desplegarMenu() {
         SubmodMovimiento menuMovimiento = new SubmodMovimiento();
-        menuMovimiento.menu();
+        menuMovimiento.menuVerTodos();
     }
 
     @Override

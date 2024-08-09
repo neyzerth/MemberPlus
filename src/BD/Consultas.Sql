@@ -1,4 +1,4 @@
--- Active: 1722578640281@@127.0.0.1@3306@member_plus
+-- Active: 1723058837855@@127.0.0.1@3306@member_plus
 --Consulta para las compras de un cliente
 SELECT 
     CONCAT(p.nombre, ' ', COALESCE(p.apellidoPa, ''), ' ', p.apellidoMa) AS nombre_completo,
@@ -93,7 +93,7 @@ JOIN tipo_Movimiento AS tm ON m.tipoMovimiento = tm.idTipoMovimiento
 JOIN usuario AS u ON m.usuario = u.idUsuario
 JOIN persona AS p ON u.persona = p.idPersona
 JOIN tarjeta AS t ON m.tarjeta = t.idTarjeta
-WHERE m.tarjeta = 3; 
+WHERE m.tarjeta = 1; 
 
 
 
