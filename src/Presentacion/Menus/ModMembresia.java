@@ -414,8 +414,8 @@ class SubmodNivel extends Menu {
         Nivel nivel = new Nivel();
         try {
             nivel.setNombre(Leer.cadena(Color.cian(Color.negrita(" > Nombre del nivel: "))));
-            nivel.setCostoApertura(Leer.entero(Color.cian(Color.negrita(" > Costo de apertura: $"))));
-            nivel.setAnualidad(Leer.cadena(Color.cian(Color.negrita(" > Costo de la anualidad: $"))));
+            nivel.setCostoApertura(Leer.entero(Color.cian(Color.negrita(" > Costo de apertura: $  "))));
+            nivel.setAnualidad(Leer.cadena(Color.cian(Color.negrita(" > Costo de la anualidad: $  "))));
             System.out.println();
             SubmodBeneficio verBeneficios = new SubmodBeneficio();
 
