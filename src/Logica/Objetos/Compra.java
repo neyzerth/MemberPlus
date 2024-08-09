@@ -137,7 +137,8 @@ public class Compra {
         return puntos > 0 || cashback > 0 || descuento > 0;
     }
 
-    public void usarBeneficios(boolean puntos, boolean saldo) {
+    public float usarBeneficios(boolean puntos, boolean saldo) {
+        float saldoRestante = 0;
         if (puntos) {
             subtotal -= (int) (tarjeta.getPuntosConvertidos());
             tarjeta.usarPuntos();
@@ -148,11 +149,14 @@ public class Compra {
                 subtotal -= saldoDisponible;
                 tarjeta.usarSaldo();
             } else {
-                tarjeta.setSaldo(saldoDisponible- subtotal);
+                saldoRestante = saldoDisponible - subtotal;
+                tarjeta.setSaldo(saldoRestante);
                 subtotal = 0;
-                
+
             }
         }
+        return saldoRestante;
+
     }
 
     // GETTERS AND SETTERS
@@ -225,7 +229,7 @@ public class Compra {
 
     public void setTotal(float total) {
         if (total <= 0)
-            throw new IllegalArgumentException("El total no puede ser inferioir a 0");
+            throw new IllegalArgumentException("El total debe ser mayor 0");
         this.total = total;
     }
 

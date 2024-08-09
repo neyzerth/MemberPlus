@@ -41,7 +41,7 @@ public class IniciarSesion {
         //Cambiar el valor estatico
         IniciarSesion.sesionIniciada = Sesion.iniciarSesion(usuario, contrasena);
 
-        if(sesionIniciada)
+        if(!IniciarSesion.sesionIniciada)
             ErrorConexion.menu(ConectarBD.probar()); 
 
         return sesionIniciada;

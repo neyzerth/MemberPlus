@@ -49,11 +49,11 @@ public class Principal {
             }        
 
             switch (opcionRol) {
-                case 1: ModVenta.menu();
+                case 1: ModVenta.desplegarMenu();
                     break;
                 case 2: ModCliente.desplegarMenu();
                     break;
-                case 3: ModMembresia.menu();
+                case 3: ModMembresia.desplegarMenu();
                     break;
                 case 4: ModUsuario.desplegarMenu();
                     break;
@@ -61,13 +61,14 @@ public class Principal {
                 case 0: //SALIR
                     Sesion.cerrarSesion();
 
-                    System.out.print(Color.rojo("Saliendo del programa"));
+                    System.out.println();
+                    System.out.print(Color.rojo(" Saliendo del programa..."));
                     Texto.suspensivos(3,0.6);
                     
                     salir = true;
                     break;
                 default:
-                    System.out.print(Color.rojo("Opción inválida, por favor intente de nuevo "));
+                    System.out.print(Color.rojo(" Opción inválida, por favor intente de nuevo "));
                     Texto.suspensivos(3,0.6);
                     break;
             }

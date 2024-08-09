@@ -80,6 +80,8 @@ public class Beneficio {
         BeneficioEnt beneficio = new BeneficioEnt();
         return beneficio.insertarBeneficioDB( nombre, fecInicio, fecVen, 
             porcPuntos, porcCashBack, porcDescuento);
+          
+        
     }
 
     public boolean actualizarBeneficio(){
@@ -102,6 +104,11 @@ public class Beneficio {
     public static boolean eliminarBeneficio(int id){
         BeneficioEnt beneficio = new BeneficioEnt();
         return beneficio.eliminarBeneficioDB(id);
+    }
+
+    //Funcion que valida que la fecha vencimiento este despues de la fecha Inicio(Se usara para la creacion de un beneficio)
+    public boolean validarFechas() {
+        return fecVen.compareTo(fecInicio) > 0;  //devuelve true si la fecha de vencimiento es mayor
     }
 
     // GETTERS AND SETTERS
@@ -186,24 +193,16 @@ public class Beneficio {
     public void setFecVen(Date fecVen) {
         if (fecVen == null)
             throw new IllegalArgumentException("La fecha de vencimineto no puede estar vacía");
+        if (!(fecVen.compareTo(fecInicio) > 0))
+            throw new IllegalArgumentException("La fecha de vencimiento no puede ser menor a la fecha de inicio");
+        if (!(fecVen.compareTo(FormatoFecha.fechaActual()) > 0))
+            throw new IllegalArgumentException("La fecha de vencimiento debe ser mayor a hoy");
         this.fecVen = fecVen;
     }
 
     public void setFecVen(int dia, int mes, int anio) {
-        this.fecVen = FormatoFecha.fecha(dia, mes, anio);
+        setFecVen(FormatoFecha.fecha(dia, mes, anio));
     }
-    public void setFecVen(String fecVenStr) {
-        this.fecVen = FormatoFecha.fecha(fecVenStr);
-    }
-
-    //public void setFecVen(String fecVenStr) {
-    //    if (fecVenStr.matches("\\d{2}/\\d{2}/\\d{4}")) {
-    //        this.fecVen = FormatoFecha.fecha(fecVenStr);
-    //    } else {
-    //        throw new IllegalArgumentException("La fecha debe estar en formato dd/mm/yyyy.");
-    //    }
-    //}
-
 
     public Date getFecInicio() {
         return this.fecInicio;
@@ -212,14 +211,13 @@ public class Beneficio {
     public void setFecInicio(Date fecInicio) {
         if (fecInicio == null)
             throw new IllegalArgumentException("La fecha de inicio no puede estar vacía");
+        if (!(fecVen.compareTo(fecInicio) > 0))
+            throw new IllegalArgumentException("La fecha de vencimiento no puede ser menor a la fecha de inicio");
         this.fecInicio = fecInicio;
     }
 
     public void setFecInicio(int dia, int mes, int anio) {
-        this.fecInicio = FormatoFecha.fecha(dia, mes, anio);
-    }
-    public void setFecInicio(String fecInicioStr) {
-        this.fecInicio = FormatoFecha.fecha(fecInicioStr);
+        setFecInicio(FormatoFecha.fecha(dia, mes, anio));
     }
 
 }

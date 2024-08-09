@@ -9,12 +9,13 @@ public class Usuario extends Persona {
     private int idUsuario;
     private String nomUsuario, contrasena, rfc;
     public Rol rol;
-    
+
     // CONSTRUCTORES
 
-    public Usuario(){}
+    public Usuario() {
+    }
 
-    public Usuario(int idUsuario, String nomUsuario, String contrasena, String rfc, Persona persona, Rol rol){
+    public Usuario(int idUsuario, String nomUsuario, String contrasena, String rfc, Persona persona, Rol rol) {
         super(persona);
         this.nomUsuario = nomUsuario;
         this.contrasena = contrasena;
@@ -25,12 +26,10 @@ public class Usuario extends Persona {
     }
 
     public Usuario(int id, String nomUsuario, String contrasena, String rfc, int idPersona, int idRol,
-        String nombre, String apellidoPa, String apellidoMa,
-        String colonia, String calle, int numExt, int numInt, String cp, String telefono, String correo,
-        Date fecNac
-    ) {  
-    
-        // El constructor le faltaban atributos, y el id de persona se transfiere
+            String nombre, String apellidoPa, String apellidoMa,
+            String colonia, String calle, int numExt, int numInt, String cp, String telefono, String correo,
+            Date fecNac) {
+
         super(idPersona, nombre, apellidoMa, apellidoPa, fecNac, colonia, calle, numExt, numInt, telefono, correo, cp);
         this.nomUsuario = nomUsuario;
         this.contrasena = contrasena;
@@ -39,63 +38,65 @@ public class Usuario extends Persona {
     }
 
     // METODOS
-    
-    public static Usuario importarUsuarios(Object [] datos){
+
+    public static Usuario importarUsuarios(Object[] datos) {
         Persona persona = Persona.importarPersonas((int) datos[4]);
 
         Usuario usuario = new Usuario(
-            (int) datos[0],
-            (String) datos[1],
-            (String) datos[2], 
-            (String) datos[3],
-            persona,
-            Rol.importarRoles((int) datos[5])
-        );            
+                (int) datos[0],
+                (String) datos[1],
+                (String) datos[2],
+                (String) datos[3],
+                persona,
+                Rol.importarRoles((int) datos[5]));
         return usuario;
     }
 
-    public static Usuario[] importarUsuarios(){
+    public static Usuario[] importarUsuarios() {
         UsuarioEnt usuariosBd = new UsuarioEnt();
-        Usuario [] usuarios = new Usuario[usuariosBd.obtenerCantRegistros()];
-        Object [][] datos = usuariosBd.ejecutarSelect();
+        Usuario[] usuarios = new Usuario[usuariosBd.obtenerCantRegistros()];
+        Object[][] datos = usuariosBd.ejecutarSelect();
 
-        for (int i = 0; i < usuarios.length; i++) {  
+        for (int i = 0; i < usuarios.length; i++) {
             Object[] dato = datos[i];
 
-            usuarios[i] = importarUsuarios((int) dato[0]);            
+            usuarios[i] = importarUsuarios((int) dato[0]);
         }
         return usuarios;
     }
-    public static Usuario importarUsuarios(int id){
-        UsuarioEnt usuariosBd = new UsuarioEnt();
-        Object [] datos = usuariosBd.obtenerUsuarioPorIdDB(id);
 
-        return importarUsuarios(datos);            
+    public static Usuario importarUsuarios(int id) {
+        UsuarioEnt usuariosBd = new UsuarioEnt();
+        Object[] datos = usuariosBd.obtenerUsuarioPorIdDB(id);
+
+        return importarUsuarios(datos);
     }
 
-    public boolean insertarUsuario(){
+    public boolean insertarUsuario() {
         UsuarioEnt usuario = new UsuarioEnt();
-        if(validarPersona(this.getIdPersona()))
-            return usuario.insertarUsuarioDB(this.nomUsuario, this.contrasena, this.rfc , this.getIdPersona(), this.rol.getIdRol());
+        if (validarPersona(this.getIdPersona()))
+            return usuario.insertarUsuarioDB(this.nomUsuario, this.contrasena, this.rfc, this.getIdPersona(),
+                    this.rol.getIdRol());
 
         return false;
     }
-    public boolean actualizarUsuario(){
+
+    public boolean actualizarUsuario() {
         UsuarioEnt usuario = new UsuarioEnt();
-        return usuario.actualizarUsuarioDB(this.idUsuario, this.nomUsuario, this.contrasena, this.rfc , this.getIdPersona(), this.rol.getIdRol());
+        return usuario.actualizarUsuarioDB(this.idUsuario, this.nomUsuario, this.contrasena, this.rfc,
+                this.getIdPersona(), this.rol.getIdRol());
 
     }
 
-    public static boolean eliminarUsuario(int id){
+    public static boolean eliminarUsuario(int id) {
         UsuarioEnt usuario = new UsuarioEnt();
         return usuario.eliminarUsuarioDB(id);
     }
 
-
-    public static Usuario iniciarSesion(String nomUsuario, String contrasena){
+    public static Usuario iniciarSesion(String nomUsuario, String contrasena) {
         UsuarioEnt usuario = new UsuarioEnt();
         Usuario sesion;
-        if(usuario.existeUsuario(nomUsuario, contrasena)){
+        if (usuario.existeUsuario(nomUsuario, contrasena)) {
             Object[] datos = usuario.obtenerUsuarioPorSesion(nomUsuario, contrasena);
             sesion = importarUsuarios(datos);
             return sesion;
@@ -103,14 +104,12 @@ public class Usuario extends Persona {
         return null;
     }
 
-    
-
-    public boolean validarUsuario(){
+    public boolean validarUsuario() {
         UsuarioEnt usuario = new UsuarioEnt();
         return usuario.existeUsuario(this.nomUsuario, this.contrasena);
     }
 
-    public static boolean validarUsuario(int id){
+    public static boolean validarUsuario(int id) {
         UsuarioEnt usuario = new UsuarioEnt();
         return usuario.existeRegistro(id);
     }
@@ -121,7 +120,10 @@ public class Usuario extends Persona {
     }
 
     public void setNomUsuario(String nomUsuario) {
-        this.nomUsuario = nomUsuario;
+        if (nomUsuario.isBlank())
+            throw new IllegalArgumentException("El nombre de usuario no puede estar vacío");
+
+        this.nomUsuario = nomUsuario.trim();
     }
 
     public String getContrasena() {
@@ -139,16 +141,15 @@ public class Usuario extends Persona {
     public void setRfc(String rfc) {
         this.rfc = rfc;
     }
-    
+
     public int getIdUsuario() {
-        if(this.idUsuario > 0)
+        if (this.idUsuario > 0)
             return this.idUsuario;
-        
+
         UsuarioEnt usuarioBd = new UsuarioEnt();
 
-        Object [] datos = usuarioBd.ejecutarSelectPorAtributos(
-            nomUsuario, contrasena, rfc, getIdPersona(), rol.getIdRol()
-        );
+        Object[] datos = usuarioBd.ejecutarSelectPorAtributos(
+                nomUsuario, contrasena, rfc, getIdPersona(), rol.getIdRol());
         Usuario usuario = Usuario.importarUsuarios(datos);
 
         this.idUsuario = usuario.getIdUsuario();
@@ -158,7 +159,7 @@ public class Usuario extends Persona {
 
     public void setIdUsuario(int id) {
         this.idUsuario = id;
-    }//Lo mismo que en logica
+    }// Lo mismo que en logica
 
     public Rol getRol() {
         return this.rol;
@@ -167,14 +168,15 @@ public class Usuario extends Persona {
     public void setRol(Rol rol) {
         this.rol = rol;
     }
+
     public void setRol(int idRol) {
-        if(idRol < 1)
+        if (idRol < 1)
             try {
                 throw new Exception("El id del rol no puede ser menor a 1");
             } catch (Exception e) {
                 this.rol = null;
             }
-            
+
         this.rol = Rol.importarRoles(idRol);
     }
 

@@ -118,11 +118,11 @@ public class Tarjeta {
 
     public static boolean validarNumTarjeta(String numTarjeta){
         TarjetaEnt tarjetaBd = new TarjetaEnt();
-        String numTarjetaNormal = numTarjeta.replace(" ", "");
-        if(!tarjetaBd.existeNumTarjeta(numTarjetaNormal))
+        
+        if(!tarjetaBd.existeNumTarjeta(numTarjeta))
             return false;
 
-        return Tarjeta.importarTarjeta(numTarjetaNormal).getActivo();
+        return Tarjeta.importarTarjeta(numTarjeta).getActivo();
 
     }
     

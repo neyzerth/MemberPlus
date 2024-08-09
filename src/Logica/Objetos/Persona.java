@@ -6,6 +6,7 @@ import Logica.FormatoFecha;
 import java.sql.Date;
 
 import Persistencia.Tablas.PersonaEnt;
+import Presentacion.Formato.Color;
 
 
 public class Persona {
@@ -134,6 +135,11 @@ public class Persona {
         return persona.existeRegistro(id);
     }
 
+    public static boolean eliminarPersona(int id){
+        PersonaEnt persona = new PersonaEnt();
+        return persona.eliminarPersonaDB(id);
+    }
+
     
     //METODOS
 
@@ -191,7 +197,7 @@ public class Persona {
 
     public void setNombre(String nombre) {
         if (nombre == null || nombre.trim().isEmpty())
-            throw new IllegalArgumentException("El nombre no puede estar vacío");
+            throw new IllegalArgumentException(Color.negrita(Color.rojo(" El nombre no puede estar vacío")));
         this.nombre = nombre.trim();
     }
 
@@ -209,7 +215,7 @@ public class Persona {
 
     public void setApellidoPa(String apellidoPa) {
         if (apellidoPa == null || apellidoPa.trim().isEmpty())
-            throw new IllegalArgumentException("El apellido paterno no puede estar vacío");
+            throw new IllegalArgumentException(Color.rojo(Color.negrita(" El apellido paterno no puede estar vacío")));
         this.apellidoPa = apellidoPa.trim();
     }
 
@@ -244,7 +250,7 @@ public class Persona {
 
     public void setNumInt(int numInt) {
         if (numInt < 0)
-            throw new IllegalArgumentException("El número interior no puede ser negativo");
+            throw new IllegalArgumentException(Color.rojo(Color.negrita(" El número interior no puede ser negativo")));
         this.numInt = numInt;
     }
 
@@ -255,41 +261,64 @@ public class Persona {
         this.cp = cp;
     }
 
+    public String getDireccion(){
+        String direccion = "";
+        if(!calle.isBlank()) direccion += calle + " ";
+        if(numExt != 0) direccion += numExt + " ";
+        if(numInt != 0) direccion += numInt + " ";
+        if(!cp.isBlank()) direccion += cp + " ";
+
+        return direccion;
+     }
+
     public String getTelefono() {
         return this.telefono;
     }
 
+    
+
     public void setTelefono(String telefono) {
-        if (telefono == null || telefono.trim().isEmpty())
-            throw new IllegalArgumentException("El teléfono no puede estar vacío");
-        this.telefono = telefono.trim();
+        if (telefono == null || telefono.trim().isEmpty()) {
+            throw new IllegalArgumentException(Color.rojo(Color.negrita(" El teléfono no puede estar vacío")));
+        }
+    
+    
+        // Validar que el teléfono solo contenga números, guiones (-) y barras (/)
+        for (char c : telefono.toCharArray()) {
+            if (!Character.isDigit(c) && c != '-') { //Se encarga 
+                throw new IllegalArgumentException(Color.rojo(Color.negrita(" El teléfono solo puede contener números y guiones (-)")));
+            }
+        }
+        String telefonoStr = telefono.replace(" ", "").replace("-", "");
+        if (telefonoStr.length() != 10) 
+            throw new IllegalArgumentException(Color.rojo(Color.negrita(" El teléfono debe tener 10 dígitos")));
+    
+        this.telefono = telefonoStr;
     }
+    
 
     public String getCorreo() {
         return this.correo;
     }
 
     public void setCorreo(String correo) {
+        if(correo.isBlank()){
+            this.correo = "";
+            return;
+        }
+        if(!correo.contains("@"))
+            throw new IllegalArgumentException(Color.rojo(Color.negrita(" El correo electrónico debe contener '@'")));
+        
+        String[] direccion = correo.split("@");
+        if(direccion[1].contains("\\."))
+            throw new IllegalArgumentException(Color.rojo(Color.negrita(" El correo electrónico debe contener '.'")));
+            //
         this.correo = correo;
     }
 
     public Date getFecNac() {
         return this.fecNac;
     }
-
-    /*public void setFecNac(Date fecNac) {
-        if (fecNac == null)
-            throw new IllegalArgumentException("La fecha de nacimiento no puede estar vacía");
-        this.fecNac = fecNac;
-    }
-
-    public void setFecNac(String fecNacStr) {
-        this.fecNac = FormatoFecha.fecha(fecNacStr);
-    }
-
-    public void setFecNac(int dia, int mes, int anio) {
-        this.fecNac = FormatoFecha.fecha(dia, mes, anio);
-    }*/
 
     public void setFecNac(int dia, int mes, int anio) {
         this.fecNac = FormatoFecha.fecha(dia, mes, anio);

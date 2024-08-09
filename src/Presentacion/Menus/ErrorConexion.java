@@ -8,7 +8,7 @@ public class ErrorConexion {
         Texto.limpiarPantalla();
         Cuadro mensajeError = new Cuadro(
             ":(",
-            "Error de conexión con host " + host
+            Color.rojo(" Error de conexión con host ") + host
         );
 
         mensajeError.imprimirCuadro();
@@ -18,7 +18,7 @@ public class ErrorConexion {
         System.out.println("SQLState: " + state);
 
         
-        Texto.esperarEnter("\nEnter para regresar");
+        Texto.esperarEnter(Color.morado(" \n Enter para regresar"));
 
     }
 

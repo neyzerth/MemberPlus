@@ -223,6 +223,10 @@ public class Cuadro{
 
     public void agregarSalir(String simb, String txt){
         this.texto[texto.length-1] += "\n"+simb +  txt;
+        int longTxt = txt.length();
+        if(contieneColor(txt))
+            longTxt -= 9;
+        maxLinea = Math.max(longTxt, maxLinea);
     }
 
     public void agregarSalir(String txt){

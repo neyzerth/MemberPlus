@@ -3,6 +3,8 @@ import Persistencia.Tablas.NivelEnt;
 import Persistencia.Tablas.Nivel_BeneficioEnt;
 import java.sql.Date;
 
+import Logica.FormatoFecha;
+
 public class Nivel {
     // ATRIBUTOS
     private int idNivel, anualidad, costoApertura;
@@ -48,7 +50,7 @@ public class Nivel {
         Object[] datos = nivelBd.obtenerNivelPorIdDB(id);
         return importarNiveles(datos);
     }
-    //hhh
+    
     public static Beneficio [] importarBeneficios(int idNivel){
         Nivel_BeneficioEnt nivel_beneficioBd = new Nivel_BeneficioEnt();
         Object [][] datosBeneficios = nivel_beneficioBd.obtenerBeneficioPorIdNivel(idNivel);
@@ -56,14 +58,22 @@ public class Nivel {
         Beneficio [] beneficios = new Beneficio[datosBeneficios.length];
 
         for (int i = 0; i < beneficios.length; i++) {
+            int puntos =(int) datosBeneficios[i][4];
+            int cashback =(int) datosBeneficios[i][5];
+            int descuento =(int) datosBeneficios[i][6];
+            
+            if(FormatoFecha.fechaActual().compareTo((Date) datosBeneficios[i][3]) > 0){
+                datosBeneficios[i][4] = datosBeneficios[i][5] = datosBeneficios[i][6] = 0;
+            }
+
             beneficios[i] = new Beneficio(
                 (int) datosBeneficios[i][0],
                 (String) datosBeneficios[i][1],
                 (Date) datosBeneficios[i][2],
                 (Date) datosBeneficios[i][3],
-                (int) datosBeneficios[i][4],
-                (int) datosBeneficios[i][5],
-                (int) datosBeneficios[i][6]
+                puntos,
+                cashback,
+                descuento
             );
         }
         
@@ -103,6 +113,10 @@ public class Nivel {
     public boolean validarNivel(){
         NivelEnt nivel = new NivelEnt();
         return nivel.existeNivel(nombre);
+    }
+    public static boolean validarNivel(int id){
+        NivelEnt nivel = new NivelEnt();
+        return nivel.existeRegistro(id);
     }
     
     public static boolean eliminarNivel(int id){
@@ -156,8 +170,8 @@ public class Nivel {
     }
 
     public void setCostoApertura(int costoApertura) {
-        if (costoApertura <= 0)
-            throw new IllegalArgumentException("El costo de apertura no puede ser negativo o cero");
+        if (costoApertura < 0)
+            throw new IllegalArgumentException("Cantidad no valida");
         this.costoApertura = costoApertura;
     }
 
