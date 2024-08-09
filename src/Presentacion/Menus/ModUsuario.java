@@ -56,10 +56,10 @@ public class ModUsuario extends Menu {
         int opc;
         do {
             System.out.println();
-            System.out.println("Que desea actualizar?");
+            System.out.println(Color.amarillo(Color.negrita(" ¿Que desea actualizar?")));
             System.out.println();
-            System.out.println("Nombre de usuario[1] Contrasena[2] RFC[3] Rol[4] Datos Personales[5] Terminar[ENTER]");
-            opc = Leer.entero("> ");
+            System.out.println(Color.cian(Color.negrita(" Nombre de usuario[1] Contrasena[2] RFC[3] Rol[4] Datos Personales[5] Terminar[ENTER]")));
+            opc = Leer.entero(Color.cian(" > "));
             datos(usuario, opc);
         } while (opc!=0);
     }
@@ -79,7 +79,7 @@ public class ModUsuario extends Menu {
                 break;
         
             default:
-                System.out.println("Opcion no valida");
+                System.out.println(Color.rojo(Color.negrita(" Opcion no valida")));
                 break;
         }
     }
@@ -134,9 +134,9 @@ public class ModUsuario extends Menu {
             
             try {
                 System.out.println();
-                System.out.println(Texto.espacio(35) + Color.amarillo(Color.negrita("> Roles <")));
+                System.out.println(Texto.espacio(32) + Color.amarillo(Color.negrita("> Roles <")));
 
-                Tabla tablaRol = new Tabla("ID", "Nombre", "Descripcion");
+                Tabla tablaRol = new Tabla(Color.amarillo("ID"), Color.amarillo("Nombre"), Color.amarillo("Descripcion"));
                 Rol[] roles = Rol.importarRoles();
                 for (Rol rol : roles) {
                     tablaRol.agregarFila(

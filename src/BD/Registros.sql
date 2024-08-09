@@ -1,7 +1,7 @@
 -- Active: 1723152817236@@127.0.0.1@3306@member_plus
 --CREAR REGISTROS EN LA BASE DE DATOS
 INSERT INTO persona (idPersona, nombre, apellidoPa, apellidoMa, fecNac, colonia, calle, numExt, numInt, cp, telefono, correo) VALUES 
-(1, 'Yerlan Axel', 'Suastegui', 'Leyva', '2004-11-10', 'Centro', 'Calle Primera', 123, 12, '22100', '6641112223', '0322103828@ut-tijuana.edu.mx'),
+(1, 'Yerlan Axel', 'Suastegui', 'Leyva', '2004-03-06', 'Centro', 'Calle Primera', 123, 12, '22100', '6641112223', '0322103828@ut-tijuana.edu.mx'),
 (2, 'Neyzer Joel', 'Toledo', 'Herrera', '2005-04-20', 'Altiplano', 'Avenida Altiplano', 456, NULL, '22204', '6642964316', '0323105969@ut-tijuana.edu.mx'),
 (3, 'Jesus Arturo', 'Herrera', 'Luevano', '2005-03-20', 'La Joya', 'Boulevard Agua Caliente', 789, 55, '22300', '6643334445', '0323205941@ut-tijuana.edu.mx'),
 (4, 'Yazmin', 'Ovando', 'Sanchez', '2005-07-31', 'El Dorado', 'Callejon del Sol', 101, 30, '22400', '6644445556', '0323105929@ut-tijuana.edu.mx'),
@@ -49,7 +49,7 @@ INSERT INTO cliente VALUES
 (7, 17),
 (8, 18),
 (9, 19),
-(10, 2.0);
+(10, 20);
 
 INSERT INTO nivel VALUES
 (1, 'Basica', 400, 50),
@@ -85,6 +85,7 @@ INSERT INTO compra (fecha, puntos, descuento, cashback, tarjeta, subtotal, total
 
 --Cambiar nombres y valores en los descuentos
 INSERT INTO beneficio VALUES
+<<<<<<< HEAD
 (1, 'Basico', '2017-01-01', '2100-12-31', 5, 1,NULL),
 (2, 'Buen fin', '2024-11-20', '2024-11-28', 15, null,null),
 (3, 'Sorpresa mensual', '2024-01-30', '2024-01-30', 10, 2,null),
@@ -95,6 +96,19 @@ INSERT INTO beneficio VALUES
 (8, 'Recompensa dorada', '2024-10-20', '2024-10-21', 40, 8,8),
 (9, 'Descuento de verano', '2024-07-15', '2024-08-05', 15, 3,3),
 (10, 'Oferta de fiestas', '2024-12-01', '2024-12-20', 30, 10,10);
+=======
+(1, 'Inicio', '2023-01-01', '2024-12-31', 5, 1, NULL),
+(2, 'Mega Venta', '2024-11-25', '2024-12-01', 20, NULL, NULL),
+(3, 'Bono Mensual', '2024-02-01', '2025-02-01', 12, 3, NULL),
+(4, 'Descuento Rápido', '2024-08-01', '2026-08-02', NULL, NULL, 4),
+(5, 'Élite', '2023-01-01', '2025-09-01', 60, 7, 7),
+(6, 'Bono Anual', '2023-01-01', '2025-12-31', 30, 6, 6),
+(7, 'Estándar Plus', '2023-01-01', '2024-12-31', 15, 4, 4),
+(8, 'Recompensa Dorada', '2024-10-25', '2024-10-26', 45, 9, 9),
+(9, 'Descuento de Verano', '2024-07-20', '2024-08-10', 18, 5, 5),
+(10, 'Oferta de Fiesta', '2024-12-05', '2024-12-25', 35, 10, 10);
+
+>>>>>>> b935764ee7bf8f62d4bc704e5a0df19b6ea6f579
 
 
 INSERT INTO tipo_movimiento VALUES
@@ -106,23 +120,29 @@ INSERT INTO tipo_movimiento VALUES
 
 --comentarios mas cortos
 INSERT INTO movimiento VALUES
-(1, '2005-01-20', 'Iniciado', 'El pago ha sido procesado y esta en su primera fase de verificacion.', 1, 1, 2),
-(2, '2003-02-15', 'Pausa', 'La transaccion ha sido temporalmente detenida debido a una revision de seguridad.', 4, 2, 3),
-(3, '2007-03-10', 'Finalizado', 'El pago ha sido completado exitosamente y confirmado.', 2, 3, 2),
-(4, '2001-04-05', 'Pausa', 'La operacion esta en espera mientras se revisan los detalles de la cuenta.', 3, 4, 1),
-(5, '2004-05-25', 'Finalizado', 'La transaccion ha sido finalizada y el pago se ha registrado correctamente.', 5, 5, 4),
-(6, '2006-06-18', 'Finalizado', 'El proceso de pago ha concluido y ha sido confirmado.', 7, 6, 2),
-(8, '2008-08-08', 'Iniciado', 'La solicitud de pago esta en curso y se esta procesando.', 8, 7, 1),
-(9, '2009-09-30', 'Pausa', 'La operacion esta suspendida momentaneamente a la espera de autorizacion.', 9, 8, 4),
-(10, '2010-10-22', 'Pausa', 'La transaccion se encuentra en espera hasta que se resuelvan algunos detalles.', 10, 9, 4);
+(1, '2005-01-20', 'Iniciado', 'Pago en verificación inicial.', 1, 1, 2),
+(2, '2003-02-15', 'Pausa', 'Transacción detenida por revisión.', 4, 2, 3),
+(3, '2007-03-10', 'Finalizado', 'Pago completado y confirmado.', 2, 3, 2),
+(4, '2001-04-05', 'Pausa', 'Operación en espera por revisión.', 3, 4, 1),
+(5, '2004-05-25', 'Finalizado', 'Transacción finalizada y registrada.', 5, 5, 4),
+(6, '2006-06-18', 'Finalizado', 'Pago concluido y confirmado.', 7, 6, 2),
+(8, '2008-08-08', 'Iniciado', 'Pago en proceso.', 8, 7, 1),
+(9, '2009-09-30', 'Pausa', 'Operación suspendida esperando autorización.', 9, 8, 4),
+(10, '2010-10-22', 'Pausa', 'Transacción en espera por detalles.', 10, 9, 4);
+
 
 
 --ciertos niveles (como los black, platino) con mas beneficios
 INSERT INTO nivel_beneficio VALUES
 (1, 7),
 (2, 3),
-(3, 9),
 (4, 5),
+(3, 9),
+(3, 4),
+(3,2)
+(5, 10),
+(5, 9),
+(5, 6),
 (5, 2);
 
 INSERT INTO compra_beneficio VALUES

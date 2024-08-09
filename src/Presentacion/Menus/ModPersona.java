@@ -11,9 +11,9 @@ public class ModPersona {
 
         do{
             System.out.println();
-            System.out.println("Que desea actualizar?");
+            System.out.println(" ¿Que desea actualizar?");
             System.out.println();
-            System.out.println("Nombre[1] Nacimiento[2] Direccion[3] Contacto[4] Terminar[ENTER]");
+            System.out.println(" Nombre[1] Nacimiento[2] Direccion[3] Contacto[4] Terminar[ENTER]");
             opc = Leer.entero("> ");
             datos(persona, opc);
         } while(opc != 0);
@@ -72,7 +72,8 @@ public class ModPersona {
             case 0:
                 break;
             default:
-                System.out.println("Opcion no valida");
+                System.out.println();
+                System.out.println(Color.rojo(Color.negrita(" Opcion no valida")));
         }
 
     }

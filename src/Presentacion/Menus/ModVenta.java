@@ -79,7 +79,9 @@ public class ModVenta {
                 Movimiento.compra( "Compra de "+ Texto.moneda(compra.getSubtotal()), compra.tarjeta);
                 System.out.println();
                 System.out.println(Color.verde(" La compra fue exitosa"));
-                System.out.println("El saldo restante es:"+saldoRestante);
+                if(usarSaldo){
+                    System.out.println("El saldo restante es:"+saldoRestante);
+                }
             
             } else{
                  System.out.println();
