@@ -1,4 +1,4 @@
--- Active: 1719648459430@@localhost@3306@member_plus
+-- Active: 1723152817236@@127.0.0.1@3306@member_plus
 --CREAR REGISTROS EN LA BASE DE DATOS
 INSERT INTO persona (idPersona, nombre, apellidoPa, apellidoMa, fecNac, colonia, calle, numExt, numInt, cp, telefono, correo) VALUES 
 (1, 'Yerlan Axel', 'Suastegui', 'Leyva', '2004-03-06', 'Centro', 'Calle Primera', 123, 12, '22100', '6641112223', '0322103828@ut-tijuana.edu.mx'),
@@ -83,8 +83,20 @@ INSERT INTO compra (fecha, puntos, descuento, cashback, tarjeta, subtotal, total
 ('2024-07-05', 7, 8, 10, 2, 232.0, 227.22),
 ('2024-07-06', 2, 1, 11, 1, 100.7, 100);
 
-//Cambiar nombres y valores en los descuentos
+--Cambiar nombres y valores en los descuentos
 INSERT INTO beneficio VALUES
+<<<<<<< HEAD
+(1, 'Basico', '2017-01-01', '2100-12-31', 5, 1,NULL),
+(2, 'Buen fin', '2024-11-20', '2024-11-28', 15, null,null),
+(3, 'Sorpresa mensual', '2024-01-30', '2024-01-30', 10, 2,null),
+(4, 'Descuento relampago', '2024-07-30', '2024-07-31', null, null,4),
+(5, 'Premium', '2017-01-01', '2100-08-20', 50, 6,6),
+(6, 'Regalo anual', '2017-01-01', '2100-12-31', 25, 5,5),
+(7, 'Estandar', '2017-01-01', '2100-12-31', 10, 2,2),
+(8, 'Recompensa dorada', '2024-10-20', '2024-10-21', 40, 8,8),
+(9, 'Descuento de verano', '2024-07-15', '2024-08-05', 15, 3,3),
+(10, 'Oferta de fiestas', '2024-12-01', '2024-12-20', 30, 10,10);
+=======
 (1, 'Inicio', '2023-01-01', '2024-12-31', 5, 1, NULL),
 (2, 'Mega Venta', '2024-11-25', '2024-12-01', 20, NULL, NULL),
 (3, 'Bono Mensual', '2024-02-01', '2025-02-01', 12, 3, NULL),
@@ -96,6 +108,7 @@ INSERT INTO beneficio VALUES
 (9, 'Descuento de Verano', '2024-07-20', '2024-08-10', 18, 5, 5),
 (10, 'Oferta de Fiesta', '2024-12-05', '2024-12-25', 35, 10, 10);
 
+>>>>>>> b935764ee7bf8f62d4bc704e5a0df19b6ea6f579
 
 
 INSERT INTO tipo_movimiento VALUES
@@ -105,7 +118,7 @@ INSERT INTO tipo_movimiento VALUES
 (4, 'compra', 'Compra con la tarjeta');
 
 
-//comentarios mas cortos
+--comentarios mas cortos
 INSERT INTO movimiento VALUES
 (1, '2005-01-20', 'Iniciado', 'Pago en verificación inicial.', 1, 1, 2),
 (2, '2003-02-15', 'Pausa', 'Transacción detenida por revisión.', 4, 2, 3),
@@ -119,7 +132,7 @@ INSERT INTO movimiento VALUES
 
 
 
-//ciertos niveles (como los black, platino) con mas beneficios
+--ciertos niveles (como los black, platino) con mas beneficios
 INSERT INTO nivel_beneficio VALUES
 (1, 7),
 (2, 3),
