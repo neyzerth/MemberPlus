@@ -14,7 +14,7 @@ public class ModPersona {
             System.out.println(" ¿Que desea actualizar?");
             System.out.println();
             System.out.println(" Nombre[1] Nacimiento[2] Direccion[3] Contacto[4] Terminar[ENTER]");
-            opc = Leer.entero("> ");
+            opc = Leer.entero(" > ");
             datos(persona, opc);
         } while(opc != 0);
     } 

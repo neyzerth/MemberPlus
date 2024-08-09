@@ -30,8 +30,9 @@ public class ModVenta {
             Tarjeta tarjeta = Tarjeta.importarTarjeta(numTarjeta);
             if(!Tarjeta.importarTarjeta(numTarjeta).pagada()){
                 System.out.println();
-                System.out.println(Color.rojo("Estimado Cliente, Member+ le informa que su membresia "+Color.morado(Texto.tarjeta(numTarjeta))+"presenta un saldo vencido por "+ Color.morado(Texto.moneda(tarjeta.nivel.getAnualidad()))  ));
-                Texto.esperarEnter(Color.rojo("PAGO INMEDIATO."));
+                System.out.println(Color.rojo(" Estimado Cliente, Member+ le informa que su membresia "+Color.fondoRojo(Texto.tarjeta(numTarjeta))+"presenta un saldo vencido por "+ Color.rojo(Texto.moneda(tarjeta.nivel.getAnualidad()))  ));
+                System.out.println();
+                Texto.esperarEnter(Color.rojo(Color.negrita(" PAGO INMEDIATO.")));
                 return;
             }
 
@@ -62,13 +63,13 @@ public class ModVenta {
             boolean usarSaldo = false;
             if(compra.tarjeta.getPuntosConvertidos() > 0){
                 System.out.println();
-                System.out.println(Color.verde(Color.negrita(" Desea usar sus puntos acumulados? ("+compra.tarjeta.getPuntos()+" -> $"+ compra.tarjeta.getPuntosConvertidos()+")?")));
-                usarPuntos = Leer.cadena(Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
+                System.out.println(Color.amarillo(Color.negrita(" ¿Desea usar sus puntos acumulados? ("+compra.tarjeta.getPuntos()+" -> $"+ compra.tarjeta.getPuntosConvertidos()+")?")));
+                usarPuntos = Leer.cadena(Color.cian(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
             }
             if(compra.tarjeta.getSaldo() > 0){
                 System.out.println();
-                System.out.println(Color.verde(Color.negrita(" Desea usar su saldo ("+Texto.moneda(compra.tarjeta.getSaldo())+")?")));
-                usarSaldo = Leer.cadena(Color.rojo(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
+                System.out.println(Color.amarillo(Color.negrita(" ¿Desea usar su saldo ("+Texto.moneda(compra.tarjeta.getSaldo())+")?")));
+                usarSaldo = Leer.cadena(Color.cian(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
             }
             float saldoRestante= compra.usarBeneficios(usarPuntos, usarSaldo);
 
@@ -76,11 +77,12 @@ public class ModVenta {
             System.out.println();
             System.out.println(Color.amarillo(Color.negrita(" Su nuevo total es de "  + Texto.moneda(compra.getSubtotal()))));
             if(compra.insertarCompras()){
-                Movimiento.compra( "Compra de "+ Texto.moneda(compra.getSubtotal()), compra.tarjeta);
+                Movimiento.compra(Color.amarillo(" Compra de ")+ Texto.moneda(compra.getSubtotal()), compra.tarjeta);
                 System.out.println();
                 System.out.println(Color.verde(" La compra fue exitosa"));
                 if(usarSaldo){
-                    System.out.println("El saldo restante es:"+saldoRestante);
+                    System.out.println();
+                    System.out.println(Color.amarillo(Color.negrita(" El saldo restante es:"+saldoRestante)));
                 }
             
             } else{

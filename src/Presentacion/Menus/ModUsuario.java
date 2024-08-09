@@ -79,6 +79,7 @@ public class ModUsuario extends Menu {
                 break;
         
             default:
+                System.out.println();
                 System.out.println(Color.rojo(Color.negrita(" Opcion no valida")));
                 break;
         }
