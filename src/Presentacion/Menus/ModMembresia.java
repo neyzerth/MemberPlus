@@ -163,7 +163,7 @@ class SubmodTarjeta extends Menu {
             System.out.println();
             System.out.println(Color.amarillo(Color.negrita(" ¿Que desea realizar?")));
             System.out.println(Color.cian(" Renovar $" + tarjeta.nivel.getAnualidad() + "[1] - Cambiar nivel [2] - Salir [3]"));
-            int opc = Leer.entero(Color.cian("> "));
+            int opc = Leer.entero(Color.cian(" > "));
             switch (opc) {
                 case 1:
 
@@ -551,7 +551,7 @@ class SubmodBeneficio extends Menu {
             }
 
         } catch (Exception e) {
-            Texto.esperarEnter("Dato incorrecto");
+            Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
         }
 
         return false;
