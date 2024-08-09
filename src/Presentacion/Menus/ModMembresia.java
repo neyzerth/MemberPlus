@@ -161,14 +161,13 @@ class SubmodTarjeta extends Menu {
 
         do {
             System.out.println();
-            System.out.println(Color.amarillo(Color.negrita(" ¿Que desea realizar?")));
-            System.out.println(Color.cian(" Renovar $" + tarjeta.nivel.getAnualidad() + "[1] - Cambiar nivel [2] - Salir [3]"));
-            int opc = Leer.entero(Color.cian(" > "));
+            System.out.println(" ¿Que desea realizar?");
+            System.out.println("Renovar $" + tarjeta.nivel.getAnualidad() + "[1] - Cambiar nivel [2] - Salir [3]");
+            int opc = Leer.entero("> ");
             switch (opc) {
                 case 1:
 
-                    System.out.println();
-                    System.out.println(Color.rojo(" Fecha de vencimiento: " + tarjeta.getFecVen()));
+                    System.out.println("Fecha de vencimiento: " + tarjeta.getFecVen());
 
                     LocalDate fechaActual = LocalDate.now();
                     LocalDate fechaVencimiento = tarjeta.getFecVen().toLocalDate();
@@ -176,14 +175,12 @@ class SubmodTarjeta extends Menu {
                     long mesesRestantes = ChronoUnit.MONTHS.between(fechaActual, fechaVencimiento);
                     if (mesesRestantes <= 2) {
                         tarjeta.renovar();
-                        System.out.println();
-                        System.out.println(Color.verde(" Tarjeta renovada con exito..."));
+                        System.out.println(Color.cian("Tarjeta renovada con exito..."));
                         tarjeta.actualizarTarjeta();
-                        System.out.println();
-                        System.out.println(Color.amarillo(Color.negrita(" Nueva fecha de vencimiento: " + tarjeta.getFecVen())));
-                        Movimiento.renovacion(" Renovacion de tarjeta", tarjeta);
+                        System.out.println("Nueva fecha de vencimiento: " + tarjeta.getFecVen());
+                        Movimiento.renovacion("Renovacion de tarjeta", tarjeta);
                     } else {
-                        System.out.println(Color.rojo(Color.negrita(" No es posible renovar la tarjeta todavía.")));
+                        System.out.println("No es posible renovar la tarjeta todavía.");
                     }
                     Texto.esperarEnter();
 
@@ -192,7 +189,7 @@ class SubmodTarjeta extends Menu {
                     System.out.println("Nivel actual: " + tarjeta.nivel.getNombre());
                     SubmodNivel modNivel = new SubmodNivel();
                     modNivel.tabla();
-                    int idNivel = Leer.entero(" > ID del nuevo nivel: ");
+                    int idNivel = Leer.entero("> ID del nuevo nivel: ");
                     Nivel nivel = Nivel.importarNiveles(idNivel);
                     tarjeta.nivel = nivel;
                     if (tarjeta.actualizarTarjeta()) {
@@ -208,7 +205,7 @@ class SubmodTarjeta extends Menu {
                     break;
 
                 default:
-                    Texto.esperarEnter(Color.rojo(Color.negrita("Opcion no valida")));
+                    Texto.esperarEnter("Opcion no valida");
                     break;
             }
         } while (!salir);
@@ -431,7 +428,9 @@ class SubmodNivel extends Menu {
                         nivel.agregarBeneficio(idBeneficio);
                         System.out.println();
                         System.out.println(Color.amarillo(" Desea agregar otro beneficio?"));
-                        agregarNivel = 1 == Leer.entero(Color.amarillo(Color.negrita(" > SI[s] NO[n]: ")));//TODO
+                        agregarNivel = 1 == Leer.entero(Color.amarillo(Color.negrita(" > SI[1] NO[2]: ")));//TODO
+                        
+                        
 
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
@@ -551,7 +550,7 @@ class SubmodBeneficio extends Menu {
             }
 
         } catch (Exception e) {
-            Texto.esperarEnter(Color.rojo(Color.negrita("Dato incorrecto")));
+            Texto.esperarEnter("Dato incorrecto");
         }
 
         return false;
