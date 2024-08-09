@@ -3,6 +3,7 @@ package Logica.Objetos;
 import java.sql.Date;
 
 import Persistencia.Tablas.UsuarioEnt;
+import Presentacion.Formato.Color;
 
 public class Usuario extends Persona {
     // ATRIBUTOS
@@ -121,7 +122,7 @@ public class Usuario extends Persona {
 
     public void setNomUsuario(String nomUsuario) {
         if (nomUsuario.isBlank())
-            throw new IllegalArgumentException("El nombre de usuario no puede estar vacío");
+            throw new IllegalArgumentException(Color.rojo(" El nombre de usuario no puede estar vacío"));
 
         this.nomUsuario = nomUsuario.trim();
     }
@@ -172,7 +173,7 @@ public class Usuario extends Persona {
     public void setRol(int idRol) {
         if (idRol < 1)
             try {
-                throw new Exception("El id del rol no puede ser menor a 1");
+                throw new Exception(Color.rojo(" El id del rol no puede ser menor a 1"));
             } catch (Exception e) {
                 this.rol = null;
             }

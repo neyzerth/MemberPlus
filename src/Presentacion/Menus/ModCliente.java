@@ -68,7 +68,7 @@ public class ModCliente extends Menu {
             SubmodTarjeta modTarjeta = new SubmodTarjeta();
             System.out.println();
             Texto.esperarEnter(Color.amarillo(Color
-                    .negrita("Se le cobrara el costo de apertura " + Texto.moneda(tarjeta.nivel.getCostoApertura()))));
+                    .negrita(" Se le cobrara el costo de apertura " + Texto.moneda(tarjeta.nivel.getCostoApertura()))));
             System.out.println();
             boolean conf = Leer.cadena(Color.verde(" SI[s]  NO[n]: ")).toLowerCase().equals("s");
             if (conf) {
