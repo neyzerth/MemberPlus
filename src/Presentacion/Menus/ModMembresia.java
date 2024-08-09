@@ -15,10 +15,10 @@ import java.time.temporal.ChronoUnit;
 
 //------------ MODULO PRINCIPAL ---------
 public class ModMembresia {
-    public static void menu() {
+    public static void desplegarMenu() {
         boolean salir = false;
 
-        while (!salir) {
+        do {
             Texto.limpiarPantalla();
             System.out.println(Color.morado(Color.negrita(Texto.espacio(8) + "> Módulo de Membresias <")));
             String[] modulos = {
@@ -61,7 +61,7 @@ public class ModMembresia {
                 default:
                     System.out.println(Color.rojo("Opción inválida, por favor intente de nuevo."));
             }
-        }
+        } while (!salir);
 
     }
 }
@@ -428,8 +428,8 @@ class SubmodNivel extends Menu {
                     try {
                         nivel.agregarBeneficio(idBeneficio);
                         System.out.println();
-                        System.out.println(Color.amarillo(" Desea agregar otro beneficio?"));
-                        agregarNivel = 1 == Leer.entero(Color.amarillo(Color.negrita(" > SI[1] NO[2]: ")));//TODO
+                        //System.out.println(Color.amarillo(" ¿Desea agregar otro beneficio?"));
+                        agregarNivel = Leer.booleano(Color.amarillo+Color.negrita," > ¿Desea agregar otro beneficio? ");//TODO
                         
                         
 

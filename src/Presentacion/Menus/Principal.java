@@ -49,11 +49,11 @@ public class Principal {
             }        
 
             switch (opcionRol) {
-                case 1: ModVenta.menu();
+                case 1: ModVenta.desplegarMenu();
                     break;
                 case 2: ModCliente.desplegarMenu();
                     break;
-                case 3: ModMembresia.menu();
+                case 3: ModMembresia.desplegarMenu();
                     break;
                 case 4: ModUsuario.desplegarMenu();
                     break;
