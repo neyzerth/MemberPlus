@@ -106,7 +106,7 @@ class SubmodTarjeta extends Menu {
                 menuActualizar();
                 break;
             case 4:
-                if(Sesion.getRol().equals("adnimistrador")){
+                if(Sesion.getRol().equals("administrador")){
                     menuEliminar();
                     break;
                 }
@@ -204,7 +204,13 @@ class SubmodTarjeta extends Menu {
                     modNivel.tabla();
                     System.out.println();
                     int idNivel = Leer.entero(Color.cian(" > ID del nuevo nivel: "));
-                    Nivel nivel = Nivel.importarNiveles(idNivel);
+                    Nivel nivel = null;
+                    if(!Nivel.validarNivel(idNivel)){
+                        System.out.println("Ese nivel no existe");
+                        break;
+                    }          
+
+                    nivel = Nivel.importarNiveles(idNivel);
                     tarjeta.nivel = nivel;
                     if (tarjeta.actualizarTarjeta()) {
                         System.out.println(Color.verde(" Nuevo nivel: " + tarjeta.nivel.getNombre()));
