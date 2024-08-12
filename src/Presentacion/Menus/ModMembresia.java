@@ -106,7 +106,7 @@ class SubmodTarjeta extends Menu {
                 menuActualizar();
                 break;
             case 4:
-                if(Sesion.getRol().equals("adnimistrador")){
+                if(Sesion.getRol().equals("administrador")){
                     menuEliminar();
                     break;
                 }
