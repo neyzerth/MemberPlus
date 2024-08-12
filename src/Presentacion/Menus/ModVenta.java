@@ -72,7 +72,7 @@ public class ModVenta {
                     System.out.println(Color.amarillo(Color.negrita(" Obtuvo " + Texto.moneda(compra.getCashback())+ " de cashback!")));
                 if(compra.getDescuento() > 0)
                     System.out.println();
-                    System.out.println(Color.amarillo(Color.negrita(" Ahorró $" + compra.getDescuento()+ "!")));
+                    System.out.println(Color.amarillo(Color.negrita(" Ahorró " + Texto.moneda(compra.getDescuento())+ "!")));
             }
 
 
@@ -99,7 +99,7 @@ public class ModVenta {
                 System.out.println(Color.verde(" La compra fue exitosa"));
                 if(usarSaldo){
                     System.out.println();
-                    System.out.println(Color.amarillo(Color.negrita(" El saldo restante es:"+saldoRestante)));
+                    System.out.println(Color.amarillo(Color.negrita(" El saldo restante es:"+ Texto.moneda(saldoRestante))));
                 }
             
             } else{
