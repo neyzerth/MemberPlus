@@ -8,13 +8,13 @@ public class Conexion {
     private String host, url, user, password;
     private String error;
     private String sqlState;
-    private int opc = 2;
+    private int opc = 1;
 
     //Conexion
     public Connection conectarHost(){
         Connection connection = null;
 
-        url = "jdbc:mysql://"+ host +"/" + bd;
+        url = "jdbc:mysql://"+ host +"/" + bd+"?connectionTime = 3000";
         try{
             connection = DriverManager.getConnection(url, user, password);            
         } catch(SQLException e){
