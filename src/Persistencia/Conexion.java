@@ -14,7 +14,7 @@ public class Conexion {
     public Connection conectarHost(){
         Connection connection = null;
 
-        url = "jdbc:mysql://"+ host +"/" + bd+"?connectionTime = 3000";
+        url = "jdbc:mysql://"+ host +"/" + bd+"?connectTimeout=2000";
         try{
             connection = DriverManager.getConnection(url, user, password);            
         } catch(SQLException e){
