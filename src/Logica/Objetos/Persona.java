@@ -195,9 +195,20 @@ public class Persona {
         return this.nombre;
     }
 
+    public boolean soloAlfabeto(String txt){
+        for (int i = 0; i < txt.length(); i++) {
+            char caracter = txt.charAt(i);
+            if(!Character.isLetter(caracter))
+                return false;
+        }
+        return true;
+    }
+
     public void setNombre(String nombre) {
         if (nombre == null || nombre.trim().isEmpty())
             throw new IllegalArgumentException(Color.negrita(Color.rojo(" El nombre no puede estar vacío")));
+        if(!soloAlfabeto(nombre.replace(" ", "")))
+            throw new IllegalArgumentException(Color.negrita(Color.rojo(" El nombre solo puede tener letras del alfabeto")));
         this.nombre = nombre.trim();
     }
 
@@ -206,6 +217,8 @@ public class Persona {
     }
 
     public void setApellidoMa(String apellidoMa) {
+        if(!apellidoMa.isBlank() && !soloAlfabeto(apellidoMa.replace(" ", "")))
+            throw new IllegalArgumentException(Color.negrita(Color.rojo(" El nombre solo puede tener letras del alfabeto")));
         this.apellidoMa = apellidoMa.trim();
     }
 
@@ -216,7 +229,9 @@ public class Persona {
     public void setApellidoPa(String apellidoPa) {
         if (apellidoPa == null || apellidoPa.trim().isEmpty())
             throw new IllegalArgumentException(Color.rojo(Color.negrita(" El apellido paterno no puede estar vacío")));
-        this.apellidoPa = apellidoPa.trim();
+        if(!soloAlfabeto(apellidoPa.replace(" ", "")))
+        throw new IllegalArgumentException(Color.negrita(Color.rojo(" El nombre solo puede tener letras del alfabeto")));
+    this.apellidoPa = apellidoPa.trim();
     }
 
     public String getColonia() {
@@ -282,17 +297,17 @@ public class Persona {
             throw new IllegalArgumentException(Color.rojo(Color.negrita(" El teléfono no puede estar vacío")));
         }
     
-    
-        // Validar que el teléfono solo contenga números, guiones (-) y barras (/)
-        for (char c : telefono.toCharArray()) {
-            if (!Character.isDigit(c) && c != '-') { //Se encarga 
-                throw new IllegalArgumentException(Color.rojo(Color.negrita(" El teléfono solo puede contener números y guiones (-)")));
-            }
-        }
         String telefonoStr = telefono.replace(" ", "").replace("-", "");
         if (telefonoStr.length() != 10) 
             throw new IllegalArgumentException(Color.rojo(Color.negrita(" El teléfono debe tener 10 dígitos")));
     
+        // Validar que el teléfono solo contenga números, guiones (-) y barras (/)
+        for (char c : telefonoStr.toCharArray()) {
+            if (!Character.isDigit(c)) { //Se encarga 
+                throw new IllegalArgumentException(Color.rojo(Color.negrita(" El teléfono solo puede contener números y guiones (-)")));
+            }
+        }
+        
         this.telefono = telefonoStr;
     }
     
