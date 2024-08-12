@@ -158,7 +158,7 @@ public class ModUsuario extends Menu {
                 System.out.println();
                 usuario.setRol(Leer.entero(Color.cian(Color.negrita(" > *ID del ROL del usuario: "))));
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.out.println(Color.rojo("Rol no valido"));
                 repetir = true;
             }
         } while (repetir);
