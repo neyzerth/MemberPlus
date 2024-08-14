@@ -1,5 +1,3 @@
--- Active: 1723152817236@@127.0.0.1@3306@member_plus
-DROP DATABASE member_plus;
 CREATE DATABASE member_plus;
 USE member_plus;
 
@@ -104,11 +102,11 @@ create table movimiento(
     tipoMovimiento int not null,
     FOREIGN KEY (usuario) REFERENCES usuario(idUsuario) ON DELETE CASCADE,
     FOREIGN KEY (tarjeta) REFERENCES tarjeta(idTarjeta) ON DELETE CASCADE,
-    FOREIGN KEY (tipoMovimiento) REFERENCES tipo_Movimiento(idTipoMovimiento) ON DELETE CASCADE
+    FOREIGN KEY (tipoMovimiento) REFERENCES tipo_movimiento(idTipoMovimiento) ON DELETE CASCADE
 );
 
 
-CREATE TABLE nivel_Beneficio (
+CREATE TABLE nivel_beneficio (
     nivel int not null,
     beneficio int not null,
     PRIMARY KEY(nivel,beneficio),
@@ -117,7 +115,7 @@ CREATE TABLE nivel_Beneficio (
 );
 
 
-Create Table compra_Beneficio (
+Create Table compra_beneficio (
     compra int not null,
     beneficio int not null,
     PRIMARY KEY(compra,beneficio),

@@ -1,4 +1,4 @@
--- Active: 1719648459430@@localhost@3306@member_plus
+-- Active: 1723653666756@@localhost@3306@member_plus
 --CREAR REGISTROS EN LA BASE DE DATOS
 INSERT INTO persona (idPersona, nombre, apellidoPa, apellidoMa, fecNac, colonia, calle, numExt, numInt, cp, telefono, correo) VALUES 
 (1, 'Yerlan Axel', 'Suastegui', 'Leyva', '2004-03-06', 'Centro', 'Calle Primera', 123, 12, '22100', '6641112223', '0322103828@ut-tijuana.edu.mx'),
